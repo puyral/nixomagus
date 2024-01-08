@@ -13,28 +13,28 @@
   boot.kernelModules = [ "kvm-intel" ];
   boot.extraModulePackages = [ ];
 
-  fileSystems."/" =
-    { device = "/dev/disk/by-label/NIXROOT";
-      fsType = "btrfs";
-      options = [ "subvol=root" "compress=zstd"];
-    };
+  # fileSystems."/" =
+  #   { device = "/dev/disk/by-label/NIXROOT";
+  #     fsType = "btrfs";
+  #     options = [ "subvol=root" "compress=zstd"];
+  #   };
 
-  fileSystems."/home" =
-    { device = "/dev/disk/by-label/NIXROOT";
-      fsType = "btrfs";
-      options = [ "subvol=home" "compress=zstd"];
-    };
+  # fileSystems."/home" =
+  #   { device = "/dev/disk/by-label/NIXROOT";
+  #     fsType = "btrfs";
+  #     options = [ "subvol=home" "compress=zstd"];
+  #   };
 
-  fileSystems."/nix" =
-    { device = "/dev/disk/by-label/NIXROOT";
-      fsType = "btrfs";
-      options = [ "subvol=nix" "compress=zstd" "noatime"];
-    };
+  # fileSystems."/nix" =
+  #   { device = "/dev/disk/by-label/NIXROOT";
+  #     fsType = "btrfs";
+  #     options = [ "subvol=nix" "compress=zstd" "noatime"];
+  #   };
 
-  fileSystems."/boot" =
-    { device = "/dev/disk/by-label/ESP";
-      fsType = "vfat";
-    };
+  # fileSystems."/boot" =
+  #   { device = "/dev/disk/by-label/ESP";
+  #     fsType = "vfat";
+  #   };
 
 
   # Enables DHCP on each ethernet and wireless interface. In case of scripted networking
