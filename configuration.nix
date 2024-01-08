@@ -6,11 +6,12 @@
 
 {
   imports =
-    [ # Include the results of the hardware scan.
+    [
+      # Include the results of the hardware scan.
       ./hardware-configuration.nix
       ./filesystem.nix
       ./nvidia.nix
-      <home-manager/nixos> 
+      <home-manager/nixos>
       ./users/simon/main.nix
     ];
 
@@ -24,13 +25,13 @@
   # Use the systemd-boot EFI boot loader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
-  
+
   nixpkgs.config.allowUnfree = true;
 
   networking.hostName = "nixomagus"; # Define your hostname.
   # Pick only one of the below networking options.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
-  networking.networkmanager.enable = true;  # Easiest to use and most distros use this by default.
+  networking.networkmanager.enable = true; # Easiest to use and most distros use this by default.
 
   # Set your time zone.
   time.timeZone = "Europe/Vienna";
@@ -54,7 +55,7 @@
   # Enable the GNOME Desktop Environment.
   services.xserver.displayManager.gdm.enable = true;
   services.xserver.desktopManager.gnome.enable = true;
-  
+
 
   # Configure keymap in X11
   # services.xserver.xkb.layout = "us";
@@ -74,12 +75,12 @@
   # Define a user account. Don't forget to set a password with ‘passwd’.
 
   users.groups.nix-config = {
-	members = ["root"];
+    members = [ "root" ];
   };
 
   users.users.simon = {
     isNormalUser = true;
-    extraGroups = [ "wheel" "networkmanager" "nix-config"]; # Enable ‘sudo’ for the user.
+    extraGroups = [ "wheel" "networkmanager" "nix-config" ]; # Enable ‘sudo’ for the user.
   };
 
   # List packages installed in system profile. To search, run:
