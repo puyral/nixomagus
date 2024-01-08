@@ -49,8 +49,11 @@
       emacs
 
       zoxide
+
       btop
       htop
+      nvtop
+      intel-gpu-tools
 
       blender
       # davinci-resolve
@@ -72,8 +75,13 @@
       zoom
 
       jellyfin-media-player
-      
+
       discord
+      mattermost-desktop
+      whatsapp-for-linux
+      signal-desktop
+
+      cudaPackages.cudatoolkit
     ];
 
     # Home Manager is pretty good at managing dotfiles. The primary way to manage
