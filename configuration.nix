@@ -13,6 +13,7 @@
       ./nvidia.nix
       <home-manager/nixos>
       ./users/simon/main.nix
+      ./syncthing.nix
     ];
 
 
