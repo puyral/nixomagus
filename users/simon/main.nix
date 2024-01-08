@@ -1,13 +1,6 @@
 { config, pkgs, ... }:
 {
 
-programs.gnupg = {
-	agent = {
-		enable = true;
-		pinentryFlavor = "qt";
-	};
-};
-
 home-manager.users.simon = {
   # Home Manager needs a bit of information about you and the paths it should
   # manage.
@@ -46,7 +39,7 @@ home-manager.users.simon = {
     vscode
     alacritty
 
-    git git-crypt
+    git git-crypt gh
     gnupg
     pinentry-qt
 
@@ -69,7 +62,7 @@ home-manager.users.simon = {
 
     steam
     
-    direnv
+    direnv rnix-lsp
   ];
 
   # Home Manager is pretty good at managing dotfiles. The primary way to manage

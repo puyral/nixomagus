@@ -10,9 +10,17 @@
       ./hardware-configuration.nix
       ./filesystem.nix
       ./nvidia.nix
-      <home-manager/nixos> /home/simon/.config/home-manager/home.nix
+      <home-manager/nixos> 
+      ./users/simon/main.nix
     ];
 
+
+  programs.gnupg = {
+    agent = {
+      enable = true;
+      pinentryFlavor = "qt";
+    };
+  };
   # Use the systemd-boot EFI boot loader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
