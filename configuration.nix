@@ -27,6 +27,7 @@
   boot.loader.efi.canTouchEfiVariables = true;
 
   nixpkgs.config.allowUnfree = true;
+  nix.settings.experimental-features = [ "nix-command" ];
 
   networking.hostName = "nixomagus"; # Define your hostname.
   # Pick only one of the below networking options.
