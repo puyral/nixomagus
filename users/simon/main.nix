@@ -60,6 +60,7 @@
       inkscape-with-extensions
       gimp-with-plugins
       darktable
+      hugin
       rapid-photo-downloader
       spotify
       mpv
