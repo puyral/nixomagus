@@ -3,7 +3,6 @@
 # in
 {
   imports = [
-    ./wallpapers.nix
     ./hyprland.nix
   ];
   home = {
