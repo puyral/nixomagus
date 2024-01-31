@@ -1,9 +1,18 @@
 { config, pkgs, ... }:
 {
-  home-manager.users.simon = {
-    home.wayland.windowManager.hyprland = {
+    imports = [];
+    wayland.windowManager.hyprland = {
         enable = true;
-        enableNvidiaPatches = true;
+        # enableNvidiaPatches = true;
+
+
+        settings = {
+            "$mod" = "SUPER";
+            bind = [
+                "$mod, Q, exec, allacrity"
+                ", Home, exec, allacrity"
+                "$mod, E, "
+            ];
+        };
     };
-  };
 }

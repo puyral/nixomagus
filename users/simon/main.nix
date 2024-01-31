@@ -1,24 +1,23 @@
 { config, pkgs, ... }:
+# let mhyprland = import ./hyprland.nix;
+# in
 {
-  # imports = [./hyprland.nix];
+  imports = [
+    ./wallpapers.nix
+    ./hyprland.nix
+  ];
+  home = {
+    # inherit (import ./hyprland.nix);
+    # inherit (import ./wallpaper.nix);
 
     # Home Manager needs a bit of information about you and the paths it should
     # manage.
-    home.username = "simon";
-    home.homeDirectory = "/home/simon";
-
-    # This value determines the Home Manager release that your configuration is
-    # compatible with. This helps avoid breakage when a new Home Manager release
-    # introduces backwards incompatible changes.
-    #
-    # You should not change this value, even if you update Home Manager. If you do
-    # want to update the value, then make sure to first check the Home Manager
-    # release notes.
-    home.stateVersion = "23.11"; # Please read the comment before changing.
+    username = "simon";
+    homeDirectory = "/home/simon";
 
     # The home.packages option allows you to install Nix packages into your
     # environment.
-    home.packages = with pkgs; [
+    packages = with pkgs; [
       # # Adds the 'hello' command to your environment. It prints a friendly
       # # "Hello, world!" when run.
       # pkgs.hello
@@ -85,11 +84,13 @@
       signal-desktop
 
       cudaPackages.cudatoolkit
+
+      kitty
     ];
 
     # Home Manager is pretty good at managing dotfiles. The primary way to manage
     # plain files is through 'home.file'.
-    home.file = {
+    file = {
       # # Building this configuration will create a copy of 'dotfiles/screenrc' in
       # # the Nix store. Activating the configuration will then make '~/.screenrc' a
       # # symlink to the Nix store copy.
@@ -113,7 +114,7 @@
     #
     #  /etc/profiles/per-user/simon/etc/profile.d/hm-session-vars.sh
     #
-    home.sessionVariables = {
+    sessionVariables = {
       # EDITOR = "emacs";
     };
 
@@ -121,21 +122,30 @@
     # programs.home-manager.enable = true;
 
 
-  # see https://nixos.wiki/wiki/Logseq
-  #nixpkgs.overlays = [
-  #  (
-  #    final: prev: {
-  #      logseq = prev.logseq.overrideAttrs (oldAttrs: {
-  #        postFixup = ''
-  #          makeWrapper ${prev.electron_20}/bin/electron $out/bin/${oldAttrs.pname} \
-  #            --set "LOCAL_GIT_DIRECTORY" ${prev.git} \
-  #            --add-flags $out/share/${oldAttrs.pname}/resources/app \
-  #            --add-flags "\''${NIXOS_OZONE_WL:+\''${WAYLAND_DISPLAY:+--ozone-platform-hint=auto --enable-features=WaylandWindowDecorations}}" \
-  #            --prefix LD_LIBRARY_PATH : "${prev.lib.makeLibraryPath [ prev.stdenv.cc.cc.lib ]}"
-  #        '';
-  #      });
-  #    }
-  #  )
-  #];
+    # see https://nixos.wiki/wiki/Logseq
+    #nixpkgs.overlays = [
+    #  (
+    #    final: prev: {
+    #      logseq = prev.logseq.overrideAttrs (oldAttrs: {
+    #        postFixup = ''
+    #          makeWrapper ${prev.electron_20}/bin/electron $out/bin/${oldAttrs.pname} \
+    #            --set "LOCAL_GIT_DIRECTORY" ${prev.git} \
+    #            --add-flags $out/share/${oldAttrs.pname}/resources/app \
+    #            --add-flags "\''${NIXOS_OZONE_WL:+\''${WAYLAND_DISPLAY:+--ozone-platform-hint=auto --enable-features=WaylandWindowDecorations}}" \
+    #            --prefix LD_LIBRARY_PATH : "${prev.lib.makeLibraryPath [ prev.stdenv.cc.cc.lib ]}"
+    #        '';
+    #      });
+    #    }
+    #  )
+    #];
+  };
 
+  # This value determines the Home Manager release that your configuration is
+  # compatible with. This helps avoid breakage when a new Home Manager release
+  # introduces backwards incompatible changes.
+  #
+  # You should not change this value, even if you update Home Manager. If you do
+  # want to update the value, then make sure to first check the Home Manager
+  # release notes.
+  home.stateVersion = "23.11"; # Please read the comment before changing.
 }

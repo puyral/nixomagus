@@ -5,6 +5,7 @@
     nixpkgs.url = "nixpkgs/nixos-unstable";
     home-manager.url = "github:nix-community/home-manager";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
+    # nix-std.url = "github:chessai/nix-std"; # https://github.com/chessai/nix-std
   };
 
   outputs = { self, nixpkgs, home-manager, ... }@attrs: 
@@ -21,7 +22,7 @@
 
             # Optionally, use home-manager.extraSpecialArgs to pass
             # arguments to home.nix
-          } 
+          }
 	];
     };
   };
