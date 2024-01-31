@@ -11,8 +11,6 @@
       ./hardware-configuration.nix
       ./filesystem.nix
       ./nvidia.nix
-      <home-manager/nixos>
-      ./users/simon/main.nix
       ./services.nix
     ];
 
@@ -28,7 +26,7 @@
   boot.loader.efi.canTouchEfiVariables = true;
 
   nixpkgs.config.allowUnfree = true;
-  nix.settings.experimental-features = [ "nix-command" ];
+  nix.settings.experimental-features = [ "nix-command" "flakes"];
 
   networking.hostName = "nixomagus"; # Define your hostname.
   # Pick only one of the below networking options.
@@ -73,7 +71,7 @@
   # Enable touchpad support (enabled default in most desktopManager).
   # services.xserver.libinput.enable = true;
 
-  home-manager.useGlobalPkgs = true; # use global pkgs
+  # home-manager.useGlobalPkgs = true; # use global pkgs
   # Define a user account. Don't forget to set a password with ‘passwd’.
 
   users.groups.nix-config = {
