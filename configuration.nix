@@ -57,7 +57,7 @@
   services.xserver.desktopManager.gnome.enable = true;
   
   # enable hyprland
-  # programs.hyprland.enable = true;
+  programs.hyprland.enable = true;
 
 
 
