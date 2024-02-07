@@ -87,8 +87,9 @@
   users.users.simon = {
     isNormalUser = true;
     extraGroups = [ "wheel" "networkmanager" "nix-config" ]; # Enable ‘sudo’ for the user.
-    shell = pkgs.zsh;
+    useDefaultShell = true;
   };
+  users.defaultUserShell = pkgs.zsh;
 
   # List packages installed in system profile. To search, run:
   # $ nix search wget

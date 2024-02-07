@@ -2,7 +2,7 @@
   imports = [ ];
   programs.starship = {
     enable = true;
-    enaleZshIntegration = true;
+    enableZshIntegration = true;
     settings = {
       battery = { disabled = true; };
       character = {
