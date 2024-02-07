@@ -4,6 +4,7 @@
 {
   imports = [
     ./hyprland.nix
+    ./zsh.nix
   ];
   home = {
     # inherit (import ./hyprland.nix);

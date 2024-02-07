@@ -6,6 +6,6 @@
     let networks = import ./secrets/zerotier-networks.nix; in
     {
       enable = true;
-      joinNetworks = networks.vidya.id;
+      joinNetworks = [ networks.vidya.id ];
     };
 }

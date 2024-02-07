@@ -59,6 +59,8 @@
   # enable hyprland
   programs.hyprland.enable = true;
 
+  programs.zsh.enable = true;
+
 
 
   # Configure keymap in X11
@@ -85,6 +87,7 @@
   users.users.simon = {
     isNormalUser = true;
     extraGroups = [ "wheel" "networkmanager" "nix-config" ]; # Enable ‘sudo’ for the user.
+    shell = pkgs.zsh;
   };
 
   # List packages installed in system profile. To search, run:
