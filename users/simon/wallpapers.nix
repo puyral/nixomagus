@@ -7,7 +7,7 @@
     settings = {
       default = {
         path = "/Volumes/Zeno/media/photos/wallpaper";
-        duration = "1s";
+        duration = "120s";
         sorting = "random";
       };
     };

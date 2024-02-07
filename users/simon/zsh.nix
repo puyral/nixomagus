@@ -12,7 +12,7 @@
     syntaxHighlighting = {
       enable = true;
     };
-    autosuggestions = {enable= true;};
+    enableAutosuggestions = true;
     enableCompletion = true;
 
     
@@ -44,7 +44,7 @@
   programs.zoxide = {
     enable = true;
     enableZshIntegration = true;
-    option = "--cmd cd";
+    options = ["--cmd cd"];
   };
 
   programs.direnv = {

@@ -21,13 +21,36 @@
       mbind = builtins.concatStringsSep ",";
       exec = "exec";
     in {
+
+      monitor = 
+      map (builtins.concatStringsSep ",") [
+        ["HDMI-A-2" "3840x2160" "1280x0" "1" "bitdepth" "10"]
+        ["eDP-1" "1920x1080" "5120x800" "1"]
+        ["DP-2" "1280x1024" "0x0" "1"]
+      ];
+
+      exec-once = [
+        "wpaperd"
+      ];
+
+      bindm = map mbind [
+        [mod "mouse:272" "movewindow"]
+        [mod "mouse:273" "resizewindow"]
+      ];
+
       bind = map mbind ([
         [alt "T" exec "alacritty"]
         [mod "T" exec "alacritty"]
         [mod "K" exec "kitty"]
         [mod "E" "exit"]
         [mod "Q" "killactive"]
-        [mod "D" exec "wofi --show run --height=984 --style=\$HOME/.config/wofi.css --term=footclient --prompt=Run"]
+        # [mod "D" exec "wofi --show run --height=984 --style=\$HOME/.config/wofi.css --term=footclient --prompt=Run"]
+        [mod "D" exec "wofi --show run"]
+        [mod "Space" exec "wofi --show drun"]
+
+        [mod "F" "fullscreen" "0"]
+        [mod "V" "togglefloating" "active" ]
+
         ["" "XF86AudioRaiseVolume" exec "pamixer -i 5"]
         ["" "XF86AudioLowerVolume" exec "pamixer -d 5"]
       ]
