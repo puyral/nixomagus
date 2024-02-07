@@ -94,7 +94,6 @@
     wget
     firefox
     htop
-    neofetch
     git
     tmux
   ];
