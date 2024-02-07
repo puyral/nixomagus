@@ -36,7 +36,6 @@
       firefox
       thunderbird
       vscode
-      alacritty
 
       git
       git-crypt
@@ -69,7 +68,7 @@
       steam
 
       direnv
-      rnix-lsp
+      nil
 
       zoom
 
@@ -85,6 +84,7 @@
       cudaPackages.cudatoolkit
 
       kitty
+      alacritty
     ];
 
     # Home Manager is pretty good at managing dotfiles. The primary way to manage
