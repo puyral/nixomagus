@@ -4,7 +4,7 @@
 {
   imports = [
     ./hyprland.nix
-    ./zsh.nix
+    ./shell.nix
   ];
   home = {
     # inherit (import ./hyprland.nix);
@@ -45,8 +45,6 @@
       pinentry-qt
 
       emacs
-
-      zoxide
 
       btop
       htop
