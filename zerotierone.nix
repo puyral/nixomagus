@@ -1,8 +1,11 @@
 { config, lib, pkgs, ... }:
 
 {
-  services.zerotierone = {
-    enable = true;
-    joinNetworks = [ "8bd5124fd63a17e4" ];
-  };
+
+  services.zerotierone =
+    let networks = import ./secrets/zerotier-networks.nix; in
+    {
+      enable = true;
+      joinNetworks = networks.vidya.id;
+    };
 }
