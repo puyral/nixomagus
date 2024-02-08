@@ -124,7 +124,7 @@
 
       misc = {
         disable_hyprland_logo = true;
-        fore_defautl_wallpaper = 0;
+        force_default_wallpaper = 0;
       };
 
     };
