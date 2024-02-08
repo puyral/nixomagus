@@ -101,8 +101,25 @@
     git
     tmux
   ];
+
+  fonts.packages = with pkgs; [
+    nerdfonts
+  ];
+
   # wayland
-  environment.sessionVariables.NIXOS_OZONE_WL = "1";
+  environment.sessionVariables= {
+    NIXOS_OZONE_WL = "1";
+    };
+
+
+
+  # garbage collection
+  nix.gc = {
+    automatic = true;
+    persistent = true;
+    dates = "weekly";
+    options = "--delete-older-than 15d";
+  };
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
