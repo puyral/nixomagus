@@ -5,6 +5,7 @@
   imports = [
     ./hyprland.nix
     ./shell.nix
+    ./alacritty.nix
   ];
   home = {
     # inherit (import ./hyprland.nix);
@@ -83,7 +84,7 @@
       cudaPackages.cudatoolkit
 
       kitty
-      alacritty
+      # alacritty
 
       texliveFull
     ];
