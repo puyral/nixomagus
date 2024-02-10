@@ -38,6 +38,7 @@
       firefox
       thunderbird
       vscode
+      pavucontrol
 
       git
       git-crypt
