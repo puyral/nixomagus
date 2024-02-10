@@ -7,15 +7,15 @@
     settings = {
 
       window = {
-        decoration = "None";
+        decorations = "None";
         padding = {
-          x = 5;
-          y = 5;
+          x = 10;
+          y = 10;
         };
-        dynamic_padding = true;
+        # dynamic_padding = true;
       };
 
-      font.normal = "Hack";
+      font.normal = {family ="Hack Nerd Font Mono"; style= "Regular";};
 
       colors =
         let
