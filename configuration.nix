@@ -5,16 +5,14 @@
 { config, lib, pkgs, ... }:
 
 {
-  imports =
-    [
-      # Include the results of the hardware scan.
-      ./hardware-configuration.nix
-      ./filesystem.nix
-      ./nvidia.nix
-      ./services.nix
-      ./sound.nix
-    ];
-
+  imports = [
+    # Include the results of the hardware scan.
+    ./hardware-configuration.nix
+    ./filesystem.nix
+    ./nvidia.nix
+    ./services.nix
+    ./sound.nix
+  ];
 
   programs.gnupg = {
     agent = {
@@ -27,12 +25,13 @@
   boot.loader.efi.canTouchEfiVariables = true;
 
   nixpkgs.config.allowUnfree = true;
-  nix.settings.experimental-features = [ "nix-command" "flakes"];
+  nix.settings.experimental-features = [ "nix-command" "flakes" ];
 
   networking.hostName = "nixomagus"; # Define your hostname.
   # Pick only one of the below networking options.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
-  networking.networkmanager.enable = true; # Easiest to use and most distros use this by default.
+  networking.networkmanager.enable =
+    true; # Easiest to use and most distros use this by default.
 
   # Set your time zone.
   time.timeZone = "Europe/Vienna";
@@ -52,17 +51,14 @@
   # Enable the X11 windowing system.
   services.xserver.enable = true;
 
-
   # Enable the GNOME Desktop Environment.
   services.xserver.displayManager.gdm.enable = true;
   services.xserver.desktopManager.gnome.enable = true;
-  
+
   # enable hyprland
   programs.hyprland.enable = true;
 
   programs.zsh.enable = true;
-
-
 
   # Configure keymap in X11
   # services.xserver.xkb.layout = "us";
@@ -81,13 +77,12 @@
   # home-manager.useGlobalPkgs = true; # use global pkgs
   # Define a user account. Don't forget to set a password with ‘passwd’.
 
-  users.groups.nix-config = {
-    members = [ "root" ];
-  };
+  users.groups.nix-config = { members = [ "root" ]; };
 
   users.users.simon = {
     isNormalUser = true;
-    extraGroups = [ "wheel" "networkmanager" "nix-config" ]; # Enable ‘sudo’ for the user.
+    extraGroups =
+      [ "wheel" "networkmanager" "nix-config" ]; # Enable ‘sudo’ for the user.
     useDefaultShell = true;
   };
   users.defaultUserShell = pkgs.zsh;
@@ -103,16 +98,10 @@
     tmux
   ];
 
-  fonts.packages = with pkgs; [
-    nerdfonts
-  ];
+  fonts.packages = with pkgs; [ nerdfonts ];
 
   # wayland
-  environment.sessionVariables= {
-    NIXOS_OZONE_WL = "1";
-    };
-
-
+  environment.sessionVariables = { NIXOS_OZONE_WL = "1"; };
 
   # garbage collection
   nix.gc = {

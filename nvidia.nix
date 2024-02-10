@@ -1,5 +1,4 @@
-{ config, lib, pkgs, modulesPath, ... }:
-{
+{ config, lib, pkgs, modulesPath, ... }: {
   # NVIDIA
   # Enable OpenGL
   hardware.opengl = {

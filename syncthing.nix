@@ -7,8 +7,10 @@
     dataDir = "/tmp"; # Default folder for new synced folders
     configDir = "/config/syncthing"; # Folder for Syncthing's settings and keys
 
-    overrideDevices = true; # overrides any devices added or deleted through the WebUI
-    overrideFolders = true; # overrides any folders added or deleted through the WebUI
+    overrideDevices =
+      true; # overrides any devices added or deleted through the WebUI
+    overrideFolders =
+      true; # overrides any folders added or deleted through the WebUI
 
     settings = {
       devices = import ./secrets/syncthing-devices.nix;

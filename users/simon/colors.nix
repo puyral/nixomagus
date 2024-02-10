@@ -1,7 +1,12 @@
 rec {
-  mkC = normal: bright: { normal = normal; bright = bright; };
+  mkC = normal: bright: {
+    normal = normal;
+    bright = bright;
+  };
 
-  asList = colors: let c = colors.colors; in [ c.black c.red c.green c.yellow c.magenta c.cyan c.white ];
+  asList = colors:
+    let c = colors.colors;
+    in [ c.black c.red c.green c.yellow c.magenta c.cyan c.white ];
 
   asIndexed = colors:
     let main_colors = asList colors;
@@ -11,8 +16,6 @@ rec {
   mainPallette = {
     foreground = "#ffffff";
     background = "#121314";
-
-
 
     colors = {
       black = mkC "#131314" "#373b41";

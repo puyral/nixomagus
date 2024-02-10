@@ -2,12 +2,8 @@
 # let mhyprland = import ./hyprland.nix;
 # in
 {
-  imports = [
-    ./hyprland.nix
-    ./shell.nix
-    ./alacritty.nix
-    ./custom-packages.nix
-  ];
+  imports =
+    [ ./hyprland.nix ./shell.nix ./alacritty.nix ./custom-packages.nix ];
   home = {
     # inherit (import ./hyprland.nix);
     # inherit (import ./wallpaper.nix);
@@ -91,7 +87,7 @@
       texliveFull
 
       ripgrep
-    ]; 
+    ];
     # ++ (import ./custom-packages.nix) attrs;
 
     # Home Manager is pretty good at managing dotfiles. The primary way to manage
@@ -126,7 +122,6 @@
 
     # Let Home Manager install and manage itself.
     # programs.home-manager.enable = true;
-
 
     # see https://nixos.wiki/wiki/Logseq
     #nixpkgs.overlays = [

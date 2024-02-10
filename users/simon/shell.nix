@@ -1,5 +1,4 @@
-{ config, pkgs, ... }:
-{
+{ config, pkgs, ... }: {
   imports = [ ./zsh/zsh.nix ];
 
   home.shellAliases = {
