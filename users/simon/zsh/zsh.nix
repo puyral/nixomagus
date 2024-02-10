@@ -34,7 +34,8 @@
         };
       }
     ];
-  };
+
+    initExtra = builtins.readFile ./initExtra.zsh;
 
   programs.fzf = {
     enable = true;
