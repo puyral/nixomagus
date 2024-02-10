@@ -6,7 +6,7 @@
     wofi
   ];
 
-  home.file."config/wofi.css".source = ./wofi.css;
+  home.file.".config/wofi.css".source = ./wofi.css;
 
   wayland.windowManager.hyprland = {
     enable = true;
@@ -44,7 +44,7 @@
         [mod "K" exec "kitty"]
         [mod "E" "exit"]
         [mod "Q" "killactive"]
-        # [mod "D" exec "wofi --show run --height=984 --style=\$HOME/.config/wofi.css --term=footclient --prompt=Run"]
+        [mod "U" exec "wofi --show drun --height=984 --style=\$HOME/.config/wofi.css --term=footclient --prompt=Run"]
         [mod "D" exec "wofi --show run"]
         [mod "Space" exec "wofi --show drun"]
 

@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ config, pkgs, system, ... }@attrs:
 # let mhyprland = import ./hyprland.nix;
 # in
 {
@@ -6,6 +6,7 @@
     ./hyprland.nix
     ./shell.nix
     ./alacritty.nix
+    ./custom-packages.nix
   ];
   home = {
     # inherit (import ./hyprland.nix);
@@ -90,7 +91,8 @@
       texliveFull
 
       ripgrep
-    ];
+    ]; 
+    # ++ (import ./custom-packages.nix) attrs;
 
     # Home Manager is pretty good at managing dotfiles. The primary way to manage
     # plain files is through 'home.file'.
