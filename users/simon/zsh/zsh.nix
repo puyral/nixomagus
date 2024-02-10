@@ -1,6 +1,6 @@
-{ config, pkgs, home,... }:
+{ config, pkgs, home, ... }:
 {
-  imports = [ ./starship.nix ];
+  imports = [ ../starship.nix ];
 
   programs.zsh = {
     enable = true;
@@ -15,11 +15,11 @@
     enableAutosuggestions = true;
     enableCompletion = true;
 
-    
+
 
     oh-my-zsh = {
       enable = true;
-      plugins = [ "git"];
+      plugins = [ "git" ];
     };
 
     plugins = [
@@ -36,16 +36,17 @@
     ];
 
     initExtra = builtins.readFile ./initExtra.zsh;
+  };
 
   programs.fzf = {
     enable = true;
     enableZshIntegration = true;
-  }; 
+  };
 
   programs.zoxide = {
     enable = true;
     enableZshIntegration = true;
-    options = ["--cmd cd"];
+    options = [ "--cmd cd" ];
   };
 
   programs.direnv = {
