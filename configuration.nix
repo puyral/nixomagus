@@ -13,7 +13,7 @@
     ./services.nix
     ./sound.nix
     ./bluetooth.nix
-    # ./kmonad/kmonad.nix
+    ./kmonad/kmonad.nix
   ];
 
   programs.gnupg = {

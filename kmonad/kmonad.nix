@@ -1,5 +1,7 @@
 { pkgs, ... }: {
-  imports = [ ../foreign-modules/kmonad/nix/nixos-module.nix ];
+  imports = [
+    #  ../foreign-modules/kmonad/nix/nixos-module.nix 
+  ];
 
   services.kmonad = {
     enable = true;
