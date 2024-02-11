@@ -1,6 +1,5 @@
-{pkgs, ...}:
-{
-  imports = [../foreign-modules/kmonad/nix/nixos-module.nix];
+{ pkgs, ... }: {
+  imports = [ ../foreign-modules/kmonad/nix/nixos-module.nix ];
 
   services.kmonad = {
     enable = true;
@@ -17,5 +16,5 @@
     };
   };
 
-  users.extraUsers.simon.extraGroups = ["uinput"];
+  users.extraUsers.simon.extraGroups = [ "uinput" ];
 }

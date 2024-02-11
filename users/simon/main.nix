@@ -67,6 +67,7 @@
       mpd
       ncmpcpp
       cava
+      blueberry
 
       steam
 
@@ -75,7 +76,7 @@
 
       zoom
 
-      jellyfin-media-player
+      jellyfin-media-player # see https://github.com/jellyfin/jellyfin-media-player/issues/165
 
       # logseq
 

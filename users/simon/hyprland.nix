@@ -13,7 +13,7 @@ let
 in {
   imports = [ ./wallpapers.nix ];
 
-  home.packages = with pkgs; [ wofi ];
+  home.packages = with pkgs; [ wofi qt5-wayland qt6-wayland ];
 
   home.file.".config/wofi.css".source = ./wofi.css;
 
@@ -44,15 +44,18 @@ in {
 
       general = { resize_on_border = true; };
 
-      input = { follow_mouse = 1; };
+      input = {
+        follow_mouse = 1;
+        kb_options = "caps:swapescape";
+      };
 
       decoration = {
         drop_shadow = 1;
         shadow_range = 10;
         shadow_render_power = 2;
         # col = {
-          # shadow = "0x55000000";
-          # shadow_inactive = "0x55000000";
+        # shadow = "0x55000000";
+        # shadow_inactive = "0x55000000";
         # };
         rounding = 4;
       };
@@ -77,7 +80,8 @@ in {
           exec
           "wofi --show drun --height=984 --style=$HOME/.config/wofi.css --term=footclient --prompt=Run"
         ]
-        [ mod "D" exec "wofi --show run" ]
+        [ mod "D" exec "wofi --show drun" ]
+        [ (mod + shift) "D" exec "wofi --show drun" ]
         [ mod "Space" exec "wofi --show drun" ]
 
         [ mod "F" "fullscreen" "0" ]
