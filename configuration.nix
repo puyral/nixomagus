@@ -12,6 +12,7 @@
     ./nvidia.nix
     ./services.nix
     ./sound.nix
+    ./bluetooth.nix
   ];
 
   programs.gnupg = {
@@ -56,7 +57,7 @@
   services.xserver.desktopManager.gnome.enable = true;
 
   # enable hyprland
-  programs.hyprland.enable = true;
+  # programs.hyprland.enable = true;
 
   programs.zsh.enable = true;
 
@@ -98,7 +99,7 @@
     tmux
   ];
 
-  fonts.packages = with pkgs; [ nerdfonts ];
+  fonts.packages = with pkgs; [ nerdfonts fira-code ];
 
   # wayland
   environment.sessionVariables = { NIXOS_OZONE_WL = "1"; };

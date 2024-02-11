@@ -2,8 +2,13 @@
 # let mhyprland = import ./hyprland.nix;
 # in
 {
-  imports =
-    [ ./hyprland.nix ./shell.nix ./alacritty.nix ./custom-packages.nix ];
+  imports = [
+    ./hyprland.nix
+    ./shell.nix
+    ./alacritty.nix
+    ./custom-packages.nix
+    ./systemd-services/services.nix
+  ];
   home = {
     # inherit (import ./hyprland.nix);
     # inherit (import ./wallpaper.nix);
