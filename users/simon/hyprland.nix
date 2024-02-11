@@ -13,7 +13,7 @@ let
 in {
   imports = [ ./wallpapers.nix ];
 
-  home.packages = with pkgs; [ launcher wofi ];
+  home.packages = with pkgs; [ wofi ];
 
   home.file.".config/wofi.css".source = ./wofi.css;
 
