@@ -11,9 +11,14 @@
       url = "github:kmonad/kmonad?dir=nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    custom = {
+      url = "github:puyral/custom-nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
-  outputs = { self, nixpkgs, home-manager, kmonad, ... }@attrs:
+  outputs = { self, nixpkgs, home-manager, kmonad, custom, ... }@attrs:
     let system = "x86_64-linux";
     in {
       nixosConfigurations.nixomagus = nixpkgs.lib.nixosSystem {
@@ -26,7 +31,10 @@
           {
             home-manager.useGlobalPkgs = true;
             home-manager.users.simon = import ./users/simon/main.nix;
-            home-manager.extraSpecialArgs = { system = system; };
+            home-manager.extraSpecialArgs = {
+              system = system;
+              custom = custom.packages.${system};
+            };
 
             # Optionally, use home-manager.extraSpecialArgs to pass
             # arguments to home.nix
