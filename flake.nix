@@ -19,7 +19,9 @@
   };
 
   outputs = { self, nixpkgs, home-manager, kmonad, custom, ... }@attrs:
-    let system = "x86_64-linux";
+    let
+      system = "x86_64-linux";
+      pkgs = nixpkgs.legacyPackages.${system};
     in {
       nixosConfigurations.nixomagus = nixpkgs.lib.nixosSystem {
         system = system;
@@ -42,6 +44,9 @@
         ];
       };
 
-      formatter.${system} = nixpkgs.legacyPackages.${system}.nixfmt;
+      formatter.${system} = pkgs.nixfmt;
+
+      devShells.${system}.default =
+        pkgs.mkShell { buildInputs = with pkgs; [ nil wev ]; };
     };
 }
