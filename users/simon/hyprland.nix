@@ -37,8 +37,8 @@ in {
       exec-once = [ "args -b hypr" "wpaperd" ];
 
       monitor = map (builtins.concatStringsSep ",") [
-        [ "HDMI-A-2" "3840x2160" "1280x0" "1" "bitdepth" "10" ]
-        [ "eDP-1" "1920x1080" "5120x800" "1" ]
+        [ "HDMI-A-2" "3840x2160" "1280x0" "1.25" "bitdepth" "10" ]
+        [ "eDP-1" "1920x1080" "4352x700" "1.25" ]
         [ "DP-2" "1280x1024" "0x0" "1" ]
       ];
 
@@ -47,6 +47,8 @@ in {
       input = {
         follow_mouse = 1;
         kb_options = "caps:swapescape";
+        repeat_rate = 50;
+        numlock_by_default = true;
       };
 
       decoration = {
@@ -60,12 +62,15 @@ in {
         rounding = 4;
       };
 
+      # see wev
       bindm = let
         leftclick = "mouse:272";
         rightclick = "mouse:273";
       in map mbind [
         [ mod leftclick "movewindow" ]
         [ mod rightclick "resizewindow" ]
+        [ "Alt_R" leftclick "movewindow" ]
+        [ "Alt_R" rightclick "resizewindow" ]
       ];
 
       bind = map mbind ([
@@ -153,7 +158,10 @@ in {
       misc = {
         disable_hyprland_logo = true;
         force_default_wallpaper = 0;
+        disable_autoreload = false;
       };
+
+      xwayland = { force_zero_scaling = true; };
 
     };
 
