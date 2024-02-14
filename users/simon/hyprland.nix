@@ -46,7 +46,7 @@ in {
 
       input = {
         follow_mouse = 1;
-        kb_options = "caps:swapescape";
+        # kb_options = "caps:swapescape";
         repeat_rate = 50;
         numlock_by_default = true;
       };

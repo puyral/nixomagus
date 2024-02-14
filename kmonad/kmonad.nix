@@ -17,6 +17,10 @@
       };
     };
   };
+  services.xserver.xkb = {
+    options = "compose:menu";
+    layout = "us";
+  };
 
-  users.extraUsers.simon.extraGroups = [ "uinput" ];
+  users.extraUsers.simon.extraGroups = [ "input" "uinput" ];
 }
