@@ -32,6 +32,19 @@ in {
 
       mbind = builtins.concatStringsSep ",";
       exec = "exec";
+
+      arrow_keys = {
+        l = "left";
+        r = "right";
+        u = "up";
+        d = "down";
+      };
+      vim_keys = {
+        l = "h";
+        u = "k";
+        d = "j";
+        r = "l";
+      };
     in {
 
       exec-once = [ "args -b hypr" "wpaperd" ];
@@ -86,48 +99,66 @@ in {
           "wofi --show drun --height=984 --style=$HOME/.config/wofi.css --term=footclient --prompt=Run"
         ]
         [ mod "D" exec "wofi --show drun" ]
-        [ (mod + shift) "D" exec "wofi --show drun" ]
+        [ (mod + shift) "D" exec "wofi --show run" ]
         [ mod "Space" exec "wofi --show drun" ]
 
         [ mod "F" "fullscreen" "0" ]
         [ mod "V" "togglefloating" "active" ]
 
-        [ "" "XF86AudioRaiseVolume" exec "pamixer -i 5" ]
+        [
+          mod
+          tab
+          "cyclenext"
+        ]
+
+        # media control
+        [
+          ""
+          "XF86AudioRaiseVolume"
+          exec
+          "wpctl set-volume -l 1 @DEFAULT_AUDIO_SINK@ 5%+"
+        ]
         [
           ""
           "XF86AudioLowerVolume"
           exec
-          "pamixer -d 5"
+          "wpctl set-volume -l 1 @DEFAULT_AUDIO_SINK@ 5%-"
         ]
-
-        # move window
-        [ (mod + shift) "left" "movewindow" "l" ]
-        [ (mod + shift) "right" "movewindow" "r" ]
-        [ (mod + shift) "up" "movewindow" "u" ]
         [
-          (mod + shift)
-          "down"
-          "movewindow"
-          "d"
+          ""
+          "XF86AudioMute"
+          exec
+          "wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle"
         ]
+      ] ++ (let
+        mmove = { l, r, u, d }: [
+          # move window
+          [ (mod + shift) l "movewindow" "l" ]
+          [ (mod + shift) r "movewindow" "r" ]
+          [ (mod + shift) u "movewindow" "u" ]
+          [
+            (mod + shift)
+            d
+            "movewindow"
+            "d"
+          ]
 
-        # move focus
-        [ mod "left" "movefocus" "l" ]
-        [ mod "right" "movefocus" "r" ]
-        [ mod "up" "movefocus" "u" ]
-        [
-          mod
-          "down"
-          "movefocus"
-          "d"
-        ]
+          # move focus
+          [ mod l "movefocus" "l" ]
+          [ mod r "movefocus" "r" ]
+          [ mod u "movefocus" "u" ]
+          [
+            mod
+            d
+            "movefocus"
+            "d"
+          ]
 
-        # move workspace between monitors
-        [ (mod + ctrl) "left" "movecurrentworkspacetomonitor" "l" ]
-        [ (mod + ctrl) "right" "movecurrentworkspacetomonitor" "r" ]
-
-        [ mod tab "cyclenext" ]
-      ]
+          # move workspace between monitors
+          [ (mod + ctrl) l "movecurrentworkspacetomonitor" "l" ]
+          [ (mod + ctrl) r "movecurrentworkspacetomonitor" "r" ]
+        ];
+      in mmove arrow_keys ++ mmove vim_keys)
 
         ++ (
           # workspaces
