@@ -6,6 +6,7 @@
     driSupport = true;
     driSupport32Bit = true;
   };
+  boot.kernelModules = [ "nvidia" "nvidia_modeset" "nvidia_uvm" "nvidia_drm" ];
 
   # Load nvidia driver for Xorg and Wayland
   services.xserver.videoDrivers = [ "nvidia" ];
@@ -43,6 +44,8 @@
       intelBusId = "PCI:0:2:0";
       nvidiaBusId = "PCI:1:0:0";
       sync.enable = true;
+      # offload.enable = true;
+      # offload.enableOffloadCmd = true;
     };
   };
 }

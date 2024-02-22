@@ -2,7 +2,7 @@
 # your system. Help is available in the configuration.nix(5) man page, on
 # https://search.nixos.org/options and in the NixOS manual (`nixos-help`).
 
-{ config, lib, pkgs, ... }:
+{ config, lib, pkgs, nixpkgs, ... }:
 
 {
   imports = [
@@ -55,7 +55,7 @@
 
   # Enable the GNOME Desktop Environment.
   services.xserver.displayManager.gdm.enable = true;
-  # services.xserver.desktopManager.gnome.enable = true;
+  services.xserver.desktopManager.gnome.enable = true;
 
   # enable hyprland
   programs.hyprland.enable = true;
@@ -100,10 +100,22 @@
     tmux
   ];
 
+  # automount
+  services.gvfs.enable = true;
+  services.udisks2.enable = true;
+
   fonts.packages = with pkgs; [ nerdfonts fira-code ];
 
   # wayland
-  environment.sessionVariables = { NIXOS_OZONE_WL = "1"; };
+  environment.sessionVariables = {
+    NIXOS_OZONE_WL = "1";
+
+    "__NV_PRIME_RENDER_OFFLOAD" = "1";
+    "__NV_PRIME_RENDER_OFFLOAD_PROVIDER" = "NVIDIA-G0";
+    "__GLX_VENDOR_LIBRARY_NAME" = "nvidia";
+    "__VK_LAYER_NV_optimus" = "NVIDIA_only";
+
+  };
 
   # garbage collection
   nix.gc = {
@@ -146,6 +158,35 @@
     # https://github.com/umlaeute/v4l2loopback
     options v4l2loopback exclusive_caps=1 card_label="Virtual Camera"
   '';
+
+  # to not redownload everything with `r`
+  nix.registry = {
+    nixpkgs.flake = nixpkgs // { config.allowUnfree = true; };
+    unstable = {
+      from = {
+        type = "indirect";
+        id = "unstable";
+      };
+      to = {
+        type = "github";
+        owner = "NixOS";
+        repo = "nixpkgs";
+        ref = "nixpkgs-unstable";
+      };
+    };
+    current-stable = {
+      from = {
+        type = "indirect";
+        id = "current-stable";
+      };
+      to = {
+        type = "github";
+        owner = "NixOS";
+        repo = "nixpkgs";
+        ref = "nixos-23.11";
+      };
+    };
+  };
 
   # Open ports in the firewall.
   # networking.firewall.allowedTCPPorts = [ ... ];

@@ -9,6 +9,7 @@
     ./custom-packages.nix
     ./systemd-services/services.nix
   ];
+  nixpkgs.config = { allowUnfree = true; };
   home = {
     # inherit (import ./hyprland.nix);
     # inherit (import ./wallpaper.nix);
@@ -74,7 +75,7 @@
       direnv
       nil
 
-      zoom
+      zoom-us
 
       jellyfin-media-player # see https://github.com/jellyfin/jellyfin-media-player/issues/165
 
