@@ -8,11 +8,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1707859437,
-        "narHash": "sha256-KstEkMyLQjvWg0nVZmy1qT/DNigfb3rI1mIGpwU7dEE=",
+        "lastModified": 1708620391,
+        "narHash": "sha256-EfOk3uFIEdJRTtavYAIn6ZMnEdWg+Z4rzLGn5T6d5OU=",
         "owner": "puyral",
         "repo": "custom-nix",
-        "rev": "59c0e5ca951d7ba90320371b5ed1ca91abc8820a",
+        "rev": "3f85bb44c0566e2917c324740cfe2751bbea8daf",
         "type": "github"
       },
       "original": {

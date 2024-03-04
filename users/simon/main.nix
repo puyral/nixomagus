@@ -61,13 +61,16 @@
       inkscape-with-extensions
       gimp-with-plugins
       darktable
-      hugin
+      # hugin -> custom
       rapid-photo-downloader
+      # geeqie feh
+
       spotify
       mpv
       mpd
       ncmpcpp
       cava
+
       blueberry
 
       steam
@@ -94,6 +97,8 @@
       texliveFull
 
       ripgrep
+
+      # cinnemon.nemo-with-extensions
     ];
     # ++ (import ./custom-packages.nix) attrs;
 

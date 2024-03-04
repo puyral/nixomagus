@@ -3,7 +3,7 @@
 
   home.shellAliases = {
     "rebuild" =
-      "time sudo nixos-rebuild switch --flake '/config?submodules=1#'";
+      "time sudo nixos-rebuild switch --flake '/config'"; # ?submodules=1#'";
     "update" = "nix flake update /config#";
     "start-camera" = "" + ./scripts/start-camera.sh;
   };

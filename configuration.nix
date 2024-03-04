@@ -110,10 +110,10 @@
   environment.sessionVariables = {
     NIXOS_OZONE_WL = "1";
 
-    "__NV_PRIME_RENDER_OFFLOAD" = "1";
-    "__NV_PRIME_RENDER_OFFLOAD_PROVIDER" = "NVIDIA-G0";
-    "__GLX_VENDOR_LIBRARY_NAME" = "nvidia";
-    "__VK_LAYER_NV_optimus" = "NVIDIA_only";
+    # "__NV_PRIME_RENDER_OFFLOAD" = "1";
+    # "__NV_PRIME_RENDER_OFFLOAD_PROVIDER" = "NVIDIA-G0";
+    # "__GLX_VENDOR_LIBRARY_NAME" = "nvidia";
+    # "__VK_LAYER_NV_optimus" = "NVIDIA_only";
 
   };
 
@@ -187,6 +187,16 @@
       };
     };
   };
+
+  # better caching
+  nix.settings.substituters = [
+    "https://aseipp-nix-cache.global.ssl.fastly.net"
+    "https://cache.nixos.org/"
+    "https://nix-community.cachix.org"
+  ];
+  nix.settings.trusted-public-keys = [
+    "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
+  ];
 
   # Open ports in the firewall.
   # networking.firewall.allowedTCPPorts = [ ... ];

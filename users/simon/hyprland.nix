@@ -13,7 +13,7 @@ let
 in {
   imports = [ ./wallpapers.nix ];
 
-  home.packages = with pkgs; [ wofi ];
+  home.packages = with pkgs; [ wofi xdg-desktop-portal-hyprland ];
 
   home.file.".config/wofi.css".source = ./wofi.css;
 
@@ -50,8 +50,16 @@ in {
       exec-once = [ "args -b hypr" "wpaperd" ];
 
       monitor = map (builtins.concatStringsSep ",") [
-        [ "HDMI-A-2" "3840x2160" "1280x0" "1.25" "bitdepth" "10" ]
-        [ "eDP-1" "1920x1080" "4352x700" "1.25" ]
+        [
+          "HDMI-A-2"
+          "3840x2160"
+          "1280x0"
+          "1"
+          "bitdepth"
+          "10"
+        ]
+        # [ "eDP-1" "1920x1080" "4352x700" "1.25" ]
+        [ "eDP-1" "disable"]
         [ "DP-2" "1280x1024" "0x0" "1" ]
       ];
 
@@ -184,6 +192,9 @@ in {
         "__NV_PRIME_RENDER_OFFLOAD,1"
         "__VK_LAYER_NV_optimus,NVIDIA_only"
         "NVD_BACKEND,direct"
+
+        # choose GPU
+        "WLR_DRM_DEVICES,/dev/dri/card0:/dev/dri/card1"
       ];
 
       misc = {
