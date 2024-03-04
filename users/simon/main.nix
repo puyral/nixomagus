@@ -61,9 +61,9 @@
       inkscape-with-extensions
       gimp-with-plugins
       darktable
-      # hugin -> custom
+      # hugin # -> custom
       rapid-photo-downloader
-      # geeqie feh
+      geeqie feh
 
       spotify
       mpv
@@ -92,13 +92,13 @@
       cudaPackages.cudatoolkit
 
       kitty
-      # alacritty
+      # alacritty # <- set up elsewhere
 
       texliveFull
 
       ripgrep
 
-      # cinnemon.nemo-with-extensions
+      cinnamon.nemo-with-extensions
     ];
     # ++ (import ./custom-packages.nix) attrs;
 
