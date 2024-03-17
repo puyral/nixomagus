@@ -1,4 +1,4 @@
-{ config, pkgs, system, ... }@attrs:
+{ config, pkgs, system, pkgs-stable, ... }@attrs:
 # let mhyprland = import ./hyprland.nix;
 # in
 {
@@ -59,11 +59,12 @@
       blender
       # davinci-resolve
       inkscape-with-extensions
-      gimp-with-plugins
+      pkgs-stable.gimp-with-plugins
       darktable
       # hugin # -> custom
       rapid-photo-downloader
-      geeqie feh
+      geeqie
+      feh
 
       spotify
       mpv

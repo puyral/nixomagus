@@ -19,7 +19,7 @@
   programs.gnupg = {
     agent = {
       enable = true;
-      pinentryFlavor = "qt";
+      pinentryPackage = pkgs.pinentry-qt;
     };
   };
   # Use the systemd-boot EFI boot loader.
