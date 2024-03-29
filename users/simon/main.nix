@@ -82,7 +82,6 @@
 
       steam
 
-      direnv
       nil
 
       zoom-us
