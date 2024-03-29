@@ -9,7 +9,7 @@
       share = true;
     };
     syntaxHighlighting = { enable = true; };
-    autosuggestion.enable = true;
+    enableAutosuggestions = true;
     enableCompletion = true;
 
     oh-my-zsh = {

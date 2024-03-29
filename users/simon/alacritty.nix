@@ -1,8 +1,9 @@
-{ config, pkgs, ... }: {
+{ config, pkgs, pkgs-unstable, ... }: {
   imports = [ ];
 
   programs.alacritty = {
     enable = true;
+
     settings = {
 
       window = {

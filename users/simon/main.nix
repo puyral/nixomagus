@@ -1,4 +1,4 @@
-{ config, pkgs, system, pkgs-stable, ... }@attrs:
+{ config, pkgs, system, pkgs-unstable, custom, ... }@attrs:
 # let mhyprland = import ./hyprland.nix;
 # in
 {
@@ -21,7 +21,25 @@
 
     # The home.packages option allows you to install Nix packages into your
     # environment.
-    packages = with pkgs; [
+    packages = [ ] ++ (with custom; [ clocktui hugin ]) ++ (with pkgs; [
+
+      git
+      git-crypt
+      gh
+      gnupg
+      pinentry-qt
+
+      btop
+      htop
+      nvtop
+      intel-gpu-tools
+
+      gimp-with-plugins
+
+      cudaPackages.cudatoolkit
+
+      texliveFull
+    ]) ++ (with pkgs-unstable; [
       # # Adds the 'hello' command to your environment. It prints a friendly
       # # "Hello, world!" when run.
       # pkgs.hello
@@ -43,23 +61,11 @@
       vscode
       pavucontrol
 
-      git
-      git-crypt
-      gh
-      gnupg
-      pinentry-qt
-
       emacs
-
-      btop
-      htop
-      nvtop
-      intel-gpu-tools
 
       blender
       # davinci-resolve
       inkscape-with-extensions
-      pkgs-stable.gimp-with-plugins
       darktable
       # hugin # -> custom
       rapid-photo-downloader
@@ -82,7 +88,6 @@
       zoom-us
 
       jellyfin-media-player # see https://github.com/jellyfin/jellyfin-media-player/issues/165
-
       # logseq
 
       discord
@@ -90,17 +95,13 @@
       whatsapp-for-linux
       signal-desktop
 
-      cudaPackages.cudatoolkit
-
       kitty
       # alacritty # <- set up elsewhere
-
-      texliveFull
 
       ripgrep
 
       cinnamon.nemo-with-extensions
-    ];
+    ]);
     # ++ (import ./custom-packages.nix) attrs;
 
     # Home Manager is pretty good at managing dotfiles. The primary way to manage

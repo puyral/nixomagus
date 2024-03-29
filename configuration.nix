@@ -2,7 +2,7 @@
 # your system. Help is available in the configuration.nix(5) man page, on
 # https://search.nixos.org/options and in the NixOS manual (`nixos-help`).
 
-{ config, lib, pkgs, nixpkgs, ... }:
+{ config, lib, pkgs, pkgs-unstable, nixpkgs, nixpkgs-unstable, ... }:
 
 {
   imports = [
@@ -19,7 +19,8 @@
   programs.gnupg = {
     agent = {
       enable = true;
-      pinentryPackage = pkgs.pinentry-qt;
+      # pinentryPackage = pkgs.pinentry-qt;
+      pinentryFlavor = "gnome3";
     };
   };
   # Use the systemd-boot EFI boot loader.
@@ -58,7 +59,10 @@
   # services.xserver.desktopManager.gnome.enable = true;
 
   # enable hyprland
-  programs.hyprland.enable = true;
+  programs.hyprland = {
+    enable = true;
+    package = pkgs-unstable.hyprland;
+  };
 
   programs.zsh.enable = true;
 
@@ -94,7 +98,6 @@
   environment.systemPackages = with pkgs; [
     vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
     wget
-    firefox
     htop
     git
     tmux
@@ -161,7 +164,7 @@
 
   # to not redownload everything with `r`
   nix.registry = {
-    nixpkgs.flake = nixpkgs // { config.allowUnfree = true; };
+    nixpkgs.flake = nixpkgs-unstable // { config.allowUnfree = true; };
     unstable = {
       from = {
         type = "indirect";
