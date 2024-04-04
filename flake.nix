@@ -55,7 +55,9 @@
 
       formatter.${system} = pkgs.nixfmt;
 
-      devShells.${system}.default =
-        pkgs.mkShell { buildInputs = with pkgs; [ nil wev ]; };
+      devShells.${system}.default = pkgs.mkShell {
+        buildInputs = (with pkgs-unstable; [ nil wev ])
+          ++ (with pkgs; [ vim git git-crypt gh gnupg ]);
+      };
     };
 }

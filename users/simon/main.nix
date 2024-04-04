@@ -61,6 +61,8 @@
       vscode
       pavucontrol
 
+      okular
+
       emacs
 
       blender
