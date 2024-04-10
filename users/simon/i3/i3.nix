@@ -1,5 +1,5 @@
 { pkgs, pkgs-unstable, ... }: rec {
-  imports = [ ./rofi.nix ];
+  imports = [ ./rofi.nix ./picom.nix ];
   xsession.windowManager.i3 = {
     package = pkgs.i3-gaps;
     enable = true;
@@ -24,5 +24,6 @@
     xfce.thunar
     flameshot
     solaar
+    unclutter
   ]);
 }

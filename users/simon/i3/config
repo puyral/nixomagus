@@ -69,12 +69,12 @@ floating_modifier $alt
 bindmouse button1 resize
 
 # start a terminal
-bindsym $mod+Shift+asterisk exec $terminal --class "full-alacritty"
+bindsym $mod+Shift+asterisk exec $terminal --class "full-Alacritty"
 # start floating terminal
 bindsym $mod+asterisk exec $terminal
 
 # The same for keyboards with the win key om the left
-bindsym XF86HomePage+Shift exec $terminal --class "full-alacritty"
+bindsym XF86HomePage+Shift exec $terminal --class "full-Alacritty"
 # start floating terminal
 bindsym XF86HomePage exec $terminal
 
@@ -390,8 +390,8 @@ for_window [class="matplotlib"] floating enable
 # -- feh
 for_window [class="feh"] floating enable
 # -- floating $terminal
-for_window [class="$terminal"] floating enable
-for_window [class="full-$terminal"] floating disable
+for_window [class="Alacritty"] floating enable
+for_window [class="full-Alacritty"] floating disable
 
 # auto start assign
 # assign [class="ncmpcpp-auto"] → $wse10
@@ -425,7 +425,7 @@ exec --no-startup-id numlockx
 # exec --no-startup-id autorandr --force --load lg-hdmi && autorandr -c
 # exec --no-startup-id '/usr/bin/setupmonitors & touch ~/touched'
 exec --no-startup-id $scripts/set-dpms.sh
-exec --no-startup-id $scripts/wallpapers 1200
+exec --no-startup-id $scripts/screen.sh 1200
 # bindsym $mod+Control+Shift+a exec --no-startup-id autorandr -c
 
 # slow timeout
