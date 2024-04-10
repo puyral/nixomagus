@@ -8,6 +8,7 @@
     ./alacritty.nix
     ./custom-packages.nix
     ./systemd-services/services.nix
+    ./i3/i3.nix
   ];
   nixpkgs.config = { allowUnfree = true; };
   home = {
@@ -37,6 +38,8 @@
       gimp-with-plugins
 
       cudaPackages.cudatoolkit
+
+      #      mattermost-desktop
 
       texliveFull
     ]) ++ (with pkgs-unstable; [
@@ -81,6 +84,7 @@
       cava
 
       blueberry
+      easyeffects
 
       steam
 
@@ -92,7 +96,6 @@
       # logseq
 
       discord
-      mattermost-desktop
       whatsapp-for-linux
       signal-desktop
 

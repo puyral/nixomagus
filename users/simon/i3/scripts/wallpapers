@@ -1,0 +1,6 @@
+#!/usr/bin/env -S nix shell nixpkgs#bash nixpkgs#feh --command bash
+while true
+do
+    feh --recursive --randomize --bg-fill /Volumes/Zeno/media/photos/wallpaper;
+    sleep $1
+done
