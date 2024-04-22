@@ -170,7 +170,8 @@
   # to not redownload everything with `r`
   nix.registry = {
     nixpkgs.flake = nixpkgs-unstable // { config.allowUnfree = true; };
-    unstable = {
+    stable.flake = nixpkgs // {config.allowUnfree = true;};
+    latest-unstable = {
       from = {
         type = "indirect";
         id = "unstable";
@@ -182,7 +183,7 @@
         ref = "nixpkgs-unstable";
       };
     };
-    current-stable = {
+    latest-stable = {
       from = {
         type = "indirect";
         id = "current-stable";

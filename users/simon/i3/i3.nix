@@ -11,6 +11,7 @@
 
     extraConfig = ''
       set $scripts ${./scripts}
+      exec --no-startup-id ${./scripts/screen.sh} 1200
     '' + (builtins.readFile ./config);
   };
 
@@ -25,5 +26,6 @@
     flameshot
     solaar
     unclutter
+    brightnessctl
   ]);
 }

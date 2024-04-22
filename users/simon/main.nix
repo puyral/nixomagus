@@ -103,6 +103,7 @@
       # alacritty # <- set up elsewhere
 
       ripgrep
+      killall
 
       cinnamon.nemo-with-extensions
     ]);

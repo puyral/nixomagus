@@ -12,7 +12,7 @@
 set $mod Mod4
 set $alt Mod1
 set $fn Mod2
-set $terminal alacritty -o font.size=9
+set $terminal alacritty -o font.size=8
 
 # scrpts
 # set $scripts ~/.config/i3/scripts
@@ -425,7 +425,7 @@ exec --no-startup-id numlockx
 # exec --no-startup-id autorandr --force --load lg-hdmi && autorandr -c
 # exec --no-startup-id '/usr/bin/setupmonitors & touch ~/touched'
 exec --no-startup-id $scripts/set-dpms.sh
-exec --no-startup-id $scripts/screen.sh 1200
+# exec --no-startup-id $scripts/screen.sh 1200
 # bindsym $mod+Control+Shift+a exec --no-startup-id autorandr -c
 
 # slow timeout
@@ -457,8 +457,8 @@ exec --no-startup-id unclutter
 # exec --no-startup-id $vol_full_up_mpd
 
 # start sage quickly
-bindsym $mod+c exec --no-startup-id $terminal -o initial_window_width=656 --command sh -c "sage"; mode "default"
-bindsym XF86Calculator exec --no-startup-id $terminal -o initial_window_width=656 --command sh -c "sage"; mode "default"
+bindsym $mod+c exec --no-startup-id $terminal -o initial_window_width=656 --command zsh -c "r sage"; mode "default"
+bindsym XF86Calculator exec --no-startup-id $terminal -o initial_window_width=656 --command zsh -c "r sage"; mode "default"
 
 # zoom popus
 for_window [title="^zoom$" class="[zoom]*"] floating enable
