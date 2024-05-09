@@ -93,7 +93,7 @@
       zoom-us
 
       jellyfin-media-player # see https://github.com/jellyfin/jellyfin-media-player/issues/165
-      # logseq
+      logseq
 
       discord
       whatsapp-for-linux

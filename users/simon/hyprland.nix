@@ -192,6 +192,7 @@ in {
         "__NV_PRIME_RENDER_OFFLOAD,1"
         "__VK_LAYER_NV_optimus,NVIDIA_only"
         "NVD_BACKEND,direct"
+        "NIXOS_OZONE_WL,1"
 
         # choose GPU
         "WLR_DRM_DEVICES,/dev/dri/card0:/dev/dri/card1"
