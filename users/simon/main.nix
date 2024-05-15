@@ -69,7 +69,8 @@
       emacs
 
       blender
-      # davinci-resolve
+      davinci-resolve
+      libsForQt5.kdenlive
       inkscape-with-extensions
       darktable
       # hugin # -> custom
