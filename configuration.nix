@@ -19,8 +19,8 @@
   programs.gnupg = {
     agent = {
       enable = true;
-      # pinentryPackage = pkgs.pinentry-qt;
-      pinentryFlavor = "gnome3";
+      pinentryPackage = pkgs.pinentry-gnome3;
+      # pinentryFlavor = "gnome3";
     };
   };
   # Use the systemd-boot EFI boot loader.
@@ -168,8 +168,8 @@
 
   # to not redownload everything with `r`
   nix.registry = {
-    nixpkgs.flake = nixpkgs-unstable // { config.allowUnfree = true; };
-    stable.flake = nixpkgs // {config.allowUnfree = true;};
+    # because of https://github.com/NixOS/nixpkgs/commit/e456032addae76701eb17e6c03fc515fd78ad74f I can't remap `nixpkgs` itself
+    gnixpkgs.flake = nixpkgs-unstable // { config.allowUnfree = true; };
     latest-unstable = {
       from = {
         type = "indirect";

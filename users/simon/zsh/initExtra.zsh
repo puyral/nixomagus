@@ -1,7 +1,7 @@
 s() {
   local pkgs=()
   for arg in "$@"; do
-    pkgs+="nixpkgs#$arg"
+    pkgs+="gnixpkgs#$arg"
   done
   nix shell ${pkgs[*]}
 }
@@ -9,5 +9,5 @@ s() {
 r() {
   local pkg=$1
   shift 1
-  nix run nixpkgs#$pkg -- $@
+  nix run gnixpkgs#$pkg -- $@
 }
