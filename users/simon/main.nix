@@ -11,6 +11,10 @@
     ./i3/i3.nix
   ];
   nixpkgs.config = { allowUnfree = true; };
+
+  xdg.mimeApps.defaultApplications = {
+    "x-scheme-handler/terminal" = [ "alacritty.desktop" "kitty.desktop" ];
+  };
   home = {
     # inherit (import ./hyprland.nix);
     # inherit (import ./wallpaper.nix);
@@ -32,12 +36,14 @@
 
       btop
       htop
-      nvtop
+      nvtopPackages.full
       intel-gpu-tools
 
       gimp-with-plugins
 
       cudaPackages.cudatoolkit
+
+      logseq
 
       #      mattermost-desktop
 
@@ -94,7 +100,6 @@
       zoom-us
 
       jellyfin-media-player # see https://github.com/jellyfin/jellyfin-media-player/issues/165
-      logseq
 
       discord
       whatsapp-for-linux
@@ -136,9 +141,7 @@
     #
     #  /etc/profiles/per-user/simon/etc/profile.d/hm-session-vars.sh
     #
-    sessionVariables = {
-      # EDITOR = "emacs";
-    };
+    sessionVariables = { EDITOR = "vim"; };
 
     # Let Home Manager install and manage itself.
     # programs.home-manager.enable = true;
