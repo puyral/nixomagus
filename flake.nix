@@ -4,7 +4,7 @@
   inputs = {
     nixpkgs.url = "nixpkgs/nixos-24.05";
     nixpkgs-unstable.url = "nixpkgs/nixos-unstable";
-    home-manager.url = "github:nix-community/home-manager/release-23.11";
+    home-manager.url = "github:nix-community/home-manager/release-24.05";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
     # nix-std.url = "github:chessai/nix-std"; # https://github.com/chessai/nix-std
 
@@ -53,7 +53,7 @@
         ];
       };
 
-      formatter.${system} = pkgs.nixfmt;
+      formatter.${system} = pkgs.nixfmt-rfc-style;
 
       devShells.${system}.default = pkgs.mkShell {
         buildInputs = (with pkgs-unstable; [ nil wev xorg.xev arandr ])
