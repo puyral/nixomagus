@@ -1,4 +1,11 @@
-{ config, pkgs, system, pkgs-unstable, custom, ... }@attrs:
+{
+  config,
+  pkgs,
+  system,
+  pkgs-unstable,
+  custom,
+  ...
+}@attrs:
 # let mhyprland = import ./hyprland.nix;
 # in
 {
@@ -10,10 +17,15 @@
     ./systemd-services/services.nix
     ./i3/i3.nix
   ];
-  nixpkgs.config = { allowUnfree = true; };
+  nixpkgs.config = {
+    allowUnfree = true;
+  };
 
   xdg.mimeApps.defaultApplications = {
-    "x-scheme-handler/terminal" = [ "alacritty.desktop" "kitty.desktop" ];
+    "x-scheme-handler/terminal" = [
+      "alacritty.desktop"
+      "kitty.desktop"
+    ];
   };
   home = {
     # inherit (import ./hyprland.nix);
@@ -26,93 +38,100 @@
 
     # The home.packages option allows you to install Nix packages into your
     # environment.
-    packages = [ ] ++ (with custom; [ clocktui hugin ]) ++ (with pkgs; [
+    packages =
+      [ ]
+      ++ (with custom; [
+        clocktui
+        hugin
+      ])
+      ++ (with pkgs; [
 
-      git
-      git-crypt
-      gh
-      gnupg
-      pinentry-qt
+        git
+        git-crypt
+        gh
+        gnupg
+        pinentry-qt
 
-      btop
-      htop
-      nvtopPackages.full
-      intel-gpu-tools
+        btop
+        htop
+        nvtopPackages.full
+        intel-gpu-tools
 
-      gimp-with-plugins
+        gimp-with-plugins
 
-      cudaPackages.cudatoolkit
+        cudaPackages.cudatoolkit
 
-      logseq
+        logseq
 
-      #      mattermost-desktop
+        #      mattermost-desktop
 
-      texliveFull
-    ]) ++ (with pkgs-unstable; [
-      # # Adds the 'hello' command to your environment. It prints a friendly
-      # # "Hello, world!" when run.
-      # pkgs.hello
+        texliveFull
+      ])
+      ++ (with pkgs-unstable; [
+        # # Adds the 'hello' command to your environment. It prints a friendly
+        # # "Hello, world!" when run.
+        # pkgs.hello
 
-      # # It is sometimes useful to fine-tune packages, for example, by applying
-      # # overrides. You can do that directly here, just don't forget the
-      # # parentheses. Maybe you want to install Nerd Fonts with a limited number of
-      # # fonts?
-      # (pkgs.nerdfonts.override { fonts = [ "FantasqueSansMono" ]; })
+        # # It is sometimes useful to fine-tune packages, for example, by applying
+        # # overrides. You can do that directly here, just don't forget the
+        # # parentheses. Maybe you want to install Nerd Fonts with a limited number of
+        # # fonts?
+        # (pkgs.nerdfonts.override { fonts = [ "FantasqueSansMono" ]; })
 
-      # # You can also create simple shell scripts directly inside your
-      # # configuration. For example, this adds a command 'my-hello' to your
-      # # environment:
-      # (pkgs.writeShellScriptBin "my-hello" ''
-      #   echo "Hello, ${config.home.username}!"
-      # '')
-      firefox
-      thunderbird
-      vscode
-      pavucontrol
+        # # You can also create simple shell scripts directly inside your
+        # # configuration. For example, this adds a command 'my-hello' to your
+        # # environment:
+        # (pkgs.writeShellScriptBin "my-hello" ''
+        #   echo "Hello, ${config.home.username}!"
+        # '')
+        firefox
+        thunderbird
+        vscode
+        pavucontrol
 
-      okular
+        okular
 
-      emacs
+        emacs
 
-      blender
-      davinci-resolve
-      libsForQt5.kdenlive
-      inkscape-with-extensions
-      darktable
-      # hugin # -> custom
-      rapid-photo-downloader
-      geeqie
-      feh
+        blender
+        davinci-resolve
+        libsForQt5.kdenlive
+        inkscape-with-extensions
+        darktable
+        # hugin # -> custom
+        rapid-photo-downloader
+        geeqie
+        feh
 
-      spotify
-      mpv
-      mpd
-      ncmpcpp
-      cava
+        spotify
+        mpv
+        mpd
+        ncmpcpp
+        cava
 
-      blueberry
-      easyeffects
+        blueberry
+        easyeffects
 
-      steam
+        steam
 
-      nil
+        nil
 
-      zoom-us
+        zoom-us
 
-      jellyfin-media-player # see https://github.com/jellyfin/jellyfin-media-player/issues/165
+        jellyfin-media-player # see https://github.com/jellyfin/jellyfin-media-player/issues/165
 
-      discord
-      whatsapp-for-linux
-      signal-desktop
+        discord
+        whatsapp-for-linux
+        signal-desktop
 
-      kitty
-      # alacritty # <- set up elsewhere
+        kitty
+        # alacritty # <- set up elsewhere
 
-      ripgrep
-      killall
+        ripgrep
+        killall
 
-      cinnamon.nemo-with-extensions
-    ]);
+        cinnamon.nemo-with-extensions
+      ]);
     # ++ (import ./custom-packages.nix) attrs;
 
     # Home Manager is pretty good at managing dotfiles. The primary way to manage
@@ -141,7 +160,9 @@
     #
     #  /etc/profiles/per-user/simon/etc/profile.d/hm-session-vars.sh
     #
-    sessionVariables = { EDITOR = "vim"; };
+    sessionVariables = {
+      EDITOR = "vim";
+    };
 
     # Let Home Manager install and manage itself.
     # programs.home-manager.enable = true;

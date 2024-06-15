@@ -4,13 +4,27 @@ rec {
     bright = bright;
   };
 
-  asList = colors:
-    let c = colors.colors;
-    in [ c.black c.red c.green c.yellow c.magenta c.cyan c.white ];
+  asList =
+    colors:
+    let
+      c = colors.colors;
+    in
+    [
+      c.black
+      c.red
+      c.green
+      c.yellow
+      c.magenta
+      c.cyan
+      c.white
+    ];
 
-  asIndexed = colors:
-    let main_colors = asList colors;
-    in (map (c: c.normal) main_colors) ++ (map (c: c.birght) main_colors);
+  asIndexed =
+    colors:
+    let
+      main_colors = asList colors;
+    in
+    (map (c: c.normal) main_colors) ++ (map (c: c.birght) main_colors);
 
   # ----- palletes -------
   mainPallette = {

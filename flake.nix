@@ -19,7 +19,15 @@
     };
   };
 
-  outputs = { self, nixpkgs, home-manager, kmonad, custom, nixpkgs-unstable, ...
+  outputs =
+    {
+      self,
+      nixpkgs,
+      home-manager,
+      kmonad,
+      custom,
+      nixpkgs-unstable,
+      ...
     }@attrs:
     let
       system = "x86_64-linux";
@@ -27,13 +35,18 @@
       # pkgs-unstable = (nixpkgs-unstable // {config.allowUnfree = true;}).legacyPackages.${system};
       pkgs-unstable = import nixpkgs-unstable {
         inherit system;
-        config = { allowUnfree = true; };
+        config = {
+          allowUnfree = true;
+        };
       }; # https://www.reddit.com/r/NixOS/comments/17p39u6/how_to_allow_unfree_packages_from_stable_and/
-    in {
+    in
+    {
       nixosConfigurations.nixomagus = nixpkgs.lib.nixosSystem {
         # system = system;
         inherit system;
-        specialArgs = attrs // { inherit pkgs-unstable; };
+        specialArgs = attrs // {
+          inherit pkgs-unstable;
+        };
         modules = [
           ./configuration.nix
           kmonad.nixosModules.default
@@ -56,8 +69,20 @@
       formatter.${system} = pkgs.nixfmt-rfc-style;
 
       devShells.${system}.default = pkgs.mkShell {
-        buildInputs = (with pkgs-unstable; [ nil wev xorg.xev arandr ])
-          ++ (with pkgs; [ vim git git-crypt gh gnupg ]);
+        buildInputs =
+          (with pkgs-unstable; [
+            nil
+            wev
+            xorg.xev
+            arandr
+          ])
+          ++ (with pkgs; [
+            vim
+            git
+            git-crypt
+            gh
+            gnupg
+          ]);
       };
     };
 }

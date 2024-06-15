@@ -1,4 +1,5 @@
-{ pkgs, ... }: {
+{ pkgs, ... }:
+{
   imports = [
     #  ../foreign-modules/kmonad/nix/nixos-module.nix 
   ];
@@ -22,5 +23,8 @@
     layout = "us";
   };
 
-  users.extraUsers.simon.extraGroups = [ "input" "uinput" ];
+  users.extraUsers.simon.extraGroups = [
+    "input"
+    "uinput"
+  ];
 }

@@ -2,7 +2,15 @@
 # your system. Help is available in the configuration.nix(5) man page, on
 # https://search.nixos.org/options and in the NixOS manual (`nixos-help`).
 
-{ config, lib, pkgs, pkgs-unstable, nixpkgs, nixpkgs-unstable, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  pkgs-unstable,
+  nixpkgs,
+  nixpkgs-unstable,
+  ...
+}:
 
 {
   imports = [
@@ -28,13 +36,15 @@
   boot.loader.efi.canTouchEfiVariables = true;
 
   nixpkgs.config.allowUnfree = true;
-  nix.settings.experimental-features = [ "nix-command" "flakes" ];
+  nix.settings.experimental-features = [
+    "nix-command"
+    "flakes"
+  ];
 
   networking.hostName = "nixomagus"; # Define your hostname.
   # Pick only one of the below networking options.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
-  networking.networkmanager.enable =
-    true; # Easiest to use and most distros use this by default.
+  networking.networkmanager.enable = true; # Easiest to use and most distros use this by default.
 
   # Set your time zone.
   time.timeZone = "Europe/Vienna";
@@ -88,12 +98,17 @@
   # home-manager.useGlobalPkgs = true; # use global pkgs
   # Define a user account. Don't forget to set a password with ‘passwd’.
 
-  users.groups.nix-config = { members = [ "root" ]; };
+  users.groups.nix-config = {
+    members = [ "root" ];
+  };
 
   users.users.simon = {
     isNormalUser = true;
-    extraGroups =
-      [ "wheel" "networkmanager" "nix-config" ]; # Enable ‘sudo’ for the user.
+    extraGroups = [
+      "wheel"
+      "networkmanager"
+      "nix-config"
+    ]; # Enable ‘sudo’ for the user.
     useDefaultShell = true;
   };
   users.defaultUserShell = pkgs.zsh;
@@ -112,7 +127,10 @@
   services.gvfs.enable = true;
   services.udisks2.enable = true;
 
-  fonts.packages = with pkgs; [ nerdfonts fira-code ];
+  fonts.packages = with pkgs; [
+    nerdfonts
+    fira-code
+  ];
 
   # wayland
   environment.sessionVariables = {
@@ -121,7 +139,6 @@
     # "__NV_PRIME_RENDER_OFFLOAD_PROVIDER" = "NVIDIA-G0";
     # "__GLX_VENDOR_LIBRARY_NAME" = "nvidia";
     # "__VK_LAYER_NV_optimus" = "NVIDIA_only";
-
   };
 
   # garbage collection
@@ -147,8 +164,7 @@
 
   # v4l2loopback
   # Make some extra kernel modules available to NixOS
-  boot.extraModulePackages = with config.boot.kernelPackages;
-    [ v4l2loopback.out ];
+  boot.extraModulePackages = with config.boot.kernelPackages; [ v4l2loopback.out ];
 
   # Activate kernel modules (choose from built-ins and extra ones)
   boot.kernelModules = [
@@ -169,7 +185,9 @@
   # to not redownload everything with `r`
   nix.registry = {
     # because of https://github.com/NixOS/nixpkgs/commit/e456032addae76701eb17e6c03fc515fd78ad74f I can't remap `nixpkgs` itself
-    gnixpkgs.flake = nixpkgs-unstable // { config.allowUnfree = true; };
+    gnixpkgs.flake = nixpkgs-unstable // {
+      config.allowUnfree = true;
+    };
     latest-unstable = {
       from = {
         type = "indirect";
@@ -235,6 +253,4 @@
   #
   # For more information, see `man configuration.nix` or https://nixos.org/manual/nixos/stable/options#opt-system.stateVersion .
   system.stateVersion = "23.11"; # Did you read the comment?
-
 }
-

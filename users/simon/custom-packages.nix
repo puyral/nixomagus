@@ -1,4 +1,5 @@
-{ custom, ... }: {
+{ custom, ... }:
+{
   home.packages = [
     # cloocktui
     # (builtins.getFlake

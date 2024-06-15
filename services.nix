@@ -1,5 +1,13 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 {
-  imports = [ ./syncthing.nix ./zerotierone.nix ];
+  imports = [
+    ./syncthing.nix
+    ./zerotierone.nix
+  ];
 }
