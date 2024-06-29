@@ -58,27 +58,39 @@ in
           "wpaperd"
         ];
 
-        monitor = map (builtins.concatStringsSep ",") [
-          [
-            "HDMI-A-2"
-            "3840x2160"
-            "1280x0"
-            "1"
-            "bitdepth"
-            "10"
-          ]
-          # [ "eDP-1" "1920x1080" "4352x700" "1.25" ]
-          [
-            "eDP-1"
-            "disable"
-          ]
-          [
-            "DP-2"
-            "1280x1024"
-            "0x0"
-            "1"
-          ]
-        ];
+        monitor = map (builtins.concatStringsSep ",") (
+          if config.is_docked then
+            [
+              [
+                "HDMI-A-2"
+                "3840x2160"
+                "1280x0"
+                "1"
+                "bitdepth"
+                "10"
+              ]
+              [
+                "eDP-1"
+                "disable"
+              ]
+              [
+                "DP-2"
+                "1280x1024"
+                "0x0"
+                "1"
+              ]
+            ]
+          else
+
+            [
+              [
+                "eDP-1"
+                "1920x1080"
+                "0x0"
+                "1"
+              ]
+            ]
+        );
 
         general = {
           resize_on_border = true;
