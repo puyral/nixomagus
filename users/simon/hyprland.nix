@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ mconfig, pkgs, ... }:
 let
   my-hyprland = pkgs.hyprland;
   launcher = pkgs.writeShellScriptBin "hypr" ''
@@ -59,7 +59,7 @@ in
         ];
 
         monitor = map (builtins.concatStringsSep ",") (
-          if config.is_docked then
+          if mconfig.is_docked then
             [
               [
                 "HDMI-A-2"

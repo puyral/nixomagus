@@ -78,9 +78,9 @@
     )
     // ({
       nixosConfigurations = builtins.mapAttrs (
-        name: config:
+        name: mconfig:
         let
-          system = config.system;
+          system = mconfig.system;
           pkgs = (mkpkgs system).pkgs;
           pkgs-unstable = (mkpkgs system).pkgs-unstable;
         in
@@ -100,7 +100,7 @@
               home-manager.extraSpecialArgs = {
                 # system = system;
                 custom = custom.packages.${system};
-                inherit system pkgs-unstable config;
+                inherit system pkgs-unstable mconfig;
               };
 
               # Optionally, use home-manager.extraSpecialArgs to pass
