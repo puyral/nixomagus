@@ -123,7 +123,15 @@
     tmux
   ];
 
-
+  # docker
+  virtualisation.docker = {
+    enable = true;
+    storageDriver = "btrfs";
+    rootless = {
+      enable = true;
+      setSocketVariable = true;
+    };
+  };
 
   # automount
   services.gvfs.enable = true;
