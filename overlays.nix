@@ -2,7 +2,7 @@
 # overlay.nix
 mconfig: {
   gottagofast =
-    self: super:
+    { pkgs, ... }:
 
     let
       # Retrieve the current CPU flags using `nixpkgs.localSystem` settings
@@ -11,16 +11,16 @@ mconfig: {
         "-O2"
         # Add more flags as necessary
       ];
-      customStdenv = super.pkgs.fastStdenv // {
-        inherit (super.pkgs.fastStdenv);
+      customStdenv = pkgs.fastStdenv // {
+        inherit (pkgs.fastStdenv);
         # Override the mkDerivation function to add CPU flags
         mkDerivation =
           with builtins;
           args:
-          super.pkgs.fastStdenv.mkDerivation (
+          pkgs.fastStdenv.mkDerivation (
             args
             // {
-              buildInputs = (args.buildInputs or [ ]) ++ [ super.pkgs.gcc ];
+              buildInputs = (args.buildInputs or [ ]) ++ [ pkgs.gcc ];
               CFLAGS = concatStringsSep " " (cpuFlags ++ [ (args.CFLAGS or "") ]);
               CXXFLAGS = concatStringsSep " " (cpuFlags ++ [ (args.CXXFLAGS or "") ]);
             }

@@ -3,6 +3,8 @@
   pkgs,
   system,
   pkgs-unstable,
+  overlays,
+  mconfig,
   custom,
   ...
 }@attrs:
@@ -39,11 +41,33 @@
     # The home.packages option allows you to install Nix packages into your
     # environment.
     packages =
-      [ ]
-      ++ (with custom; [
-        clocktui
+      let
+        enblend-enfuse =
+          pkgs.enblend-enfuse.override (overlays.gottagofast attrs);
+          
+          #  overrideAttrs (
+          #   final: previousAttrs: {
+          #     configureFlags = [
+          #       "--enable-openmp=yes"
+          #       "--enable-opencl=yes"
+          #     ];
+
+          #     buildInputs =
+          #       previousAttrs.buildInputs
+          #       ++ pkgs.lib.optionals pkgs.stdenv.isLinux [ pkgs.ocl-icd ]
+          #       ++ pkgs.lib.optionals pkgs.stdenv.cc.isClang pkgs.llmPacakges.openmp
+          #       ++ [ pkgs.opencl-headers ];
+          #     CFLAGS = (previousAttrs.CFLAGS or "") + " -march=${mconfig.cpu}";
+          #     CXXFLAGS = (previousAttrs.CXXFLAGS or "") + " -march=${mconfig.cpu}";
+          #   }
+          # );
+        hugin = pkgs.hugin.override { inherit enblend-enfuse; };
+      in
+      [
         hugin
-      ])
+        enblend-enfuse
+      ]
+      ++ (with custom; [ clocktui ])
       ++ (with pkgs; [
 
         git
@@ -56,6 +80,7 @@
         htop
         nvtopPackages.full
         intel-gpu-tools
+	docker
 
         gimp-with-plugins
 

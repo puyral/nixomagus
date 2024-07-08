@@ -80,16 +80,26 @@
       nixosConfigurations = builtins.mapAttrs (
         name: mconfig:
         let
+          overlays = (import ./overlays.nix) mconfig;
           system = mconfig.system;
           pkgs = (mkpkgs system).pkgs;
           pkgs-unstable = (mkpkgs system).pkgs-unstable;
+
+          extra-args = {
+            # system = system;
+            custom = custom.packages.${system};
+            inherit
+              system
+              pkgs-unstable
+              overlays
+              mconfig
+              ;
+          };
         in
         nixpkgs.lib.nixosSystem {
           # system = system;
           inherit system;
-          specialArgs = attrs // {
-            inherit pkgs-unstable;
-          };
+          specialArgs = attrs // extra-args;
           modules = [
             ./configuration.nix
             kmonad.nixosModules.default
@@ -97,11 +107,7 @@
             {
               home-manager.useGlobalPkgs = true;
               home-manager.users.simon = import ./users/simon/main.nix;
-              home-manager.extraSpecialArgs = {
-                # system = system;
-                custom = custom.packages.${system};
-                inherit system pkgs-unstable mconfig;
-              };
+              home-manager.extraSpecialArgs = extra-args;
 
               # Optionally, use home-manager.extraSpecialArgs to pass
               # arguments to home.nix

@@ -236,6 +236,18 @@ in
               exec
               "wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle"
             ]
+            [
+              (mod + shift)
+              "s"
+              exec
+              "sleep 1 && hyprctl dispatch dpms on"
+            ]
+            [
+              (mod + ctrl)
+              "s"
+              exec
+              "sleep 1 && hyprctl dispatch dpms off"
+            ]
           ]
           ++ (
             let
