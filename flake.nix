@@ -88,6 +88,7 @@
           extra-args = {
             # system = system;
             custom = custom.packages.${system};
+            computer_name = name;
             inherit
               system
               pkgs-unstable

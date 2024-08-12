@@ -9,8 +9,13 @@
   pkgs-unstable,
   nixpkgs,
   nixpkgs-unstable,
+  computer_name,
   ...
 }:
+# general modules that should be into nixos, in oppositions to modules that cleanly extend this config file
+let
+  extensions = [ ./extensions/isw.nix ];
+in
 
 {
   imports = [
@@ -22,7 +27,7 @@
     ./sound.nix
     ./bluetooth.nix
     ./kmonad/kmonad.nix
-  ];
+  ] ++ extensions;
 
   programs.gnupg = {
     agent = {
@@ -41,7 +46,7 @@
     "flakes"
   ];
 
-  networking.hostName = "nixomagus"; # Define your hostname.
+  networking.hostName = computer_name; # Define your hostname.
   # Pick only one of the below networking options.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
   networking.networkmanager.enable = true; # Easiest to use and most distros use this by default.
@@ -60,6 +65,8 @@
   #   keyMap = "us";
   #   useXkbConfig = true; # use xkb.options in tty.
   # };
+
+  services.isw.enable = computer_name == "nixomagus";
 
   # Enable the X11 windowing system.
   services.xserver.enable = true;
