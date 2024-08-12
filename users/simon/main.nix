@@ -91,6 +91,8 @@
         #      mattermost-desktop
 
         texliveFull
+
+        rapid-photo-downloader
       ])
       ++ (with pkgs-unstable; [
         # # Adds the 'hello' command to your environment. It prints a friendly
@@ -124,7 +126,6 @@
         inkscape-with-extensions
         darktable
         # hugin # -> custom
-        rapid-photo-downloader
         geeqie
         feh
 
