@@ -44,7 +44,7 @@ font pango:Hack 10
 # exec --no-startup-id start-pulseaudio-x11
 
 # compton
-exec --no-startup-id picom -G
+# exec --no-startup-id picom -G
 
 # thunar
 exec --no-startup-id thunar --daemon

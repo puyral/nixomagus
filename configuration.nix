@@ -117,6 +117,7 @@ in
       "nix-config"
     ]; # Enable ‘sudo’ for the user.
     useDefaultShell = true;
+    openssh.authorizedKeys.keys = import ./secrets/ssh_keys.nix;
   };
   users.defaultUserShell = pkgs.zsh;
 
@@ -177,7 +178,12 @@ in
   # List services that you want to enable:
 
   # Enable the OpenSSH daemon.
-  services.openssh.enable = true;
+  services.openssh = {
+    enable = true;
+    settings = {
+      X11Forwarding = true;
+    };
+  };
 
   # v4l2loopback
   # Make some extra kernel modules available to NixOS

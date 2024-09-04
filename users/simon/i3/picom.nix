@@ -4,7 +4,7 @@
     enable = true;
     backend = "glx";
     settings = {
-      vsync = true;
+      vsync = false;
       #use-damage = true;
       ### Shadow
       shadow = true;

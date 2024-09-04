@@ -85,7 +85,7 @@
 
         cudaPackages.cudatoolkit
 
-        logseq
+        #logseq
 
         #      mattermost-desktop
 
@@ -155,7 +155,7 @@
         ripgrep
         killall
 
-        cinnamon.nemo-with-extensions
+        nemo-with-extensions
       ]);
     # ++ (import ./custom-packages.nix) attrs;
 
