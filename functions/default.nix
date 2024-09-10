@@ -6,11 +6,8 @@ attrs@{
   ...
 }:
 rec {
-  # mkHomes= with builtins; computers: merge (mapAttrs (name: value: merge (map (user: mkHome {computer = ({inherit name;} // value); inherit user;} ) value.users)) computers);
-  # mkSystems = with builtins; computers: merge (mapAttrs (name: value: mkSystem ({inherit name;} // value)) (filter (c: c.nixos) copmuters)); 
-
   mkHomes =
-    computers:
+    { computers, ... }:
     builtins.mapAttrs (
       name: value:
       let
@@ -25,42 +22,51 @@ rec {
       builtins.listToAttrs homes
     ) computers;
 
-  mkSystems = computers: builtins.mapAttrs (name: value: mkSystem ({ inherit name; } // value));
+  mkSystems =
+    { computers, ... }:
+    let
+      nixosComputers =
+        with builtins;
+        let
+          names = attrNames computers;
+          nixosNames = filter (name: computers.${name}.nixos) names;
+          list = map (name: {
+            inherit name;
+            value = computers.${name};
+          }) nixosNames;
+        in
+        listToAttrs list;
+    in
+    builtins.mapAttrs (
+      name: value:
+      mkSystem ({
+        computer = {
+          inherit name;
+        } // value;
+      })
+    ) nixosComputers;
 
   mkHome =
     inputs@{ computer, user }:
     home-manager.lib.homeManagerConfiguration {
-      # system = computer.system;
-      # homeDirectory = defaultHome user; 
-      # username = user.name; 
-      # configuration.imports = [ ./home.nix ];
       pkgs = (mkpkgs computer).pkgs;
-      modules = mkHomeModules inputs;
       extraSpecialArgs = mkExtraArgs inputs;
     };
-
-  mkHomeModules =
-    { computer, user }:
-    [
-      (../users + "/${user.name}/home.nix")
-      (../users + "${user.name}/${computer.name}.nix")
-    ];
 
   mkSystem =
     inputs@{ computer, ... }:
     let
-      homes = home-manager.nixosModules.home-manager {
+      usersAndModules = builtins.map (user: {
+        name = user.name;
+        value = (import ../home_manager.nix) user;
+      }) computer.users;
+      homes = {
         home-manager = {
           useGlobalPkgs = true;
-          extraSpecialArgs = mkExtraArgs inputs;
-          users = builtins.listToAttrs (
-            builtins.map (user: {
-              name = user.name;
-              value = asModules (mkHomeModules {
-                inherit computer user;
-              });
-            }) computer.users
-          );
+          extraSpecialArgs = mkExtraArgs inputs // {
+            inherit computer;
+          };
+          users = builtins.listToAttrs usersAndModules;
         };
       };
 
@@ -69,8 +75,9 @@ rec {
       specialArgs = attrs // mkExtraArgs inputs;
       system = computer.system;
       modules = [
-        ./commun.nix
-        (./. + "/${computer.name}")
+        ../commun.nix
+        (../configuration + "/${computer.name}")
+        home-manager.nixosModules.home-manager
         homes
       ];
     };
@@ -88,7 +95,7 @@ rec {
   mkExtraArgs =
     { computer, ... }:
     let
-      overlays = (import ./overlays.nix) computer;
+      overlays = (import ../overlays) computer;
       system = computer.system;
       pkgs = (mkpkgs computer.system).pkgs;
       pkgs-unstable = (mkpkgs computer.system).pkgs-unstable;
@@ -98,10 +105,11 @@ rec {
       custom = custom.packages.${computer.system};
       computer_name = computer.name;
       mconfig = computer;
+      # functions = {inherit mkHomeModules;};
       inherit system pkgs-unstable overlays;
     };
 
-  asModules = inputs: modules: merge (builtins.map (m: m inputs) modules);
+  asModules = modules: inputs: merge (builtins.map (m: (import m) inputs) modules);
 
   merge = builtins.foldl' (acc: elem: acc // elem) { };
 }
