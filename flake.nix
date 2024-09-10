@@ -49,19 +49,24 @@
         devShells.default = pkgs.mkShell {
           name = "config";
           buildInputs =
-            (with pkgs-unstable; [
-              nil
-              wev
-              xorg.xev
-              arandr
-            ])
+            (with pkgs-unstable; [ nil ])
             ++ (with pkgs; [
               vim
               git
               git-crypt
               gh
               gnupg
-            ]);
+            ])
+            ++ (
+              if pkgs.stdenv.isDarwin then
+                [ ]
+              else
+                (with pkgs-unstable; [
+                  wev
+                  xorg.xev
+                  arandr
+                ])
+            );
         };
       }
     )
