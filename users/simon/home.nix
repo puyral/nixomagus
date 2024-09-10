@@ -43,23 +43,6 @@
     packages =
       let
         enblend-enfuse = pkgs.enblend-enfuse.override (overlays.gottagofast attrs);
-
-        #  overrideAttrs (
-        #   final: previousAttrs: {
-        #     configureFlags = [
-        #       "--enable-openmp=yes"
-        #       "--enable-opencl=yes"
-        #     ];
-
-        #     buildInputs =
-        #       previousAttrs.buildInputs
-        #       ++ pkgs.lib.optionals pkgs.stdenv.isLinux [ pkgs.ocl-icd ]
-        #       ++ pkgs.lib.optionals pkgs.stdenv.cc.isClang pkgs.llmPacakges.openmp
-        #       ++ [ pkgs.opencl-headers ];
-        #     CFLAGS = (previousAttrs.CFLAGS or "") + " -march=${mconfig.cpu}";
-        #     CXXFLAGS = (previousAttrs.CXXFLAGS or "") + " -march=${mconfig.cpu}";
-        #   }
-        # );
         hugin = pkgs.hugin.override { inherit enblend-enfuse; };
       in
       [

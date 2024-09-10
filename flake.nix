@@ -34,24 +34,13 @@
       ...
     }@attrs:
     let
-      mkpkgs = system: {
-
-        pkgs = nixpkgs.legacyPackages.${system};
-        # pkgs-unstable = (nixpkgs-unstable // {config.allowUnfree = true;}).legacyPackages.${system};
-        pkgs-unstable = import nixpkgs-unstable {
-          inherit system;
-          config = {
-            allowUnfree = true;
-          };
-        }; # https://www.reddit.com/r/NixOS/comments/17p39u6/how_to_allow_unfree_packages_from_stable_and/
-      };
+      functions = (import ./functions) attrs;
     in
-
     flake-utils.lib.eachDefaultSystem (
       system:
       let
-        pkgs = (mkpkgs system).pkgs;
-        pkgs-unstable = (mkpkgs system).pkgs-unstable;
+        pkgs = (functions.mkpkgs system).pkgs;
+        pkgs-unstable = (functions.mkpkgs system).pkgs-unstable;
       in
       {
 
@@ -76,47 +65,59 @@
         };
       }
     )
-    // ({
-      nixosConfigurations = builtins.mapAttrs (
-        name: mconfig:
+    //
+      # ( {
+      #   nixosConfigurations = builtins.mapAttrs (
+      #     name: mconfig:
+      #     let
+      #       overlays = (import ./overlays.nix) mconfig;
+      #       system = mconfig.system;
+      #       pkgs = (mkpkgs system).pkgs;
+      #       pkgs-unstable = (mkpkgs system).pkgs-unstable;
+
+      #       extra-args = {
+      #         # system = system;
+      #         custom = custom.packages.${system};
+      #         computer_name = name;
+      #         inherit
+      #           system
+      #           pkgs-unstable
+      #           overlays
+      #           mconfig
+      #           ;
+      #       };
+      #     in
+      #     nixpkgs.lib.nixosSystem {
+      #       # system = system;
+      #       inherit system;
+      #       specialArgs = attrs // extra-args;
+      #       modules = [
+      #         ./configuration.nix
+      #         kmonad.nixosModules.default
+      #         home-manager.nixosModules.home-manager
+      #         {
+      #           home-manager.useGlobalPkgs = true;
+      #           home-manager.users.simon = import ./users/simon/main.nix;
+      #           home-manager.extraSpecialArgs = extra-args;
+
+      #           # Optionally, use home-manager.extraSpecialArgs to pass
+      #           # arguments to home.nix
+      #         }
+      #       ];
+      #     }
+      #   ) (import ./computers.nix);
+      # })
+      (
         let
-          overlays = (import ./overlays.nix) mconfig;
-          system = mconfig.system;
-          pkgs = (mkpkgs system).pkgs;
-          pkgs-unstable = (mkpkgs system).pkgs-unstable;
-
-          extra-args = {
-            # system = system;
-            custom = custom.packages.${system};
-            computer_name = name;
-            inherit
-              system
-              pkgs-unstable
-              overlays
-              mconfig
-              ;
-          };
+          computers = (import ./computers.nix);
         in
-        nixpkgs.lib.nixosSystem {
-          # system = system;
-          inherit system;
-          specialArgs = attrs // extra-args;
-          modules = [
-            ./configuration.nix
-            kmonad.nixosModules.default
-            home-manager.nixosModules.home-manager
-            {
-              home-manager.useGlobalPkgs = true;
-              home-manager.users.simon = import ./users/simon/main.nix;
-              home-manager.extraSpecialArgs = extra-args;
-
-              # Optionally, use home-manager.extraSpecialArgs to pass
-              # arguments to home.nix
-            }
-          ];
+        with functions;
+        {
+          homeConfigurations = mkHomes computers;
+          nixosConfigurations = mkSystems computers;
         }
-      ) (import ./computers.nix);
-    })
+      )
+  # (mkHomes computers) // (mkSystem computers))
 
   ;
 }

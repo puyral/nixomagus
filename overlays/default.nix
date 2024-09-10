@@ -1,13 +1,13 @@
 # https://chatgpt.com/c/a206d21e-450c-437e-b13f-e5463925f13f
 # overlay.nix
-mconfig: {
+computer: {
   gottagofast =
     { pkgs, ... }:
 
     let
       # Retrieve the current CPU flags using `nixpkgs.localSystem` settings
       cpuFlags = [
-        "-march=${mconfig.cpu}" # Example: you can customize this based on your actual CPU flags
+        "-march=${computer.cpu}" # Example: you can customize this based on your actual CPU flags
         "-O2"
         # Add more flags as necessary
       ];

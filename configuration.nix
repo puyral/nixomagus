@@ -15,8 +15,8 @@
 # general modules that should be into nixos, in oppositions to modules that cleanly extend this config file
 let
   extensions = [ ./extensions/isw.nix ];
-in
 
+in
 {
   imports = [
     # Include the results of the hardware scan.
