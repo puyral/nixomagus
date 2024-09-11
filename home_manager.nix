@@ -6,7 +6,7 @@ user:
     (./users + "/${user.name}/${computer.name}.nix")
   ];
 
-  nix.registry = (import ./registery.nix) attrs;
+  nix.registry = (import ./registeries.nix) attrs;
 
   # better caching
   nix.settings.substituters = [
