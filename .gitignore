@@ -2,5 +2,6 @@
 .git-crypt.key
 result
 SteamLibrary
+syncthing
 .direnv
 **/*.swp

@@ -92,4 +92,7 @@
   # tmp
   boot.tmp.useTmpfs = true;
   boot.tmp.tmpfsSize = "70%";
+  services.btrfs = {
+    autoScrub.enable = true;
+  };
 }
