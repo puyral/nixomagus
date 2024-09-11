@@ -49,7 +49,7 @@ rec {
   mkHome =
     inputs@{ computer, user }:
     home-manager.lib.homeManagerConfiguration {
-      pkgs = (mkpkgs computer).pkgs;
+      pkgs = (mkpkgs computer.system).pkgs;
       extraSpecialArgs = mkExtraArgs inputs;
     };
 
