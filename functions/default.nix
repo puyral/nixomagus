@@ -23,13 +23,15 @@ rec {
     # ) computers;
     let
       names = builtins.attrNames computers;
-      as_list = builtins.concatLists (builtins.map (name: to_user_list computers.${name}) names);
+      as_list = builtins.concatLists (builtins.map (name: to_user_list name computers.${name}) names);
       to_user_list =
+        name:
         computer:
         builtins.map (user: {
           name = "${user.name}@${computer.name}";
           value = {
-            inherit user computer;
+            inherit user ;
+            computer = computer // {inherit name;};
           };
         }) computer.users;
       to_home =
