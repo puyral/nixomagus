@@ -26,14 +26,14 @@ rec {
       as_list = builtins.concatLists (builtins.map (name: to_user_list name computers.${name}) names);
       to_user_list =
         name:
-        computer:
+        c:
         builtins.map (user: {
           name = "${user.name}@${name}";
           value = {
             inherit user ;
-            computer = computer // {inherit name;};
+            computer = c // {inherit name;};
           };
-        }) computer.users;
+        }) c.users;
       to_home =
         { name, value }:
         {
