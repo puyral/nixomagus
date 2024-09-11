@@ -28,7 +28,7 @@ rec {
         name:
         computer:
         builtins.map (user: {
-          name = "${user.name}@${computer.name}";
+          name = "${user.name}@${name}";
           value = {
             inherit user ;
             computer = computer // {inherit name;};
