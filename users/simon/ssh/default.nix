@@ -11,6 +11,9 @@
       dynas = {
         hostname = "dynas.puyral.fr";
       };
+      vampire = {
+        hostname = "10.250.2.101";
+      };
     };
   };
 }
