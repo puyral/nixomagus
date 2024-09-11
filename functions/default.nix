@@ -49,6 +49,7 @@ rec {
   mkHome =
     inputs@{ computer, user }:
     home-manager.lib.homeManagerConfiguration {
+      modules = [../home_manager.nix];
       pkgs = (mkpkgs computer.system).pkgs;
       extraSpecialArgs = mkExtraArgs inputs;
     };
