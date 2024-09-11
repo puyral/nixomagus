@@ -117,7 +117,7 @@ in
       "nix-config"
     ]; # Enable ‘sudo’ for the user.
     useDefaultShell = true;
-    openssh.authorizedKeys.keys = import ./secrets/ssh_keys.nix;
+    # openssh.authorizedKeys.keys = import ./secrets/ssh_keys.nix;
   };
   users.defaultUserShell = pkgs.zsh;
 

@@ -11,7 +11,9 @@
 # let mhyprland = import ./hyprland.nix;
 # in
 {
-  imports = [ ./shell.nix ];
+  imports = [ ./shell.nix 
+      ./ssh
+  ];
   nixpkgs.config = {
     allowUnfree = true;
   };
