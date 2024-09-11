@@ -125,7 +125,6 @@ rec {
     in
     attrs
     // {
-
       custom = custom.packages.${computer.system};
       computer_name = computer.name;
       mconfig = computer;

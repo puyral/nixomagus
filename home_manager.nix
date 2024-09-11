@@ -1,5 +1,6 @@
  user:
-{ computer, ... }@attrs:
+{ mconfig, ... }@attrs:
+let computer = mconfig; in
 {
   imports = [
     (import (./users + "/${user.name}/home.nix"))
