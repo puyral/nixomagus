@@ -167,6 +167,18 @@ in
     options = "--delete-older-than 15d";
   };
 
+
+    nix.distributedBuilds = true;
+  nix.buildMachines = [{
+    hostName = "vampire";
+    system = "x86_64-linux";
+    supportedFeatures = [ "nixos-test" "benchmark" "big-parallel" "kvm" ];
+    maxJobs = 4;
+  }];
+  nix.extraOptions = ''
+    builders-use-substitutes = true
+  '';
+
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
   # programs.mtr.enable = true;

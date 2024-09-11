@@ -55,6 +55,8 @@
         #      mattermost-desktop
 
         rapid-photo-downloader
+
+        youtube-music
       ])
       ++ (with pkgs-unstable; [
         # # Adds the 'hello' command to your environment. It prints a friendly

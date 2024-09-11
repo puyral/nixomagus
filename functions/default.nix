@@ -74,7 +74,10 @@ rec {
     home-manager.lib.homeManagerConfiguration {
       modules = [ ((import ../home_manager.nix) user) ];
       pkgs = (mkpkgs computer.system).pkgs;
-      extraSpecialArgs = mkExtraArgs inputs;
+      extraSpecialArgs = (mkExtraArgs inputs) // {
+            inherit computer;
+            is_nixos = false;
+          };
     };
 
   mkSystem =
@@ -87,8 +90,9 @@ rec {
       homes = {
         home-manager = {
           useGlobalPkgs = true;
-          extraSpecialArgs = mkExtraArgs inputs // {
+          extraSpecialArgs = (mkExtraArgs inputs) // {
             inherit computer;
+            is_nixos = true;
           };
           users = builtins.listToAttrs usersAndModules;
         };
