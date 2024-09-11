@@ -8,19 +8,39 @@ attrs@{
 rec {
   mkHomes =
     { computers, ... }:
-    builtins.mapAttrs (
-      name: value:
-      let
-        computer = {
-          inherit name;
-        } // value;
-        homes = builtins.map (user: {
-          name = user.name;
-          value = mkHome { inherit computer user; };
+    # builtins.mapAttrs (
+    #   name: value:
+    #   let
+    #     computer = {
+    #       inherit name;
+    #     } // value;
+    #     homes = builtins.map (user: {
+    #       name = user.name;
+    #       value = mkHome { inherit computer user; };
+    #     }) computer.users;
+    #   in
+    #   builtins.listToAttrs homes
+    # ) computers;
+    let
+      names = builtins.attrNames computers;
+      as_list = builtins.concatLists (builtins.map (name: to_user_list computers.${name}) names);
+      to_user_list =
+        computer:
+        builtins.map (user: {
+          name = "${user.name}@${computer.name}";
+          value = {
+            inherit user computer;
+          };
         }) computer.users;
-      in
-      builtins.listToAttrs homes
-    ) computers;
+      to_home =
+        { name, value }:
+        {
+          inherit name;
+          value = mkHome value;
+        };
+      as_list_home = builtins.map to_home as_list;
+    in
+    (builtins.listToAttrs as_list_home);
 
   mkSystems =
     { computers, ... }:
@@ -49,7 +69,7 @@ rec {
   mkHome =
     inputs@{ computer, user }:
     home-manager.lib.homeManagerConfiguration {
-      modules = [../home_manager.nix];
+      modules = [ ../home_manager.nix ];
       pkgs = (mkpkgs computer.system).pkgs;
       extraSpecialArgs = mkExtraArgs inputs;
     };
@@ -101,7 +121,8 @@ rec {
       pkgs = (mkpkgs computer.system).pkgs;
       pkgs-unstable = (mkpkgs computer.system).pkgs-unstable;
     in
-    attrs // {
+    attrs
+    // {
 
       custom = custom.packages.${computer.system};
       computer_name = computer.name;
