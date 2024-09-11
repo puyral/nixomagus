@@ -4,9 +4,10 @@ user:
   imports = [
     (./users + "/${user.name}/home.nix")
     (./users + "/${user.name}/${computer.name}.nix")
+    ./registeries.nix
   ];
 
-  nix.registry = (import ./registeries.nix) attrs;
+  # nix.registry = (import ./registeries.nix) attrs;
 
   # better caching
   nix.settings.substituters = [

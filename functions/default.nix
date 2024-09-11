@@ -100,7 +100,7 @@ rec {
       pkgs = (mkpkgs computer.system).pkgs;
       pkgs-unstable = (mkpkgs computer.system).pkgs-unstable;
     in
-    {
+    attrs // {
 
       custom = custom.packages.${computer.system};
       computer_name = computer.name;
