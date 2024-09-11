@@ -1,4 +1,4 @@
-user:
+ user:
 { computer, ... }@attrs:
 {
   imports = [

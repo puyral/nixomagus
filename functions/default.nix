@@ -71,7 +71,7 @@ rec {
   mkHome =
     inputs@{ computer, user }:
     home-manager.lib.homeManagerConfiguration {
-      modules = [ ../home_manager.nix ];
+      modules = [ ((import ../home_manager.nix) user) ];
       pkgs = (mkpkgs computer.system).pkgs;
       extraSpecialArgs = mkExtraArgs inputs;
     };
