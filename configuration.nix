@@ -11,7 +11,7 @@
   nixpkgs-unstable,
   computer_name,
   ...
-}:
+}@attrs:
 # general modules that should be into nixos, in oppositions to modules that cleanly extend this config file
 let
   extensions = [ ./extensions/isw.nix ];
@@ -206,46 +206,37 @@ in
   '';
 
   # to not redownload everything with `r`
-  nix.registry = {
-    # because of https://github.com/NixOS/nixpkgs/commit/e456032addae76701eb17e6c03fc515fd78ad74f I can't remap `nixpkgs` itself
-    gnixpkgs.flake = nixpkgs-unstable // {
-      config.allowUnfree = true;
-    };
-    latest-unstable = {
-      from = {
-        type = "indirect";
-        id = "unstable";
-      };
-      to = {
-        type = "github";
-        owner = "NixOS";
-        repo = "nixpkgs";
-        ref = "nixpkgs-unstable";
-      };
-    };
-    latest-stable = {
-      from = {
-        type = "indirect";
-        id = "current-stable";
-      };
-      to = {
-        type = "github";
-        owner = "NixOS";
-        repo = "nixpkgs";
-        ref = "nixos-23.11";
-      };
-    };
-  };
-
-  # better caching
-  nix.settings.substituters = [
-    "https://aseipp-nix-cache.global.ssl.fastly.net"
-    "https://cache.nixos.org/"
-    "https://nix-community.cachix.org"
-  ];
-  nix.settings.trusted-public-keys = [
-    "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
-  ];
+  # nix.registry = {
+  #   # because of https://github.com/NixOS/nixpkgs/commit/e456032addae76701eb17e6c03fc515fd78ad74f I can't remap `nixpkgs` itself
+  #   gnixpkgs.flake = nixpkgs-unstable // {
+  #     config.allowUnfree = true;
+  #   };
+  #   latest-unstable = {
+  #     from = {
+  #       type = "indirect";
+  #       id = "unstable";
+  #     };
+  #     to = {
+  #       type = "github";
+  #       owner = "NixOS";
+  #       repo = "nixpkgs";
+  #       ref = "nixpkgs-unstable";
+  #     };
+  #   };
+  #   latest-stable = {
+  #     from = {
+  #       type = "indirect";
+  #       id = "current-stable";
+  #     };
+  #     to = {
+  #       type = "github";
+  #       owner = "NixOS";
+  #       repo = "nixpkgs";
+  #       ref = "nixos-23.11";
+  #     };
+  #   };
+  # };
+  # nix.registry = (import ./registery.nix) attrs;
 
   # Open ports in the firewall.
   # networking.firewall.allowedTCPPorts = [ ... ];
