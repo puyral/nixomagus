@@ -1,8 +1,9 @@
 { is_nixos, ... }:
-  let
-    preprare_key = key: if is_nixos then key else "command=\". ~/.profile; if [ -n \\\"$SSH_ORIGINAL_COMMAND\\\" ]; then eval \\\"$SSH_ORIGINAL_COMMAND\\\"; else exec \\\"$SHELL\\\"; fi\" ${key}";
+let
+  # preprare_key = key: if is_nixos then key else "command=\". ~/.profile; if [ -n \\\"$SSH_ORIGINAL_COMMAND\\\" ]; then eval \\\"$SSH_ORIGINAL_COMMAND\\\"; else exec \\\"$SHELL\\\"; fi\" ${key}";
+  preprare_key = key: key;
 
-   in
+in
 
 {
   home.file.".ssh/authorized_keys_source" = {
@@ -18,6 +19,10 @@
       };
       vampire = {
         hostname = "10.250.2.101";
+      };
+      "vampire-root" = {
+        hostname = "10.250.2.101";
+        user = "root";
       };
     };
   };

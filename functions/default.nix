@@ -75,9 +75,9 @@ rec {
       modules = [ ((import ../home_manager.nix) user) ];
       pkgs = (mkpkgs computer.system).pkgs;
       extraSpecialArgs = (mkExtraArgs inputs) // {
-            inherit computer;
-            is_nixos = false;
-          };
+        inherit computer;
+        is_nixos = false;
+      };
     };
 
   mkSystem =
