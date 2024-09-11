@@ -2,8 +2,8 @@ user:
 { computer, ... }@attrs:
 {
   imports = [
-    (./users + "/${user.name}/home.nix")
-    (./users + "/${user.name}/${computer.name}.nix")
+    (import (./users + "/${user.name}/home.nix"))
+    (import (./users + "/${user.name}/${computer.name}.nix"))
     ./registeries.nix
   ];
 
