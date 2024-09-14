@@ -1,4 +1,4 @@
-{ kmonad, pkgs,... }:
+{ kmonad, pkgs, ... }:
 {
 
   imports = [
@@ -8,10 +8,9 @@
     kmonad.nixosModules.default
   ];
 
-
   services.isw.enable = true;
 
- # v4l2loopback
+  # v4l2loopback
   # Make some extra kernel modules available to NixOS
   boot.extraModulePackages = with config.boot.kernelPackages; [ v4l2loopback.out ];
 
@@ -32,6 +31,5 @@
   '';
 
   programs.gnupg.agent.pinentryPackage = pkgs.pinentry-gnome3;
-
 
 }

@@ -15,15 +15,13 @@
 }@attrs:
 # general modules that should be into nixos, in oppositions to modules that cleanly extend this config file
 
-
-in
 {
   imports = [
     # Include the results of the hardware scan.
     ./services.nix
     ./sound.nix
     ./bluetooth.nix
-  ] ++ (if computer.headless then [] else [./gui.nix]);
+  ] ++ (if computer.headless then [ ] else [ ./gui.nix ]);
 
   programs.gnupg = {
     agent = {
@@ -61,7 +59,6 @@ in
   #   keyMap = "us";
   #   useXkbConfig = true; # use xkb.options in tty.
   # };
-
 
   programs.zsh.enable = true;
 
@@ -179,8 +176,6 @@ in
       X11Forwarding = true;
     };
   };
-
- 
 
   # to not redownload everything with `r`
   # nix.registry = {

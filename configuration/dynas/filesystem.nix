@@ -1,9 +1,13 @@
-{...}:{fileSystems = {
+{ ... }:
+{
+  fileSystems = {
     "/containers" = {
       device = "/dev/disk/by-label/NIXROOT";
-          fsType = "btrfs";
+      fsType = "btrfs";
       options = [
         "subvol=containers"
         "compress=zstd"
       ];
-    };};}
+    };
+  };
+}
