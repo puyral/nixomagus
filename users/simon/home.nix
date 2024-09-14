@@ -36,9 +36,9 @@
         git-crypt
         gh
         gnupg
+	vim
 
         docker
-        texliveFull
       ])
       ++ (with pkgs-unstable; [
         nil
