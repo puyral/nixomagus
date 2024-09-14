@@ -57,7 +57,7 @@
     };
   };
 
-  swapDevices = [ { device = "/swap/swapfile"; } ];
+  # swapDevices = [ { device = "/swap/swapfile"; } ];
   boot.supportedFilesystems = [ "ntfs" ];
   # see https://discourse.nixos.org/t/nixos-install-with-custom-flake-results-in-boot-being-world-accessible/34555/3
 
