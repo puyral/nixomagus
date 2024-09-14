@@ -1,10 +1,8 @@
 { computer, ... }:
-let
-  extensions = [ ../extensions/isw ];
-in
+
 {
   imports = [
-    ./configuraton.nix
+    ./configuration.nix
     ./filesystem.nix
-  ] ++ extensions;
+  ];
 }

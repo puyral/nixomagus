@@ -1,14 +1,21 @@
-{ kmonad, pkgs, ... }:
+{
+  kmonad,
+  pkgs,
+  config,
+  ...
+}:
 {
 
   imports = [
     ./kmonad/kmonad.nix
     ./nvidia.nix
     ./hardware-configuration.nix
+    ./sound.nix
+    ./bluetooth.nix
     kmonad.nixosModules.default
   ];
 
-  services.isw.enable = true;
+  # services.isw.enable = true;
 
   # v4l2loopback
   # Make some extra kernel modules available to NixOS

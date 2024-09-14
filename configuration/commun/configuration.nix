@@ -18,10 +18,8 @@
 {
   imports = [
     # Include the results of the hardware scan.
-    ./services.nix
-    ./sound.nix
-    ./bluetooth.nix
-  ] ++ (if computer.headless then [ ] else [ ./gui.nix ]);
+    # ./services.nix
+  ] ++ (if computer_name == "nixomagus" then [ ] else [ ./gui.nix ]);
 
   programs.gnupg = {
     agent = {

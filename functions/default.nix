@@ -103,8 +103,9 @@ rec {
       specialArgs = attrs // mkExtraArgs inputs;
       system = computer.system;
       modules = [
-        ../commun.nix
-        (../configuration + "/${computer.name}")
+        # ../extensions/isw
+        ../configuration/commun
+        # (../configuration + "/${computer.name}")
         home-manager.nixosModules.home-manager
         homes
       ];
