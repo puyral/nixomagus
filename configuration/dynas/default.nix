@@ -1,4 +1,4 @@
 { ... }:
 {
-  imports = [ ./filesystem.nix ];
+  imports = [ ./filesystem.nix ./hardware-config.nix];
 }
