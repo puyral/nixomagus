@@ -10,29 +10,25 @@
   nixpkgs,
   nixpkgs-unstable,
   computer_name,
+  computer,
   ...
 }@attrs:
 # general modules that should be into nixos, in oppositions to modules that cleanly extend this config file
-let
-  extensions = [ ./extensions/isw.nix ];
+
 
 in
 {
   imports = [
     # Include the results of the hardware scan.
-    ./hardware-configuration.nix
-    ./filesystem.nix
-    ./nvidia.nix
     ./services.nix
     ./sound.nix
     ./bluetooth.nix
-    ./kmonad/kmonad.nix
-  ] ++ extensions;
+  ] ++ (if computer.headless then [] else [./gui.nix]);
 
   programs.gnupg = {
     agent = {
       enable = true;
-      pinentryPackage = pkgs.pinentry-gnome3;
+      # pinentryPackage = pkgs.pinentry-gnome3;
       # pinentryFlavor = "gnome3";
     };
   };
@@ -66,25 +62,6 @@ in
   #   useXkbConfig = true; # use xkb.options in tty.
   # };
 
-  services.isw.enable = computer_name == "nixomagus";
-
-  # Enable the X11 windowing system.
-  services.xserver.enable = true;
-
-  # Enable the GNOME Desktop Environment.
-  services.xserver.displayManager.gdm.enable = true;
-  services.xserver.desktopManager.gnome.enable = true;
-
-  services.xserver.windowManager.i3 = {
-    package = pkgs.i3-gaps;
-    enable = true;
-  };
-
-  # enable hyprland
-  programs.hyprland = {
-    enable = true;
-    package = pkgs-unstable.hyprland;
-  };
 
   programs.zsh.enable = true;
 
@@ -203,25 +180,7 @@ in
     };
   };
 
-  # v4l2loopback
-  # Make some extra kernel modules available to NixOS
-  boot.extraModulePackages = with config.boot.kernelPackages; [ v4l2loopback.out ];
-
-  # Activate kernel modules (choose from built-ins and extra ones)
-  boot.kernelModules = [
-    # Virtual Camera
-    "v4l2loopback"
-    # Virtual Microphone, built-in
-    "snd-aloop"
-  ];
-
-  # Set initial kernel module settings
-  boot.extraModprobeConfig = ''
-    # exclusive_caps: Skype, Zoom, Teams etc. will only show device when actually streaming
-    # card_label: Name of virtual camera, how it'll show up in Skype, Zoom, Teams
-    # https://github.com/umlaeute/v4l2loopback
-    options v4l2loopback exclusive_caps=1 card_label="Virtual Camera"
-  '';
+ 
 
   # to not redownload everything with `r`
   # nix.registry = {

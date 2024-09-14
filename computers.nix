@@ -8,6 +8,13 @@ rec {
       nixos = true;
       headless = false;
     };
+    dynas = {
+      system = "x86_64-linux";
+      # cpu = "skylake";
+      users = [ users.simon ];
+      nixos = true;
+      headless = true;
+    };
     vampire = {
       system = "x86_64-linux";
       users = [ users.simon ];
