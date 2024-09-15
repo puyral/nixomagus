@@ -4,6 +4,7 @@
     ./filesystem.nix
     ./hardware-config.nix
     ./services
+    ./firewall.nix
   ];
 
   #users.mutableUsers = false;

@@ -1,6 +1,7 @@
-{...}:{
-services.cockpit = {
-  enable = true;
-  openFirewall= true;
-};
+{ ... }:
+{
+  services.cockpit = {
+    enable = true;
+    openFirewall = true;
+  };
 }
