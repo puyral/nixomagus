@@ -50,11 +50,6 @@
         "compress=zlib"
       ];
     };
-
-    "/boot" = {
-      device = "/dev/disk/by-label/ESP";
-      fsType = "vfat";
-    };
   };
 
   # swapDevices = [ { device = "/swap/swapfile"; } ];

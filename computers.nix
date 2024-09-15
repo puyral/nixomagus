@@ -5,20 +5,19 @@ rec {
       is_docked = true;
       cpu = "skylake";
       users = [ users.simon ];
-      nixos = true;
+      nixos = "23.11";
       headless = false;
     };
     dynas = {
       system = "x86_64-linux";
       # cpu = "skylake";
       users = [ users.simon ];
-      nixos = true;
+      nixos = "24.05";
       headless = true;
     };
     vampire = {
       system = "x86_64-linux";
       users = [ users.simon ];
-      nixos = false;
       headless = true;
     };
   };

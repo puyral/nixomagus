@@ -52,7 +52,7 @@ rec {
         with builtins;
         let
           names = attrNames computers;
-          nixosNames = filter (name: computers.${name}.nixos) names;
+          nixosNames = filter (name: builtins.hasAttr "nixos" computers.${name}) names;
           list = map (name: {
             inherit name;
             value = computers.${name};

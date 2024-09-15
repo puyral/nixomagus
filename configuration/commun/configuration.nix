@@ -11,6 +11,7 @@
   nixpkgs-unstable,
   computer_name,
   computer,
+  mconfig,
   ...
 }@attrs:
 # general modules that should be into nixos, in oppositions to modules that cleanly extend this config file
@@ -90,8 +91,11 @@
     ]; # Enable ‘sudo’ for the user.
     useDefaultShell = true;
     # openssh.authorizedKeys.keys = import ./secrets/ssh_keys.nix;
+    hashedPasswordFile = "${./secrets/simon}";
   };
   users.defaultUserShell = pkgs.zsh;
+  users.mutableUsers = false;
+  security.sudo.wheelNeedsPassword = false;
 
   # List packages installed in system profile. To search, run:
   # $ nix search wget
@@ -117,26 +121,26 @@
   services.gvfs.enable = true;
   services.udisks2.enable = true;
 
-  fonts.packages = with pkgs; [
-    nerdfonts
-    fira-code
-  ];
+  #fonts.packages = with pkgs; [
+  #  nerdfonts
+  #  fira-code
+  #];
 
   # wayland
-  environment.sessionVariables = {
+  # environment.sessionVariables = {
 
-    # "__NV_PRIME_RENDER_OFFLOAD" = "1";
-    # "__NV_PRIME_RENDER_OFFLOAD_PROVIDER" = "NVIDIA-G0";
-    # "__GLX_VENDOR_LIBRARY_NAME" = "nvidia";
-    # "__VK_LAYER_NV_optimus" = "NVIDIA_only";
-  };
+  #   # "__NV_PRIME_RENDER_OFFLOAD" = "1";
+  #   # "__NV_PRIME_RENDER_OFFLOAD_PROVIDER" = "NVIDIA-G0";
+  #   # "__GLX_VENDOR_LIBRARY_NAME" = "nvidia";
+  #   # "__VK_LAYER_NV_optimus" = "NVIDIA_only";
+  # };
 
   # garbage collection
   nix.gc = {
     automatic = true;
     persistent = true;
     dates = "weekly";
-    options = "--delete-older-than 15d";
+    options = "--delete-older-than 30d";
   };
 
   nix.distributedBuilds = true;
@@ -236,5 +240,5 @@
   # and migrated your data accordingly.
   #
   # For more information, see `man configuration.nix` or https://nixos.org/manual/nixos/stable/options#opt-system.stateVersion .
-  system.stateVersion = "23.11"; # Did you read the comment?
+  system.stateVersion = mconfig.nixos; # Did you read the comment?
 }

@@ -8,6 +8,10 @@
 {
 
   fileSystems = {
+    "/boot" = {
+      device = "/dev/disk/by-label/ESP";
+      fsType = "vfat";
+    };
     "/Volumes/Zeno/media/photos" = {
       device = "/dev/disk/by-label/NIXROOT";
       fsType = "btrfs";
