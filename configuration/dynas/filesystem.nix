@@ -25,6 +25,7 @@
 #};
   };
   boot.supportedFilesystems = [ "zfs" ];
-  boot.zfs.forceImportRoot = false;
+boot.zfs= {extraPools = [ "Zeno" ];
+  	forceImportRoot = false;};
 networking.hostId = "007f0200";
 }
