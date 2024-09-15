@@ -1,15 +1,10 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
+{ rootDir, ... }:
 
 {
 
   services.zerotierone =
     let
-      networks = import ./secrets/zerotier-networks.nix;
+      networks = import (rootDir + /secrets/zerotier-networks.nix);
     in
     {
       enable = true;

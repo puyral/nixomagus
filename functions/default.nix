@@ -1,3 +1,4 @@
+rootDir:
 attrs@{
   home-manager,
   nixpkgs,
@@ -8,19 +9,6 @@ attrs@{
 rec {
   mkHomes =
     { computers, ... }:
-    # builtins.mapAttrs (
-    #   name: value:
-    #   let
-    #     computer = {
-    #       inherit name;
-    #     } // value;
-    #     homes = builtins.map (user: {
-    #       name = user.name;
-    #       value = mkHome { inherit computer user; };
-    #     }) computer.users;
-    #   in
-    #   builtins.listToAttrs homes
-    # ) computers;
     let
       names = builtins.attrNames computers;
       as_list = builtins.concatLists (builtins.map (name: to_user_list name computers.${name}) names);
@@ -72,7 +60,7 @@ rec {
   mkHome =
     inputs@{ computer, user }:
     home-manager.lib.homeManagerConfiguration {
-      modules = [ ((import ../home_manager.nix) user) ];
+      modules = [ ((import (rootDir + /home_manager.nix)) user) ];
       pkgs = (mkpkgs computer.system).pkgs;
       extraSpecialArgs = (mkExtraArgs inputs) // {
         inherit computer;
@@ -85,7 +73,7 @@ rec {
     let
       usersAndModules = builtins.map (user: {
         name = user.name;
-        value = (import ../home_manager.nix) user;
+        value = (import (rootDir + /home_manager.nix)) user;
       }) computer.users;
       homes = {
         home-manager = {
@@ -104,8 +92,8 @@ rec {
       system = computer.system;
       modules = [
         # ../extensions/isw
-        ../configuration/commun
-        (../configuration + "/${computer.name}")
+        (rootDir + /configuration/commun)
+        (rootDir + /configuration + "/${computer.name}")
         home-manager.nixosModules.home-manager
         homes
       ];
@@ -124,7 +112,7 @@ rec {
   mkExtraArgs =
     { computer, ... }:
     let
-      overlays = (import ../overlays) computer;
+      overlays = (import (rootDir + /overlays)) computer;
       system = computer.system;
       pkgs = (mkpkgs computer.system).pkgs;
       pkgs-unstable = (mkpkgs computer.system).pkgs-unstable;
@@ -135,7 +123,12 @@ rec {
       computer_name = computer.name;
       mconfig = computer;
       # functions = {inherit mkHomeModules;};
-      inherit system pkgs-unstable overlays;
+      inherit
+        system
+        pkgs-unstable
+        overlays
+        rootDir
+        ;
     };
 
   asModules = modules: inputs: merge (builtins.map (m: (import m) inputs) modules);

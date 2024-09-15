@@ -7,7 +7,8 @@
 {
 
   imports = [
-    ./kmonad/kmonad.nix
+    ./services
+    ./kmonad
     ./nvidia.nix
     ./hardware-configuration.nix
     ./sound.nix

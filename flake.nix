@@ -34,7 +34,7 @@
       ...
     }@attrs:
     let
-      functions = (import ./functions) attrs;
+      functions = (import ./functions) ./. attrs;
     in
     flake-utils.lib.eachDefaultSystem (
       system:
@@ -70,58 +70,16 @@
         };
       }
     )
-    //
-      # ( {
-      #   nixosConfigurations = builtins.mapAttrs (
-      #     name: mconfig:
-      #     let
-      #       overlays = (import ./overlays.nix) mconfig;
-      #       system = mconfig.system;
-      #       pkgs = (mkpkgs system).pkgs;
-      #       pkgs-unstable = (mkpkgs system).pkgs-unstable;
-
-      #       extra-args = {
-      #         # system = system;
-      #         custom = custom.packages.${system};
-      #         computer_name = name;
-      #         inherit
-      #           system
-      #           pkgs-unstable
-      #           overlays
-      #           mconfig
-      #           ;
-      #       };
-      #     in
-      #     nixpkgs.lib.nixosSystem {
-      #       # system = system;
-      #       inherit system;
-      #       specialArgs = attrs // extra-args;
-      #       modules = [
-      #         ./configuration.nix
-      #         kmonad.nixosModules.default
-      #         home-manager.nixosModules.home-manager
-      #         {
-      #           home-manager.useGlobalPkgs = true;
-      #           home-manager.users.simon = import ./users/simon/main.nix;
-      #           home-manager.extraSpecialArgs = extra-args;
-
-      #           # Optionally, use home-manager.extraSpecialArgs to pass
-      #           # arguments to home.nix
-      #         }
-      #       ];
-      #     }
-      #   ) (import ./computers.nix);
-      # })
-      (
-        let
-          computers = (import ./computers.nix);
-        in
-        with functions;
-        {
-          homeConfigurations = mkHomes computers;
-          nixosConfigurations = mkSystems computers;
-        }
-      )
+    // (
+      let
+        computers = (import ./computers.nix);
+      in
+      with functions;
+      {
+        homeConfigurations = mkHomes computers;
+        nixosConfigurations = mkSystems computers;
+      }
+    )
   # (mkHomes computers) // (mkSystem computers))
 
   ;
