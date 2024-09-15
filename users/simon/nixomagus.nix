@@ -57,8 +57,8 @@
         rapid-photo-downloader
 
         youtube-music
-	
-texliveFull
+
+        texliveFull
       ])
       ++ (with pkgs-unstable; [
         # # Adds the 'hello' command to your environment. It prints a friendly

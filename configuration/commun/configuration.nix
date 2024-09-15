@@ -61,6 +61,9 @@
 
   programs.zsh.enable = true;
 
+  # for compatibility
+  programs.nix-ld.enable = true;
+
   # Configure keymap in X11
   # services.xserver.xkb.layout = "us";
   # services.xserver.xkb.options = "eurosign:e,caps:escape";
@@ -90,7 +93,6 @@
       "nix-config"
     ]; # Enable ‘sudo’ for the user.
     useDefaultShell = true;
-    # openssh.authorizedKeys.keys = import ./secrets/ssh_keys.nix;
     hashedPasswordFile = "${./secrets/simon}";
   };
   users.defaultUserShell = pkgs.zsh;
@@ -120,20 +122,6 @@
   # automount
   services.gvfs.enable = true;
   services.udisks2.enable = true;
-
-  #fonts.packages = with pkgs; [
-  #  nerdfonts
-  #  fira-code
-  #];
-
-  # wayland
-  # environment.sessionVariables = {
-
-  #   # "__NV_PRIME_RENDER_OFFLOAD" = "1";
-  #   # "__NV_PRIME_RENDER_OFFLOAD_PROVIDER" = "NVIDIA-G0";
-  #   # "__GLX_VENDOR_LIBRARY_NAME" = "nvidia";
-  #   # "__VK_LAYER_NV_optimus" = "NVIDIA_only";
-  # };
 
   # garbage collection
   nix.gc = {
@@ -174,43 +162,7 @@
   # Enable the OpenSSH daemon.
   services.openssh = {
     enable = true;
-    #settings = {
-    #  X11Forwarding = true;
-    #};
   };
-
-  # to not redownload everything with `r`
-  # nix.registry = {
-  #   # because of https://github.com/NixOS/nixpkgs/commit/e456032addae76701eb17e6c03fc515fd78ad74f I can't remap `nixpkgs` itself
-  #   gnixpkgs.flake = nixpkgs-unstable // {
-  #     config.allowUnfree = true;
-  #   };
-  #   latest-unstable = {
-  #     from = {
-  #       type = "indirect";
-  #       id = "unstable";
-  #     };
-  #     to = {
-  #       type = "github";
-  #       owner = "NixOS";
-  #       repo = "nixpkgs";
-  #       ref = "nixpkgs-unstable";
-  #     };
-  #   };
-  #   latest-stable = {
-  #     from = {
-  #       type = "indirect";
-  #       id = "current-stable";
-  #     };
-  #     to = {
-  #       type = "github";
-  #       owner = "NixOS";
-  #       repo = "nixpkgs";
-  #       ref = "nixos-23.11";
-  #     };
-  #   };
-  # };
-  # nix.registry = (import ./registery.nix) attrs;
 
   # Open ports in the firewall.
   # networking.firewall.allowedTCPPorts = [ ... ];

@@ -36,7 +36,7 @@
         git-crypt
         gh
         gnupg
-	vim
+        vim
 
         docker
       ])
