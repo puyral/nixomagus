@@ -1,6 +1,6 @@
 { pkgs, ... }:
 {
-  imports = [ ./zfs ];
+  imports = [ ./zfs.nix ];
   fileSystems = {
     "/boot" = {
       device = "/dev/disk/by-uuid/624A-A8EF";
