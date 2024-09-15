@@ -29,7 +29,7 @@
     # "__VK_LAYER_NV_optimus" = "NVIDIA_only";
   };
 
-  serverces.openssh = {
+  services.openssh = {
     settings = {
       X11Forwarding = true;
     };
