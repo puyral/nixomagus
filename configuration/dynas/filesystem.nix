@@ -1,5 +1,6 @@
 { pkgs, ... }:
 {
+  imports = [ ./zfs ];
   fileSystems = {
     "/boot" = {
       device = "/dev/disk/by-uuid/624A-A8EF";
@@ -18,14 +19,6 @@
         "compress=zstd"
       ];
     };
-
-#    "/mnt/Zeno" = {
-#  device = "Zeno";
-#  fsType = "zfs";
-#};
   };
-  boot.supportedFilesystems = [ "zfs" ];
-boot.zfs= {extraPools = [ "Zeno" ];
-  	forceImportRoot = false;};
-networking.hostId = "007f0200";
+  networking.hostId = "007f0200";
 }
