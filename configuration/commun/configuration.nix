@@ -132,19 +132,6 @@
   };
 
   nix.distributedBuilds = true;
-  #nix.buildMachines = [
-  #  {
-  #    hostName = "root@10.250.2.101";
-  #    system = "x86_64-linux";
-  #    supportedFeatures = [
-  #      "nixos-test"
-  #      "benchmark"
-  #      "big-parallel"
-  #      "kvm"
-  #    ];
-  #    maxJobs = 4;
-  #  }
-  #];
   nix.extraOptions = ''
     builders-use-substitutes = true
   '';

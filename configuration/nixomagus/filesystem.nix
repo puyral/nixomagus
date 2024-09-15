@@ -30,14 +30,14 @@
       ];
     };
 
-    "/mnt/Zeno" = {
-      device = "192.168.0.2:/mnt/Zeno";
-      fsType = "nfs";
-      options = [
-        "x-systemd.automount"
-        "noauto"
-        "x-systemd.idle-timeout=600"
-      ];
-    };
+    # "/mnt/Zeno" = {
+    #   device = "192.168.0.2:/mnt/Zeno";
+    #   fsType = "nfs";
+    #   options = [
+    #     "x-systemd.automount"
+    #     "noauto"
+    #     "x-systemd.idle-timeout=600"
+    #   ];
+    # };
   };
 }
