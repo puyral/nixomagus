@@ -105,7 +105,7 @@ rec {
       modules = [
         # ../extensions/isw
         ../configuration/commun
-        # (../configuration + "/${computer.name}")
+        (../configuration + "/${computer.name}")
         home-manager.nixosModules.home-manager
         homes
       ];
