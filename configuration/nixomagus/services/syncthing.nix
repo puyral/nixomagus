@@ -1,6 +1,5 @@
 { ... }:
 {
-
   services.syncthing = {
     settings.folders = {
       "photos" = {

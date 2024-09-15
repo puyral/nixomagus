@@ -5,6 +5,7 @@
     allowedTCPPorts = [
       80
       443
+      8384
     ];
     allowedUDPPortRanges = [
       {
