@@ -20,7 +20,7 @@
   imports = [
     # Include the results of the hardware scan.
     # ./services.nix
-  ] ++ (if computer_name == "nixomagus" then [ ] else [ ./gui.nix ]);
+  ] ++ (if computer_name == "nixomagus" then [ ./gui.nix ] else [ ]);
 
   programs.gnupg = {
     agent = {

@@ -14,6 +14,7 @@ in
 {
   imports = [ ./wallpapers.nix ];
 
+
   home.packages = with pkgs; [
     wofi
     xdg-desktop-portal-hyprland

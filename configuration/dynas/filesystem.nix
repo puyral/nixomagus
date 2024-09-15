@@ -1,4 +1,4 @@
-{ ... }:
+{ pkgs, ... }:
 {
   fileSystems = {
     "/boot" = {
@@ -18,5 +18,13 @@
         "compress=zstd"
       ];
     };
+
+#    "/mnt/Zeno" = {
+#  device = "Zeno";
+#  fsType = "zfs";
+#};
   };
+  boot.supportedFilesystems = [ "zfs" ];
+  boot.zfs.forceImportRoot = false;
+networking.hostId = "007f0200";
 }
