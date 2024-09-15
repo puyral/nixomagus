@@ -3,7 +3,7 @@
   imports = [
     ./filesystem.nix
     ./hardware-config.nix
-    ./file_sharing.nix
+    ./services
   ];
 
   #users.mutableUsers = false;

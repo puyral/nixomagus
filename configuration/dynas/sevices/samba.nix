@@ -1,6 +1,4 @@
-{ ... }:
-{
-
+{...}:{
   services.samba = {
     enable = true;
     enableNmbd = false;
@@ -16,13 +14,12 @@
       log level = 2
     '';
 
-    shares = {
-      nas = {
-        "path" = "/mnt";
-        "guest ok" = "yes";
-        "read only" = "no";
-      };
-    };
+    # shares = {
+    #   nas = {
+    #     "path" = "/mnt";
+    #     "guest ok" = "yes";
+    #     "read only" = "no";
+    #   };
+    # };
   };
-  services.nfs.server.enable = true;
 }
