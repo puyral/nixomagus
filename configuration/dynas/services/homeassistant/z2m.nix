@@ -2,10 +2,10 @@ gconfig: vars:
 { config, ... }:
 let
   listener = {
-    # acl = [
-    #   "zigbee2mqtt"
-    #   "hass/status"
-    # ];
+    acl = [
+      "zigbee2mqtt"
+      "hass/status"
+    ];
     omitPasswordAuth = true;
     settings.allow_anonymous = true;
     port = 1883;
