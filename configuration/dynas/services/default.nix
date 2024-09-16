@@ -8,17 +8,6 @@
     ./whatchtower.nix
     ./jellyfin.nix
     ./traefik
+    ./docker-test.nix
   ];
-
-  # system.activationScripts.mkVPN = ''
-  #   ${pkgs.docker}/bin/docker network create traefik
-  # '';
-  system.activationScripts.mkVPN =
-    let
-      docker = config.virtualisation.oci-containers.backend;
-      dockerBin = "${pkgs.${docker}}/bin/${docker}";
-    in
-    ''
-      ${dockerBin} network inspect traefik >/dev/null 2>&1 || ${dockerBin} network create traefik
-    '';
 }

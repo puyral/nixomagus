@@ -49,13 +49,17 @@
         devShells.default = pkgs.mkShell {
           name = "config";
           buildInputs =
-            (with pkgs-unstable; [ nil ])
+            (with pkgs-unstable; [
+              nil
+              compose2nix
+            ])
             ++ (with pkgs; [
               vim
               git
               git-crypt
               gh
               gnupg
+
             ])
             ++ (
               if pkgs.stdenv.isDarwin then

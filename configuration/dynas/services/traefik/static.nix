@@ -43,6 +43,17 @@ in
           "https://acme-v02.api.letsencrypt.org/directory";
     };
 
+    providers.docker = {
+      watch = true;
+      exposedByDefault = false;
+      endpoint =
+        let
+          socket = builtins.head config.virtualisation.docker.listenOptions;
+        in
+        "unix://${socket}";
+      network = "traefik";
+    };
+
     # log.level = "DEBUG";
   };
   networking.firewall = {
