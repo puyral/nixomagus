@@ -2,7 +2,7 @@
 {
   virtualisation.oci-containers.containers."docker-test-whoami" = {
     image = "traefik/whoami";
-          autoStart = true;
+    autoStart = true;
     labels = {
       "traefik.enable" = "true";
       "traefik.http.routers.whoami.rule" = "Host(`whoami.puyral.fr`)";

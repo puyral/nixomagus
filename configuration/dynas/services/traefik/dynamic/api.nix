@@ -1,20 +1,6 @@
 { ... }:
 {
   services.traefik.dynamicConfigOptions = {
-    # http:
-    #   routers:
-    #     dashboard:
-    #       rule: Host(`traefik.example.com`) && (PathPrefix(`/api`) || PathPrefix(`/dashboard`))
-    #       service: api@internal
-    #       middlewares:
-    #         - auth
-    #   middlewares:
-    #     auth:
-    #       basicAuth:
-    #         users:
-    #           - "test:$apr1$H6uskkkW$IgXLP6ewTrSuBkTrqE8wj/"
-    #           - "test2:$apr1$d9hr9HBB$4HxwgUir3HP4EsggP/QNo0"
-
     http = {
       routers.dashboard = {
         rule = "Host(`traefik.dynas.puyral.fr`)";

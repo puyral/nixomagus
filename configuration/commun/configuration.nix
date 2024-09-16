@@ -107,6 +107,7 @@
     htop
     git
     tmux
+    usbutils
   ];
 
   # docker

@@ -122,7 +122,7 @@ rec {
       custom = custom.packages.${computer.system};
       computer_name = computer.name;
       mconfig = computer;
-      # functions = {inherit mkHomeModules;};
+      mutils = (import ./utils.nix);
       inherit
         system
         pkgs-unstable
