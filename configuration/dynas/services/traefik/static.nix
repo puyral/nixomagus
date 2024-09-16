@@ -1,28 +1,40 @@
-{ rootDir, ... }:
+{ rootDir, config, ... }:
 let
-  staging = true;
+  staging = false;
 in
 {
   services.traefik.staticConfigOptions = {
     api = {
       dashboard = true;
-      insecure = true;
+      # insecure = true;
+      debug = true;
     };
     entryPoints = {
       http = {
         address = ":80";
+        http.redirections.entrypoint = {
+          to = "https";
+          scheme = "https";
+        };
       };
       https = {
         address = ":443";
+        http.tls = {
+          certResolver = "ovh";
+          domains = {
+            main = "puyral.fr";
+            sans = [ "*.puyral.fr" ];
+          };
+        };
       };
-      web = {
-        address = ":8080";
-      };
+      # web = {
+      #   address = ":8080";
+      # };
     };
 
     certificatesResolvers.ovh.acme = {
       email = (import (rootDir + /secrets/email.nix)).gmail "acme";
-      storage = "acme.json";
+      storage = config.services.traefik.dataDir + "/acme.json";
       dnsChallenge.provider = "ovh";
       caServer =
         if staging then
@@ -30,6 +42,8 @@ in
         else
           "https://acme-v02.api.letsencrypt.org/directory";
     };
+
+    # log.level = "DEBUG";
   };
   networking.firewall = {
     allowedTCPPorts = [
