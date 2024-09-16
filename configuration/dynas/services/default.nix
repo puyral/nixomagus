@@ -1,4 +1,4 @@
-{ ... }:
+{ pkgs, config, ... }:
 {
   imports = [
     ./nfs.nix
@@ -7,13 +7,18 @@
     ./syncthing.nix
     ./whatchtower.nix
     ./jellyfin.nix
+    ./traefik
   ];
 
-  #   networking.nat = {
-  #   enable = true;
-  #   internalInterfaces = ["ve-+"];
-  #   externalInterface = "enp9s0";
-  #   # Lazy IPv6 connectivity for the container
-  #   enableIPv6 = true;
-  # };
+  # system.activationScripts.mkVPN = ''
+  #   ${pkgs.docker}/bin/docker network create traefik
+  # '';
+  system.activationScripts.mkVPN =
+    let
+      docker = config.virtualisation.oci-containers.backend;
+      dockerBin = "${pkgs.${docker}}/bin/${docker}";
+    in
+    ''
+      ${dockerBin} network inspect traefik >/dev/null 2>&1 || ${dockerBin} network create traefik
+    '';
 }

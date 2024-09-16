@@ -19,6 +19,14 @@
     ];
   };
 
+  # networking.nat = {
+  #   enable = true;
+  #   internalInterfaces = ["ve-+"];
+  #   externalInterface = "enp9s0";
+  #   # Lazy IPv6 connectivity for the container
+  #   enableIPv6 = true;
+  # };
+
   # we want to be *sure* this is on
   services.openssh.openFirewall = true;
 }
