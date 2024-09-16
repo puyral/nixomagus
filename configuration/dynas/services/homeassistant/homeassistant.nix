@@ -6,6 +6,7 @@ gconfig: vars:
     enable = true;
     configDir = "/data/ha";
     openFirewall = true;
+    extraPackages = python3Packages: with python3Packages; [ gtts paho-mqtt];
     config = {
       homeassistant = {
         unit_system = "metric";
