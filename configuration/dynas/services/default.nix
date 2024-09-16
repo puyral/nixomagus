@@ -5,12 +5,14 @@
     ./samba.nix
     ./cockpit.nix
     ./syncthing.nix
-    # ./whatchtower.nix
+    ./whatchtower.nix
     ./jellyfin.nix
     ./traefik
     ./homeassistant
-    ./docker-test.nix
+    # ./docker-test.nix
     ./portainer.nix
+    ./mosquitto.nix
+    ./zigbee2mqtt.nix
   ];
 
   networking.nat.enable = true;

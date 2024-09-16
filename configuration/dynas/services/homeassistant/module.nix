@@ -15,51 +15,58 @@ let
     name: attrs:
     let
       is_tranparent = builtins.hasAttr "port" attrs;
-      toMerge ={
-      labels =
-        if is_tranparent then
-          {
-            "traefik.enable" = "true";
-            "traefik.http.routers.${name}.entrypoints" = "https";
-            "traefik.http.routers.${name}.rule" = "Host(`${name}.puyral.fr`)";
-            "traefik.http.routers.${name}.tls.certresolver" = "ovh";
-            "traefik.http.services.${name}.loadbalancer.server.port" = builtins.toString attrs.port;
-          }else {};
-                autoStart = true;
-      extraOptions = [
-        "--network-alias=${name}"
-        "--network=${cfg.innerNetwork}"
-      ] ++ (if is_tranparent then [ "--network=traefik" ] else [ ]) ++ (attrs.extraOptions or []);
-      environment = {
-        TZ = config.time.timeZone;
-      };};
+      toMerge = {
+        labels =
+          if is_tranparent then
+            {
+              "traefik.enable" = "true";
+              "traefik.http.routers.${name}.entrypoints" = "https";
+              "traefik.http.routers.${name}.rule" = "Host(`${name}.puyral.fr`)";
+              "traefik.http.routers.${name}.tls.certresolver" = "ovh";
+              "traefik.http.services.${name}.loadbalancer.server.port" = builtins.toString attrs.port;
+            }
+          else
+            { };
+        autoStart = true;
+        extraOptions = [
+          "--network-alias=${name}"
+          "--network=${cfg.innerNetwork}"
+        ] ++ (if is_tranparent then [ "--network=traefik" ] else [ ]) ++ (attrs.extraOptions or [ ]);
+        environment = {
+          TZ = config.time.timeZone;
+        };
+      };
       # nattrs = if is_tranparent then builtins.removeAttrs "port" attrs else attrs;
-      nattrs = attrsets.filterAttrs (n: v: !(elem n ["port" "extraOptions"])) attrs;
+      nattrs = attrsets.filterAttrs (
+        n: v:
+        !(elem n [
+          "port"
+          "extraOptions"
+        ])
+      ) attrs;
     in
     (attrsets.recursiveUpdate nattrs toMerge);
-  mkService =
-    name: attrs:
-    {
-      name = "docker-${name}";
-      value = {
-        # serviceConfig = {
-        #   Restart = lib.mkOverride 500 "always";
-        #   RestartMaxDelaySec = lib.mkOverride 500 "1m";
-        #   RestartSec = lib.mkOverride 500 "100ms";
-        #   RestartSteps = lib.mkOverride 500 9;
-        # };
-        after = [
-          "${ha_net}.service"
-          "traefik-docker-network.service"
-        ];
-        requires = [
-          "${ha_net}.service"
-          "traefik-docker-network.service"
-        ];
-        partOf = [ "${ha_name}.target" ];
-        wantedBy = [ "${ha_name}.target" ];
-      };
+  mkService = name: attrs: {
+    name = "docker-${name}";
+    value = {
+      # serviceConfig = {
+      #   Restart = lib.mkOverride 500 "always";
+      #   RestartMaxDelaySec = lib.mkOverride 500 "1m";
+      #   RestartSec = lib.mkOverride 500 "100ms";
+      #   RestartSteps = lib.mkOverride 500 9;
+      # };
+      after = [
+        "${ha_net}.service"
+        "traefik-docker-network.service"
+      ];
+      requires = [
+        "${ha_net}.service"
+        "traefik-docker-network.service"
+      ];
+      partOf = [ "${ha_name}.target" ];
+      wantedBy = [ "${ha_name}.target" ];
     };
+  };
 
 in
 {

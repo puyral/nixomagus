@@ -1,37 +1,28 @@
-{ ... }:
+{ config, ... }:
+let
+  name = "homeassistant";
+  port = 8123;
+in
+
 {
-  imports = [ ./module.nix ];
-  my.homeassistant = {
-    containers = {
-      mosquitto = {
-        image = "eclipse-mosquitto:latest";
-        volumes = [ "/containers/mosquitto:/mosquitto:rw" "/containers/mosquitto/log:/mosquitto/log:rw" "/containers/mosquitto/data:/mosquitto/data:rw" ];
-        ports = ["1883:1883"];
-        # log-driver = "journald";
-      };
-
-      zigbee2mqtt = {
-        port = 8080;
-        image = "koenkk/zigbee2mqtt:latest";
-        volumes = [
-          "/containers/zigbee2mqtt:/app/data:rw"
-          "/run/udev:/run/udev:ro"
-        ];
-        dependsOn = [ "mosquitto" ];
-        # log-driver = "journald";
-        extraOptions = [
-          "--device=/dev/serial/by-id/usb-ITead_Sonoff_Zigbee_3.0_USB_Dongle_Plus_6c969fdb7c12ec119aa120c7bd930c07-if00-port0:/dev/ttyUSB0"
-        ];
-      };
-
-      homeassistant = {
-        port = 8123;
-        image = "homeassistant/home-assistant:latest";
-        volumes = [ "/containers/homeassistant:/config:rw" ];
-        dependsOn = [ "mosquitto" ];
-        # log-driver = "journald";
-      };
-
+  # docker.for.mac.localhost
+  virtualisation.oci-containers.containers.homeassistant = {
+    image = "homeassistant/home-assistant:latest";
+    volumes = [ "/containers/homeassistant:/config:rw" ];
+    labels = {
+      "traefik.enable" = "true";
+      "traefik.http.routers.${name}.entrypoints" = "https";
+      "traefik.http.routers.${name}.rule" = "Host(`${name}.puyral.fr`)";
+      "traefik.http.routers.${name}.tls.certresolver" = "ovh";
+      "traefik.http.services.${name}.loadbalancer.server.port" = builtins.toString port;
+    };
+    autoStart = true;
+    extraOptions = [
+      "--network-alias=${name}"
+      "--network=traefik"
+    ];
+    environment = {
+      TZ = config.time.timeZone;
     };
   };
 }

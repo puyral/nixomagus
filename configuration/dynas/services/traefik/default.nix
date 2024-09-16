@@ -3,6 +3,7 @@
   imports = [
     ./static.nix
     ./dynamic
+    ./module.nix
   ];
   services.traefik = {
     enable = true;
