@@ -10,6 +10,7 @@
     ./traefik
     ./homeassistant
     ./docker-test.nix
+    ./portainer.nix
   ];
 
   networking.nat.enable = true;

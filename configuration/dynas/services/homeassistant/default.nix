@@ -5,7 +5,7 @@
     containers = {
       mosquitto = {
         image = "eclipse-mosquitto:latest";
-        volumes = [ "/containers/mosquitto:/mosquitto:rw" ];
+        volumes = [ "/containers/mosquitto:/mosquitto:rw" "/containers/mosquitto/log:/mosquitto/log:rw" "/containers/mosquitto/data:/mosquitto/data:rw" ];
         ports = ["1883:1883"];
         # log-driver = "journald";
       };
