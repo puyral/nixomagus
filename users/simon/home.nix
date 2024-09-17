@@ -41,7 +41,7 @@
         docker
       ])
       ++ (with pkgs-unstable; [
-        nil
+        nixd
         ripgrep
         killall
       ]);

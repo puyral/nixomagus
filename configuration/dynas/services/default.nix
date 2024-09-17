@@ -13,6 +13,7 @@
     ./portainer.nix
     ./mosquitto.nix
     ./zigbee2mqtt.nix
+    ./photos
   ];
 
   networking.nat.enable = true;

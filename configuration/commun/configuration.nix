@@ -12,6 +12,7 @@
   computer_name,
   computer,
   mconfig,
+  rootDir,
   ...
 }@attrs:
 # general modules that should be into nixos, in oppositions to modules that cleanly extend this config file
@@ -151,6 +152,7 @@
   services.openssh = {
     enable = true;
   };
+  users.users."root".openssh.authorizedKeys.keys = import (rootDir + /secrets/ssh_keys.nix);
 
   # Open ports in the firewall.
   # networking.firewall.allowedTCPPorts = [ ... ];

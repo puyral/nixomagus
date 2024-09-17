@@ -16,6 +16,11 @@ in
           type = types.port;
           description = "the port to forward to";
         };
+        container = mkOption {
+          type = types.nullOr types.str;
+          description = "the container name, if it's in a nixos container";
+          default = null;
+        };
       };
     in
     {
@@ -41,9 +46,13 @@ in
     ) cfg;
     services = mapAttrs (
       host:
-      { domain, port, ... }:
+      attrs@{ domain, port, ... }:
       {
-        loadBalancer.servers = [ { url = "http://localhost:${builtins.toString port}"; } ];
+        loadBalancer.servers =
+          let
+            host = if attrs ? container then config.containers.${attrs.container}.localAddress else "localhost";
+          in
+          [ { url = "http://${host}:${builtins.toString port}"; } ];
       }
     ) cfg;
   };

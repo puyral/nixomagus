@@ -54,7 +54,7 @@ in
       network = "traefik";
     };
 
-    # log.level = "DEBUG";
+    log.level = "DEBUG";
   };
   networking.firewall = {
     allowedTCPPorts = [

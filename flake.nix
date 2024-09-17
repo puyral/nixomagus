@@ -49,10 +49,7 @@
         devShells.default = pkgs.mkShell {
           name = "config";
           buildInputs =
-            (with pkgs-unstable; [
-              nil
-              compose2nix
-            ])
+            (with pkgs-unstable; [ compose2nix ])
             ++ (with pkgs; [
               vim
               git
