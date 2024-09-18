@@ -46,7 +46,7 @@ in
     enableTun = true;
 
     config =
-      { lib, config, ... }:
+      { lib, ... }:
       {
 
         environment.systemPackages = with pkgs-unstable; [ darktable ];
@@ -54,7 +54,7 @@ in
           enable = true;
           originalsPath = "/originals";
           storagePath = "/cache";
-          passwordFile = ./secrets/password;
+          passwordFile = ./secrets/init_password;
           settings = {
             PHOTOPRISM_ADMIN_USER = "root";
           };
