@@ -2,6 +2,7 @@
   mconfig,
   config,
   pkgs-unstable,
+  rootDir,
   ...
 }:
 let
@@ -12,10 +13,10 @@ let
 in
 {
   networking.nat.internalInterfaces = [ "ve-photos" ];
-  networking.reverse_proxy."photo" = {
-    container = "photoprism";
-    inherit port;
-  };
+  # networking.reverse_proxy."photo" = {
+  #   container = "photoprism";
+  #   inherit port;
+  # };
   containers.photoprism = {
     bindMounts = {
       "/Volumes/Zeno/media/photos" = {
@@ -38,9 +39,9 @@ in
     localAddress = "192.168.100.12";
 
     config =
-      { lib, config,... }:
+      { lib, config, ... }:
       {
-        
+
         environment.systemPackages = with pkgs-unstable; [ darktable ];
         services.photoprism = {
           enable = true;
@@ -82,7 +83,23 @@ in
         };
 
         services.resolved.enable = true;
+        nixpkgs.config.allowUnfree = true;
+
+        services.zerotierone =
+          let
+            networks = import (rootDir + /secrets/zerotier-networks.nix);
+          in
+          {
+            enable = true;
+            joinNetworks = [ networks.vidya.id ];
+          };
       };
   };
-  users.groups.photoprism = {members = ["simon" "root"]; gid = 986;};
+  users.groups.photoprism = {
+    members = [
+      "simon"
+      "root"
+    ];
+    gid = 986;
+  };
 }
