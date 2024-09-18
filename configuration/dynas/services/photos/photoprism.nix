@@ -12,7 +12,7 @@ let
   gconfig = config;
 in
 {
-  networking.nat.internalInterfaces = [ "ve-photos" ];
+  networking.nat.internalInterfaces = [ "ve-photoprism" ];
   # networking.reverse_proxy."photo" = {
   #   container = "photoprism";
   #   inherit port;
@@ -31,12 +31,19 @@ in
         hostPath = "/containers/photoprism";
         isReadOnly = false;
       };
+      # to retain the zt config
+      "/var/lib/zerotier-one" = {
+        hostPath = "/containers/photoprism/zerotier";
+        isReadOnly = false;
+      };
     };
     autoStart = true;
     ephemeral = true;
     privateNetwork = true;
     hostAddress = "192.168.1.3";
     localAddress = "192.168.100.12";
+    # additionalCapabilities = ["CAP_NET_ADMIN"];
+    enableTun = true;
 
     config =
       { lib, config, ... }:
@@ -62,6 +69,7 @@ in
           # Workaround for bug https://github.com/NixOS/nixpkgs/issues/162686
           useHostResolvConf = lib.mkForce false;
         };
+        services.resolved.enable = true;
 
         # users.users.simon= gconfig.users.users.simon;
         # programs.zsh.enable = true;
@@ -82,7 +90,6 @@ in
           # openFirewall = true;
         };
 
-        services.resolved.enable = true;
         nixpkgs.config.allowUnfree = true;
 
         services.zerotierone =
