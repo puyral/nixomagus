@@ -7,6 +7,10 @@ attrs@{
   ...
 }:
 rec {
+  mlib = with (import ./utils.nix); {
+    inherit mkHome mkExtraArgs enumerate;
+  };
+
   mkHomes =
     { computers, ... }:
     let
@@ -50,11 +54,11 @@ rec {
     in
     builtins.mapAttrs (
       name: value:
-      mkSystem ({
+      mkSystem {
         computer = {
           inherit name;
         } // value;
-      })
+      }
     ) nixosComputers;
 
   mkHome =
@@ -92,6 +96,7 @@ rec {
       system = computer.system;
       modules = [
         # ../extensions/isw
+        (rootDir + /modules/nixos)
         (rootDir + /configuration/commun)
         (rootDir + /configuration + "/${computer.name}")
         home-manager.nixosModules.home-manager
@@ -122,16 +127,16 @@ rec {
       custom = custom.packages.${computer.system};
       computer_name = computer.name;
       mconfig = computer;
-      mutils = (import ./utils.nix);
       inherit
         system
         pkgs-unstable
         overlays
         rootDir
+        mlib
         ;
     };
 
-  asModules = modules: inputs: merge (builtins.map (m: (import m) inputs) modules);
+  # asModules = modules: inputs: merge (builtins.map (m: (import m) inputs) modules);
 
-  merge = builtins.foldl' (acc: elem: acc // elem) { };
+  # merge = builtins.foldl' (acc: elem: acc // elem) { };
 }

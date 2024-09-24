@@ -34,7 +34,7 @@
       ...
     }@attrs:
     let
-      functions = (import ./functions) ./. attrs;
+      functions = (import ./lib) ./. attrs;
     in
     flake-utils.lib.eachDefaultSystem (
       system:
@@ -73,7 +73,11 @@
     )
     // (
       let
-        computers = (import ./computers.nix);
+        precomputers = (import ./computers.nix);
+        computers = {
+          users = precomputers.users;
+          computers = builtins.removeAttrs "containers" precomputers.computers;
+        };
       in
       with functions;
       {

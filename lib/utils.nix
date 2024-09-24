@@ -18,4 +18,20 @@ rec {
         }) (builtins.filter (n: !(builtins.hasAttr n lhs)) rnames);
       in
       builtins.listToAttrs (attl ++ attr);
+
+  enumerate =
+    with builtins;
+    l:
+    let
+      f =
+        acc: e:
+        [
+          {
+            idx = length acc;
+            value = e;
+          }
+        ]
+        ++ acc;
+    in
+    fold' f [ ] l;
 }
