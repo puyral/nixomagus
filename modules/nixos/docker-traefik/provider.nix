@@ -21,7 +21,7 @@ in
           type = types.str;
           default = "172.16.0.1";
           description = "the gateway use for the traefik docker network";
-        } ;
+        };
         subnetSize = mkOption {
           type = types.int;
           default = 16;
@@ -58,11 +58,12 @@ in
 
       virtualisation.docker = mkIf e {
         enable = true;
-        listenOptions = [
-          "unix://${cfg.socket}"
-        ];
+        # listenOptions = [
+        #   "${cfg.socket}"
+        # ];
+        daemon.settings.hosts = [ "unix://${cfg.socket}" ];
       };
-      virtualisation.oci-containers.backend = mkIf e  "docker";
+      virtualisation.oci-containers.backend = mkIf e "docker";
 
       services.traefik.staticConfigOptions = mkIf e {
         providers.docker = {

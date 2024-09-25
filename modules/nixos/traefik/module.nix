@@ -15,6 +15,19 @@ in
           description = "the base domain";
         };
 
+        log.level = mkOption {
+          type = types.enum [
+            "TRACE"
+            "DEBUG"
+            "INFO"
+            "WARN"
+            "ERROR"
+            "FATAL"
+            "PANIC"
+          ];
+          default = "ERROR";
+        };
+
         instances =
           let
             options = (import ./options.nix) lib;

@@ -52,7 +52,7 @@ in
             "https://acme-v02.api.letsencrypt.org/directory";
       };
 
-      # log.level = "DEBUG";
+      log.level = config.networking.traefik.log.level;
     };
     networking.firewall = mkIf cfg.enable {
       allowedTCPPorts = [

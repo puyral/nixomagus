@@ -19,8 +19,10 @@ in
     volumes = [ "${cfg.socket}:/var/run/docker.sock" ];
   };
   config.virtualisation.docker = mkIf cfg.enable {
-        listenOptions = [
-          "unix://${cfg.socket}"
-        ];
-      };
+    # listenOptions = [
+    #   "${cfg.socket}"
+    # ];
+    # extraOptions = "-H unix://${cfg.socket}";
+    daemon.settings.hosts = [ "unix://${cfg.socket}" ];
+  };
 }

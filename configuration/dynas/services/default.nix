@@ -15,6 +15,7 @@
     ./zigbee2mqtt.nix
     ./photos
   ];
+  virtualisation.docker.autoPrune.enable = true;
 
   services.watchtower.enable = true;
 
@@ -27,6 +28,7 @@
       enable = true;
       baseDomain = "puyral.fr";
       docker.enable = true;
+      log.level = "INFO";
     };
   };
 }

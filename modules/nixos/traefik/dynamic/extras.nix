@@ -5,7 +5,7 @@ let
 in
 {
   services.traefik.dynamicConfigOptions.http = {
-    routers =  mapAttrs (
+    routers = mapAttrs (
       host:
       { enable, domain, ... }:
       mkIf enable {
