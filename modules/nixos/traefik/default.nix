@@ -1,15 +1,16 @@
 { config, ... }:
 {
-  imports =
-    [ ./module.nix ]
-    ++ (
-      if config.networking.traefik.enable then
-        [
-          ./service.nix
+  imports = [
+    ./module.nix
+    ./service.nix
+  ];
+  # ++ (
+  #   if config.networking.traefik.enable then
+  #     [
 
-        ]
-      else
-        [ ]
-    );
+  #     ]
+  #   else
+  #     [ ]
+  # );
 
 }

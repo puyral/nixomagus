@@ -8,11 +8,12 @@ attrs@{
 }:
 rec {
   mlib = with (import ./utils.nix); {
-    inherit mkHome mkExtraArgs enumerate;
+    inherit enumerate;
   };
 
   mkHomes =
     { computers, ... }:
+    with builtins;
     let
       names = builtins.attrNames computers;
       as_list = builtins.concatLists (builtins.map (name: to_user_list name computers.${name}) names);
@@ -35,31 +36,34 @@ rec {
         };
       as_list_home = builtins.map to_home as_list;
     in
-    (builtins.listToAttrs as_list_home);
+    (builtins.listToAttrs (builtins.trace (toString as_list_home) as_list_home));
 
   mkSystems =
     { computers, ... }:
-    let
-      nixosComputers =
-        with builtins;
-        let
-          names = attrNames computers;
-          nixosNames = filter (name: builtins.hasAttr "nixos" computers.${name}) names;
-          list = map (name: {
+    with builtins;
+    (
+      let
+        nixosComputers =
+          with builtins;
+          let
+            names = attrNames computers;
+            nixosNames = filter (name: builtins.hasAttr "nixos" computers.${name}) names;
+            list = map (name: {
+              inherit name;
+              value = computers.${name};
+            }) nixosNames;
+          in
+          listToAttrs list;
+      in
+      builtins.mapAttrs (
+        name: value:
+        mkSystem {
+          computer = {
             inherit name;
-            value = computers.${name};
-          }) nixosNames;
-        in
-        listToAttrs list;
-    in
-    builtins.mapAttrs (
-      name: value:
-      mkSystem {
-        computer = {
-          inherit name;
-        } // value;
-      }
-    ) nixosComputers;
+          } // value;
+        }
+      ) nixosComputers
+    );
 
   mkHome =
     inputs@{ computer, user }:

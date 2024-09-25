@@ -4,14 +4,15 @@
   lib,
   ...
 }:
-with lib builtins;
+with lib;
+with builtins;
 let
   staging = false;
   cfg = config.networking.traefik;
 in
 {
-  config = mkIf cfg.enable {
-    services.traefik.staticConfigOptions = {
+  config = {
+    services.traefik.staticConfigOptions = mkIf cfg.enable {
       api = {
         dashboard = true;
         # insecure = true;
@@ -29,9 +30,9 @@ in
           address = ":443";
           http.tls = {
             certResolver = "ovh";
-            domains = {
-              main = "puyral.fr";
-              sans = [ "*.puyral.fr" ];
+            domains = rec {
+              main = config.networking.traefik.baseDomain;
+              sans = [ "*.${main}" ];
             };
           };
         };
@@ -51,9 +52,9 @@ in
             "https://acme-v02.api.letsencrypt.org/directory";
       };
 
-      log.level = "DEBUG";
+      # log.level = "DEBUG";
     };
-    networking.firewall = {
+    networking.firewall = mkIf cfg.enable {
       allowedTCPPorts = [
         8080
         443

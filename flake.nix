@@ -73,11 +73,7 @@
     )
     // (
       let
-        precomputers = (import ./computers.nix);
-        computers = {
-          users = precomputers.users;
-          computers = builtins.removeAttrs "containers" precomputers.computers;
-        };
+        computers = (import ./computers.nix);
       in
       with functions;
       {

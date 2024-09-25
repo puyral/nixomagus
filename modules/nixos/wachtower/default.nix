@@ -1,19 +1,26 @@
 { lib, config, ... }:
-with lib builtins;
+with lib;
+with builtins;
 let
   cfg = config.services.watchtower;
 in
 {
   options.services.watchtower = {
     enable = mkEnableOption "wachtower auto-update docker service";
-    socker = "/var/run/watchtower-docker.sock";
-  };
-  config = mkIf cfg.enable {
-
-    virtualisation.oci-containers.containers."watchtower" = {
-      autoStart = true;
-      image = "containrrr/watchtower";
-      volumes = [ "${cfg.socket}:/var/run/docker.sock" ];
+    socket = mkOption {
+      default = "/var/run/watchtower-docker.sock";
+      type = types.str;
+      description = "the docker socket";
     };
   };
+  config.virtualisation.oci-containers.containers."watchtower" = mkIf cfg.enable {
+    autoStart = true;
+    image = "containrrr/watchtower";
+    volumes = [ "${cfg.socket}:/var/run/docker.sock" ];
+  };
+  config.virtualisation.docker = mkIf cfg.enable {
+        listenOptions = [
+          "unix://${cfg.socket}"
+        ];
+      };
 }

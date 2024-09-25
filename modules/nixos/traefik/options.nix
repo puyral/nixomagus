@@ -1,7 +1,10 @@
-lib: with lib builtins; {
+lib:
+with lib;
+with builtins;
+{
   enable = mkEnableOption "this reverse proxy rule";
   domain = mkOption {
-    default = config.networking.reverse_proxy.baseDomain;
+    # default = config.networking.reverse_proxy.baseDomain;
     type = types.str;
     description = "the base domain";
   };

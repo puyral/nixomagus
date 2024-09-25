@@ -1,11 +1,11 @@
-{ lib, ... }:
+{ lib, config, ... }:
 with lib;
 let
   cfg = config.networking.traefik;
 in
 {
   services.traefik.dynamicConfigOptions.http = {
-    routers = mapAttrs (
+    routers =  mapAttrs (
       host:
       { enable, domain, ... }:
       mkIf enable {
@@ -14,7 +14,7 @@ in
         tls.certResolver = "ovh";
         service = host;
       }
-    ) cfg;
+    ) cfg.instances;
     services = mapAttrs (
       host:
       attrs@{ enable, port, ... }:
@@ -25,6 +25,6 @@ in
           in
           [ { url = "http://${host}:${builtins.toString port}"; } ];
       }
-    ) cfg;
+    ) cfg.instances;
   };
 }

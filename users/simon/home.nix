@@ -37,7 +37,7 @@
         gh
         gnupg
         vim
-        nbstripout # for jupyter notebooks. This way I can support all of them
+        # nbstripout # for jupyter notebooks. This way I can support all of them
 
         docker
       ])

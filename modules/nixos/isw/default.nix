@@ -27,13 +27,15 @@ in
     };
   };
 
-  config = mkIf cfg.enable {
-    environment.systemPackages = [ custom.isw ];
+  config = {
+    environment.systemPackages = mkIf cfg.enable [ custom.isw ];
 
-    environment.etc."isw.conf".source = if cfg.configFile == null then defaultConf else cfg.configFile;
+    environment.etc."isw.conf".source = mkIf cfg.enable (
+      if cfg.configFile == null then defaultConf else cfg.configFile
+    );
 
-    boot.kernelModules = [ "ec_sys" ];
-    boot.extraModprobeConfig = "options ec_sys write_support=1";
+    boot.kernelModules = mkIf cfg.enable [ "ec_sys" ];
+    boot.extraModprobeConfig = mkIf cfg.enable "options ec_sys write_support=1";
 
     systemd = {
       packages = [ custom.isw ];

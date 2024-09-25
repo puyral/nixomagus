@@ -8,14 +8,14 @@ in
 
     {
       traefik = {
-        enable = mkEnableOption;
+        enable = mkEnableOption "traefik";
 
         baseDomain = mkOption {
           type = types.str;
           description = "the base domain";
         };
 
-        instance =
+        instances =
           let
             options = (import ./options.nix) lib;
           in

@@ -5,9 +5,9 @@
     ./samba.nix
     ./cockpit.nix
     ./syncthing.nix
-    ./whatchtower.nix
+    # ./whatchtower.nix
     ./jellyfin.nix
-    ./traefik
+    # ./traefik
     ./homeassistant
     # ./docker-test.nix
     ./portainer.nix
@@ -16,6 +16,17 @@
     ./photos
   ];
 
-  networking.nat.enable = true;
-  networking.nat.externalInterface = "enp9s0";
+  services.watchtower.enable = true;
+
+  networking = {
+    nat = {
+      enable = true;
+      externalInterface = "enp9s0";
+    };
+    traefik = {
+      enable = true;
+      baseDomain = "puyral.fr";
+      docker.enable = true;
+    };
+  };
 }

@@ -1,5 +1,6 @@
 { config, lib, ... }:
-with lib builtins;
+with lib;
+with builtins;
 
 let
   cfg = config.networking.traefik.docker;
@@ -20,9 +21,9 @@ in
           type = types.str;
           default = "172.16.0.1";
           description = "the gateway use for the traefik docker network";
-        } a;
+        } ;
         subnetSize = mkOption {
-          type = type.int.u8;
+          type = types.int;
           default = 16;
           description = "the size of the subnet. The final subnet is decided using the gateway's ip";
         };
@@ -48,56 +49,60 @@ in
   };
 
   # enable the docker provider for traefik
-  config = mkIf (config.networking.traefik.enable && cfg.enable) {
+  config =
+    let
+      e = (config.networking.traefik.enable && cfg.enable);
+    in
 
-    virtualisation.docker = {
-      enable = true;
-      listenOptions = [
-        toString
-        cfg.socket
-      ];
-    };
-    virtualisation.oci-containers.backend = "docker";
+    {
 
-    services.traefik.staticConfigOptions = {
-      providers.docker = {
-        watch = true;
-        exposedByDefault = false;
-        endpoint = "unix://${cfg.socket}";
-        network = "traefik";
+      virtualisation.docker = mkIf e {
+        enable = true;
+        listenOptions = [
+          "unix://${cfg.socket}"
+        ];
       };
-    };
+      virtualisation.oci-containers.backend = mkIf e  "docker";
 
-    systemd.services.traefik = {
-      after = [ "${cfg.serviceName}.service" ];
-      requires = [ "${cfg.serviceName}.service" ];
-      partOf = [ "${cfg.targetName}.target" ];
-      wantedBy = [ "${cfg.targetName}.target" ];
-    };
-
-    # network for docker
-    systemd.services.${cfg.serviceName} =
-      let
-        netName = cfg.network.name;
-      in
-      {
-        path = [ config.virtualisation.docker.package ];
-        serviceConfig = {
-          Type = "oneshot";
-          RemainAfterExit = true;
-          ExecStop = "docker network rm -f ${netName}";
+      services.traefik.staticConfigOptions = mkIf e {
+        providers.docker = {
+          watch = true;
+          exposedByDefault = false;
+          endpoint = "unix://${cfg.socket}";
+          network = "traefik";
         };
-        script = ''
-          docker network inspect ${netName} || docker network create ${netName} --subnet "${cfg.network.gateway}/${toString cfg.network.subnetSize}" --gateway "${cfg.network.gateway}"
-        '';
+      };
+
+      systemd.services.traefik = mkIf e {
+        after = [ "${cfg.serviceName}.service" ];
+        requires = [ "${cfg.serviceName}.service" ];
         partOf = [ "${cfg.targetName}.target" ];
         wantedBy = [ "${cfg.targetName}.target" ];
       };
 
-    systemd.targets.${cfg.targetName} = {
-      unitConfig = {
-        Description = "Traefik root";
+      # network for docker
+      systemd.services.${cfg.serviceName} =
+        let
+          netName = cfg.network.name;
+        in
+        mkIf e {
+          path = [ config.virtualisation.docker.package ];
+          serviceConfig = {
+            Type = "oneshot";
+            RemainAfterExit = true;
+            ExecStop = "docker network rm -f ${netName}";
+          };
+          script = ''
+            docker network inspect ${netName} || docker network create ${netName} --subnet "${cfg.network.gateway}/${toString cfg.network.subnetSize}" --gateway "${cfg.network.gateway}"
+          '';
+          partOf = [ "${cfg.targetName}.target" ];
+          wantedBy = [ "${cfg.targetName}.target" ];
+        };
+
+      systemd.targets.${cfg.targetName} = mkIf e {
+        unitConfig = {
+          Description = "Traefik root";
+        };
       };
     };
-  };
 }

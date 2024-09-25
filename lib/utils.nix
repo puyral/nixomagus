@@ -33,5 +33,5 @@ rec {
         ]
         ++ acc;
     in
-    fold' f [ ] l;
+    builtins.foldl' f [ ] l;
 }

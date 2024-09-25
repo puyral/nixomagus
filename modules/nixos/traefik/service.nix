@@ -4,22 +4,20 @@ let
   cfg = config.networking.traefik;
 in
 {
-  inputs = [
+  imports = [
     ./static.nix
     ./dynamic
   ];
 
-  config = mkIf cfg.enable {
-    users.groups.traefik = {
-      members = [ "root" ];
-    };
-    users.users.traefik = {
+  config = {
+    users.groups.traefik = mkIf cfg.enable { members = [ "root" ]; };
+    users.users.traefik = mkIf cfg.enable {
       extraGroups = [
         "traefik"
         "docker"
       ];
     };
-    services.traefik = {
+    services.traefik = mkIf cfg.enable {
       enable = true;
       dataDir = "/containers/traefik";
       group = "traefik";

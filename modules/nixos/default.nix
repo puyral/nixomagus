@@ -1,10 +1,10 @@
 { ... }:
 {
   imports = [
-    ./isw
+    # ./isw
     ./traefik
     ./wachtower
     ./docker-traefik
-    ./containers
+    # ./containers
   ];
 }
