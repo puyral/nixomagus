@@ -1,26 +1,22 @@
 {
-  mconfig,
   config,
   pkgs-unstable,
-  rootDir,
   ...
 }:
 let
-  # entrypoint = name;
-  # localAddress = config.containers.${name}.localAddress;
   port = 2342;
   gconfig = config;
 in
 {
   networking.nat.internalInterfaces = [ "ve-photoprism" ];
-  # networking.reverse_proxy."photo" = {
-  #   container = "photoprism";
-  #   inherit port;
-  # };
   containers.photoprism = {
     bindMounts = {
       "/Volumes/Zeno/media/photos" = {
         hostPath = "/mnt/Zeno/media/photos";
+        isReadOnly = true;
+      };
+      "/library.db" = {
+        hostPath = "/mnt/Zeno/media/darktable-database/library.db";
         isReadOnly = true;
       };
       "/originals" = {
@@ -39,17 +35,15 @@ in
     };
     autoStart = true;
     ephemeral = true;
-    privateNetwork = true;
-    hostAddress = "192.168.1.3";
-    localAddress = "192.168.100.12";
-    # additionalCapabilities = ["CAP_NET_ADMIN"];
-    enableTun = true;
 
     config =
-      { lib, ... }:
+      { ... }:
       {
-
-        environment.systemPackages = with pkgs-unstable; [ darktable ];
+        imports = [ ./generate-jpgs.nix ];
+        environment.systemPackages = with pkgs-unstable; [
+          darktable
+          #{ inherit darktable gen-config; })
+        ];
         services.photoprism = {
           enable = true;
           originalsPath = "/originals";
@@ -57,51 +51,19 @@ in
           passwordFile = ./secrets/init_password;
           settings = {
             PHOTOPRISM_ADMIN_USER = "root";
+            PHOTOPRISM_INDEX_SCHEDULE = "@every 3h";
           };
           inherit port;
           address = "0.0.0.0";
         };
-
-        system.stateVersion = mconfig.nixos;
-        networking = {
-          firewall.enable = false;
-          # Use systemd-resolved inside the container
-          # Workaround for bug https://github.com/NixOS/nixpkgs/issues/162686
-          useHostResolvConf = lib.mkForce false;
-        };
-        services.resolved.enable = true;
-
-        # users.users.simon= gconfig.users.users.simon;
-        # programs.zsh.enable = true;
-        # systemd.services.photoprism.serviceConfig= {
-        #   User = lib.mkForce  "simon";
-        #   Group = lib.mkForce  "photoprism";
-        # };
         users.users.photoprism = {
           group = "photoprism";
           isSystemUser = true;
         };
         users.groups.photoprism.gid = gconfig.users.groups.photoprism.gid;
-
-        # users.users."root".openssh.authorizedKeys.keys =
-        #   config.users.users."root".openssh.authorizedKeys.keys;
-        services.openssh = {
-          enable = true;
-          # openFirewall = true;
-        };
-
-        nixpkgs.config.allowUnfree = true;
-
-        services.zerotierone =
-          let
-            networks = import (rootDir + /secrets/zerotier-networks.nix);
-          in
-          {
-            enable = true;
-            joinNetworks = [ networks.vidya.id ];
-          };
       };
   };
+  extra.containers.photoprism.zerotierone = true;
   users.groups.photoprism = {
     members = [
       "simon"

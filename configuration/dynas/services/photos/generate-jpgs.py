@@ -4,7 +4,6 @@ import sqlite3
 import json
 import re
 import datetime
-from typing import Set
 import xml.etree.ElementTree as ET
 
 import subprocess
@@ -13,7 +12,7 @@ import logging
 # Create logger
 logger = logging.getLogger(__name__)
 
-logging.basicConfig(level=logging.DEBUG, format='%(asctime)s - %(levelname)s - %(message)s', filename="log.log")
+logging.basicConfig(level=logging.DEBUG, format='%(asctime)s - %(levelname)s - %(message)s')
 
 
 handler = logging.StreamHandler(sys.stdout)
@@ -37,14 +36,14 @@ namespaces = {
     'lr': 'http://ns.adobe.com/lightroom/1.0/'
 }
 
-def cmd(cmd:list, stop_on_error=True):
+def cmd(cmd:list[str], stop_on_error=True):
     global dry_run
     logger.debug(" ".join(cmd))
     if not dry_run:
         ret = subprocess.run(cmd)
         if ret.returncode != 0:
             if stop_on_error:
-                exit(ret)
+                exit(ret.returncode)
             else:
                 logger.error("Failed")
 
@@ -55,7 +54,7 @@ def setup_db() -> sqlite3.Connection:
     )
     return connection
 
-def find_files() -> Set[str]:
+def find_files() -> set[str]:
     global config
     jpg_dir = config["jpgs"]
     return set(map(
@@ -67,11 +66,13 @@ def find_files() -> Set[str]:
 def main():
     global config
     global dry_run
-    if len(sys.argv) >= 2:
-        config_path = sys.argv[1]
-    else:
-        config_path = os.path.join(
-            os.path.dirname(__file__), 'config.json')
+    # global darktable-cli = sys.args[1]
+    config_path = sys.argv[1]
+    # if len(sys.argv) >= 2:
+    #     config_path = sys.argv[1]
+    # else:
+    #     config_path = os.path.join(
+    #         os.path.dirname(__file__), 'config.json')
     with open(config_path, 'r') as f:
         config = json.load(f)
     
@@ -99,6 +100,7 @@ def main():
 
         if not os.path.exists(file):
             logger.debug("original not found :" + file)
+            files.discard(jpg)
             continue
 
         try:
@@ -108,14 +110,18 @@ def main():
             root = tree.getroot()
 
             # Find the xmp:Rating attribute
-            description = root.find('.//rdf:Description', namespaces)
+            description: ET.Element | None = root.find('.//rdf:Description', namespaces)
+            if description is None:
+                logger.error(f"could find a rating in {xmp}, skipping")
+                files.discard(jpg)
+                continue
             rating = description.get(f'{{{namespaces['xmp']}}}Rating')
             if rating == "-1":
                 logger.debug(f"rejected '{file}'")
                 continue
 
             mtime = datetime.datetime.fromtimestamp(os.path.getmtime(jpg))
-            files.remove(jpg)
+            files.discard(jpg)
             if (not date) or mtime > date:
                 logger.debug(f"skiping '{file}', already exported as '{jpg}'")
                 continue
@@ -142,17 +148,18 @@ def main():
 
 def run_dt(quality, file, xmp, jpg):
     global config
-    if config["use_flatpack"]:
-        dtcli = ["flatpak", "run", "--command=darktable-cli", "org.darktable.Darktable"]
-    else:
-        dtcli = ["darktable-cli"]
+    # if config["use_flatpack"]:
+    #     dtcli = ["flatpak", "run", "--command=darktable-cli", "org.darktable.Darktable"]
+    # else:
+    dtcli = ["darktable-cli"]
     dtargs = [file, xmp, jpg,
     # '--style', 'signature',
     '--apply-custom-presets', 'false',
     '--core',
         '--conf', f'plugins/imageio/format/jpeg/quality={quality}',
         '--conf', 'plugins/imageio/storage/disk/overwrite=1',
-        "--library", config["library"]]
+        # "--library", config["library"]
+    ]
     
     return dtcli + dtargs
 
@@ -178,10 +185,10 @@ def get_from_db(db):
     q = db.execute(query, {})
     return q
 
-def extract_data(f, jpg_dir):
+def extract_data(f, jpg_dir:str) -> tuple[str, datetime.datetime, str, str]:
     id = f[0]
     file = os.path.join(f[4], f[1])
-    date = f[2]
+    date:datetime.datetime = f[2]
     if date:
         date = \
                 datetime.datetime.utcfromtimestamp(

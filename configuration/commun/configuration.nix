@@ -143,7 +143,11 @@
   nix.extraOptions = ''
     builders-use-substitutes = true
   '';
-  nix.settings.trusted-users = [ "root" "simon" "@wheel" ];
+  nix.settings.trusted-users = [
+    "root"
+    "simon"
+    "@wheel"
+  ];
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.

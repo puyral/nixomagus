@@ -56,7 +56,6 @@
               git-crypt
               gh
               gnupg
-
             ])
             ++ (
               if pkgs.stdenv.isDarwin then

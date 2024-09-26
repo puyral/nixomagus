@@ -3,6 +3,9 @@
   config,
   mconfig,
   lib,
+  rootDir,
+  nixpkgs-unstable,
+  pkgs-unstable,
   ...
 }:
 with lib;
@@ -13,6 +16,7 @@ let
     name:
     { lib, ... }:
     {
+      imports = [ (rootDir + "/registeries.nix") ];
       system.stateVersion = mconfig.nixos;
       networking = {
         firewall.enable = false;
@@ -27,6 +31,10 @@ let
       };
 
       nixpkgs.config.allowUnfree = true;
+      nix.settings.experimental-features = [
+        "nix-command"
+        "flakes"
+      ];
 
       services.zerotierone =
         if config.extra.containers.${name}.zerotierone then
@@ -95,6 +103,9 @@ in
           (
             {
               config = c_config name;
+              specialArgs = {
+                inherit mlib nixpkgs-unstable pkgs-unstable;
+              };
             }
             // (if value.zerotierone then { enableTun = true; } else { })
             // (

@@ -56,19 +56,18 @@ in
                 optimize = 1;
                 pdfa_image_compression = "lossless";
               };
-              PAPERLESS_OCR_SKIP_ARCHIVE_FILE="with_text";
+              PAPERLESS_OCR_SKIP_ARCHIVE_FILE = "with_text";
               PAPERLESS_TRUSTED_PROXIES = config.containers.${name}.hostAddress;
               PAPERLESS_URL = "https://${name}.${config.networking.traefik.baseDomain}";
               # PAPERLESS_CSRF_TRUSTED_ORIGINS = "${PAPERLESS_URL},${PAPERLESS_TRUSTED_PROXIES}";
             };
             address = "0.0.0.0";
           };
-          users.groups.${user}.gid =
-            lib.mkForce config.users.groups.${user}.gid;
+          users.groups.${user}.gid = lib.mkForce config.users.groups.${user}.gid;
           users.groups.syncthing = {
-            members = [user];
-            gid = 
-            config.users.groups.syncthing.gid;};
+            members = [ user ];
+            gid = config.users.groups.syncthing.gid;
+          };
         };
     };
     extra.containers.${name} = {
