@@ -36,7 +36,7 @@ rec {
         };
       as_list_home = builtins.map to_home as_list;
     in
-    (builtins.listToAttrs (builtins.trace (toString as_list_home) as_list_home));
+    (builtins.listToAttrs as_list_home);
 
   mkSystems =
     { computers, ... }:

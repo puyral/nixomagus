@@ -6,8 +6,11 @@ in
 {
   services.traefik.dynamicConfigOptions.http = {
     routers = mapAttrs (
-      host:
-      { enable, domain, ... }:
+      host: attrs:
+      let
+        enable = attrs.enable;
+        domain = if attrs.domain == null then cfg.baseDomain else attrs.domain;
+      in
       mkIf enable {
         rule = "Host(`${host}.${domain}`)";
         entrypoints = "https";

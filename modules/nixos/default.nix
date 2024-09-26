@@ -5,6 +5,6 @@
     ./traefik
     ./wachtower
     ./docker-traefik
-    # ./containers
+    ./containers
   ];
 }

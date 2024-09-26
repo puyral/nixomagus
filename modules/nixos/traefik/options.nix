@@ -4,9 +4,9 @@ with builtins;
 {
   enable = mkEnableOption "this reverse proxy rule";
   domain = mkOption {
-    # default = config.networking.reverse_proxy.baseDomain;
-    type = types.str;
+    type = types.nullOr types.str;
     description = "the base domain";
+    default = null;
   };
   port = mkOption {
     type = types.port;

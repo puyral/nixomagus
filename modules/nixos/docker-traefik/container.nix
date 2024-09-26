@@ -43,12 +43,10 @@ in
         f =
           n: value:
           let
-            # nvalue = removeAttrs "proxy" value;
             name = if value.name == null then n else value.name;
             port = value.port;
             domain = if value.domain == null then config.networking.traefik.baseDomain else value.domain;
           in
-          # recursiveUpdate nvalue { inherit labels; };
           if enabled then
             {
               labels = {

@@ -9,7 +9,6 @@ with lib;
 with builtins;
 let
 
-  cfg = name: config.containers.${name};
   c_config =
     name:
     { lib, ... }:
@@ -23,24 +22,23 @@ let
       };
       services.resolved.enable = true;
 
-      # users.users."root".openssh.authorizedKeys.keys =
-      #   config.users.users."root".openssh.authorizedKeys.keys;
       services.openssh = {
         enable = true;
-        # openFirewall = true;
       };
 
       nixpkgs.config.allowUnfree = true;
 
-      services.zerotierone = mkIf (cfg name).zerotierone (
-        let
-          networks = import (rootDir + /secrets/zerotier-networks.nix);
-        in
-        {
-          enable = true;
-          joinNetworks = [ networks.vidya.id ];
-        }
-      );
+      services.zerotierone =
+        if config.extra.containers.${name}.zerotierone then
+          let
+            networks = import (rootDir + /secrets/zerotier-networks.nix);
+          in
+          {
+            enable = true;
+            joinNetworks = [ networks.vidya.id ];
+          }
+        else
+          { };
     };
   names = builtins.attrNames config.extra.containers;
   enames = mlib.enumerate names;
@@ -61,54 +59,57 @@ in
         { name, ... }:
         {
           options = {
-            zerotierone = mkEnableOption "zerotier vpn";
-            traefik = (import ../traefik/options.nix) lib;
-            privateNetwork = mkEnableOption "private network";
+            zerotierone = mkOption {
+              type = types.bool;
+              default = false;
+              description = "enable zerotier vpn";
+            };
+            traefik = (import ../traefik/options.nix) lib // {
+              name = mkOption {
+                type = types.str;
+                default = name;
+                description = "the subdomain name";
+              };
+            };
+            privateNetwork = mkOption {
+              type = types.bool;
+              default = true;
+            };
           };
         };
     in
-
-    mkOption { type = types.attrsOf (types.submodule options); };
+    mkOption {
+      type = types.attrsOf (types.submodule options);
+      default = { };
+    };
 
   config = {
     containers =
       let
         f =
-          {
+          attrs@{
             idx,
             value,
             name,
           }:
-          {
-            config = c_config name;
-          }
-          // mkIf value.zerotierone { enableTun = true; }
-          // mkIf value.privateNetwork {
-            hostAddress = "192.168.${toString (2 + idx)}.2";
-            localAddress = "192.168.100.${toString (2 + idx)}";
-          };
-      in
-      listToAttrs (
-        map (
-          attrs@{ name, ... }:
-          {
-            inherit name;
-            value = f attrs;
-          }
-        ) content
-      );
-    networking = {
-      traefik.instance =
-        let
-          f =
+          (
             {
-              idx,
-              value,
-              name,
-            }:
-            value.traefik // { container = name; };
-        in
-        listToAttrs (
+              config = c_config name;
+            }
+            // (if value.zerotierone then { enableTun = true; } else { })
+            // (
+              if value.privateNetwork then
+                {
+                  privateNetwork = true;
+                  hostAddress = "192.168.${toString (2 + idx)}.2";
+                  localAddress = "192.168.100.${toString (2 + idx)}";
+                }
+              else
+                { }
+            )
+          );
+
+        result = listToAttrs (
           map (
             attrs@{ name, ... }:
             {
@@ -117,15 +118,30 @@ in
             }
           ) content
         );
+      in
+      result;
+    networking = {
+      traefik.instances = (
+        let
+          f = { value, name, ... }: (builtins.removeAttrs value.traefik [ "name" ]) // { container = name; };
+        in
+        listToAttrs (
+          map (attrs: {
+            name = if attrs.value ? traefik then attrs.value.traefik.name else attrs.name;
+            value = f attrs;
+          }) content
+        )
+      );
 
       nat.internalInterfaces = map (
         { name, ... }:
         let
           net = "ve-${name}";
         in
-        assertMsg (
-          (stringLength net) < 16
-        ) "${net} is too long for a network name, please change the name of container ${names}" net
+        if (builtins.stringLength net) < 16 then
+          net
+        else
+          throw "${net} is too long for a network name, please change the name of container ${names}"
       ) (filter ({ value, ... }: value.privateNetwork) content);
     };
   };

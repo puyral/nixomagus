@@ -1,8 +1,5 @@
 { lib, config, ... }:
 with lib;
-let
-  cfg = config.networking.traefik;
-in
 {
   options.networking =
 

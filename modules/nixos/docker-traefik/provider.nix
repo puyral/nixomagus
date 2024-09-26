@@ -58,9 +58,6 @@ in
 
       virtualisation.docker = mkIf e {
         enable = true;
-        # listenOptions = [
-        #   "${cfg.socket}"
-        # ];
         daemon.settings.hosts = [ "unix://${cfg.socket}" ];
       };
       virtualisation.oci-containers.backend = mkIf e "docker";

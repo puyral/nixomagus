@@ -36,9 +36,6 @@ in
             };
           };
         };
-        # web = {
-        #   address = ":8080";
-        # };
       };
 
       certificatesResolvers.ovh.acme = {
