@@ -6,5 +6,6 @@
     ./wachtower
     ./docker-traefik
     ./containers
+    ./zigbee2mqtt
   ];
 }

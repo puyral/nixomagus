@@ -5,19 +5,20 @@
     ./samba.nix
     ./cockpit.nix
     ./syncthing.nix
-    # ./whatchtower.nix
     ./jellyfin.nix
-    # ./traefik
     ./homeassistant
-    # ./docker-test.nix
     ./portainer.nix
     ./mosquitto.nix
-    ./zigbee2mqtt.nix
     ./photos
   ];
   virtualisation.docker.autoPrune.enable = true;
 
   services.watchtower.enable = true;
+
+  extra.zigbee2mqtt = {
+    enable = true;
+    dongle = "/dev/serial/by-id/usb-ITead_Sonoff_Zigbee_3.0_USB_Dongle_Plus_6c969fdb7c12ec119aa120c7bd930c07-if00-port0";
+  };
 
   networking = {
     nat = {
