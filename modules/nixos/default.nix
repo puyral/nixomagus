@@ -7,5 +7,7 @@
     ./docker-traefik
     ./containers
     ./zigbee2mqtt
+    ./paperless
+    ./usersNgroups.nix
   ];
 }

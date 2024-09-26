@@ -5,6 +5,7 @@
     ./hardware-config.nix
     ./services
     ./firewall.nix
+    ./usersNgroups.nix
   ];
 
   #users.mutableUsers = false;
