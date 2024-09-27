@@ -12,7 +12,7 @@ import logging
 # Create logger
 logger = logging.getLogger(__name__)
 
-logging.basicConfig(level=logging.DEBUG, format='%(asctime)s - %(levelname)s - %(message)s')
+logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 
 
 handler = logging.StreamHandler(sys.stdout)
@@ -38,7 +38,7 @@ namespaces = {
 
 def cmd(cmd:list[str], stop_on_error=True):
     global dry_run
-    logger.debug(" ".join(cmd))
+    logger.info(" ".join(cmd))
     if not dry_run:
         ret = subprocess.run(cmd)
         if ret.returncode != 0:
@@ -158,7 +158,7 @@ def run_dt(quality, file, xmp, jpg):
     '--core',
         '--conf', f'plugins/imageio/format/jpeg/quality={quality}',
         '--conf', 'plugins/imageio/storage/disk/overwrite=1',
-        # "--library", config["library"]
+        "--library", config["library"]
     ]
     
     return dtcli + dtargs

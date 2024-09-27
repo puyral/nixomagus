@@ -1,13 +1,10 @@
-{
-  config,
-  pkgs-unstable,
-  ...
-}:
+{ config, pkgs-unstable, ... }:
 let
   port = 2342;
   gconfig = config;
 in
 {
+  imports = [ ./generate-jpgs.nix ];
   networking.nat.internalInterfaces = [ "ve-photoprism" ];
   containers.photoprism = {
     bindMounts = {
@@ -39,7 +36,6 @@ in
     config =
       { ... }:
       {
-        imports = [ ./generate-jpgs.nix ];
         environment.systemPackages = with pkgs-unstable; [
           darktable
           #{ inherit darktable gen-config; })
@@ -52,6 +48,9 @@ in
           settings = {
             PHOTOPRISM_ADMIN_USER = "root";
             PHOTOPRISM_INDEX_SCHEDULE = "@every 3h";
+            PHOTOPRISM_JPEG_QUALITY = "80";
+            PHOTOPRISM_THUMB_UNCACHED = "true";
+            PHOTOPRISM_THUMB_SIZE = "2000";
           };
           inherit port;
           address = "0.0.0.0";
