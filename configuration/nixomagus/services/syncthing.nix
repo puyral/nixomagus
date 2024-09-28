@@ -6,6 +6,7 @@
         id = "p6awe-zndxp";
         path = "/Volumes/Zeno/media/photos";
         devices = [ "dynas" ];
+        syncXattrs = true;
       };
       "Administratif" = {
         id = "gpvo3-aqakk";
@@ -16,6 +17,7 @@
           "BV9800"
           "i7-linux"
         ];
+        syncXattrs = true;
       };
       "codage" = {
         id = "7rvge-hjwsl";
@@ -24,6 +26,7 @@
           "dynas"
           "MacPro"
         ];
+        syncXattrs = true;
       };
       "TU-Wien" = {
         id = "ntazz-iahzt";
@@ -32,6 +35,7 @@
           "dynas"
           "MacPro"
         ];
+        syncXattrs = true;
       };
       "Logseq" = {
         id = "imwyj-ppta7";
@@ -41,6 +45,7 @@
           "MacPro"
           "BV9800"
         ];
+        syncXattrs = true;
       };
       "darktable-database" = {
         id = "zuebf-k5yax";
@@ -49,6 +54,7 @@
           "dynas"
           "MacPro"
         ];
+        syncXattrs = true;
       };
     };
   };

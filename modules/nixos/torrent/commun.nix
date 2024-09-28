@@ -16,7 +16,10 @@ with lib;
       type = types.path;
       default = "/containers/torrent";
     };
-    user = mkOption { type = types.nullOr types.str; };
+    user = mkOption {
+      type = types.nullOr types.str;
+      default = null;
+    };
     group = mkOption {
       type = types.nullOr types.str;
       default = null;
