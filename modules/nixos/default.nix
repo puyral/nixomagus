@@ -9,5 +9,6 @@
     ./zigbee2mqtt
     ./paperless
     ./usersNgroups.nix
+    ./torrent
   ];
 }

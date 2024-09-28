@@ -2,6 +2,7 @@
   config,
   pkgs,
   pkgs-unstable,
+  lib,
   ...
 }:
 let
@@ -9,7 +10,7 @@ let
   gen-config = {
     dry_run = false;
     library = "/mnt/Zeno/media/darktable-database/library.db";
-    jpgs = "/mnt/Zeno/media/photos/exports/complete";
+    jpgs = "/originals";
     use_flatpack = false;
     quality = 80;
   };
@@ -24,12 +25,16 @@ let
 in
 {
   # Define the systemd service
-  systemd.services."${name}-jpgs" = {
+  systemd.services."${name}" = {
     description = "Service to generate JPGs";
     serviceConfig = {
       ExecStart = "${generate-jpgs}/bin/generate-jpgs"; # Make sure 'yourPackage' provides 'generate-jpgs'
       User = "simon";
       Group = "photoprism";
+      BindPaths = lib.concatStringsSep " " [
+        "/mnt/Zeno/media/photos:/Volumes/Zeno/media/photos"
+        "/mnt/Zeno/media/photos/exports/complete:/originals"
+      ];
     };
     wantedBy = [ "multi-user.target" ]; # Optional: ensure the service can be started manually
   };

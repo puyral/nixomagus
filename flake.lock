@@ -316,6 +316,22 @@
         "type": "github"
       }
     },
+    "my-nixpkgs": {
+      "locked": {
+        "lastModified": 1727504529,
+        "narHash": "sha256-RdQ3qMi5wLG6seZuRDWgMV56DN7pgVv+YHKWHqHCKF4=",
+        "owner": "puyral",
+        "repo": "nixpkgs",
+        "rev": "9185ee9d8deca199ebbd1c3a88edbf7420b75852",
+        "type": "github"
+      },
+      "original": {
+        "owner": "puyral",
+        "ref": "in-use",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
     "nixpkgs": {
       "locked": {
         "lastModified": 1682362401,
@@ -542,6 +558,7 @@
         "flake-utils": "flake-utils_6",
         "home-manager": "home-manager",
         "kmonad": "kmonad",
+        "my-nixpkgs": "my-nixpkgs",
         "nixpkgs": "nixpkgs_3",
         "nixpkgs-unstable": "nixpkgs-unstable"
       }

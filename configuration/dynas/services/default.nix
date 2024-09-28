@@ -24,6 +24,12 @@
     # backedupDir = "/mnt/Zeno/administratif/paperless";
   };
 
+  extra.torrent = {
+    enable = true;
+    user = "simon";
+    containered = true;
+  };
+
   networking = {
     nat = {
       enable = true;

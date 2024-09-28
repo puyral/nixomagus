@@ -6,6 +6,7 @@
   rootDir,
   nixpkgs-unstable,
   pkgs-unstable,
+  my-nixpkgs,
   ...
 }:
 with lib;
@@ -104,7 +105,12 @@ in
             {
               config = c_config name;
               specialArgs = {
-                inherit mlib nixpkgs-unstable pkgs-unstable;
+                inherit
+                  mlib
+                  nixpkgs-unstable
+                  pkgs-unstable
+                  my-nixpkgs
+                  ;
               };
             }
             // (if value.zerotierone then { enableTun = true; } else { })
