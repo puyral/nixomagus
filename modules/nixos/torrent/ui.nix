@@ -18,7 +18,7 @@ in
         hostName = "0.0.0.0";
         dataDir = "${cfg.dataDir}/rutorrent";
         nginx = {
-          enable =  true;
+          enable = true;
         };
         # they shouldn't be required with the default config but its pretty neat stuff that comes for free
         # basically as its part of the repo already

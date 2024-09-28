@@ -28,12 +28,16 @@ in
     hostAddress = "192.168.1.2";
     localAddress = "192.168.100.11";
 
+    # I'm using ACLs to let jellyfin have access to the media
+    # see `getfacl` and `setfacl`
+
     config =
       { lib, ... }:
       {
         services.jellyfin = {
           enable = true;
           openFirewall = true;
+          user = "jellyfin";
         };
         services.jellyseerr.enable = true;
 
@@ -47,7 +51,20 @@ in
 
         programs.nix-ld.enable = true;
         services.resolved.enable = true;
+        users.users.jellyfin = config.users.users.jellyfin;
+        users.groups.jellyfin.gid = config.users.groups.jellyfin.gid;
       };
+  };
+
+  users.users = {
+    jellyfin = {
+      isSystemUser = true;
+      uid = 1101;
+      group = "jellyfin";
+    };
+  };
+  extra.extraGroups.jellyfin = {
+    gid = 1100;
   };
 
   services.traefik.staticConfigOptions.entryPoints.${entrypoint} = ":9999";
