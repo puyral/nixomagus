@@ -9,7 +9,7 @@ in
   networking.nat.internalInterfaces = [ "ve-jf" ];
   containers.${name} = {
     bindMounts = {
-      "/var/data/jellyfin" = {
+      "/var/lib/jellyfin" = {
         hostPath = "${base_dir}/data";
         isReadOnly = false;
       };
@@ -17,13 +17,13 @@ in
         hostPath = "${base_dir}/cache";
         isReadOnly = false;
       };
-      "/mnt/Zeno/media/videos" = {
+      "/videos" = {
         hostPath = "/mnt/Zeno/media/videos";
         isReadOnly = false;
       };
     };
     autoStart = true;
-    # ephemeral = true;
+    ephemeral = true;
     privateNetwork = false;
     hostAddress = "192.168.1.2";
     localAddress = "192.168.100.11";
