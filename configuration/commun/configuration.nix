@@ -135,7 +135,6 @@
     dates = [ "03:45" ];
   };
 
-  nix.distributedBuilds = false;
   nix.extraOptions = ''
     builders-use-substitutes = true
   '';

@@ -19,4 +19,34 @@
 
   # Enable CUPS to print documents.
   services.printing.enable = true;
+
+
+  nix.distributedBuilds = false;
+
+    nix.buildMachines = [
+    # vampire
+    # {
+    #   hostName = "root@10.250.2.101";
+    #   system = "x86_64-linux";
+    #   supportedFeatures = [
+    #     "nixos-test"
+    #     "benchmark"
+    #     "big-parallel"
+    #     "kvm"
+    #   ];
+    #   maxJobs = 4;
+    # }
+    # dynas
+    {
+      hostName = "simon@dynas.puyral.fr";
+      system = "x86_64-linux";
+      supportedFeatures = [
+        "nixos-test"
+        "benchmark"
+        "big-parallel"
+        "kvm"
+      ];
+      maxJobs = 2;
+    }
+  ];
 }
