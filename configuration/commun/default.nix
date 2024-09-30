@@ -3,7 +3,7 @@
 {
   imports = [
     ./configuration.nix
-    ./filesystem.nix
+    # ./filesystem.nix
     ./services
   ];
 }

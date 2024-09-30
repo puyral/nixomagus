@@ -6,6 +6,7 @@
   ...
 }:
 {
+  imports = [ ../commun/filesystem.nix ];
 
   fileSystems = {
     "/boot" = {

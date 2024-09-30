@@ -12,9 +12,10 @@
     ./kmonad
     ./nvidia.nix
     ./hardware-configuration.nix
-    ./sound.nix
-    ./bluetooth.nix
+    ../commun/sound.nix
+    ../commun/bluetooth.nix
     kmonad.nixosModules.default
+    ./gui.nix
   ];
 
   fonts.packages = with pkgs; [
@@ -87,5 +88,15 @@
       maxJobs = 2;
     }
   ];
+
+  # docker
+  virtualisation.docker = {
+    enable = true;
+    storageDriver = "btrfs";
+    # rootless = {
+    #   enable = true;
+    #   setSocketVariable = true;
+    # };
+  };
 
 }

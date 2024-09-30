@@ -20,6 +20,12 @@ rec {
       users = [ users.simon ];
       headless = true;
     };
+    i7 = {
+      system = "x86_64-linux";
+      users = [ users.simon ];
+      nixos = "24.05";
+      headless = false;
+    };
   };
 
   users = {

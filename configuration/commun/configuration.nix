@@ -21,7 +21,9 @@
   imports = [
     # Include the results of the hardware scan.
     # ./services.nix
-  ] ++ (if computer_name == "nixomagus" then [ ./gui.nix ] else [ ]);
+  ]
+  # ++ (if computer_name == "nixomagus" then [ ./gui.nix ] else [ ])
+  ;
 
   programs.gnupg = {
     agent = {
@@ -117,16 +119,6 @@
     usbutils
   ];
 
-  # docker
-  virtualisation.docker = {
-    enable = true;
-    storageDriver = "btrfs";
-    # rootless = {
-    #   enable = true;
-    #   setSocketVariable = true;
-    # };
-  };
-
   # automount
   services.gvfs.enable = true;
   services.udisks2.enable = true;
@@ -140,7 +132,7 @@
   };
   nix.optimise = {
     automatic = true;
-    dates = ["03:45"];
+    dates = [ "03:45" ];
   };
 
   nix.distributedBuilds = false;

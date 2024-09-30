@@ -1,10 +1,11 @@
-{lib,config,  ...}:
-let cfg = config.exact.vaultwarden; 
-name = "vaultwarden";
-port = 8222;
+{ lib, config, ... }:
+let
+  cfg = config.exact.vaultwarden;
+  name = "vaultwarden";
+  port = 8222;
 in
 {
-    options.extra.vaultwarden = with lib; {
+  options.extra.vaultwarden = with lib; {
     enable = mkEnableOption "vaultwarden";
     dongle = mkOption { type = types.path; };
     dataDir = mkOption {
@@ -26,16 +27,18 @@ in
         autoStart = true;
         ephemeral = true;
 
-        config = {...}:{
-          services.vaultwarden = {
-            enable = true;
-            config = {
-              ROCKET_ADDRESS = "0.0.0.0";
-              ROCKET_PORT = port;
+        config =
+          { ... }:
+          {
+            services.vaultwarden = {
+              enable = true;
+              config = {
+                ROCKET_ADDRESS = "0.0.0.0";
+                ROCKET_PORT = port;
+              };
+              backupDir = "/backup";
             };
-            backupDir = "/backup";
           };
-        };
       };
     };
   };
