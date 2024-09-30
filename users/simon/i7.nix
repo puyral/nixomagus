@@ -53,15 +53,14 @@
         easyeffects
 
         # jellyfin-media-player # see https://github.com/jellyfin/jellyfin-media-player/issues/165
-        pkgs.jellyfin-media-player.overrideAttrs
-        (oldAttrs: {
+        (pkgs.jellyfin-media-player.overrideAttrs (oldAttrs: {
           postInstall =
             oldAttrs.postInstall
             + ''
               wrapProgram $out/bin/jellyfinmediaplayer \
                 --set QT_QPA_PLATFORM xcb
             '';
-        })
+        }))
 
         discord
         whatsapp-for-linux
