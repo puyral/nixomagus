@@ -20,7 +20,7 @@
           "nixomagus"
           "MacPro"
           "BV9800"
-          "i7-linux"
+          # "i7-linux"
         ];
         syncXattrs = true;
       };

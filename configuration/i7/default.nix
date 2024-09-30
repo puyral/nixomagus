@@ -3,6 +3,7 @@
   imports = [
     ./hardware-configuration.nix
     ./gui.nix
+    ./syncthing.nix
     (rootDir + /overlays/jellyfin.nix)
   ];
   services.openssh = {
