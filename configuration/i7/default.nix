@@ -21,7 +21,7 @@
   services.printing.enable = true;
 
 
-  nix.distributedBuilds = false;
+  nix.distributedBuilds = true;
 
     nix.buildMachines = [
     # vampire
@@ -38,7 +38,9 @@
     # }
     # dynas
     {
-      hostName = "simon@dynas.puyral.fr";
+      hostName = "dynas.puyral.fr";
+      sshUser = "simon";
+      sshKey = "/home/simon/.ssh/id_ed25519";
       system = "x86_64-linux";
       supportedFeatures = [
         "nixos-test"
@@ -49,4 +51,5 @@
       maxJobs = 2;
     }
   ];
+];
 }

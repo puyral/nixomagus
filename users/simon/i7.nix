@@ -6,6 +6,7 @@
   overlays,
   mconfig,
   custom,
+ nixpkgs-unstable,
   ...
 }@attrs:
 {
@@ -17,6 +18,7 @@
     # ./i3/i3.nix
     ./logseq
   ];
+
 
   home = {
 
@@ -52,15 +54,15 @@
         blueberry
         easyeffects
 
-        # jellyfin-media-player # see https://github.com/jellyfin/jellyfin-media-player/issues/165
-        (pkgs.jellyfin-media-player.overrideAttrs (oldAttrs: {
-          postInstall =
-            oldAttrs.postInstall
-            + ''
-              wrapProgram $out/bin/jellyfinmediaplayer \
-                --set QT_QPA_PLATFORM xcb
-            '';
-        }))
+        jellyfin-media-player # see https://github.com/jellyfin/jellyfin-media-player/issues/165
+        # (pkgs.jellyfin-media-player.overrideAttrs (oldAttrs: {
+        #   postInstall =
+        #     oldAttrs.postInstall
+        #     + ''
+        #       wrapProgram $out/bin/jellyfinmediaplayer \
+        #         --set QT_QPA_PLATFORM xcb
+        #     '';
+        # }))
 
         discord
         whatsapp-for-linux
