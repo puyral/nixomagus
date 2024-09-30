@@ -1,8 +1,9 @@
-{ pkgs, ... }:
+{ pkgs,rootDir, ... }:
 {
   imports = [
     ./hardware-configuration.nix
     ./gui.nix
+    (rootDir + /overlays/jellyfin.nix)
   ];
   services.openssh = {
     settings = {
