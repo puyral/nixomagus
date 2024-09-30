@@ -6,8 +6,8 @@
   overlays,
   mconfig,
   custom,
- nixpkgs-unstable,
- rootDir,
+  nixpkgs-unstable,
+  rootDir,
   ...
 }@attrs:
 {
@@ -19,7 +19,6 @@
     # ./i3/i3.nix
     ./logseq
   ];
-
 
   home = {
 

@@ -1,4 +1,4 @@
-{ pkgs,rootDir, ... }:
+{ pkgs, rootDir, ... }:
 {
   imports = [
     ./hardware-configuration.nix
@@ -22,10 +22,9 @@
   # Enable CUPS to print documents.
   services.printing.enable = true;
 
-
   nix.distributedBuilds = true;
 
-    nix.buildMachines = [
+  nix.buildMachines = [
     # vampire
     # {
     #   hostName = "root@10.250.2.101";

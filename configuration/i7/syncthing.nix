@@ -1,5 +1,8 @@
-{...} : {
-    services.syncthing = {
+{ ... }:
+{
+  services.syncthing = {
+    guiAddress = "0.0.0.0:8384";
+    settings.folders = {
       "Logseq" = {
         id = "imwyj-ppta7";
         path = "/home/simon/Documents/Logseq";
@@ -12,6 +15,6 @@
         ];
         syncXattrs = true;
       };
-
     };
+  };
 }

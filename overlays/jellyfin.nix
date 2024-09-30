@@ -1,14 +1,16 @@
-{pkgs, ...}: {
+{ pkgs, ... }:
+{
   nixpkgs.overlays = [
     (self: super: {
       jellyfin-media-player = super.jellyfin-media-player.overrideAttrs (prevAttrs: {
-        nativeBuildInputs = (prevAttrs.nativeBuildInputs or []) ++ [ pkgs.makeBinaryWrapper ];
+        nativeBuildInputs = (prevAttrs.nativeBuildInputs or [ ]) ++ [ pkgs.makeBinaryWrapper ];
 
-    postInstall = (prevAttrs.postInstall or "") + ''
-      wrapProgram $out/bin/obs --set QT_QPA_PLATFORM xcb
-    '';
+        postInstall =
+          (prevAttrs.postInstall or "")
+          + ''
+            wrapProgram $out/bin/obs --set QT_QPA_PLATFORM xcb
+          '';
       });
     })
-  ]
-  ;
+  ];
 }
