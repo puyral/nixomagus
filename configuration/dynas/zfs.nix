@@ -14,6 +14,6 @@
   services.zfs.autoSnapshot = {
     enable = true;
     monthly = 5;
-    flags = "-k -p --utc";
+    flags = "-k -p -v --utc";
   };
 }
