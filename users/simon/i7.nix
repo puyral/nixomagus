@@ -15,7 +15,7 @@
     # ./custom-packages.nix
     ./systemd-services/services.nix
     # ./i3/i3.nix
-    # ./logseq
+    ./logseq
   ];
 
   home = {

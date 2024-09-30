@@ -29,7 +29,8 @@
     # The home.packages option allows you to install Nix packages into your
     # environment.
     packages =
-      (with custom; [ clocktui ])
+      [ ]
+      # (with custom; [ clocktui ])
       ++ (with pkgs; [
 
         git
@@ -39,7 +40,7 @@
         vim
         # nbstripout # for jupyter notebooks. This way I can support all of them
 
-        docker
+        # docker
       ])
       ++ (with pkgs-unstable; [
         nixd
