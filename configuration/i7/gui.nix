@@ -5,7 +5,7 @@
   services.xserver.enable = true;
 
   # Enable the GNOME Desktop Environment.
-  services.xserver.displayManager = {
+  services.displayManager = {
     autoLogin = {
       enable = true;
       user = "simon";
