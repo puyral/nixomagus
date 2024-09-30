@@ -11,6 +11,7 @@
       user = "simon";
     };
   };
+	services.xserver.displayManager.gdm.enable = true;
   services.xserver.desktopManager.gnome.enable = true;
 
   # https://nixos.wiki/wiki/GNOME
