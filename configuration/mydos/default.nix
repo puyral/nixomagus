@@ -1,12 +1,17 @@
-{pkgs, rootDir,...}:{
+{
+  pkgs,
+  rootDir,
+  nixos-hardware,
+  ...
+}:
+{
   imports = [
     ./hardware-configuration.nix
-        (rootDir + /overlays/jellyfin.nix)
-            ./gui.nix
+    (rootDir + /overlays/jellyfin.nix)
+    ./gui.nix
   ];
 
-
-    services.openssh = {
+  services.openssh = {
     settings = {
       X11Forwarding = true;
     };
