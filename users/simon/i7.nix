@@ -69,6 +69,7 @@
         signal-desktop
 
         xournalpp
+        rnote
       ]);
     sessionVariables = {
       MOZ_USE_XINPUT2 = "1";
