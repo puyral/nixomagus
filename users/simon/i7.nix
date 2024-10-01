@@ -13,7 +13,7 @@
 {
   imports = [
     # ./hyprland.nix
-    ./alacritty.nix
+    # ./alacritty.nix
     # ./custom-packages.nix
     ./systemd-services/services.nix
     # ./i3/i3.nix
@@ -67,6 +67,8 @@
         discord
         whatsapp-for-linux
         signal-desktop
+
+        xournalpp
       ]);
     sessionVariables = {
       MOZ_USE_XINPUT2 = "1";
