@@ -16,8 +16,9 @@
     nixos-hardware.nixosModules.microsoft-surface-common
   ];
 
-  microsoft-surface.ipts.enable = true;
-  microsoft-surface.surface-control.enable = true;
+  # microsoft-surface.ipts.enable = true;
+  # microsoft-surface.surface-control.enable = true;
+  systemd.services.iptsd.enable = true;
 
   boot.initrd.availableKernelModules = [
     "xhci_pci"
