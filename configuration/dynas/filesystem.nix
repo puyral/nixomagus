@@ -22,6 +22,15 @@
         "compress=zstd"
       ];
     };
+    "/swap" = {
+      label = "NIXROOT";
+      fsType = "btrfs";
+      options = [
+        "subvol=swap"
+        "noatime"
+      ];
+    };
   };
   networking.hostId = "007f0200";
+  swapDevices = [ { device = "/swap/swapfile"; } ];
 }
