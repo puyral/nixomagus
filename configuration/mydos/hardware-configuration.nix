@@ -18,7 +18,8 @@
 
   # microsoft-surface.ipts.enable = true;
   # microsoft-surface.surface-control.enable = true;
-  systemd.services.iptsd.enable = true;
+  services.iptsd.enable = true;
+  environment.systemPackages = with pkgs; [surface-control];
 
   boot.initrd.availableKernelModules = [
     "xhci_pci"
@@ -44,7 +45,9 @@
     ];
   };
 
-  swapDevices = [ ];
+  swapDevices = [ {
+    device = "/swap/swapfile";
+  }];
 
   # Enables DHCP on each ethernet and wireless interface. In case of scripted networking
   # (the default) this is the recommended approach. When using systemd-networkd it's
@@ -56,5 +59,5 @@
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
   hardware.cpu.intel.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
 
-  zramSwap.enable = true;
+  # zramSwap.enable = true;
 }
