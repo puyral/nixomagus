@@ -16,10 +16,29 @@
   # for more control
   #
   # Zeno/media/videos is excluded
-  services.zfs.autoSnapshot = {
-    enable = true;
-    monthly = 5;
-    flags = "-k -p -v --utc";
+  services.zfs = {
+    autoSnapshot = {
+      enable = true;
+      monthly = 5;
+      flags = "-k -p -v --utc";
+    };
+
+    zed = {
+      settings = {
+        ZED_DEBUG_LOG = "/tmp/zed.debug.log";
+
+        ZED_EMAIL_ADDR = [
+          ((import (rootDir + /secrets/email.nix)).gmail "zfs+${config.networking.hostName}")
+        ];
+        ZED_EMAIL_OPTS = "-s '@SUBJECT@' @ADDRESS@";
+
+        ZED_NOTIFY_INTERVAL_SECS = 3600;
+        ZED_NOTIFY_VERBOSE = true;
+
+        ZED_USE_ENCLOSURE_LEDS = true;
+        ZED_SCRUB_AFTER_RESILVER = true;
+      };
+    };
   };
 
   services.smartd = {
@@ -43,7 +62,7 @@
       # test = true;
       mail = {
         sender = config.programs.msmtp.accounts.default.from;
-        recipient = (import (rootDir + /secrets/email.nix)).gmail "critical";
+        recipient = (import (rootDir + /secrets/email.nix)).gmail "smart";
       };
     };
   };
