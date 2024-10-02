@@ -19,7 +19,7 @@
   };
   services.xserver.displayManager.gdm.enable = true;
   services.xserver.desktopManager.gnome.enable = true;
-  environment.systemPackages = with pkgs.gnomeExtensions; [wallpaper-slideshow ];
+  environment.systemPackages = with pkgs.gnomeExtensions; [ wallpaper-slideshow ];
 
   # https://nixos.wiki/wiki/GNOME
   systemd.services = {

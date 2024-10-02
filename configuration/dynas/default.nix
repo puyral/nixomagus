@@ -7,6 +7,7 @@
     ./firewall.nix
     ./usersNgroups.nix
   ];
+  extra.mail.enable = true;
 
   # docker
   virtualisation.docker = {

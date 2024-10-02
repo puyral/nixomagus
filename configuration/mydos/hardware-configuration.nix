@@ -10,7 +10,6 @@
 {
   # see https://github.com/linux-surface/linux-surface/wiki/Installation-and-Setup
 
-
   imports = [
     (modulesPath + "/installer/scan/not-detected.nix")
     nixos-hardware.nixosModules.microsoft-surface-common
@@ -19,7 +18,7 @@
   # microsoft-surface.ipts.enable = true;
   # microsoft-surface.surface-control.enable = true;
   services.iptsd.enable = true;
-  environment.systemPackages = with pkgs; [surface-control];
+  environment.systemPackages = with pkgs; [ surface-control ];
 
   boot.initrd.availableKernelModules = [
     "xhci_pci"
@@ -45,9 +44,7 @@
     ];
   };
 
-  swapDevices = [ {
-    device = "/swap/swapfile";
-  }];
+  swapDevices = [ { device = "/swap/swapfile"; } ];
 
   # Enables DHCP on each ethernet and wireless interface. In case of scripted networking
   # (the default) this is the recommended approach. When using systemd-networkd it's

@@ -10,5 +10,6 @@
     ./paperless
     ./usersNgroups.nix
     ./torrent
+    ./mail
   ];
 }
