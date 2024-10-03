@@ -21,4 +21,6 @@
   };
 
   hardware.sensor.iio.enable = true;
+
+  environment.systemPackages = [ pkgs-unstable.firefoxpwa ];
 }

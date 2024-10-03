@@ -16,6 +16,7 @@
     ./custom-packages.nix
     ./systemd-services/services.nix
     ./i3/i3.nix
+    ./firefox.nix
   ];
 
   xdg.mimeApps.defaultApplications = {
@@ -77,7 +78,7 @@
         # (pkgs.writeShellScriptBin "my-hello" ''
         #   echo "Hello, ${config.home.username}!"
         # '')
-        firefox
+        # firefox
         thunderbird
         vscode
         pavucontrol

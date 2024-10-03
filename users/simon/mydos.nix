@@ -18,8 +18,10 @@
     ./systemd-services/services.nix
     # ./i3/i3.nix
     ./logseq
+    ./firefox.nix
   ];
 
+  programs.firefox.nativeMessagingHosts = [ pkgs.gnome-browser-connector ];
   home = {
 
     packages =
@@ -30,13 +32,9 @@
         btop
         htop
         intel-gpu-tools
-
-        #logseq
-
-        youtube-music
+        nvtopPackages.intel
       ])
       ++ (with pkgs-unstable; [
-        firefox
         thunderbird
         vscode
         pavucontrol
@@ -70,6 +68,7 @@
 
         xournalpp
         rnote
+        krita
       ]);
     sessionVariables = {
       MOZ_USE_XINPUT2 = "1";
