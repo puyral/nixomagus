@@ -59,6 +59,10 @@
 
         youtube-music
 
+        obs-studio
+        obs-studio-plugins.obs-pipewire-audio-capture
+        obs-studio-plugins.wlrobs
+
         texliveFull
       ])
       ++ (with pkgs-unstable; [
@@ -84,6 +88,9 @@
         pavucontrol
 
         okular
+
+        rnote
+        libsForQt5.xp-pen-g430-driver
 
         emacs
 
