@@ -48,6 +48,17 @@
         ];
         syncXattrs = true;
       };
+      "Hand Notes" = {
+        id = "igvtz-mfsxj";
+        path = "/home/simon/Documents/Hand Notes";
+        devices = [
+          "dynas"
+          "MacPro"
+          "mydos"
+          "i7-linux"
+        ];
+        syncXattrs = true;
+      };
       "darktable-database" = {
         id = "zuebf-k5yax";
         path = "/home/simon/.config/synced-darktable-database";

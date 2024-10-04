@@ -15,6 +15,17 @@
         ];
         syncXattrs = true;
       };
+      "Hand Notes" = {
+        id = "igvtz-mfsxj";
+        path = "/home/simon/Documents/Hand Notes";
+        devices = [
+          "dynas"
+          "MacPro"
+          "mydos"
+          "nixomagus"
+        ];
+        syncXattrs = true;
+      };
     };
   };
 }

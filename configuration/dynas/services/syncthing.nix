@@ -63,6 +63,29 @@
         ];
         syncXattrs = true;
       };
+      "Logseq" = {
+        id = "imwyj-ppta7";
+        path = "/mnt/Zeno/work/Logseq";
+        devices = [
+          "mydos"
+          "MacPro"
+          "BV9800"
+          "i7-linux"
+          "nixomagus"
+        ];
+        syncXattrs = true;
+      };
+      "Hand Notes" = {
+        id = "igvtz-mfsxj";
+        path = "/mnt/Zeno/work/Hand Notes";
+        devices = [
+          "mydos"
+          "MacPro"
+          "i7-linux"
+          "nixomagus"
+        ];
+        syncXattrs = true;
+      };
     };
   };
 }
