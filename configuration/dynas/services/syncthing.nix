@@ -55,7 +55,7 @@
         id = "iwgas-ogb6p";
         path = "/mnt/Zeno/media/Wallpapers";
         devices = [
-          "dynas"
+          "mydos"
           "MacPro"
           # "BV9800"
           # "i7-linux"
