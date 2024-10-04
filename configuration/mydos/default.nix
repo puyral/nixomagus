@@ -9,6 +9,7 @@
     ./hardware-configuration.nix
     (rootDir + /overlays/jellyfin.nix)
     ./gui.nix
+    ./syncthing.nix
   ];
 
   services.openssh = {

@@ -51,6 +51,18 @@
         ];
         syncXattrs = true;
       };
+      "Wallpapers" = {
+        id = "iwgas-ogb6p";
+        path = "/mnt/Zeno/media/Wallpapers";
+        devices = [
+          "dynas"
+          "MacPro"
+          # "BV9800"
+          # "i7-linux"
+          # "nixomagus"
+        ];
+        syncXattrs = true;
+      };
     };
   };
 }
