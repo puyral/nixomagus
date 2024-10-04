@@ -25,9 +25,6 @@
     variant = "";
   };
 
-  # Enable CUPS to print documents.
-  services.printing.enable = true;
-
   nix.distributedBuilds = true;
 
   nix.buildMachines = [

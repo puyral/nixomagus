@@ -13,7 +13,7 @@
   # Enable the GNOME Desktop Environment.
   services.displayManager = {
     autoLogin = {
-      enable = true;
+      enable = false;
       user = "simon";
     };
   };
