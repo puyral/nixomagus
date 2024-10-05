@@ -18,7 +18,7 @@
     ./gui.nix
   ];
 
-  extra.splash_screen.enable = true;
+  extra.splash_screen.enable = false;
 
   fonts.packages = with pkgs; [
     nerdfonts

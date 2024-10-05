@@ -1,8 +1,5 @@
 { ... }:
 
 {
-  imports = [
-    ./syncthing.nix
-    ./zerotierone.nix
-  ];
+  imports = [ ./zerotierone.nix ];
 }

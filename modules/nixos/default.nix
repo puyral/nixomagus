@@ -13,5 +13,6 @@
     ./mail
     ./refind
     ./splashscreen
+    ./syncthing-module
   ];
 }

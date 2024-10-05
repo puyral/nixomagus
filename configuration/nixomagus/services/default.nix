@@ -1,7 +1,4 @@
 { ... }:
 {
-  imports = [
-    ./syncthing.nix
-    ./printing.nix
-  ];
+  imports = [ ./printing.nix ];
 }
