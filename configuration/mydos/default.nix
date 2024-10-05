@@ -9,6 +9,7 @@
     ./hardware-configuration.nix
     (rootDir + /overlays/jellyfin.nix)
     ./gui.nix
+    ./waydroid.nix
     # ./howdy.nix # the camera isn't supported yet
   ];
   extra.splash_screen.enable = true;
