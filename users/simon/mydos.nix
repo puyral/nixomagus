@@ -69,6 +69,8 @@
         xournalpp
         rnote
         krita
+
+        koreader
       ]);
     sessionVariables = {
       MOZ_USE_XINPUT2 = "1";
