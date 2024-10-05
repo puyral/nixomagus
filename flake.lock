@@ -318,11 +318,11 @@
     },
     "my-nixpkgs": {
       "locked": {
-        "lastModified": 1727504529,
-        "narHash": "sha256-RdQ3qMi5wLG6seZuRDWgMV56DN7pgVv+YHKWHqHCKF4=",
+        "lastModified": 1728124837,
+        "narHash": "sha256-PK/rhGxrYKhX6KBd7LtA68BKn7bEwRjLBO4Gp9DpjO0=",
         "owner": "puyral",
         "repo": "nixpkgs",
-        "rev": "9185ee9d8deca199ebbd1c3a88edbf7420b75852",
+        "rev": "f9ef3ab5b9d73f782c944309257d153f8fd094fe",
         "type": "github"
       },
       "original": {

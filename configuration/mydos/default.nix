@@ -10,6 +10,7 @@
     (rootDir + /overlays/jellyfin.nix)
     ./gui.nix
     ./syncthing.nix
+    # ./howdy.nix # the camera isn't supported yet
   ];
   extra.splash_screen.enable = true;
 

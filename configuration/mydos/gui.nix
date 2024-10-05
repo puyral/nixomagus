@@ -1,4 +1,5 @@
-{ pkgs, pkgs-unstable, ... }:
+{ pkgs, ... }:
+
 {
 
   # Configure console keymap
@@ -19,7 +20,10 @@
   };
   services.xserver.displayManager.gdm.enable = true;
   services.xserver.desktopManager.gnome.enable = true;
-  environment.systemPackages = with pkgs.gnomeExtensions; [ wallpaper-slideshow ];
+  environment.systemPackages = with pkgs.gnomeExtensions; [
+    wallpaper-slideshow
+    improved-osk
+  ];
 
   # https://nixos.wiki/wiki/GNOME
   systemd.services = {
