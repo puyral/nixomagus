@@ -36,7 +36,7 @@
   };
 
   fileSystems."/boot" = {
-    device = "/dev/disk/by-uuid/B8F0-C2B0";
+    device = "/dev/disk/by-label/EFI";
     fsType = "vfat";
     options = [
       "fmask=0077"
