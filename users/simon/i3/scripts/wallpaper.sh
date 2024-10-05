@@ -4,6 +4,6 @@
 
 while true
 do
-    feh --recursive --randomize --bg-fill /Volumes/Zeno/media/photos/wallpaper;
+    feh --recursive --randomize --bg-fill /home/simon/Pictures/Wallpapers;
     sleep $1
 done
