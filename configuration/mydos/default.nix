@@ -12,6 +12,8 @@
     ./syncthing.nix
   ];
 
+  extra.refind.enable = true;
+
   services.openssh = {
     settings = {
       X11Forwarding = true;

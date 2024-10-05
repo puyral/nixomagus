@@ -11,5 +11,6 @@
     ./usersNgroups.nix
     ./torrent
     ./mail
+    ./refind
   ];
 }
