@@ -11,6 +11,7 @@
     ./gui.nix
     ./syncthing.nix
   ];
+  extra.splash_screen.enable = true;
 
   extra.refind.enable = true;
 

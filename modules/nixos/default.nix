@@ -12,5 +12,6 @@
     ./torrent
     ./mail
     ./refind
+    ./splashscreen
   ];
 }
