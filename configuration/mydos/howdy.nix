@@ -15,17 +15,14 @@ in
 {
   imports = howdypatches;
 
-  nixpkgs.overlays = 
-  [] 
-  ++ [
+  nixpkgs.overlays = [ ] ++ [
     (self: super: {
       howdy = pkgs.callPackage "${my-nixpkgs}/pkgs/by-name/ho/howdy/package.nix" { };
       linux-enable-ir-emitter =
         pkgs.callPackage "${my-nixpkgs}/pkgs/by-name/li/linux-enable-ir-emitter/package.nix"
           { };
     })
-  ]
-  ;
+  ];
 
   services.howdy = {
     enable = false;
@@ -35,5 +32,5 @@ in
     enable = false;
     device = "video4";
   };
-  environment.systemPackages = [pkgs.linux-enable-ir-emitter];
+  environment.systemPackages = [ pkgs.linux-enable-ir-emitter ];
 }

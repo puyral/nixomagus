@@ -160,6 +160,36 @@
   };
   users.users."root".openssh.authorizedKeys.keys = import (rootDir + /secrets/ssh_keys.nix);
 
+  nix.buildMachines = [
+    # vampire
+    {
+      hostName = "root@10.250.2.101";
+      system = "x86_64-linux";
+      sshKey = "/home/simon/.ssh/id_ed25519";
+      supportedFeatures = [
+        "nixos-test"
+        "benchmark"
+        "big-parallel"
+        "kvm"
+      ];
+      maxJobs = 4;
+    }
+    # dynas
+    {
+      hostName = "dynas.puyral.fr";
+      sshUser = "simon";
+      sshKey = "/home/simon/.ssh/id_ed25519";
+      system = "x86_64-linux";
+      supportedFeatures = [
+        "nixos-test"
+        "benchmark"
+        #  "big-parallel"
+        "kvm"
+      ];
+      maxJobs = 2;
+    }
+  ];
+
   # Open ports in the firewall.
   # networking.firewall.allowedTCPPorts = [ ... ];
   # networking.firewall.allowedUDPPorts = [ ... ];

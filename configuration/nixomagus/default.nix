@@ -18,6 +18,8 @@
     ./gui.nix
   ];
 
+  extra.splash_screen.enable = true;
+
   fonts.packages = with pkgs; [
     nerdfonts
     fira-code
@@ -61,33 +63,6 @@
   '';
 
   programs.gnupg.agent.pinentryPackage = pkgs.pinentry-gnome3;
-
-  nix.buildMachines = [
-    # vampire
-    {
-      hostName = "root@10.250.2.101";
-      system = "x86_64-linux";
-      supportedFeatures = [
-        "nixos-test"
-        "benchmark"
-        "big-parallel"
-        "kvm"
-      ];
-      maxJobs = 4;
-    }
-    # dynas
-    {
-      hostName = "simon@10.250.2.2";
-      system = "x86_64-linux";
-      supportedFeatures = [
-        "nixos-test"
-        "benchmark"
-        "big-parallel"
-        "kvm"
-      ];
-      maxJobs = 2;
-    }
-  ];
 
   # docker
   virtualisation.docker = {
