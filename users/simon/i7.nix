@@ -23,7 +23,7 @@
   home = {
 
     packages =
-      [ ]
+      [ custom.rnote ]
       ++ (with pkgs; [
         # pinentry-qt
 
@@ -69,7 +69,6 @@
         signal-desktop
 
         xournalpp
-        rnote
       ]);
     sessionVariables = {
       MOZ_USE_XINPUT2 = "1";

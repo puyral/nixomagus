@@ -67,7 +67,7 @@
         signal-desktop
 
         xournalpp
-        rnote
+        custom.rnote
         krita
 
         koreader
