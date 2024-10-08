@@ -1,4 +1,4 @@
-{ custom, pkgs-unstable, ... }:
+{ custom, pkgs-unstable, pkgs, ... }:
 {
   imports = [ ];
   home = {
