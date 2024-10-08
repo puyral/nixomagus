@@ -6,7 +6,7 @@
   };
   services.gpg-agent = {
     enable = true;
-    pinentryFlavor = "ncurse";
+    pinentryPackage = pkgs.pinentry-curses;
   };
   # programs.gnupg.agent.pinentryPackage =  pkgs.pinentry-curses;
 }
