@@ -60,6 +60,8 @@ in
             PHOTOPRISM_SITE_PREVIEW = "/originals/42207.jpg";
 
             PHOTOPRISM_WALLPAPER_URI = "/originals/42207.jpg";
+
+            PHOTOPRISM_DISABLE_WEBDAV = "true";
           };
           inherit port;
           address = "0.0.0.0";
