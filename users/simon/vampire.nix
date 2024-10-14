@@ -6,7 +6,9 @@
   };
   services.gpg-agent = {
     enable = true;
-    pinentryPackage = pkgs.pinentry-curses;
+    pinentryPackage = pkgs.pinentry-tty;
+
+
   };
   # programs.gnupg.agent.pinentryPackage =  pkgs.pinentry-curses;
 }
