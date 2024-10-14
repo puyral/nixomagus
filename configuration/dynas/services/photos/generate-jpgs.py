@@ -155,10 +155,11 @@ def run_dt(quality, file, xmp, jpg):
     dtcli = ["darktable-cli"]
     dtargs = [file, xmp, jpg,
     # '--style', 'signature',
-    '--apply-custom-presets', 'false',
+    # '--apply-custom-presets', 'false',
     '--core',
         '--conf', f'plugins/imageio/format/jpeg/quality={quality}',
         '--conf', 'plugins/imageio/storage/disk/overwrite=1',
+        '--conf', 'plugins/lighttable/export/metadata_flags=7003f',
         "--library", config["library"]
     ]
     
