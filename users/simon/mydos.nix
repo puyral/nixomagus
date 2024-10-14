@@ -66,6 +66,8 @@
         whatsapp-for-linux
         signal-desktop
 
+        zotero
+
         xournalpp
         custom.rnote
         krita
