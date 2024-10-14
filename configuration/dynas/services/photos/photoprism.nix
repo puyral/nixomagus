@@ -51,6 +51,10 @@ in
             PHOTOPRISM_JPEG_QUALITY = "80";
             PHOTOPRISM_THUMB_UNCACHED = "true";
             PHOTOPRISM_THUMB_SIZE = "2000";
+            PHOTOPRISM_WALLPAPER_URI = "/originals/42207.jpg";
+            PHOTOPRISM_SITE_URL = "https://photos.puyral.fr";
+            PHOTOPRISM_SITE_TITLE = "Photos";
+            PHOTOPRISM_SITE_PREVIEW = "/originals/42207.jpg";
           };
           inherit port;
           address = "0.0.0.0";
