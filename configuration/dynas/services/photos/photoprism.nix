@@ -48,13 +48,18 @@ in
           settings = {
             PHOTOPRISM_ADMIN_USER = "root";
             PHOTOPRISM_INDEX_SCHEDULE = "@every 3h";
-            PHOTOPRISM_JPEG_QUALITY = "80";
+
             PHOTOPRISM_THUMB_UNCACHED = "true";
             PHOTOPRISM_THUMB_SIZE = "2000";
-            PHOTOPRISM_WALLPAPER_URI = "/originals/42207.jpg";
-            PHOTOPRISM_SITE_URL = "https://photos.puyral.fr";
+            PHOTOPRISM_JPEG_SIZE = "10000";
+            PHOTOPRISM_JPEG_QUALITY = "80";
+
+            PHOTOPRISM_SITE_URL = "https://photos.puyral.fr/";
+            PHOTOPRISM_SITE_CAPTION = "Photos";
             PHOTOPRISM_SITE_TITLE = "Photos";
             PHOTOPRISM_SITE_PREVIEW = "/originals/42207.jpg";
+
+            PHOTOPRISM_WALLPAPER_URI = "/originals/42207.jpg";
           };
           inherit port;
           address = "0.0.0.0";
