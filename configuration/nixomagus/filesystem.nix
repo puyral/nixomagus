@@ -31,6 +31,15 @@
       ];
     };
 
+    "/swap" = {
+      label = "NIXROOT";
+      fsType = "btrfs";
+      options = [
+        "subvol=swap"
+        "noatime"
+      ];
+    };
+
     # "/mnt/Zeno" = {
     #   device = "192.168.0.2:/mnt/Zeno";
     #   fsType = "nfs";
@@ -41,4 +50,5 @@
     #   ];
     # };
   };
+  swapDevices = [ { device = "/swap/swapfile1"; } ];
 }
