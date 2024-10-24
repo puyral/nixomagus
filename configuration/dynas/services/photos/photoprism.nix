@@ -20,6 +20,10 @@ in
         hostPath = "/mnt/Zeno/media/photos/exports/complete";
         isReadOnly = false;
       };
+      "/original/videos" = {
+        hostPath = "/mnt/Zeno/media/photos/video_clips";
+        isReadOnly = false;
+      };
       "/cache" = {
         hostPath = "/containers/photoprism";
         isReadOnly = false;

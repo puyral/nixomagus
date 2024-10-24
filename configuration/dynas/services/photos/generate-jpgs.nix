@@ -40,10 +40,10 @@ in
   };
 
   # Define the systemd timer that runs every week
-  systemd.timers."${name}-timer" = {
+  systemd.timers."${name}" = {
     description = "Daily JPGs generation";
     timerConfig = {
-      OnCalendar = "daily 01:00"; # At 1 AM
+      OnCalendar = "*-*-* 1:00:00"; # At 1 AM
       Persistent = true; # Ensures the job is run if the system was off during the scheduled time
     };
     wantedBy = [ "timers.target" ]; # Makes sure the timer is started at boot
