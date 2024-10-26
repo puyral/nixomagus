@@ -56,11 +56,11 @@
         "vampire-master-src": "vampire-master-src_3"
       },
       "locked": {
-        "lastModified": 1728334897,
-        "narHash": "sha256-ujmTJdG/zwEO4MetFSR26/lQawueUr7nyDe3VMej700=",
+        "lastModified": 1729933266,
+        "narHash": "sha256-qKWJigfF54Gw1psT487LSK3C0yKDTHi+XW8bRKXrF2Q=",
         "owner": "puyral",
         "repo": "custom-nix",
-        "rev": "b20b8d9dc2d1751ee02ffc99fc1b74fb2efaf545",
+        "rev": "1da8b953d4fd12c260504bf30d0b6a50ec8fdb55",
         "type": "github"
       },
       "original": {
@@ -876,11 +876,11 @@
     "rnote-src": {
       "flake": false,
       "locked": {
-        "lastModified": 1728334691,
-        "narHash": "sha256-kHyDqlIbgoOu2y/CO/m0MclFTB9VFmN+hAIAZW0cXCg=",
+        "lastModified": 1729933037,
+        "narHash": "sha256-HTXrG1+beQBhrAHWttWkNyzqGMQZf6z7+DHxoKCSjfk=",
         "owner": "puyral",
         "repo": "rnote",
-        "rev": "4d93c4ff8f3da208ec5b164ec23eea015406e7fa",
+        "rev": "891851b9d56f4b54aba54f1774dac34414cc2a38",
         "type": "github"
       },
       "original": {
@@ -1075,11 +1075,11 @@
     "vampire-master-src_3": {
       "flake": false,
       "locked": {
-        "lastModified": 1728051976,
-        "narHash": "sha256-IGpe0llP9x7JETgvtozdEmRcyq+1jYNtra9RNgd3Jfw=",
+        "lastModified": 1729859697,
+        "narHash": "sha256-ZTc8s2D4B03vo16j4mrEL87jhjJ1mKWANfQewGi8v9Q=",
         "owner": "vprover",
         "repo": "vampire",
-        "rev": "c0f6adbe6b36427a08bb497a2d8814587f68bc5d",
+        "rev": "3f9dd2585ad237bb2c9e4ceb7453dabe387561bc",
         "type": "github"
       },
       "original": {
