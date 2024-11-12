@@ -159,7 +159,7 @@ def run_dt(quality, file, xmp, jpg):
     '--core',
         '--conf', f'plugins/imageio/format/jpeg/quality={quality}',
         '--conf', 'plugins/imageio/storage/disk/overwrite=1',
-        '--conf', 'plugins/lighttable/export/metadata_flags=7003f',
+        # '--conf', 'plugins/lighttable/export/metadata_flags=7003f',
         "--library", config["library"]
     ]
     
