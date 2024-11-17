@@ -9,7 +9,7 @@
         tls.certResolver = "ovh";
       };
       middlewares.auth.basicAuth.users = [
-        "test:$2y$05$GjUz6dUGeO.phxViAdgrD.tfuHkwCrhKvCLxMQLPjyPpGcjNVvtdq"
+        "admin:$2y$05$LBy0ZJiKSvCiL0cOqIZgFu0ktqkewdKN6MVIIz3WX2OXsDkHD7Q02"
       ];
     };
   };

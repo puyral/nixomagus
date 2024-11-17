@@ -14,5 +14,6 @@
     ./refind
     ./splashscreen
     ./syncthing-module
+    ./calibre-web
   ];
 }

@@ -8,7 +8,7 @@
     ./usersNgroups.nix
   ];
   extra.mail.enable = true;
-  programs.gnupg.agent.pinentryPackage =  pkgs.pinentry-curses;
+  programs.gnupg.agent.pinentryPackage = pkgs.pinentry-curses;
 
   # docker
   virtualisation.docker = {

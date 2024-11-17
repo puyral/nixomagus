@@ -1,4 +1,9 @@
-{ custom, pkgs-unstable, pkgs, ... }:
+{
+  custom,
+  pkgs-unstable,
+  pkgs,
+  ...
+}:
 {
   imports = [ ];
   home = {
@@ -7,7 +12,6 @@
   services.gpg-agent = {
     enable = true;
     pinentryPackage = pkgs.pinentry-tty;
-
 
   };
   # programs.gnupg.agent.pinentryPackage =  pkgs.pinentry-curses;

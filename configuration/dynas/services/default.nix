@@ -30,6 +30,13 @@
     containered = true;
   };
 
+  extra.calibre-web = {
+    enable = true;
+    calibreLibrary = "/mnt/Zeno/media/books";
+    enableBookUploading = true;
+    enableBookConversion = true;
+  };
+
   networking = {
     nat = {
       enable = true;
