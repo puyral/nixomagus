@@ -18,11 +18,16 @@
             rust-analyzer
             rustc
             rustfmt
+            gcc
           ]
         );
       in
       (with custom; [ vampire-master ]) ++ (with pkgs-unstable; [ elan ]) ++ rust;
+
   };
+    programs.zsh.sessionVariables = {
+      RUST_SRC_PATH = "${pkgs-unstable.rustPlatform.rustLibSrc}";
+    };
   services.gpg-agent = {
     enable = true;
     pinentryPackage = pkgs.pinentry-tty;
