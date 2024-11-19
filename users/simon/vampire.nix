@@ -7,7 +7,7 @@
 {
   imports = [ ];
   home = {
-    packages = (with custom; [ vampire-master ]) ++ (with pkgs-unstable; [ elan rustup cargo ]);
+    packages = (with custom; [ vampire-master ]) ++ (with pkgs-unstable; [ elan rustup ]);
   };
   services.gpg-agent = {
     enable = true;
