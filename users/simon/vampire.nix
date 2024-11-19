@@ -7,7 +7,21 @@
 {
   imports = [ ];
   home = {
-    packages = (with custom; [ vampire-master ]) ++ (with pkgs-unstable; [ elan rustup ]);
+    packages =
+      let
+        rust = (
+          with pkgs-unstable;
+          [
+            cargo
+            clippy
+            cargo-expand
+            rust-analyzer
+            rustc
+            rustfmt
+          ]
+        );
+      in
+      (with custom; [ vampire-master ]) ++ (with pkgs-unstable; [ elan ]) ++ rust;
   };
   services.gpg-agent = {
     enable = true;
