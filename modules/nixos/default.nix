@@ -15,5 +15,6 @@
     ./splashscreen
     ./syncthing-module
     ./calibre-web
+    ./monitoring
   ];
 }

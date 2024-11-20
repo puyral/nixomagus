@@ -24,7 +24,11 @@ in
       mkIf enable {
         loadBalancer.servers =
           let
-            host = if attrs ? container then config.containers.${attrs.container}.localAddress else "localhost";
+            host =
+              if (attrs.container != null) then
+                config.containers.${attrs.container}.localAddress
+              else
+                "localhost";
           in
           [ { url = "http://${host}:${builtins.toString port}"; } ];
       }
