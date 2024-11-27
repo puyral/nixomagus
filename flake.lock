@@ -56,11 +56,11 @@
         "vampire-master-src": "vampire-master-src_3"
       },
       "locked": {
-        "lastModified": 1728334897,
-        "narHash": "sha256-ujmTJdG/zwEO4MetFSR26/lQawueUr7nyDe3VMej700=",
+        "lastModified": 1732003018,
+        "narHash": "sha256-I0dGFSuZWipMEpV+72Er80dwEGIhaqRkMFlhFLtu2YM=",
         "owner": "puyral",
         "repo": "custom-nix",
-        "rev": "b20b8d9dc2d1751ee02ffc99fc1b74fb2efaf545",
+        "rev": "81b1b86a87d8b0238f8dafc24488c3a8a35f753e",
         "type": "github"
       },
       "original": {
@@ -525,11 +525,11 @@
     },
     "nixos-hardware": {
       "locked": {
-        "lastModified": 1731403644,
-        "narHash": "sha256-T9V7CTucjRZ4Qc6pUEV/kpgNGzQbHWfGcfK6JJLfUeI=",
+        "lastModified": 1732483221,
+        "narHash": "sha256-kF6rDeCshoCgmQz+7uiuPdREVFuzhIorGOoPXMalL2U=",
         "owner": "NixOS",
         "repo": "nixos-hardware",
-        "rev": "f6581f1c3b137086e42a08a906bdada63045f991",
+        "rev": "45348ad6fb8ac0e8415f6e5e96efe47dd7f39405",
         "type": "github"
       },
       "original": {
@@ -557,11 +557,11 @@
     },
     "nixpkgs-unstable": {
       "locked": {
-        "lastModified": 1731319897,
-        "narHash": "sha256-PbABj4tnbWFMfBp6OcUK5iGy1QY+/Z96ZcLpooIbuEI=",
+        "lastModified": 1732521221,
+        "narHash": "sha256-2ThgXBUXAE1oFsVATK1ZX9IjPcS4nKFOAjhPNKuiMn0=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "dc460ec76cbff0e66e269457d7b728432263166c",
+        "rev": "4633a7c72337ea8fd23a4f2ba3972865e3ec685d",
         "type": "github"
       },
       "original": {
@@ -620,11 +620,11 @@
     },
     "nixpkgs_5": {
       "locked": {
-        "lastModified": 1731386116,
-        "narHash": "sha256-lKA770aUmjPHdTaJWnP3yQ9OI1TigenUqVC3wweqZuI=",
+        "lastModified": 1732632634,
+        "narHash": "sha256-+G7n/ZD635aN0sEXQLynU7pWMd3PKDM7yBIXvYmjABQ=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "689fed12a013f56d4c4d3f612489634267d86529",
+        "rev": "6f6076c37180ea3a916f84928cf3a714c5207a30",
         "type": "github"
       },
       "original": {
@@ -876,11 +876,11 @@
     "rnote-src": {
       "flake": false,
       "locked": {
-        "lastModified": 1728334691,
-        "narHash": "sha256-kHyDqlIbgoOu2y/CO/m0MclFTB9VFmN+hAIAZW0cXCg=",
+        "lastModified": 1731954697,
+        "narHash": "sha256-3gSFvAxeOpVTsn4IWFNIIRhKw/en7J+UE63fqDnGETU=",
         "owner": "puyral",
         "repo": "rnote",
-        "rev": "4d93c4ff8f3da208ec5b164ec23eea015406e7fa",
+        "rev": "d2f8ed5997e1eab297066ff7d86e6006c8a45c3a",
         "type": "github"
       },
       "original": {
