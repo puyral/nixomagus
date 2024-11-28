@@ -27,6 +27,4 @@
   #   enableIPv6 = true;
   # };
 
-  # we want to be *sure* this is on
-  services.openssh.openFirewall = true;
 }

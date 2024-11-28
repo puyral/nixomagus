@@ -33,6 +33,10 @@ in
         hostPath = "/containers/photoprism/zerotier";
         isReadOnly = false;
       };
+      "/var/lib/tailscale" = {
+        hostPath = "/containers/photoprism/tailscale";
+        isReadOnly = false;
+      };
     };
     autoStart = true;
     ephemeral = true;
@@ -75,6 +79,8 @@ in
           isSystemUser = true;
         };
         users.groups.photoprism.gid = gconfig.users.groups.photoprism.gid;
+
+        services.tailscale.enable = true;
       };
   };
   extra.containers.photoprism.zerotierone = true;

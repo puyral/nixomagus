@@ -9,6 +9,7 @@
     ./homeassistant
     ./portainer.nix
     ./mosquitto.nix
+    ./tailscale.nix
     ./photos
   ];
   virtualisation.docker.autoPrune.enable = true;
