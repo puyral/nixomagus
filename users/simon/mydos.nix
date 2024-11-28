@@ -48,7 +48,7 @@
         mpv
         mpd
         ncmpcpp
-        cava
+        # cava
 
         blueberry
         easyeffects

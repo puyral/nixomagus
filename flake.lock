@@ -56,11 +56,11 @@
         "vampire-master-src": "vampire-master-src_3"
       },
       "locked": {
-        "lastModified": 1732003018,
-        "narHash": "sha256-I0dGFSuZWipMEpV+72Er80dwEGIhaqRkMFlhFLtu2YM=",
+        "lastModified": 1732800412,
+        "narHash": "sha256-o65JFw+1iW4RUEfXBAT18rzkvk0spYneGqn+EYRFMyw=",
         "owner": "puyral",
         "repo": "custom-nix",
-        "rev": "81b1b86a87d8b0238f8dafc24488c3a8a35f753e",
+        "rev": "b0d6d5fab7cf0b13fef00d65b42c1ac138ea4da2",
         "type": "github"
       },
       "original": {
