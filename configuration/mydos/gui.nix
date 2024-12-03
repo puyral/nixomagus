@@ -23,6 +23,7 @@
   environment.systemPackages = with pkgs.gnomeExtensions; [
     wallpaper-slideshow
     improved-osk
+    tailscale-status
   ];
 
   # https://nixos.wiki/wiki/GNOME
