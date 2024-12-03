@@ -91,6 +91,7 @@
 
         rnote
         libsForQt5.xp-pen-g430-driver
+        zotero
 
         emacs
 
