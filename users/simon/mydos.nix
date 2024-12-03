@@ -41,6 +41,7 @@
 
         okular
         foliate
+        zotero
 
         geeqie
         feh
