@@ -1,4 +1,4 @@
-{ config, lib, ... }:
+{ config, lib,extra-pkgs, ... }:
 let
   cfg = config.extra.paperless;
   name = "paperless";
@@ -37,6 +37,8 @@ in
         {
           services.paperless = {
             inherit port user;
+            # package =  pkgs.paperless-ngx.overrideAttrs (final: prev: {doTest = false;});
+            package = extra-pkgs.paperless-nixpkgs.paperless-ngx;
             enable = true;
             dataDir = "/data";
             mediaDir = "/media";

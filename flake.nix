@@ -2,14 +2,16 @@
   description = "Nix configuration";
 
   inputs = {
-    nixpkgs.url = "nixpkgs/nixos-24.05";
+    nixpkgs.url = "nixpkgs/nixos-24.11";
     nixpkgs-unstable.url = "nixpkgs/nixos-unstable";
     my-nixpkgs.url = "github:puyral/nixpkgs/in-use";
+
+    paperless-nixpkgs.url = "nixpkgs/6f6076c37180ea3a916f84928cf3a714c5207a30";
 
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";
 
     home-manager = {
-      url = "github:nix-community/home-manager/release-24.05";
+      url = "github:nix-community/home-manager/release-24.11";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     # nix-std.url = "github:chessai/nix-std"; # https://github.com/chessai/nix-std
@@ -37,6 +39,7 @@
       custom,
       nixpkgs-unstable,
       flake-utils,
+      paperless-nixpkgs,
       ...
     }@attrs:
     let
@@ -47,6 +50,7 @@
       let
         pkgs = (functions.mkpkgs system).pkgs;
         pkgs-unstable = (functions.mkpkgs system).pkgs-unstable;
+
       in
       {
 

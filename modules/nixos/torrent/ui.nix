@@ -9,11 +9,11 @@ let
   cfg = config.extra.torrent;
 in
 {
-  imports = [ "${my-nixpkgs}/nixos/modules/services/web-apps/rutorrent.nix" ];
+  # imports = [ "${my-nixpkgs}/nixos/modules/services/web-apps/rutorrent.nix" ];
   config = {
     services = lib.mkIf (cfg.enable && !cfg.containered) {
       rutorrent = {
-        package = pkgs-unstable.rutorrent;
+        # package = pkgs-unstable.rutorrent;
         enable = true;
         hostName = "0.0.0.0";
         dataDir = "${cfg.dataDir}/rutorrent";

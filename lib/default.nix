@@ -4,6 +4,7 @@ attrs@{
   nixpkgs,
   nixpkgs-unstable,
   custom,
+  paperless-nixpkgs,
   ...
 }:
 rec {
@@ -108,7 +109,7 @@ rec {
       ];
     };
 
-  mkpkgs = system: {
+  mkpkgs = system: rec {
     pkgs = nixpkgs.legacyPackages.${system};
     # pkgs-unstable = (nixpkgs-unstable // {config.allowUnfree = true;}).legacyPackages.${system};
     pkgs-unstable = import nixpkgs-unstable {
@@ -117,6 +118,7 @@ rec {
         allowUnfree = true;
       };
     }; # https://www.reddit.com/r/NixOS/comments/17p39u6/how_to_allow_unfree_packages_from_stable_and/
+    extra-pkgs = pkgs.lib.mapAttrs (name: value: value.legacyPackages.${system}) {inherit paperless-nixpkgs;};
   };
   mkExtraArgs =
     { computer, ... }:
@@ -125,6 +127,7 @@ rec {
       system = computer.system;
       pkgs = (mkpkgs computer.system).pkgs;
       pkgs-unstable = (mkpkgs computer.system).pkgs-unstable;
+      extra-pkgs = (mkpkgs computer.system).extra-pkgs;
     in
     attrs
     // {
@@ -137,6 +140,7 @@ rec {
         overlays
         rootDir
         mlib
+        extra-pkgs
         ;
     };
 
