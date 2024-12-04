@@ -72,10 +72,10 @@ in
   services.traefik.dynamicConfigOptions.http = {
     # HTTP Router
     routers.${name} = {
-      # Host or Path where Jellyfin is accessible Remove (or change) this rule 
+      # Host or Path where Jellyfin is accessible Remove (or change) this rule
       # if you'd rather have Jellyfin accessible at a PathPrefix URI
       rule = "Host(`${name}.puyral.fr`)";
-      # Entry point where Jellyfin is accessible via Change secure to https in 
+      # Entry point where Jellyfin is accessible via Change secure to https in
       # the line below to have accessible without needing to specify a port and
       # change the SSLHost option below
       entrypoints = entrypoint;
@@ -90,7 +90,7 @@ in
     # Middleware
     middlewares.${name} = {
       headers = {
-        # The customResponseHeaders option lists the Header names and values to 
+        # The customResponseHeaders option lists the Header names and values to
         # apply to the response.
         customResponseHeaders.X-Robots-Tag = [
           "noindex"
@@ -102,11 +102,11 @@ in
         ];
         # The sslRedirect is set to true, then only allow https requests.
         SSLRedirect = true;
-        # The sslHost option is the host name that is used to redirect http 
+        # The sslHost option is the host name that is used to redirect http
         # requests to https. This is the exact URL that will be redirected to,
         # so you can remove the :9999 port if using default SSL port
         SSLHost = "${name}.puyral.fr:9999";
-        # Set sslForceHost to true and set SSLHost to forced requests to use 
+        # Set sslForceHost to true and set SSLHost to forced requests to use
         # SSLHost even the ones that are already using SSL.
         # Note that this uses SSLHost verbatim, so add the port to SSLHost if
         # you are using an alternate port.
@@ -117,17 +117,17 @@ in
         # The stsIncludeSubdomains is set to true, the includeSubDomains directive
         # will be appended to the Strict-Transport-Security header.
         STSIncludeSubdomains = true;
-        # Set stsPreload to true to have the preload flag appended to the 
+        # Set stsPreload to true to have the preload flag appended to the
         # Strict-Transport-Security header.
         STSPreload = true;
         # Set forceSTSHeader to true, to add the STS header even when the connection is HTTP.
         forceSTSHeader = true;
         # Set frameDeny to true to add the X-Frame-Options header with the value of DENY.
         frameDeny = true;
-        # Set contentTypeNosniff to true to add the X-Content-Type-Options header 
+        # Set contentTypeNosniff to true to add the X-Content-Type-Options header
         # with the value nosniff.
         contentTypeNosniff = true;
-        # Set browserXssFilter to true to add the X-XSS-Protection header with 
+        # Set browserXssFilter to true to add the X-XSS-Protection header with
         # the value 1; mode=block.
         customresponseheaders.X-XSS-PROTECTION = 1;
         # The customFrameOptionsValue allows the X-Frame-Options header value

@@ -1,7 +1,7 @@
 { pkgs, ... }:
 {
   imports = [
-    #  ../foreign-modules/kmonad/nix/nixos-module.nix 
+    #  ../foreign-modules/kmonad/nix/nixos-module.nix
   ];
 
   services.kmonad = {

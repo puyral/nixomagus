@@ -40,7 +40,7 @@
         pavucontrol
 
         okular
-	foliate
+        foliate
 
         geeqie
         feh

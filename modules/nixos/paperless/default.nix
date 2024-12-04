@@ -1,4 +1,9 @@
-{ config, lib,extra-pkgs, ... }:
+{
+  config,
+  lib,
+  extra-pkgs,
+  ...
+}:
 let
   cfg = config.extra.paperless;
   name = "paperless";

@@ -12,7 +12,7 @@ computer: {
         # Add more flags as necessary
       ];
       customStdenv = pkgs.fastStdenv // {
-        inherit (pkgs.fastStdenv);
+        inherit (pkgs.fastStdenv) ;
         # Override the mkDerivation function to add CPU flags
         mkDerivation =
           with builtins;

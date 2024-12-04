@@ -5,7 +5,9 @@
     gnixpkgs.flake = nixpkgs-unstable // {
       config.allowUnfree = true;
     };
-    stable.flake = nixpkgs // { config.allowUnfree = true; };
+    stable.flake = nixpkgs // {
+      config.allowUnfree = true;
+    };
     latest-unstable = {
       from = {
         type = "indirect";
