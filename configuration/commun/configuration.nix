@@ -163,7 +163,7 @@
   nix.buildMachines = [
     # vampire
     {
-      hostName = "root@vampire.terrier-lenok.ts.net";
+      hostName = "root@100.111.36.99";
       system = "x86_64-linux";
       sshKey = "/home/simon/.ssh/id_ed25519";
       supportedFeatures = [
