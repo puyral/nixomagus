@@ -27,6 +27,7 @@
       extraDevices = [
         "MacPro"
         "BV9800"
+        "poco-f6"
       ];
     };
 
@@ -127,6 +128,16 @@
         };
       };
       extraDevices = [ "MacPro" ];
+    };
+
+    "Exported Photos" = {
+      id = "7jywu-e67gw";
+      devices = {
+        dynas = {
+          path = "/mnt/Zeno/media/photos/exports/complete";
+        };
+      };
+      extraDevices = [ "poco-f6" ];
     };
   };
 }
