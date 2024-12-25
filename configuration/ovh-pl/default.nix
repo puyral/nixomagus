@@ -2,6 +2,7 @@
 {
   imports = [
     ./hardware-configuration.nix
+	./services
   ];
 
   programs.gnupg.agent.pinentryPackage = pkgs.pinentry-curses;

@@ -1,4 +1,4 @@
-{...}:{
+{self, ...}:{
   networking = {
     nat = {
       enable = true;
@@ -8,7 +8,8 @@
       enable = true;
       baseDomain = "puyral.fr";
       # docker.enable = true;
-      log.level = "INFO";
+      log.level = "DEBUG";
+      instances = self.nixosConfigurations.dynas.config.networking.traefik.instances;
     };
   };
 }

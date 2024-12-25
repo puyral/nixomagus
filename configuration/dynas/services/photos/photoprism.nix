@@ -83,7 +83,7 @@ in
         services.tailscale.enable = true;
       };
   };
-  extra.containers.photoprism.zerotierone = true;
+  extra.containers.photoprism.vpn = true;
   users.groups.photoprism = {
     members = [
       "simon"
