@@ -4,7 +4,7 @@ let
   cfg = config.networking.traefik;
 
   name = config.networking.hostName;
-  instances = lib.filterAttrs (name: {providers, ...}: builtins.elem name providers) cfg.instances;
+  instances = lib.filterAttrs (name: {enable, providers, ...}: enable && (builtins.elem name providers)) cfg.instances;
 in
 {
   services.traefik.dynamicConfigOptions.http = {
