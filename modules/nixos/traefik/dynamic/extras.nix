@@ -4,18 +4,18 @@ let
   cfg = config.networking.traefik;
 
   name = config.networking.hostName;
-  instances = lib.filterAttrs (name: {enable, providers, ...}: enable && true #(builtins.elem name providers)
+  instances = lib.filterAttrs (_: {enable, providers, ...}: enable && (builtins.elem name providers)
     ) cfg.instances;
 in
 {
-  services.traefik.dynamicConfigOptions.http = {
+  services.traefik.dynamicConfigOptions.http = if instances == {} then {} else {
     routers = mapAttrs (
       host: attrs:
       let
         enable = attrs.enable;
         domain = if attrs.domain == null then cfg.baseDomain else attrs.domain;
       in
-      mkIf enable {
+      {
         rule = "Host(`${host}.${domain}`)";
         entrypoints = "https";
         tls.certResolver = "ovh";
@@ -25,7 +25,7 @@ in
     services = mapAttrs (
       host:
       attrs@{ enable, port, ... }:
-      mkIf enable {
+       {
         loadBalancer.servers =
           let
             host =
