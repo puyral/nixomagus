@@ -83,7 +83,16 @@ in
         services.tailscale.enable = true;
       };
   };
-  extra.containers.photoprism.vpn = true;
+  extra.containers.photoprism = {
+    vpn = true;
+      
+      traefik = {
+        port = 2342;
+        name = "photos-test";
+        enable = true;
+        providers = ["ovh-pl"]
+      };
+    };
   users.groups.photoprism = {
     members = [
       "simon"
