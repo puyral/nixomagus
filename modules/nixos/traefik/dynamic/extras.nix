@@ -29,7 +29,7 @@ in
         loadBalancer.servers =
           let
             host =
-              if (attrs.container != null) then
+              if (attrs ? containers && attrs.containers != null) then
                 config.containers.${attrs.container}.localAddress
               else
                 "localhost";
