@@ -37,17 +37,17 @@ let
         "flakes"
       ];
 
-      services.zerotierone =
-        if config.extra.containers.${name}.zerotierone then
-          let
-            networks = import (rootDir + /secrets/zerotier-networks.nix);
-          in
-          {
-            enable = true;
-            joinNetworks = [ networks.vidya.id ];
-          }
-        else
-          { };
+      #services.zerotierone =
+      #  if config.extra.containers.${name}.zerotierone then
+      #    let
+      #      networks = import (rootDir + /secrets/zerotier-networks.nix);
+      #    in
+      #    {
+      #      enable = true;
+      #      joinNetworks = [ networks.vidya.id ];
+      #    }
+      #  else
+      #    { };
     };
   names = builtins.attrNames config.extra.containers;
   enames = mlib.enumerate names;
