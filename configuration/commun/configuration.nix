@@ -33,7 +33,7 @@
     };
   };
   # Use the systemd-boot EFI boot loader.
-  boot.loader.systemd-boot.enable = true;
+  boot.loader.systemd-boot.enable = if computer_name == "ovh-pl" then false else true;
   boot.loader.efi.canTouchEfiVariables = true;
 
   nixpkgs.config.allowUnfree = true;
