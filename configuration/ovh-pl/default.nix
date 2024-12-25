@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, lib, ... }:
 {
   imports = [
     ./hardware-configuration.nix
@@ -11,4 +11,6 @@
 
   networking.domain = "puyral.fr";
   services.openssh.enable = true;
+
+    boot.loader.systemd-boot.enable = lib.mkForce false;
 }

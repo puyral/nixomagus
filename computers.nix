@@ -21,6 +21,7 @@ rec {
       users = [ users.simon ];
       nixos = "23.05";
       headless = true;
+      ovh = true;
     };
     vampire = {
       system = "x86_64-linux";
