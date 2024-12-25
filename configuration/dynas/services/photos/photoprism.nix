@@ -91,7 +91,7 @@ in
       name = "photos";
       enable = true;
       providers = [ "ovh-pl" ];
-      address = 100.125 .20 .5;
+      address = "100.125.20.5";
     };
   };
   users.groups.photoprism = {

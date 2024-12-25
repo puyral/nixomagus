@@ -23,7 +23,7 @@ with builtins;
     default = [ "dynas" ];
   };
   address = mkOption {
-    type = type.nullOr type.str;
+    type = types.nullOr types.str;
     description = "the ip address";
     default = null;
   };
