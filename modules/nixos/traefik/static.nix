@@ -7,7 +7,7 @@
 with lib;
 with builtins;
 let
-  staging = true;
+  staging = false;
   cfg = config.networking.traefik;
 in
 {

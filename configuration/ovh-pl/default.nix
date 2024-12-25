@@ -2,7 +2,7 @@
 {
   imports = [
     ./hardware-configuration.nix
-	./services
+    ./services
   ];
 
   programs.gnupg.agent.pinentryPackage = pkgs.pinentry-curses;
@@ -13,5 +13,5 @@
   networking.domain = "puyral.fr";
   services.openssh.enable = true;
 
-    boot.loader.systemd-boot.enable = lib.mkForce false;
+  boot.loader.systemd-boot.enable = lib.mkForce false;
 }

@@ -1,4 +1,5 @@
-{self, ...}:{
+{ self, ... }:
+{
   networking = {
     nat = {
       enable = true;

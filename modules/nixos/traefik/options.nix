@@ -20,6 +20,11 @@ with builtins;
   providers = mkOption {
     type = types.listOf types.str;
     description = "the machines that should do the redirect";
-    default = ["dynas"];
+    default = [ "dynas" ];
+  };
+  address = mkOption {
+    type = type.nullOr type.str;
+    description = "the ip address";
+    default = null;
   };
 }

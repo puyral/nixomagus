@@ -1,5 +1,7 @@
 { config, ... }:
-let   name = config.networking.hostName; in
+let
+  name = config.networking.hostName;
+in
 {
   services.traefik.dynamicConfigOptions = {
     http = {

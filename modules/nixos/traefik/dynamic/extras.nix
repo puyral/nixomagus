@@ -4,38 +4,53 @@ let
   cfg = config.networking.traefik;
 
   name = config.networking.hostName;
-  instances = lib.filterAttrs (_: {enable, providers, ...}: enable && (builtins.elem name providers)
-    ) cfg.instances;
+  instances = lib.filterAttrs (
+    _: { enable, providers, ... }: enable && (builtins.elem name providers)
+  ) cfg.instances;
 in
 {
-  services.traefik.dynamicConfigOptions.http = if instances == {} then {} else {
-    routers = mapAttrs (
-      host: attrs:
-      let
-        enable = attrs.enable;
-        domain = if attrs.domain == null then cfg.baseDomain else attrs.domain;
-      in
+  services.traefik.dynamicConfigOptions.http =
+    if instances == { } then
+      { }
+    else
       {
-        rule = "Host(`${host}.${domain}`)";
-        entrypoints = "https";
-        tls.certResolver = "ovh";
-        service = host;
-      }
-    ) instances;
-    services = mapAttrs (
-      host:
-      attrs@{ enable, port, ... }:
-       {
-        loadBalancer.servers =
+        routers = mapAttrs (
+          host: attrs:
           let
-            host =
-              if (attrs ? containers && attrs.containers != null) then
-                config.containers.${attrs.container}.localAddress
-              else
-                "localhost";
+            enable = attrs.enable;
+            domain = if attrs.domain == null then cfg.baseDomain else attrs.domain;
           in
-          [ { url = "http://${host}:${builtins.toString port}"; } ];
-      }
-    ) instances;
-  };
+          {
+            rule = "Host(`${host}.${domain}`)";
+            entrypoints = "https";
+            tls.certResolver = "ovh";
+            service = host;
+          }
+        ) instances;
+        services = mapAttrs (
+          host:
+          attrs@{
+            enable,
+            port,
+            address,
+            ...
+          }:
+          {
+            loadBalancer.servers =
+              let
+                host =
+                  if address != null then
+                    address
+                  else
+                    (
+                      if (attrs ? containers && attrs.containers != null) then
+                        config.containers.${attrs.container}.localAddress
+                      else
+                        "localhost"
+                    );
+              in
+              [ { url = "http://${host}:${builtins.toString port}"; } ];
+          }
+        ) instances;
+      };
 }
