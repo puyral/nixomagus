@@ -15,6 +15,13 @@ rec {
       nixos = "24.05";
       headless = true;
     };
+    ovh-pl = {
+      system = "x86_64-linux";
+      # cpu = "skylake";
+      users = [ users.simon ];
+      nixos = "23.05";
+      headless = true;
+    };
     vampire = {
       system = "x86_64-linux";
       users = [ users.simon ];
