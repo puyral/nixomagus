@@ -2,6 +2,9 @@
 with lib;
 let
   cfg = config.networking.traefik;
+
+  name = config.networking.hostName;
+  instances = lib.filterAttrs (name: {providers, ...}: builtins.elem name providers) cfg.instances
 in
 {
   services.traefik.dynamicConfigOptions.http = {
@@ -17,7 +20,7 @@ in
         tls.certResolver = "ovh";
         service = host;
       }
-    ) cfg.instances;
+    ) instances;
     services = mapAttrs (
       host:
       attrs@{ enable, port, ... }:
@@ -32,6 +35,6 @@ in
           in
           [ { url = "http://${host}:${builtins.toString port}"; } ];
       }
-    ) cfg.instances;
+    ) instances;
   };
 }

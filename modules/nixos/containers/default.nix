@@ -68,10 +68,10 @@ in
         { name, ... }:
         {
           options = {
-            zerotierone = mkOption {
+            vpn = mkOption {
               type = types.bool;
               default = false;
-              description = "enable zerotier vpn";
+              description = "enable vpn access";
             };
             traefik = (import ../traefik/options.nix) lib // {
               name = mkOption {
@@ -79,6 +79,7 @@ in
                 default = name;
                 description = "the subdomain name";
               };
+              enable = mkEnableOption "traefik redirection";
             };
             privateNetwork = mkOption {
               type = types.bool;
@@ -113,7 +114,7 @@ in
                   ;
               };
             }
-            // (if value.zerotierone then { enableTun = true; } else { })
+            // (if value.vpn then { enableTun = true; } else { })
             // (
               if value.privateNetwork then
                 {

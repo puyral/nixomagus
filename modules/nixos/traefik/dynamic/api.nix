@@ -1,9 +1,10 @@
-{ ... }:
+{ config, ... }:
+let   name = config.networking.hostName; in
 {
   services.traefik.dynamicConfigOptions = {
     http = {
       routers.dashboard = {
-        rule = "Host(`traefik.dynas.puyral.fr`)";
+        rule = "Host(`traefik.${name}.puyral.fr`)";
         service = "api@internal";
         middlewares = [ "auth" ];
         tls.certResolver = "ovh";

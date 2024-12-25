@@ -17,4 +17,9 @@ with builtins;
     description = "the container name, if it's in a nixos container";
     default = null;
   };
+  providers = mkOption {
+    type = types.listOf types.str;
+    description = "the machines that should do the redirect";
+    default = ["dynas"];
+  };
 }
