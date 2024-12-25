@@ -90,7 +90,7 @@ in
         port = 2342;
         name = "photos-test";
         enable = true;
-        providers = ["ovh-pl"]
+        providers = ["ovh-pl"];
       };
     };
   users.groups.photoprism = {
