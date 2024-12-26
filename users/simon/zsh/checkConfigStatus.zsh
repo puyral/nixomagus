@@ -1,13 +1,13 @@
 # Check if CONFIG_LOCATION is set
 if [ -z "$CONFIG_LOCATION" ]; then
   echo "Error: CONFIG_LOCATION environment variable is not set."
-  return 1
+  # return 1
 fi
 
 # Check if CONFIG_LOCATION points to a valid Git repository
 if [ ! -d "$CONFIG_LOCATION/.git" ]; then
   echo "Error: Directory at CONFIG_LOCATION ($CONFIG_LOCATION) is not a Git repository."
-  return 1
+  # return 1
 fi
 
 # Check for uncommitted changes
