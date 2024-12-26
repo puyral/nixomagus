@@ -6,6 +6,7 @@
   overlays,
   mconfig,
   custom,
+  is_nixos,
   ...
 }@attrs:
 # let mhyprland = import ./hyprland.nix;
@@ -61,6 +62,7 @@
     #
     sessionVariables = {
       EDITOR = "vim";
+      CONFIG_LOCATION = if is_nixos then "~/.config/home-manager/" else "/config"
     };
   };
 

@@ -22,10 +22,10 @@
     };
     enableCompletion = true;
 
-    oh-my-zsh = {
-      enable = true;
-      plugins = [ "git" ];
-    };
+    # oh-my-zsh = {
+    #   enable = true;
+    #   plugins = [ "git" ];
+    # };
 
     plugins = [
       {
@@ -40,7 +40,10 @@
       }
     ];
 
-    initExtra = builtins.readFile ./initExtra.zsh;
+    initExtra = ''
+${builtins.readFile ./initExtra.zsh}
+${builtins.readFile ./checkConfigStatus.zsh}
+    '';
   };
 
   programs.fzf = {
