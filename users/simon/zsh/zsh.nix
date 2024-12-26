@@ -41,8 +41,8 @@
     ];
 
     initExtra = ''
-${builtins.readFile ./initExtra.zsh}
-${builtins.readFile ./checkConfigStatus.zsh}
+      ${builtins.readFile ./initExtra.zsh}
+      ${builtins.readFile ./checkConfigStatus.zsh}
     '';
   };
 
