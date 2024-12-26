@@ -43,7 +43,7 @@ in
                     address
                   else
                     (
-                      if (attrs ? containers && attrs.containers != null) then
+                      if (attrs ? container && attrs.container != null) then
                         config.containers.${attrs.container}.localAddress
                       else
                         "localhost"
