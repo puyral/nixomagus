@@ -62,7 +62,7 @@
     #
     sessionVariables = {
       EDITOR = "vim";
-      CONFIG_LOCATION = if is_nixos then "/config" else "~/.config/home-manager/";
+      CONFIG_LOCATION = if is_nixos then "/config" else "$HOME/.config/home-manager/";
     };
   };
 
