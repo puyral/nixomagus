@@ -11,3 +11,4 @@ r() {
   shift 1
   nix run gnixpkgs#$pkg -- $@
 }
+echo hello
