@@ -13,19 +13,23 @@ in
     onChange = "cat ~/.ssh/authorized_keys_source > ~/.ssh/authorized_keys && chmod 600 ~/.ssh/authorized_keys";
   };
 
-  programs.ssh = {
-    enable = true;
-    matchBlocks = {
-      dynas = {
-        hostname = "dynas.puyral.fr";
-      };
-      vampire = {
-        hostname = "10.250.2.101";
-      };
-      "vampire-root" = {
-        hostname = "10.250.2.101";
-        user = "root";
+  programs.ssh =
+    let
+      vampire-ip = "100.111.36.99";
+    in
+    {
+      enable = true;
+      matchBlocks = {
+        dynas = {
+          hostname = "dynas.puyral.fr";
+        };
+        vampire = {
+          hostname = vampire-ip;
+        };
+        "vampire-root" = {
+          hostname = vampire-ip;
+          user = "root";
+        };
       };
     };
-  };
 }
