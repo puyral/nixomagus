@@ -16,6 +16,7 @@ in
   programs.ssh =
     let
       vampire-ip = "100.111.36.99";
+      nixomagus-ip = "100.106.190.9";
     in
     {
       enable = true;
@@ -30,6 +31,9 @@ in
           hostname = vampire-ip;
           user = "root";
         };
+	nixomagus = {
+		hostname = nixomagus-ip;
+	};
       };
     };
 }
