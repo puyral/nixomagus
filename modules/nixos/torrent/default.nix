@@ -15,7 +15,7 @@ in
           hostPath = cfg.dataDir;
           isReadOnly = false;
         };
-        "/download" = {
+        "/downloads" = {
           hostPath = cfg.downloadDir;
           isReadOnly = false;
         };
