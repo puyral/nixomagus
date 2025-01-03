@@ -30,6 +30,7 @@
       enable = true;
       user = "simon";
       containered = true;
+      downloadDir = "/mnt/Zeno/other/download";
     };
 
     calibre-web = {

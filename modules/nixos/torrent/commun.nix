@@ -7,7 +7,7 @@ with lib;
   ];
 
   options.extra.torrent = {
-    enable = mkEnableOption "torrent clinet";
+    enable = mkEnableOption "torrent client";
     downloadDir = mkOption {
       type = types.path;
       default = "/dev/null";
