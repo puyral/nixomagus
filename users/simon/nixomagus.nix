@@ -34,22 +34,22 @@
         hugin = pkgs.hugin.override { inherit enblend-enfuse; };
       in
       [
-        hugin
-        enblend-enfuse
       ]
       ++ (with custom; [ clocktui ])
       ++ (with pkgs; [
+        hugin
+        enblend-enfuse
 
         pinentry-qt
 
         btop
         htop
-        nvtopPackages.full
+        # nvtopPackages.full
         intel-gpu-tools
 
         gimp-with-plugins
 
-        cudaPackages.cudatoolkit
+        # cudaPackages.cudatoolkit
 
         #logseq
 
@@ -96,7 +96,7 @@
         emacs
 
         blender
-        davinci-resolve
+        #davinci-resolve
         libsForQt5.kdenlive
         inkscape-with-extensions
         darktable
