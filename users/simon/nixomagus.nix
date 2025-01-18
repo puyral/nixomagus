@@ -34,11 +34,11 @@
         hugin = pkgs.hugin.override { inherit enblend-enfuse; };
       in
       [
+        #hugin
+        #enblend-enfuse
       ]
       ++ (with custom; [ clocktui ])
       ++ (with pkgs; [
-        hugin
-        enblend-enfuse
 
         pinentry-qt
 
@@ -103,6 +103,7 @@
         # hugin # -> custom
         geeqie
         feh
+	xpano
 
         spotify
         mpv
