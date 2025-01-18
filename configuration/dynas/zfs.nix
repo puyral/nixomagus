@@ -10,7 +10,6 @@
     extraPools = [ "Zeno" ];
     forceImportRoot = false;
   };
-  services.zfs.autoScrub.enable = true;
 
   # see https://manpages.debian.org/bookworm/zfs-auto-snapshot/zfs-auto-snapshot.8.en.html
   # for more control
@@ -22,6 +21,7 @@
       monthly = 5;
       flags = "-k -p -v --utc";
     };
+    autoScrub.enable = true;
 
     zed = {
       settings = {

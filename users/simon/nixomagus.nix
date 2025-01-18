@@ -103,7 +103,7 @@
         # hugin # -> custom
         geeqie
         feh
-	xpano
+        xpano
 
         spotify
         mpv

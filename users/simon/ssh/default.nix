@@ -31,9 +31,9 @@ in
           hostname = vampire-ip;
           user = "root";
         };
-	nixomagus = {
-		hostname = nixomagus-ip;
-	};
+        nixomagus = {
+          hostname = nixomagus-ip;
+        };
       };
     };
 }
