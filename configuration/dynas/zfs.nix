@@ -49,10 +49,23 @@
       let
         zfsDisk = id: { device = "/dev/disk/by-id/${id}"; };
         zfsDisks = [
-          "wwn-0x5000039fc0c49a69-part1"
-          "wwn-0x5000039fc0c49d0f-part1"
-          "wwn-0x5000039fc0c4836a-part1"
-          "wwn-0x5000039fc0c49909-part1"
+          # ssd
+          # "wwn-0x500a0751e608b583-part1"
+
+          # Toshiba 3TB
+          "wwn-0x5000039fc0c49a69"
+          "wwn-0x5000039fc0c49d0f"
+          "wwn-0x5000039fc0c4836a"
+          "wwn-0x5000039fc0c49909"
+
+          # seagate 4TB
+          "wwn-0x5000c500e8fb38c1"
+          "wwn-0x5000c500e8fb3c9a"
+          "wwn-0x5000c500e8fb44a1"
+          "wwn-0x5000c500e8fb8de4"
+          
+          # 10TB toshiba
+          "wwn-0x5000039b38d17cf2"
         ];
       in
       builtins.map zfsDisk zfsDisks ++ [ ];
