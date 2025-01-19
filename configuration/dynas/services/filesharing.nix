@@ -24,7 +24,12 @@
         "read only" = "no";
         "veto files" = "/._*/.DS_Store/";
         "delete veto files" = "yes";
+        "case sensitive" = "yes";
       };
     };
+  };
+
+  services.nfs = {
+    server.enable = true;
   };
 }

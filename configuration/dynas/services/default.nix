@@ -1,8 +1,7 @@
 { pkgs, config, ... }:
 {
   imports = [
-    ./nfs.nix
-    ./samba.nix
+    ./filesharing.nix
     ./cockpit.nix
     ./syncthing.nix
     ./jellyfin.nix
