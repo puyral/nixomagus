@@ -43,7 +43,7 @@ in
           services.paperless = {
             inherit port user;
             # package =  pkgs.paperless-ngx.overrideAttrs (final: prev: {doTest = false;});
-            package = extra-pkgs.paperless-nixpkgs.paperless-ngx;
+            # package = extra-pkgs.paperless-nixpkgs.paperless-ngx;
             enable = true;
             dataDir = "/data";
             mediaDir = "/media";

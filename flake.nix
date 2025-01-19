@@ -6,8 +6,6 @@
     nixpkgs-unstable.url = "nixpkgs/nixos-unstable";
     my-nixpkgs.url = "github:puyral/nixpkgs/in-use";
 
-    paperless-nixpkgs.url = "nixpkgs/6f6076c37180ea3a916f84928cf3a714c5207a30";
-
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";
 
     home-manager = {
@@ -39,7 +37,7 @@
       custom,
       nixpkgs-unstable,
       flake-utils,
-      paperless-nixpkgs,
+      # paperless-nixpkgs,
       ...
     }@attrs:
     let

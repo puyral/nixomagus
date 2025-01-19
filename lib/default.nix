@@ -4,7 +4,7 @@ attrs@{
   nixpkgs,
   nixpkgs-unstable,
   custom,
-  paperless-nixpkgs,
+  # paperless-nixpkgs,
   ...
 }:
 rec {
@@ -119,7 +119,7 @@ rec {
       };
     }; # https://www.reddit.com/r/NixOS/comments/17p39u6/how_to_allow_unfree_packages_from_stable_and/
     extra-pkgs = pkgs.lib.mapAttrs (name: value: value.legacyPackages.${system}) {
-      inherit paperless-nixpkgs;
+      # inherit paperless-nixpkgs;
     };
   };
   mkExtraArgs =
