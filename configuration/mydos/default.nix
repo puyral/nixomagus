@@ -12,7 +12,7 @@
     ./waydroid.nix
     # ./howdy.nix # the camera isn't supported yet
   ];
-  extra.splash_screen.enable = true;
+  # extra.splash_screen.enable = true;
 
   extra.refind.enable = true;
 
