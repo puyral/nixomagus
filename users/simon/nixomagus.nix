@@ -53,7 +53,6 @@
 
         #logseq
 
-        #      mattermost-desktop
 
         rapid-photo-downloader
 
@@ -116,15 +115,16 @@
 
         steam
 
-        zoom-us
+        #zoom-us
 
         jellyfin-media-player # see https://github.com/jellyfin/jellyfin-media-player/issues/165
 
         discord
         whatsapp-for-linux
         signal-desktop
+        mattermost-desktop
 
-        kitty
+        #kitty
         # alacritty # <- set up elsewhere
 
         nemo-with-extensions
