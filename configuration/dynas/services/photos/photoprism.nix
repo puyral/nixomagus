@@ -1,4 +1,4 @@
-{ config, pkgs-unstable, ... }:
+{ config, pkgs-unstable, pkgs, ... }:
 let
   port = 2342;
   gconfig = config;
@@ -20,7 +20,7 @@ in
         hostPath = "/mnt/Zeno/media/photos/exports/complete";
         isReadOnly = false;
       };
-      "/original/videos" = {
+      "/originals/videos" = {
         hostPath = "/mnt/Zeno/media/photos/video_clips";
         isReadOnly = false;
       };
@@ -44,10 +44,10 @@ in
     config =
       { ... }:
       {
-        environment.systemPackages = with pkgs-unstable; [
+        environment.systemPackages = (with pkgs-unstable; [
           darktable
           #{ inherit darktable gen-config; })
-        ];
+        ]) ++ (with pkgs; [ffmpeg exiftool]);
         services.photoprism = {
           enable = true;
           originalsPath = "/originals";
@@ -70,6 +70,9 @@ in
             PHOTOPRISM_WALLPAPER_URI = "/originals/42207.jpg";
 
             PHOTOPRISM_DISABLE_WEBDAV = "true";
+
+            PHOTOPRISM_FFMPEG_BIN = "${pkgs.ffmpeg}/bin/ffmpeg";
+            PHOTOPRISM_EXIFTOOL_BIN = "${pkgs.exiftool}/bin/exiftool";
           };
           inherit port;
           address = "0.0.0.0";
