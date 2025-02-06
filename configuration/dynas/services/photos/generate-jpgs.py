@@ -153,6 +153,10 @@ def run_dt(quality, file, xmp, jpg):
     #     dtcli = ["flatpak", "run", "--command=darktable-cli", "org.darktable.Darktable"]
     # else:
     dtcli = ["darktable-cli"]
+    if config["stateless"]:
+        dtlibrary = ["--library", ":memory:"]
+    else:
+        dtlibrary = ["--library", config["library"]]
     dtargs = [file, xmp, jpg,
     # '--style', 'signature',
     # '--apply-custom-presets', 'false',
@@ -160,8 +164,7 @@ def run_dt(quality, file, xmp, jpg):
         '--conf', f'plugins/imageio/format/jpeg/quality={quality}',
         '--conf', 'plugins/imageio/storage/disk/overwrite=1',
         # '--conf', 'plugins/lighttable/export/metadata_flags=7003f',
-        #"--library", config["library"]
-    ]
+    ] + dtlibrary
     
     return dtcli + dtargs
 

@@ -13,6 +13,7 @@ let
     jpgs = "/originals";
     use_flatpack = false;
     quality = 80;
+    stateless = true;
   };
 
   generate-jpgs = (
