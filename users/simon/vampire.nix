@@ -22,7 +22,7 @@
           ]
         );
       in
-      (with custom; [ vampire-master ]) ++ (with pkgs-unstable; [ elan ]) ++ rust;
+      (with custom; [ vampire ]) ++ (with pkgs-unstable; [ elan ]) ++ rust;
 
   };
   programs.zsh.sessionVariables = {
