@@ -28,7 +28,7 @@
   programs.gnupg = {
     agent = {
       enable = true;
-      enable-ssh-support = true;
+      enableSSHSupport = true;
       # pinentryPackage = pkgs.pinentry-gnome3;
       # pinentryFlavor = "gnome3";
     };
