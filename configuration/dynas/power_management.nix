@@ -1,6 +1,6 @@
 { ... }:
 {
-  powerManagement.powertop.enable = true;
+  # powerManagement.powertop.enable = true;
 
   systemd.targets = {
     sleep.enable = false;

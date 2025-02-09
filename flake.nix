@@ -26,6 +26,11 @@
     flake-utils = {
       url = "github:numtide/flake-utils";
     };
+
+    treefmt-nix = {
+      url = "github:numtide/treefmt-nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =
@@ -37,6 +42,7 @@
       custom,
       nixpkgs-unstable,
       flake-utils,
+      treefmt-nix,
       # paperless-nixpkgs,
       ...
     }@attrs:
@@ -48,11 +54,15 @@
       let
         pkgs = (functions.mkpkgs system).pkgs;
         pkgs-unstable = (functions.mkpkgs system).pkgs-unstable;
-
+        # Eval the treefmt modules from ./treefmt.nix
+        treefmtEval = treefmt-nix.lib.evalModule pkgs ./fmt.nix;
       in
       {
 
-        formatter = pkgs.nixfmt-rfc-style;
+        formatter = treefmtEval.config.build.wrapper;
+        checks = {
+          formatting = treefmtEval.config.build.check self;
+        };
 
         devShells.default = pkgs.mkShell {
           name = "config";
