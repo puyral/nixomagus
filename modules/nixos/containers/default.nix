@@ -17,7 +17,10 @@ let
     name:
     { lib, ... }:
     {
-      imports = [ (rootDir + "/registeries.nix") ];
+      imports = [
+        (rootDir + "/registeries.nix")
+        ((import ./base_config.nix) { inherit name pkgs-unstable; })
+      ];
       system.stateVersion = mconfig.nixos;
       networking = {
         firewall.enable = false;
