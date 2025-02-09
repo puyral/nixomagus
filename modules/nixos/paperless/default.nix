@@ -1,7 +1,7 @@
 {
   config,
   lib,
-  extra-pkgs,
+  pkgs,
   ...
 }:
 let
@@ -39,11 +39,16 @@ in
       ephemeral = true;
       config =
         { ... }:
+        let
+          paperless = pkgs.paperless-ngx;
+        in
         {
+          environment.systemPackages = with pkgs; [ paperless ];
           services.paperless = {
             inherit port user;
             # package =  pkgs.paperless-ngx.overrideAttrs (final: prev: {doTest = false;});
             # package = extra-pkgs.paperless-nixpkgs.paperless-ngx;
+            package = paperless;
             enable = true;
             dataDir = "/data";
             mediaDir = "/media";
