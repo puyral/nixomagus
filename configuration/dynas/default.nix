@@ -6,6 +6,7 @@
     ./services
     ./firewall.nix
     ./usersNgroups.nix
+    ./power_management.nix
   ];
   extra.mail.enable = true;
   programs.gnupg.agent.pinentryPackage = pkgs.pinentry-curses;
@@ -22,4 +23,6 @@
 
   #users.mutableUsers = false;
   #users.users.simon.hashedPassword = "$y$j9T$eCgQtUivc7Amusroh6.uZ0$yzhpWtfMKNqmAmQRirHkfCvc2LOIlbgAKaDYnEWOSw5";
+
+  networking.interfaces.enp9s0.wakeOnLan.enable = true;
 }
