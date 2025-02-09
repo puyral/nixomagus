@@ -30,8 +30,8 @@
 
     # based on https://github.com/NixOS/nixpkgs/issues/361006#issuecomment-2598059564
     kernel.sysctl = {
-      "fs.inotify.max_user_instances" =  1048576;
-      "fs.inotify.max_user_watches" =  1048576;
+      "fs.inotify.max_user_instances" = 1048576;
+      "fs.inotify.max_user_watches" = 1048576;
     };
   };
 

@@ -1,4 +1,9 @@
-{ config, pkgs-unstable, pkgs, ... }:
+{
+  config,
+  pkgs-unstable,
+  pkgs,
+  ...
+}:
 let
   port = 2342;
   gconfig = config;
@@ -44,10 +49,15 @@ in
     config =
       { ... }:
       {
-        environment.systemPackages = (with pkgs-unstable; [
-          darktable
-          #{ inherit darktable gen-config; })
-        ]) ++ (with pkgs; [ffmpeg exiftool]);
+        environment.systemPackages =
+          (with pkgs-unstable; [
+            darktable
+            #{ inherit darktable gen-config; })
+          ])
+          ++ (with pkgs; [
+            ffmpeg
+            exiftool
+          ]);
         services.photoprism = {
           enable = true;
           originalsPath = "/originals";

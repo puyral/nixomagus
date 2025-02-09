@@ -53,7 +53,6 @@
 
         #logseq
 
-
         rapid-photo-downloader
 
         youtube-music
