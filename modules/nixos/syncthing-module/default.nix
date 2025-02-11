@@ -54,6 +54,7 @@ in
     user = "simon";
     dataDir = "/tmp"; # Default folder for new synced folders
     configDir = "/config/syncthing"; # Folder for Syncthing's settings and keys
+    openDefaultPorts = true;
 
     overrideDevices = true; # overrides any devices added or deleted through the WebUI
     overrideFolders = true; # overrides any folders added or deleted through the WebUI
