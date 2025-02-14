@@ -63,6 +63,7 @@
           "wwn-0x5000c500e8fb3c9a"
           "wwn-0x5000c500e8fb44a1"
           "wwn-0x5000c500e8fb8de4"
+          "wwn-0x5000c500e95106dc" # spare
 
           # 10TB toshiba
           "wwn-0x5000039b38d17cf2"
