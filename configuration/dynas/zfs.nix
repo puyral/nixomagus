@@ -1,14 +1,18 @@
 {
-  lib,
   config,
   rootDir,
   ...
 }:
 {
-  boot.supportedFilesystems = [ "zfs" ];
-  boot.zfs = {
-    extraPools = [ "Zeno" ];
-    forceImportRoot = false;
+  boot = {
+    supportedFilesystems = [ "zfs" ];
+    zfs = {
+      extraPools = [ "Zeno" ];
+      forceImportRoot = false;
+    };
+    kernel.sysctl = {
+      "vfs.zfs.l2arc_rebuild_enabled" = 1;
+    };
   };
 
   # see https://manpages.debian.org/bookworm/zfs-auto-snapshot/zfs-auto-snapshot.8.en.html
