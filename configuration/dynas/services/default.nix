@@ -28,8 +28,11 @@
     torrent = {
       enable = true;
       user = "simon";
+      group = "torrent";
       containered = true;
       downloadDir = "/mnt/Zeno/other/download";
+      transmission = true;
+      rtorrent = true;
     };
 
     calibre-web = {
@@ -54,7 +57,7 @@
   networking = {
     nat = {
       enable = true;
-      externalInterface = "enp9s0";
+      externalInterface = "enp10s0";
     };
     traefik = {
       enable = true;

@@ -4,7 +4,7 @@ let
   cfg = config.extra.torrent;
 in
 {
-  config.services.rtorrent = mkIf (cfg.enable && !cfg.containered) (
+  config.services.rtorrent = mkIf (cfg.enable && !cfg.containered && cfg.rtorrent) (
     with cfg;
     # if cfg.containered then
     #   { }

@@ -24,5 +24,6 @@
   #users.mutableUsers = false;
   #users.users.simon.hashedPassword = "$y$j9T$eCgQtUivc7Amusroh6.uZ0$yzhpWtfMKNqmAmQRirHkfCvc2LOIlbgAKaDYnEWOSw5";
 
-  networking.interfaces.enp9s0.wakeOnLan.enable = true;
+  networking.interfaces.enp10s0.wakeOnLan.enable = true;
+  networking.interfaces.enp13s0.wakeOnLan.enable = true;
 }

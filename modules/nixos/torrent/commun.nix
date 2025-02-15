@@ -1,9 +1,13 @@
-{ lib, ... }:
+{ lib, config, ... }:
 with lib;
+let
+  cfg = config.extra.torrent;
+in
 {
   imports = [
     ./rtorrent.nix
     ./ui.nix
+    ./transmision.nix
   ];
 
   options.extra.torrent = {
@@ -29,5 +33,15 @@ with lib;
       type = types.bool;
       default = false;
     };
+    rtorrent = mkEnableOption "rtorrent";
+    transmission = mkEnableOption "transmission";
+  };
+  config = {
+    assertions = [
+      {
+        assertion = cfg.enable -> cfg.transmission || cfg.rtorrent;
+        message = "you need to enable either transission or rtorrent";
+      }
+    ];
   };
 }

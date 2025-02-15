@@ -7,8 +7,9 @@ let
 in
 
 {
+
   imports = [ ./commun.nix ];
-  config = mkIf cfg.containered {
+  config = mkIf (cfg.containered && cfg.containered) {
     containers.torrent = {
       bindMounts = {
         "/data" = {
@@ -21,6 +22,10 @@ in
         };
         "/videos" = {
           hostPath = "/mnt/Zeno/media/videos";
+          isReadOnly = false;
+        };
+        "/var/lib/transmission" = {
+          hostPath = "${cfg.dataDir}/transmission";
           isReadOnly = false;
         };
       };
@@ -41,13 +46,14 @@ in
                 {
                   "${cfg.user}" = {
                     uid = users.users."${cfg.user}".uid;
-                    group = config.services.rtorrent.group;
+                    group = cfg.group or config.services.rtorrent.group;
                     isSystemUser = false;
                     isNormalUser = true;
                   };
                 };
-            groups =
-              if cfg.group == null then { } else { "${cfg.group}".gid = users.groups."${cfg.group}".gid; };
+            groups = {
+              rtorrent = { };
+            } // (if cfg.group == null then { } else { "${cfg.group}".gid = users.groups."${cfg.group}".gid; });
           };
 
           extra.torrent = with cfg; {
@@ -55,6 +61,8 @@ in
             enable = true;
             dataDir = "/data";
             downloadDir = "/download";
+            transmission = cfg.transmission;
+            rtorrent = cfg.rtorrent;
           };
         };
     };
@@ -64,6 +72,11 @@ in
           port = 80;
           enable = true;
           name = "rutorrent";
+        }
+        {
+          port = 9091;
+          enable = true;
+          name = "transmission";
         }
       ];
     };

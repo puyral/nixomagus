@@ -11,7 +11,7 @@ in
 {
   # imports = [ "${my-nixpkgs}/nixos/modules/services/web-apps/rutorrent.nix" ];
   config = {
-    services = lib.mkIf (cfg.enable && !cfg.containered) {
+    services = lib.mkIf (cfg.enable && !cfg.containered && cfg.rtorrent) {
       rutorrent = {
         # package = pkgs-unstable.rutorrent;
         enable = true;

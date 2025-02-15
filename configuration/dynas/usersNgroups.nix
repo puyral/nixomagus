@@ -10,5 +10,8 @@
     syncthing = {
       gid = 237;
     };
+    torrent = {
+      gid = 997;
+    };
   };
 }

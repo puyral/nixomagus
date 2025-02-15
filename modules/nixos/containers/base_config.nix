@@ -13,6 +13,7 @@
     htop
     git
     tmux
+    iptables
   ];
 
   networking = {
