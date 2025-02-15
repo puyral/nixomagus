@@ -4,7 +4,7 @@ let
 in
 {
   services.cockpit = {
-    enable = true;
+    enable = false;
     openFirewall = true;
     settings = {
       # WebService = {

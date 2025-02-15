@@ -83,10 +83,12 @@ in
         };
     };
     extra.containers.${name} = {
-      traefik = {
-        inherit port;
-        enable = true;
-      };
+      traefik = [
+        {
+          inherit port;
+          enable = true;
+        }
+      ];
     };
   };
 }

@@ -99,13 +99,15 @@ in
   extra.containers.photoprism = {
     vpn = true;
 
-    traefik = {
-      port = 2342;
-      name = "photos";
-      enable = true;
-      providers = [ "ovh-pl" ];
-      address = "100.125.20.5";
-    };
+    traefik = [
+      {
+        port = 2342;
+        name = "photos";
+        enable = true;
+        providers = [ "ovh-pl" ];
+        address = "100.125.20.5";
+      }
+    ];
   };
   users.groups.photoprism = {
     members = [

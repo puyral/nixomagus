@@ -60,11 +60,13 @@ in
         };
     };
     extra.containers.${name} = {
-      traefik = {
-        inherit port;
-        name = "zigbee2mqtt";
-        enable = true;
-      };
+      traefik = [
+        {
+          inherit port;
+          name = "zigbee2mqtt";
+          enable = true;
+        }
+      ];
     };
   };
 }

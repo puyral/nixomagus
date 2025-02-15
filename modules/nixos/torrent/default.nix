@@ -59,11 +59,13 @@ in
         };
     };
     extra.containers.torrent = {
-      traefik = {
-        port = 80;
-        enable = true;
-        name = "rutorrent";
-      };
+      traefik = [
+        {
+          port = 80;
+          enable = true;
+          name = "rutorrent";
+        }
+      ];
     };
   };
 }

@@ -1,4 +1,9 @@
-{ name, ... }:
+{
+  name,
+  lib,
+  c_config,
+  ...
+}:
 { pkgs, ... }:
 {
 
@@ -10,4 +15,27 @@
     tmux
   ];
 
+  networking = {
+    firewall.enable = false;
+    # Use systemd-resolved inside the container
+    # Workaround for bug https://github.com/NixOS/nixpkgs/issues/162686
+    useHostResolvConf = lib.mkForce false;
+  };
+  services.resolved.enable = true;
+
+  services.openssh = {
+    enable = true;
+  };
+
+  nixpkgs.config.allowUnfree = true;
+  nix.settings.experimental-features = [
+    "nix-command"
+    "flakes"
+  ];
+
+  services.tailscale = {
+    enable = c_config.vpn;
+    openFirewall = true;
+    # useRoutingFeatures = "server";
+  };
 }

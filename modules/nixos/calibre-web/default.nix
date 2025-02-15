@@ -71,10 +71,12 @@ in
     };
 
     extra.containers.${name} = {
-      traefik = {
-        inherit port name;
-        enable = true;
-      };
+      traefik = [
+        {
+          inherit port name;
+          enable = true;
+        }
+      ];
     };
 
     extra.extraGroups.${name} = {

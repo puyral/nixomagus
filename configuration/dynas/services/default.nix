@@ -2,7 +2,7 @@
 {
   imports = [
     ./filesharing.nix
-    ./cockpit.nix
+    # ./cockpit.nix
     ./syncthing.nix
     ./jellyfin.nix
     ./homeassistant
