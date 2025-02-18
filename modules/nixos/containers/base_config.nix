@@ -1,10 +1,11 @@
 {
   name,
-  lib,
-  c_config,
+  c_config ? {
+    vpn = false;
+  },
   ...
 }:
-{ pkgs, ... }:
+{ pkgs, lib, ... }:
 {
 
   environment.systemPackages = with pkgs; [
