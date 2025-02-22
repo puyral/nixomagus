@@ -58,6 +58,7 @@
     nat = {
       enable = true;
       externalInterface = "enp10s0";
+      # externalInterface = "wlp8s0";
     };
     traefik = {
       enable = true;
