@@ -61,8 +61,9 @@
   networking = {
     nat = {
       enable = true;
-      externalInterface = "enp10s0";
-      # externalInterface = "wlp8s0";
+      externalInterface = "enp13s0"; # 10gb
+      # externalInterface = "enp10s0"; # 1gb
+      # externalInterface = "wlp8s0"; # wifi
     };
     traefik = {
       enable = true;
