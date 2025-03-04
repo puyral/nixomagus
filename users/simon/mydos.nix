@@ -39,7 +39,7 @@
         vscode
         pavucontrol
 
-        okular
+        kdePackages.okular
         foliate
         zotero
 
