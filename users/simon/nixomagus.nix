@@ -85,7 +85,7 @@
         vscode
         pavucontrol
 
-        okular
+        kdePackages.okular
 
         rnote
         libsForQt5.xp-pen-g430-driver
