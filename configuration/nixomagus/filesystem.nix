@@ -22,14 +22,14 @@
       ];
     };
 
-    "/mnt/Windows" = {
-      device = "/dev/sda3";
-      fsType = "ntfs-3g";
-      options = [
-        "rw"
-        "uid=1000"
-      ];
-    };
+  #  "/mnt/Windows" = {
+  #    device = "/dev/sda3";
+  #    fsType = "ntfs-3g";
+  #    options = [
+  #      "rw"
+  #      "uid=1000"
+  #    ];
+  #  };
 
     "/swap" = {
       label = "NIXROOT";
