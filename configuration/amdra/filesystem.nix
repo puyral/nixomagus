@@ -14,23 +14,23 @@
       fsType = "vfat";
     };
 
- #   "/mnt/Windows" = {
- #     device = "/dev/sda3";
- #     fsType = "ntfs-3g";
- #     options = [
- #       "rw"
- #       "uid=1000"
- #     ];
- #   };
+    #   "/mnt/Windows" = {
+    #     device = "/dev/sda3";
+    #     fsType = "ntfs-3g";
+    #     options = [
+    #       "rw"
+    #       "uid=1000"
+    #     ];
+    #   };
 
-  #  "/swap" = {
-  #    label = "NIXROOT";
-  #    fsType = "btrfs";
-  #    options = [
-  #      "subvol=swap"
-  #      "noatime"
-  #    ];
-  #  };
+    #  "/swap" = {
+    #    label = "NIXROOT";
+    #    fsType = "btrfs";
+    #    options = [
+    #      "subvol=swap"
+    #      "noatime"
+    #    ];
+    #  };
 
     # "/mnt/Zeno" = {
     #   device = "192.168.0.2:/mnt/Zeno";
@@ -42,5 +42,5 @@
     #   ];
     # };
   };
-  swapDevices = []; #[ { device = "/swap/swapfile1"; } ];
+  swapDevices = [ ]; # [ { device = "/swap/swapfile1"; } ];
 }

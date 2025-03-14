@@ -37,6 +37,9 @@
         nixomagus = {
           path = "/home/simon/Documents/codage";
         };
+        amdra = {
+          path = "/home/simon/Documents/codage";
+        };
         dynas = {
           path = "/mnt/Zeno/work/other/codage";
         };
@@ -50,6 +53,9 @@
         nixomagus = {
           path = "/home/simon/Documents/work/TU-Wien";
         };
+        amdra = {
+          path = "/home/simon/Documents/work/TU-Wien";
+        };
         dynas = {
           path = "/mnt/Zeno/work/TU-Wien";
         };
@@ -61,6 +67,9 @@
       id = "imwyj-ppta7";
       devices = {
         nixomagus = {
+          path = "/home/simon/Documents/Logseq";
+        };
+        amdra = {
           path = "/home/simon/Documents/Logseq";
         };
         mydos = {
@@ -85,6 +94,9 @@
         nixomagus = {
           path = "/home/simon/Documents/Hand Notes";
         };
+        amdra = {
+          path = "/home/simon/Documents/Hand Notes";
+        };
         mydos = {
           path = "/home/simon/Documents/Hand Notes";
         };
@@ -104,6 +116,9 @@
         nixomagus = {
           path = "/home/simon/.config/synced-darktable-database";
         };
+        amdra = {
+          path = "/home/simon/.config/synced-darktable-database";
+        };
         dynas = {
           path = "/mnt/Zeno/media/darktable-database";
         };
@@ -115,6 +130,9 @@
       id = "iwgas-ogb6p";
       devices = {
         mydos = {
+          path = "/home/simon/Pictures/Wallpapers";
+        };
+        amdra = {
           path = "/home/simon/Pictures/Wallpapers";
         };
         dynas = {
