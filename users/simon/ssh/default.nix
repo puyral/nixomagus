@@ -17,6 +17,7 @@ in
     let
       vampire-ip = "100.111.36.99";
       nixomagus-ip = "100.106.190.9";
+      amdra-ip = "100.84.31.85";
     in
     {
       enable = true;
@@ -33,6 +34,9 @@ in
         };
         nixomagus = {
           hostname = nixomagus-ip;
+        };
+        amdra = {
+          hotsname = amdra-ip;
         };
       };
     };
