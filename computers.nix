@@ -2,7 +2,7 @@ rec {
   computers = {
     nixomagus = {
       system = "x86_64-linux";
-      is_docked = true;
+      is_docked = false;
       cpu = "skylake";
       users = [ users.simon ];
       nixos = "23.11";
