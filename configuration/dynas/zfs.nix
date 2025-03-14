@@ -70,7 +70,7 @@
           "wwn-0x5000c500e95106dc" # spare
 
           # 10TB toshiba
-          "wwn-0x5000039b38d17cf2"
+          # "wwn-0x5000039b38d17cf2"
         ];
       in
       builtins.map zfsDisk zfsDisks ++ [ ];
