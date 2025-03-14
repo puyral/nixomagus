@@ -36,7 +36,7 @@ in
           hostname = nixomagus-ip;
         };
         amdra = {
-          hotsname = amdra-ip;
+          hostname = amdra-ip;
         };
       };
     };
