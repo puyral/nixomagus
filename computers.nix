@@ -40,6 +40,13 @@ rec {
       nixos = "24.05";
       headless = false;
     };
+    amdra = {
+      is_docked = true;
+      system = "x86_64-linux";
+      users = [ users.simon ];
+      nixos = "24.05";
+      headless = false;
+    };
   };
 
   users = {
