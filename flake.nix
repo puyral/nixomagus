@@ -70,6 +70,5 @@
         homeConfigurations = mkHomes computers;
         nixosConfigurations = mkSystems computers;
       }
-    )
-  ;
+    );
 }
