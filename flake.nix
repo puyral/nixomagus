@@ -22,6 +22,7 @@
     custom = {
       url = "github:puyral/custom-nix";
       inputs.nixpkgs.follows = "nixpkgs-unstable";
+      inputs.cryptovampire-src.follows = "nixpkgs";
     };
     flake-utils = {
       url = "github:numtide/flake-utils";
