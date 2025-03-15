@@ -4,7 +4,8 @@
   is_nixos,
   ...
 }:
-  {home = {
+{
+  home = {
 
     # Home Manager needs a bit of information about you and the paths it should
     # manage.
@@ -49,4 +50,5 @@
       EDITOR = "vim";
       CONFIG_LOCATION = if is_nixos then "/config" else "$HOME/.config/home-manager/";
     };
-  };}
+  };
+}

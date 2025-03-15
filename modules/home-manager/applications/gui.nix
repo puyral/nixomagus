@@ -1,20 +1,29 @@
-{lib, config, pkgs, pkgs-unstable, custom}:
-let gui = config.extra.applications.gui; in
-{config = lib.mkIf gui
 {
-  extra = {firefox.enable =true;
+  lib,
+  config,
+  pkgs,
+  pkgs-unstable,
+  custom,
+  ...
+}:
+let
+  gui = config.extra.applications.gui;
+in
+{
+  config = lib.mkIf gui.enable {
+    extra = {
+      firefox.enable = true;
+      alacritty.enable = lib.mkDefault true;
+    };
     xdg.mimeApps.defaultApplications = {
-    "x-scheme-handler/terminal" = [
-      "alacritty.desktop"
-      "kitty.desktop"
-    ];
-  };
-    alacritty.enable = lib.mkDefault true;
-  };
-  home.packages = lib.mkIf   gui.enable (  
-    [custom.rnote ]
-     (with pkgs; [
-
+      "x-scheme-handler/terminal" = [
+        "alacritty.desktop"
+        "kitty.desktop"
+      ];
+    };
+    home.packages =
+      [ custom.rnote ]
+      ++ (with pkgs; [
 
         btop
         # nvtopPackages.full
@@ -79,5 +88,7 @@ let gui = config.extra.applications.gui; in
         mattermost-desktop
 
         nemo-with-extensions
-      ]) ++ lib.optional gui.pinentry-qt pkgs.pinentry-qt );
-};}
+      ])
+      ++ lib.optional gui.pinentry-qt pkgs.pinentry-qt;
+  };
+}

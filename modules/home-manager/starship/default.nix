@@ -4,7 +4,9 @@
   ...
 }:
 with lib;
-let cfg = config.extra.starship; in
+let
+  cfg = config.extra.starship;
+in
 {
   options.extra.starship.enable = mkEnableOption "starship";
   config.programs.starship = mkIf cfg.enable {

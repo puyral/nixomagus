@@ -14,9 +14,8 @@
     allowUnfree = true;
   };
 
-  extra.shell = lib.mkDefault true;
-  extra.zsh = lib.mkDefault true;
-
+  extra.shell.enable = lib.mkDefault true;
+  extra.zsh.enable = lib.mkDefault true;
 
   # This value determines the Home Manager release that your configuration is
   # compatible with. This helps avoid breakage when a new Home Manager release

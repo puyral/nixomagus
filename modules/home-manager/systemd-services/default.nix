@@ -1,4 +1,4 @@
 { ... }:
 {
-  imports = [./mpris-proxy.nix ];
+  imports = [ ./mpris-proxy.nix ];
 }

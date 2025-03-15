@@ -1,4 +1,10 @@
-{ nixpkgs, system,lib, config,... }:
+{
+  nixpkgs,
+  system,
+  lib,
+  config,
+  ...
+}:
 with lib;
 let
   # https://github.com/NixOS/nixpkgs/issues/341683

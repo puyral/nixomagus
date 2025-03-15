@@ -1,6 +1,8 @@
-{ config, lib, ... }: with lib;
+{ config, lib, ... }:
+with lib;
 let
-  cfg =config.extra.i3; in
+  cfg = config.extra.i3;
+in
 {
   programs.rofi = mkIf cfg.enable {
     enable = true;

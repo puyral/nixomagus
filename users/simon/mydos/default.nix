@@ -13,18 +13,20 @@
 {
   programs.firefox.nativeMessagingHosts = [ pkgs.gnome-browser-connector ];
 
-  extra = {applications.gui ={enable=  true;
-  pinentry-qt = false;
+  extra = {
+    applications.gui = {
+      enable = true;
+      pinentry-qt = false;
+    };
+    logseq.enable = true;
+    alacritty.enable = false;
   };
-  logseq.enable =true;
-  };
-
 
   home = {
     packages =
       [ ]
       ++ (with pkgs; [
-          intel-gpu-tools
+        intel-gpu-tools
         nvtopPackages.intel
       ])
       ++ (with pkgs-unstable; [

@@ -1,5 +1,13 @@
-{ config, pkgs, lib, ... }: with lib;
-  let cfg = config.extra.xwallpaper; in
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
+with lib;
+let
+  cfg = config.extra.xwallpaper;
+in
 {
 
   options.extra.wallpaper = {
