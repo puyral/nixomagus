@@ -15,10 +15,9 @@ in
       firefox.enable = true;
       alacritty.enable = lib.mkDefault true;
     };
-    xdg.mimeApps.defaultApplications = {
+    xdg.mimeApps.defaultApplications = lib.mkIf config.extra.alacritty.enable {
       "x-scheme-handler/terminal" = [
         "alacritty.desktop"
-        "kitty.desktop"
       ];
     };
     home.packages =

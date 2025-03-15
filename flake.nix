@@ -36,15 +36,8 @@
 
   outputs =
     {
-      self,
-      nixpkgs,
-      home-manager,
-      kmonad,
-      custom,
-      nixpkgs-unstable,
       flake-utils,
       treefmt-nix,
-      # paperless-nixpkgs,
       ...
     }@attrs:
     let
@@ -65,28 +58,7 @@
           # formatting = treefmtEval.config.build.check self;
         };
 
-        devShells.default = pkgs.mkShell {
-          name = "config";
-          buildInputs =
-            (with pkgs-unstable; [ compose2nix ])
-            ++ (with pkgs; [
-              vim
-              git
-              git-crypt
-              gh
-              gnupg
-            ])
-            ++ (
-              if pkgs.stdenv.isDarwin then
-                [ ]
-              else
-                (with pkgs-unstable; [
-                  wev
-                  xorg.xev
-                  arandr
-                ])
-            );
-        };
+        devShells.default = import ./shell.nix { inherit pkgs pkgs-unstable; };
       }
     )
     // (
@@ -99,7 +71,5 @@
         nixosConfigurations = mkSystems computers;
       }
     )
-  # (mkHomes computers) // (mkSystem computers))
-
   ;
 }
