@@ -2,18 +2,19 @@
 let gui = config.extra.applications.gui; in
 {config = lib.mkIf gui
 {
-  extra.firefox.enable =true;
+  extra = {firefox.enable =true;
     xdg.mimeApps.defaultApplications = {
     "x-scheme-handler/terminal" = [
       "alacritty.desktop"
       "kitty.desktop"
     ];
   };
-  home.packages = lib.mkIf   gui (  
-    # [custom.rnote ]
+    alacritty.enable = lib.mkDefault true;
+  };
+  home.packages = lib.mkIf   gui.enable (  
+    [custom.rnote ]
      (with pkgs; [
 
-        pinentry-qt
 
         btop
         # nvtopPackages.full
@@ -42,7 +43,6 @@ let gui = config.extra.applications.gui; in
 
         kdePackages.okular
 
-        rnote
         libsForQt5.xp-pen-g430-driver
         zotero
 
@@ -79,5 +79,5 @@ let gui = config.extra.applications.gui; in
         mattermost-desktop
 
         nemo-with-extensions
-      ]));
+      ]) ++ lib.optional gui.pinentry-qt pkgs.pinentry-qt );
 };}
