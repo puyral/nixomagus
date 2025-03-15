@@ -14,7 +14,7 @@ in
     enable = mkEnableOption "wallpaper";
     path = mkOption {
       description = "path to the pictures";
-      default = "/Volumes/Zeno/media/photos/wallpaper";
+      default = "/home/simon/Pictures/Wallpapers";
       type = types.path;
     };
     duration = mkOption {

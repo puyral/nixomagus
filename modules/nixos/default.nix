@@ -16,5 +16,6 @@
     ./syncthing-module
     ./calibre-web
     ./monitoring
+    ./cachefilesd
   ];
 }
