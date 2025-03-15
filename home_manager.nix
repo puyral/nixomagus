@@ -5,8 +5,9 @@ let
 in
 {
   imports = [
-    (import (./users + "/${user.name}/home.nix"))
-    (import (./users + "/${user.name}/${computer.name}.nix"))
+    (import (./users + "/${user.name}/commun"))
+    (import (./users + "/${user.name}/${computer.name}"))
+    ./modules/home-manager
     ./registeries.nix
   ];
 
