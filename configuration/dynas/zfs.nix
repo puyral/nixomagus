@@ -14,6 +14,7 @@
       "vfs.zfs.l2arc_rebuild_enabled" = 1;
     };
   };
+  networking.hostId = "007f0200";
 
   # see https://manpages.debian.org/bookworm/zfs-auto-snapshot/zfs-auto-snapshot.8.en.html
   # for more control
@@ -79,7 +80,7 @@
       # test = true;
       mail = {
         sender = config.programs.msmtp.accounts.default.from;
-        recipient = (import (rootDir + /secrets/email.nix)).gmail "smart";
+        recipient = (import (rootDir + /secrets/email.nix)).gmail "smart-dynas";
       };
     };
   };

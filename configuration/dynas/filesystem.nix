@@ -31,6 +31,5 @@
       ];
     };
   };
-  networking.hostId = "007f0200";
   swapDevices = [ { device = "/swap/swapfile"; } ];
 }

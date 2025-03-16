@@ -7,5 +7,5 @@
 }:
 {
   boot.kernelPackages = pkgs-unstable.linuxPackages_zen;
-  # boot.zfs.package = pkgs-unstable.zfs_2_3_1;
+  boot.zfs.package = pkgs-unstable.zfs;
 }

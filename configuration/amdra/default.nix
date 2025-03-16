@@ -14,6 +14,7 @@
     ../commun/bluetooth.nix
     ./gui.nix
     ./amdgpu.nix
+    ./zfs.nix
   ];
 
   extra = {
