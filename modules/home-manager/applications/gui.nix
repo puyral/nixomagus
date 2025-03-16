@@ -75,7 +75,7 @@ in
         blueberry
         easyeffects
 
-        steam
+        # steam
 
         #zoom-us
 
