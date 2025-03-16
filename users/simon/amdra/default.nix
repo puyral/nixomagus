@@ -9,6 +9,7 @@
   ...
 }@attrs:
 {
+  imports = [ ./darktheme.nix ];
   extra = {
     applications.gui.enable = true;
     i3 = {
@@ -21,7 +22,8 @@
 
   home = {
 
-    packages = (with custom; [ clocktui ]);
+    packages =
+      (with custom; [ clocktui ]) ++ (with pkgs; [ nvtopPackages.amd ]) ++ (with pkgs-unstable; [ ]);
 
   };
 }

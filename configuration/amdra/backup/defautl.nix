@@ -1,6 +1,11 @@
 { config, pkgs, ... }:
-let 
-  vdevs = [{from = "Zeno/media/photos"; to ="Backup/photos";}];
+let
+  vdevs = [
+    {
+      from = "Zeno/media/photos";
+      to = "Backup/photos";
+    }
+  ];
 
 in
 
