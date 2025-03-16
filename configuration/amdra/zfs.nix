@@ -7,7 +7,7 @@
   boot = {
     supportedFilesystems = [ "zfs" ];
     zfs = {
-      extraPools = [ ];
+      extraPools = [ "Backup" ];
       forceImportRoot = false;
     };
     kernel.sysctl = {
