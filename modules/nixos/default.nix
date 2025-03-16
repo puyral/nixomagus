@@ -17,5 +17,8 @@
     ./calibre-web
     ./monitoring
     ./cachefilesd
+    ./printing
+    ./keyboard
+    ./v4l2loopback
   ];
 }

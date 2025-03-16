@@ -1,4 +1,4 @@
 { ... }:
 {
-  imports = [ ./printing.nix ];
+  imports = [ ];
 }
