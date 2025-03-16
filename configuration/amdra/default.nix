@@ -9,12 +9,11 @@
   imports = [
     ./filesystem.nix
     ./services
-    # ./kmonad
     ./hardware-configuration.nix
     ../commun/sound.nix
     ../commun/bluetooth.nix
-    # kmonad.nixosModules.default
     ./gui.nix
+    ./amdgpu.nix
   ];
 
   extra = {
