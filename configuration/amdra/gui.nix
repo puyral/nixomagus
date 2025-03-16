@@ -18,4 +18,7 @@
     enable = true;
     package = pkgs-unstable.hyprland;
   };
+
+  # https://nixos.wiki/wiki/Visual_Studio_Code#Error_after_Sign_On
+  services.gnome.gnome-keyring.enable = true;
 }
