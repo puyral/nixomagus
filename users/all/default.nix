@@ -2,6 +2,6 @@
 {
   imports = [ (rootDir + "/registeries.nix") ];
   nixpkgs.config = {
-    allowUnfree = _:true;
+    allowUnfree = _: true;
   };
 }

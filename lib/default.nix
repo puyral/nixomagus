@@ -1,8 +1,9 @@
 rootDir:
 attrs@{
   home-manager,
-  nixpkgs,
+  nixpkgs-stable,
   nixpkgs-unstable,
+  nixpkgs,
   custom,
   # paperless-nixpkgs,
   ...
@@ -109,27 +110,44 @@ rec {
       ];
     };
 
-  mkpkgs = system: rec {
-    pkgs = nixpkgs.legacyPackages.${system};
-    # pkgs-unstable = (nixpkgs-unstable // {config.allowUnfree = true;}).legacyPackages.${system};
-    pkgs-unstable = import nixpkgs-unstable {
-      system = system;
-      config = {
-        allowUnfree = true;
+  mkpkgs =
+    system:
+    let
+      aux =
+        nixpkgs:
+        import nixpkgs {
+          system = system;
+          config = {
+            allowUnfree = true;
+          };
+        };
+    in
+    rec {
+      # pkgs = nixpkgs.legacyPackages.${system};
+      # # pkgs-unstable = (nixpkgs-unstable // {config.allowUnfree = true;}).legacyPackages.${system};
+      # pkgs-unstable = import nixpkgs-unstable {
+      #   system = system;
+      #   config = {
+      #     allowUnfree = true;
+      #   };
+      # }; # https://www.reddit.com/r/NixOS/comments/17p39u6/how_to_allow_unfree_packages_from_stable_and/
+      pkgs = aux nixpkgs;
+      pkgs-stable = aux nixpkgs-stable;
+      pkgs-unstable = aux nixpkgs-unstable;
+      extra-pkgs = pkgs.lib.mapAttrs (name: value: value.legacyPackages.${system}) {
+        # inherit paperless-nixpkgs;
       };
-    }; # https://www.reddit.com/r/NixOS/comments/17p39u6/how_to_allow_unfree_packages_from_stable_and/
-    extra-pkgs = pkgs.lib.mapAttrs (name: value: value.legacyPackages.${system}) {
-      # inherit paperless-nixpkgs;
     };
-  };
   mkExtraArgs =
     { computer, ... }:
     let
+      pkgs-attr = (mkpkgs computer.system);
       overlays = (import (rootDir + /overlays)) computer;
       system = computer.system;
-      pkgs = (mkpkgs computer.system).pkgs;
-      pkgs-unstable = (mkpkgs computer.system).pkgs-unstable;
-      extra-pkgs = (mkpkgs computer.system).extra-pkgs;
+      pkgs = pkgs-attr.pkgs;
+      pkgs-stable = pkgs-attr.pkgs-stable;
+      pkgs-unstable = pkgs-attr.pkgs-unstable;
+      extra-pkgs = pkgs-attr.extra-pkgs;
     in
     attrs
     // {
@@ -139,6 +157,7 @@ rec {
       inherit
         system
         pkgs-unstable
+        pkgs-stable
         overlays
         rootDir
         mlib

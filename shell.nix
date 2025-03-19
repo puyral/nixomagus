@@ -1,6 +1,7 @@
 {
   pkgs ? import <nixpkgs> { },
   pkgs-unstable ? import <nixpkgs> { },
+  pkgs-stable ? import <nixpkgs> { },
 }:
 pkgs.mkShell {
   name = "config";

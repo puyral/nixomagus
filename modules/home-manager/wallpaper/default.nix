@@ -6,7 +6,7 @@
 }:
 with lib;
 let
-  cfg = config.extra.xwallpaper;
+  cfg = config.extra.wallpaper;
 in
 {
 
@@ -22,7 +22,7 @@ in
       default = 120;
     };
   };
-  config.programs.wpaperd = lib.mkIf cfg.enable {
+  config.services.wpaperd = lib.mkIf cfg.enable {
     # enable = true;
     settings = {
       default = {

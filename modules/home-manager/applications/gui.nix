@@ -3,6 +3,7 @@
   config,
   pkgs,
   pkgs-unstable,
+  pkgs-stable,
   custom,
   ...
 }:
@@ -22,7 +23,7 @@ in
     };
     home.packages =
       [ custom.rnote ]
-      ++ (with pkgs; [
+      ++ (with pkgs-stable; [
 
         btop
         # nvtopPackages.full

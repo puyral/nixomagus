@@ -16,5 +16,5 @@
     alsa.support32Bit = true;
     jack.enable = true;
   };
-  hardware.pulseaudio.enable = false;
+  services.pulseaudio.enable = false;
 }

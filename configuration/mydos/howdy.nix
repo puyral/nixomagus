@@ -15,7 +15,7 @@ in
 {
   imports = howdypatches;
 
-  nixpkgs.overlays = [ ] ++ [
+  nixpkgs.config.overlays = [ ] ++ [
     (self: super: {
       howdy = pkgs.callPackage "${my-nixpkgs}/pkgs/by-name/ho/howdy/package.nix" { };
       linux-enable-ir-emitter =

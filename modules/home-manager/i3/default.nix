@@ -1,7 +1,7 @@
 {
   mconfig,
   pkgs,
-  pkgs-unstable,
+  pkgs-stable,
   config,
   lib,
   ...
@@ -39,8 +39,7 @@ in
   };
 
   home.packages = mkIf cfg.enable (
-    with pkgs;
-    [
+    (with pkgs; [
       xorg.xrandr
       numlockx
       playerctl
@@ -49,8 +48,8 @@ in
       xfce.thunar
       flameshot
       solaar
-      unclutter
       brightnessctl
-    ]
+    ])
+    ++ (with pkgs-stable; [ unclutter ])
   );
 }

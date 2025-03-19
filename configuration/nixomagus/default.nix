@@ -22,10 +22,13 @@
     keyboard.enable = true;
   };
 
-  fonts.packages = with pkgs; [
-    nerdfonts
-    fira-code
-  ];
+  fonts.packages =
+    with pkgs;
+    [
+      # nerdfonts
+      fira-code
+    ]
+    ++ builtins.filter lib.attrsets.isDerivation (builtins.attrValues pkgs.nerd-fonts);
 
   # wayland
   environment.sessionVariables = {
