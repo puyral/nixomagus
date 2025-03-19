@@ -10,9 +10,6 @@
     # ./ssh
     ./home.nix
   ];
-  nixpkgs.config = {
-    allowUnfree = true;
-  };
 
   extra = {
     shell.enable = lib.mkDefault true;

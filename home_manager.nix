@@ -8,7 +8,7 @@ in
     (import (./users + "/${user.name}/commun"))
     (import (./users + "/${user.name}/${computer.name}"))
     ./modules/home-manager
-    ./registeries.nix
+    ./users/all
   ];
 
   # nix.registry = (import ./registeries.nix) attrs;
