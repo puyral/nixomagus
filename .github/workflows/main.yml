@@ -1,0 +1,20 @@
+name: Nix Flake Check
+
+on:
+  push:
+    branches:
+      - master  # Adjust this to your default branch if different
+  pull_request:
+    branches:
+      - master  # Adjust this to your default branch if different
+
+jobs:
+  check:
+    runs-on: auto-config
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+
+    - name: Run Nix Flake Check
+      run: nix flake check -L
