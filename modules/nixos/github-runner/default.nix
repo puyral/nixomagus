@@ -23,7 +23,7 @@ let
         };
         extraPackages = mkOption {
           type = types.listOf types.package;
-          default = [];
+          default = [ ];
         };
       };
     };
