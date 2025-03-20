@@ -10,45 +10,34 @@ on:
 
 jobs:
   check:
-    runs-on: self-hosted
+    uses: ./.github/workflows/check.yml
 
-    steps:
-    - name: Checkout repository
-      uses: actions/checkout@v4
-    - name: Unlock repository
-      run: git-crypt-unlocker
-      env: 
-        INPUT_KEY_ENCODED: ${{ secrets.KEY}}
-        
-    - name: Run Nix Flake Check
-      run: nix flake check -L
-
-  build-dynas:
-    runs-on: self-hosted
+  dynas:
     needs: check  # Ensure this job runs after the check job
+    uses: ./.github/workflows/build.yml
+    with:
+      hostname: dynas
 
-    steps:
-    - name: Checkout repository
-      uses: actions/checkout@v4
-    - name: Unlock repository
-      run: git-crypt-unlocker
-      env: 
-        INPUT_KEY_ENCODED: ${{ secrets.KEY}}
-
-    - name: Run Nix Build
-      run: nix build .#nixosConfigurations.dynas.config.system.build.toplevel -L
-
-  build-amdra:
-    runs-on: self-hosted
+  amdra:
     needs: check  # Ensure this job runs after the check job
+    uses: ./.github/workflows/build.yml
+    with:
+      hostname: amdra
 
-    steps:
-    - name: Checkout repository
-      uses: actions/checkout@v4
-    - name: Unlock repository
-      run: git-crypt-unlocker
-      env: 
-        INPUT_KEY_ENCODED: ${{ secrets.KEY}}
+  ovh-pl:
+    needs: check  # Ensure this job runs after the check job
+    uses: ./.github/workflows/build.yml
+    with:
+      hostname: ovh-pl
 
-    - name: Run Nix Build
-      run: nix build .#nixosConfigurations.amdra.config.system.build.toplevel -L
+  nixomagus:
+    needs: check  # Ensure this job runs after the check job
+    uses: ./.github/workflows/build.yml
+    with:
+      hostname: nixomagus
+
+  i7:
+    needs: check  # Ensure this job runs after the check job
+    uses: ./.github/workflows/build.yml
+    with:
+      hostname: i7

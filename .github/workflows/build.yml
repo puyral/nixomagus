@@ -1,0 +1,24 @@
+name: Nix Build
+
+on:
+  workflow_call:
+    inputs:
+      hostname:
+        required: true
+        type: string
+
+jobs:
+  build:
+    runs-on: self-hosted
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+
+    - name: Unlock repository
+      run: git-crypt-unlocker
+      env:
+        INPUT_KEY_ENCODED: ${{ secrets.KEY }}
+
+    - name: Run Nix Build
+      run: nix build .#nixosConfigurations.${{ inputs.hostname }}.config.system.build.toplevel -L

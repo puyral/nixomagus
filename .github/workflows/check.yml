@@ -1,0 +1,19 @@
+name: Nix Check
+
+on:
+  workflow_call:
+
+jobs:
+  check:
+    runs-on: self-hosted
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+    - name: Unlock repository
+      run: git-crypt-unlocker
+      env: 
+        INPUT_KEY_ENCODED: ${{ secrets.KEY}}
+        
+    - name: Run Nix Flake Check
+      run: nix flake check -L
