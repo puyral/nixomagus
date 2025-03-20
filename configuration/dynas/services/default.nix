@@ -10,6 +10,7 @@
     ./mosquitto.nix
     ./tailscale.nix
     ./photos
+    ./github
   ];
   virtualisation.docker.autoPrune.enable = true;
 
@@ -56,17 +57,6 @@
       };
     };
 
-    github-runners = {
-      enable = true;
-      runners = {
-        auto-config = {
-          enable = true;
-          url = "https://github.com/puyral/nixomagus";
-          tokenFile = ./secrets/auto-config-tocken;
-          name = "dynas";
-        };
-      };
-    };
 
   };
 

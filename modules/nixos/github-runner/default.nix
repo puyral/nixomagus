@@ -21,6 +21,10 @@ let
           type = types.str;
           default = name;
         };
+        extraPackages = mkOption {
+          type = types.listOf types.package;
+          default = [];
+        };
       };
     };
   enable = cfg.enable && builtins.any (x: x.enable) (builtins.attrValues cfg.runners);

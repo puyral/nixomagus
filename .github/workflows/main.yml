@@ -15,8 +15,8 @@ jobs:
     steps:
     - name: Checkout repository
       uses: actions/checkout@v4
-    - name: Git-Crypt Unlock
-      uses: zemuldo/git-crypt-unlock@v2.0
+    - name: unlock
+      run: git-crypt-unlocker
       env: 
         GPG_PRIVATE_KEY: ${{ secrets.GPG_PRIVATE_KEY }}
         GPG_KEY_GRIP: ${{ secrets.GPG_KEY_GRIP }}
