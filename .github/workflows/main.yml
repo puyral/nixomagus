@@ -10,7 +10,7 @@ on:
 
 jobs:
   check:
-    runs-on: auto-config
+    runs-on: dynas
 
     steps:
     - name: Checkout repository
