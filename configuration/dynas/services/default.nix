@@ -63,6 +63,7 @@
           enable = true;
           url = "https://github.com/puyral/nixomagus";
           tokenFile = ./secrets/auto-config-tocken;
+          name = "dynas";
         };
       };
     };
