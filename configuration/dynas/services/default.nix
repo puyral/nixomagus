@@ -57,6 +57,7 @@
       };
     };
 
+    cache.enable = true;
   };
 
   networking = {

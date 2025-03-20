@@ -21,5 +21,6 @@
     ./keyboard
     ./v4l2loopback
     ./github-runner
+    ./binary-cache
   ];
 }

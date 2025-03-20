@@ -1,4 +1,4 @@
-name: Nix Flake Check
+name: Nix Build
 
 on:
   push:
