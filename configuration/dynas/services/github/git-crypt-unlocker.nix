@@ -15,5 +15,5 @@ writeShellApplication {
     coreutils
   ];
 
-  text = import ./script.sh;
+  text = builtins.readFile ./script.sh;
 }
