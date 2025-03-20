@@ -56,6 +56,17 @@
       };
     };
 
+    github-runners = {
+      enable = true;
+      runners = {
+        auto-config = {
+          enable = true;
+          url = "https://github.com/puyral/nixomagus";
+          tokenFile = ./secrets/auto-config-tocken;
+        };
+      };
+    };
+
   };
 
   networking = {
