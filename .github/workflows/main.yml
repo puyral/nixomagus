@@ -16,11 +16,16 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v4
     - name: unlock
-      run: git-crypt-unlocker
-      env: 
-        GPG_PRIVATE_KEY: ${{ secrets.GPG_PRIVATE_KEY }}
-        GPG_KEY_GRIP: ${{ secrets.GPG_KEY_GRIP }}
-        GPG_KEY_PASS: ${{ secrets.GPG_KEY_PASS }}
+      uses: amplium/git-crypt-action@master
+        with:
+          key_encoded: ${{ secrets.KEY }}
+    # - name: unlock
+    #   run: git-crypt-unlocker
+    #   env: 
+    #     GPG_PRIVATE_KEY: ${{ secrets.GPG_PRIVATE_KEY }}
+    #     GPG_KEY_GRIP: ${{ secrets.GPG_KEY_GRIP }}
+    #     GPG_KEY_PASS: ${{ secrets.GPG_KEY_PASS }}
+    #     INPUT_KEY_ENCODED: ${{ secrets.KEY}}
         
     - name: Run Nix Flake Check
       run: nix flake check -L
