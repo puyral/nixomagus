@@ -23,7 +23,9 @@
   home = {
 
     packages =
-      (with custom; [ clocktui ]) ++ (with pkgs; [ nvtopPackages.amd ]) ++ (with pkgs-unstable; [ ]);
+      (with custom; [ clocktui ])
+      ++ (with pkgs; [ nvtopPackages.amd ])
+      ++ (with pkgs-unstable; [ fastfetch ]);
 
   };
 }
