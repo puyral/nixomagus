@@ -7,6 +7,7 @@
     ./firewall.nix
     ./usersNgroups.nix
     ./power_management.nix
+    ./networking.nix
   ];
   extra.mail.enable = true;
   programs.gnupg.agent.pinentryPackage = pkgs.pinentry-curses;

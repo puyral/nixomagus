@@ -15,6 +15,7 @@
     ./gui.nix
     ./amdgpu.nix
     ./zfs.nix
+    ./networking.nix
   ];
 
   extra = {
