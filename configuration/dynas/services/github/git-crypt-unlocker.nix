@@ -3,6 +3,7 @@
   gnupg,
   git-crypt,
   coreutils,
+  pinentry-tty,
   ...
 }:
 
@@ -13,6 +14,7 @@ writeShellApplication {
     gnupg
     git-crypt
     coreutils
+    pinentry-tty
   ];
 
   text = ''

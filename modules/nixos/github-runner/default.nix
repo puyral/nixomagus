@@ -42,7 +42,7 @@ in
   config = lib.mkIf enable {
     containers.${name} = {
       autoStart = true;
-      ephemeral = true;
+      ephemeral = false;
       config =
         { ... }:
         {

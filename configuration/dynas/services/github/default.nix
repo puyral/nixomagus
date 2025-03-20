@@ -10,7 +10,7 @@
         {
           enable = true;
           url = "https://github.com/puyral/nixomagus";
-          tokenFile = ./secrets/auto-config-tocken;
+          tokenFile = ./secrets/auto-config-token;
           name = "dynas";
           extraPackages = [ git-crypt-unlocker ];
         };
