@@ -22,3 +22,33 @@ jobs:
         
     - name: Run Nix Flake Check
       run: nix flake check -L
+
+  build-dynas:
+    runs-on: self-hosted
+    needs: check  # Ensure this job runs after the check job
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+    - name: Unlock repository
+      run: git-crypt-unlocker
+      env: 
+        INPUT_KEY_ENCODED: ${{ secrets.KEY}}
+
+    - name: Run Nix Build
+      run: nix build .#nixosConfigurations.dynas.config.system.build.toplevel -L
+
+  build-amdra:
+    runs-on: self-hosted
+    needs: check  # Ensure this job runs after the check job
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+    - name: Unlock repository
+      run: git-crypt-unlocker
+      env: 
+        INPUT_KEY_ENCODED: ${{ secrets.KEY}}
+
+    - name: Run Nix Build
+      run: nix build .#nixosConfigurations.amdra.config.system.build.toplevel -L
