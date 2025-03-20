@@ -5,7 +5,7 @@
     runners = {
       auto-config =
         let
-          git-crypt-unlocker = pkgs.callPackage ./git-crypt-unlocker.nix { };
+          git-crypt-unlocker = pkgs.callPackage ./git-crypt-unlocker { };
         in
         {
           enable = true;
