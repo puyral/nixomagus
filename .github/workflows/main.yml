@@ -11,33 +11,39 @@ on:
 jobs:
   check:
     uses: ./.github/workflows/check.yml
+    secrets: inherit
 
   dynas:
-    needs: check  # Ensure this job runs after the check job
+    needs: check
     uses: ./.github/workflows/build.yml
+    secrets: inherit
     with:
       hostname: dynas
 
   amdra:
-    needs: check  # Ensure this job runs after the check job
+    needs: check
     uses: ./.github/workflows/build.yml
+    secrets: inherit
     with:
       hostname: amdra
 
   ovh-pl:
-    needs: check  # Ensure this job runs after the check job
+    needs: check
     uses: ./.github/workflows/build.yml
+    secrets: inherit
     with:
       hostname: ovh-pl
 
   nixomagus:
-    needs: check  # Ensure this job runs after the check job
+    needs: check
     uses: ./.github/workflows/build.yml
+    secrets: inherit
     with:
       hostname: nixomagus
 
   i7:
-    needs: check  # Ensure this job runs after the check job
+    needs: check
     uses: ./.github/workflows/build.yml
+    secrets: inherit
     with:
       hostname: i7

@@ -2,6 +2,9 @@ name: Nix Check
 
 on:
   workflow_call:
+    secrets:
+      key:
+        required: true
 
 jobs:
   check:

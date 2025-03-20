@@ -6,6 +6,9 @@ on:
       hostname:
         required: true
         type: string
+    secrets:
+      key:
+        required: true
 
 jobs:
   build:
