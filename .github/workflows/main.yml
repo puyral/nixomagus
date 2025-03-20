@@ -15,9 +15,10 @@ jobs:
     steps:
     - name: Checkout repository
       uses: actions/checkout@v4
+    
     - name: unlock
       uses: amplium/git-crypt-action@master
-        with:
+      with:
           key_encoded: ${{ secrets.KEY }}
     # - name: unlock
     #   run: git-crypt-unlocker
