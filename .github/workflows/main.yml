@@ -47,3 +47,10 @@ jobs:
     secrets: inherit
     with:
       hostname: i7
+
+  mydos:
+    needs: check
+    uses: ./.github/workflows/build.yml
+    secrets: inherit
+    with:
+      hostname: mydos
