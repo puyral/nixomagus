@@ -18,7 +18,10 @@ let
   cfg = config.extra.hyprland;
 in
 {
-  imports = [ ./options.nix ];
+  imports = [
+    ./options.nix
+    ./waybar
+  ];
   config = lib.mkIf cfg.enable {
     # imports = [ ./wallpapers.nix ];
 

@@ -130,11 +130,18 @@ in
         mod
         "T"
         exec
+        "[float]"
+        "alacritty"
+      ]
+      [
+        (shift + mod)
+        "T"
+        exec
         "alacritty"
       ]
       [
         mod
-        "K"
+        "O"
         exec
         "kitty"
       ]
