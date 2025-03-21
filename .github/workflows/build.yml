@@ -24,4 +24,5 @@ jobs:
         INPUT_KEY_ENCODED: ${{ secrets.KEY }}
 
     - name: Run Nix Build
-      run: nix build .#nixosConfigurations.${{ inputs.hostname }}.config.system.build.toplevel -L
+      # run: nix build .#nixosConfigurations.${{ inputs.hostname }}.config.system.build.toplevel -L
+      run: nixos-rebuild .#${{ inputs.hostname }} build -L
