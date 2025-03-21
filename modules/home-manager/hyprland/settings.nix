@@ -77,9 +77,11 @@ in
   };
 
   decoration = {
-    drop_shadow = 1;
-    shadow_range = 10;
-    shadow_render_power = 2;
+    shadow = {
+      enabled = true;
+      range = 10;
+      render_power = 2;
+    };
     # col = {
     # shadow = "0x55000000";
     # shadow_inactive = "0x55000000";
@@ -333,24 +335,6 @@ in
       )
     )
   );
-
-  # nvidia
-  env = [
-    "LIBVA_DRIVER_NAME,nvidia"
-    "XDG_SESSION_TYPE,wayland"
-    "GBM_BACKEND,nvidia-drm"
-    "__GLX_VENDOR_LIBRARY_NAME,nvidia"
-    "WLR_NO_HARDWARE_CURSORS,1"
-
-    # https://www.reddit.com/r/hyprland/comments/17tfwfo/checking_if_nvidia_primerun_is_working/
-    "__NV_PRIME_RENDER_OFFLOAD,1"
-    "__VK_LAYER_NV_optimus,NVIDIA_only"
-    "NVD_BACKEND,direct"
-    "NIXOS_OZONE_WL,1"
-
-    # choose GPU
-    "WLR_DRM_DEVICES,/dev/dri/card0:/dev/dri/card1"
-  ];
 
   misc = {
     disable_hyprland_logo = true;

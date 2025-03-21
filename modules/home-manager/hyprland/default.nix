@@ -35,7 +35,7 @@ in
       systemd.enable = true;
       # enableNvidiaPatches = true;
 
-      settings = import ./settings.nix attrs;
+      settings = (import ./settings.nix attrs) // cfg.extraSettings;
     };
     programs.wpaperd.enable = true;
   };

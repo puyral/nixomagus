@@ -27,7 +27,7 @@ in
     settings = {
       default = {
         path = cfg.path;
-        duration = "${cfg.duration}s";
+        duration = "${builtins.toString cfg.duration}s";
         sorting = "random";
       };
     };

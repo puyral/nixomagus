@@ -18,13 +18,35 @@
     };
     logseq.enable = true;
     wallpaper.enable = true;
+    hyprland = {
+      enable = true;
+      monitors = [
+        [
+          "DP-1"
+          "3840x2160"
+          "1280x0"
+          "1"
+          "bitdepth"
+          "10"
+        ]
+        [
+          "HDMI-A-1"
+          "1280x1024"
+          "0x0"
+          "1"
+        ]
+      ];
+    };
   };
 
   home = {
 
     packages =
       (with custom; [ clocktui ])
-      ++ (with pkgs; [ nvtopPackages.amd ])
+      ++ (with pkgs; [
+        nvtopPackages.amd
+        kitty
+      ])
       ++ (with pkgs-unstable; [ fastfetch ]);
 
   };

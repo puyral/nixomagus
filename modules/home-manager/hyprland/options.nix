@@ -27,5 +27,9 @@ with lib;
         ]
       ];
     };
+    extraSettings = mkOption {
+      type = types.attrs;
+      default = { };
+    };
   };
 }

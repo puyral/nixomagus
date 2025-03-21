@@ -17,6 +17,7 @@
   programs.hyprland = {
     enable = true;
     package = pkgs-unstable.hyprland;
+    withUWSM = true;
   };
 
   # https://nixos.wiki/wiki/Visual_Studio_Code#Error_after_Sign_On
