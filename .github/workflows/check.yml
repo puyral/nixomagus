@@ -3,7 +3,7 @@ name: Nix Check
 on:
   workflow_call:
     secrets:
-      key:
+      KEY:
         required: true
 
 jobs:
