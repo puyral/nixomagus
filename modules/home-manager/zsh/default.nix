@@ -69,5 +69,7 @@ in
       enable = true;
       enableZshIntegration = true;
     };
+
+    extra.gitConfigFetcher.enable = true;
   };
 }

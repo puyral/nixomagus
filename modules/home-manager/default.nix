@@ -13,5 +13,6 @@
     ./firefox
     ./alacritty
     ./applications
+    ./git-config-fetcher
   ];
 }

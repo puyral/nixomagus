@@ -1,5 +1,5 @@
 user:
-{ mconfig, ... }@attrs:
+{ mconfig, lib, ... }@attrs:
 let
   computer = mconfig;
 in
@@ -10,6 +10,11 @@ in
     ./modules/home-manager
     ./users/all
   ];
+
+  options.extra.user.name = lib.mkOption {
+    type = lib.types.str;
+    default = user.name;
+  };
 
   # nix.registry = (import ./registeries.nix) attrs;
 

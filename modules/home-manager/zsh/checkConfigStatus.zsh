@@ -17,7 +17,7 @@ if [ -n "$(git -C "$CONFIG_LOCATION" status --porcelain)" ]; then
 #   echo "No uncommitted changes in $CONFIG_LOCATION."
 fi
 
-FETCH=$(git -C "$CONFIG_LOCATION" fetch)
+# FETCH=$(git -C "$CONFIG_LOCATION" fetch) 3 done in a systemd service now
 # Check if the branch is ahead, behind, or diverged from the remote
 REMOTE_STATUS=$(git -C "$CONFIG_LOCATION" status -sb | grep -E '\[.*\]')
 if [[ $REMOTE_STATUS =~ ahead ]]; then
