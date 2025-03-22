@@ -70,6 +70,11 @@ in
       enableZshIntegration = true;
     };
 
+    programs.pay-respects = {
+      enable = true;
+      enableZshIntegration = true;
+    };
+
     extra.gitConfigFetcher.enable = true;
   };
 }
