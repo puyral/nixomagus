@@ -72,6 +72,10 @@ in
     rounding = 4;
   };
 
+  dwindle = {
+    smart_split = true;
+  };
+
   # see wev
   bindm =
     let
