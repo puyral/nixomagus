@@ -1,4 +1,9 @@
-{ mconfig, config, ... }:
+{
+  lib,
+  mconfig,
+  config,
+  ...
+}:
 let
   mod = "Super";
   alt = "ALT";
@@ -22,48 +27,21 @@ let
     r = "l";
   };
   monitor-cfg = config.extra.hyprland.monitors;
+  defaultMonitor =
+    if config.extra.hyprland.defaultMonitor == null then
+      (with builtins; (elemAt (elemAt monitor-cfg 0) 0))
+    else
+      config.extra.hyprland.defaultMonitor;
+  alacritty_float_class = "alacritty_float";
 in
 {
-
   exec-once = [
     "args -b hypr"
     "wpaperd"
+    "waybar"
   ];
 
   monitor = map (builtins.concatStringsSep ",") monitor-cfg;
-  # (
-  #   if mconfig.is_docked then
-  #     [
-  #       [
-  #         "HDMI-A-2"
-  #         "3840x2160"
-  #         "1280x0"
-  #         "1"
-  #         "bitdepth"
-  #         "10"
-  #       ]
-  #       [
-  #         "eDP-1"
-  #         "disable"
-  #       ]
-  #       [
-  #         "DP-2"
-  #         "1280x1024"
-  #         "0x0"
-  #         "1"
-  #       ]
-  #     ]
-  #   else
-
-  #     [
-  #       [
-  #         "eDP-1"
-  #         "1920x1080"
-  #         "0x0"
-  #         "1"
-  #       ]
-  #     ]
-  # );
 
   general = {
     resize_on_border = true;
@@ -118,230 +96,276 @@ in
       ]
     ];
 
-  bind = map mbind (
+  bind =
+    let
+      basics = [
+        [
+          mod
+          "E"
+          "exit"
+        ]
+        [
+          mod
+          "Q"
+          "killactive"
+        ]
+
+        [
+          mod
+          "F"
+          "fullscreen"
+          "0"
+        ]
+        [
+          mod
+          "V"
+          "togglefloating"
+          "active"
+        ]
+
+        [
+          mod
+          tab
+          "cyclenext"
+        ]
+
+      ];
+      terminals = [
+        [
+          alt
+          "T"
+          exec
+          "alacritty"
+        ]
+        [
+          mod
+          "T"
+          exec
+          "alacritty --class ${alacritty_float_class}"
+        ]
+        [
+          ""
+          "XF86HomePage"
+          exec
+          "alacritty --class ${alacritty_float_class}"
+        ]
+        [
+          (shift + mod)
+          "T"
+          exec
+          "alacritty"
+        ]
+        [
+          mod
+          "O"
+          exec
+          "kitty"
+        ]
+      ];
+      launcher = [
+        [
+          mod
+          "U"
+          exec
+          "wofi --show drun --height=984 --style=$HOME/.config/wofi.css --term=footclient --prompt=Run"
+        ]
+        [
+          mod
+          "D"
+          exec
+          "wofi --show drun"
+        ]
+        [
+          (mod + shift)
+          "D"
+          exec
+          "wofi --show run"
+        ]
+        [
+          mod
+          "Space"
+          exec
+          "wofi --show drun"
+        ]
+      ];
+      media = [
+        [
+          ""
+          "XF86AudioRaiseVolume"
+          exec
+          "wpctl set-volume -l 1 @DEFAULT_AUDIO_SINK@ 5%+"
+        ]
+        [
+          ""
+          "XF86AudioLowerVolume"
+          exec
+          "wpctl set-volume -l 1 @DEFAULT_AUDIO_SINK@ 5%-"
+        ]
+        [
+          ""
+          "XF86AudioMute"
+          exec
+          "wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle"
+        ]
+      ];
+      powerManagement = [
+        [
+          (mod + shift)
+          "s"
+          exec
+          "sleep 1 && hyprctl dispatch dpms on"
+        ]
+        [
+          (mod + ctrl)
+          "s"
+          exec
+          "sleep 1 && hyprctl dispatch dpms off"
+        ]
+      ];
+
+      movements = (
+        let
+          mmove =
+            {
+              l,
+              r,
+              u,
+              d,
+            }:
+            let
+              window = [
+                [
+                  (mod + shift)
+                  l
+                  "movewindow"
+                  "l"
+                ]
+                [
+                  (mod + shift)
+                  r
+                  "movewindow"
+                  "r"
+                ]
+                [
+                  (mod + shift)
+                  u
+                  "movewindow"
+                  "u"
+                ]
+                [
+                  (mod + shift)
+                  d
+                  "movewindow"
+                  "d"
+                ]
+              ];
+              focus = [
+                [
+                  mod
+                  l
+                  "movefocus"
+                  "l"
+                ]
+                [
+                  mod
+                  r
+                  "movefocus"
+                  "r"
+                ]
+                [
+                  mod
+                  u
+                  "movefocus"
+                  "u"
+                ]
+                [
+                  mod
+                  d
+                  "movefocus"
+                  "d"
+                ]
+              ];
+              ws-monitor = [
+
+                [
+                  (mod + ctrl)
+                  l
+                  "movecurrentworkspacetomonitor"
+                  "l"
+                ]
+                [
+                  (mod + ctrl)
+                  r
+                  "movecurrentworkspacetomonitor"
+                  "r"
+                ]
+              ];
+            in
+            window ++ focus ++ ws-monitor;
+        in
+        mmove arrow_keys ++ mmove vim_keys
+      );
+
+      workspaces = (
+        # workspaces
+        # binds $mod + [shift +] {1..10} to [move to] workspace {1..10}
+        builtins.concatLists (
+          builtins.genList (
+            x:
+            let
+              ws =
+                let
+                  c = (x + 1) / 10;
+                in
+                builtins.toString (x + 1 - (c * 10));
+            in
+            [
+              [
+                mod
+                ws
+                "workspace"
+                (toString (x + 1))
+              ]
+              [
+                (mod + shift)
+                ws
+                "movetoworkspace"
+                (toString (x + 1))
+              ]
+            ]
+          ) 10
+        )
+      );
+
+    in
+    map mbind (basics ++ terminals ++ launcher ++ media ++ powerManagement ++ movements ++ workspaces);
+
+  workspace =
+    let
+      inner =
+        { name, value }:
+        if name == "name" && builtins.isInt value then builtins.toString value else "${name}:${value}";
+      generate =
+        attrs:
+        let
+          as_list = lib.attrsToList attrs;
+          preprocessed = map inner as_list;
+        in
+        (builtins.concatStringsSep ",") preprocessed;
+    in
+    map generate [
+      {
+        name = 1;
+        monitor = defaultMonitor;
+      }
+    ];
+
+  windowrule = map (builtins.concatStringsSep ",") [
     [
-      [
-        alt
-        "T"
-        exec
-        "alacritty"
-      ]
-      [
-        mod
-        "T"
-        exec
-        "[float]"
-        "alacritty"
-      ]
-      [
-        (shift + mod)
-        "T"
-        exec
-        "alacritty"
-      ]
-      [
-        mod
-        "O"
-        exec
-        "kitty"
-      ]
-      [
-        mod
-        "E"
-        "exit"
-      ]
-      [
-        mod
-        "Q"
-        "killactive"
-      ]
-      [
-        mod
-        "U"
-        exec
-        "wofi --show drun --height=984 --style=$HOME/.config/wofi.css --term=footclient --prompt=Run"
-      ]
-      [
-        mod
-        "D"
-        exec
-        "wofi --show drun"
-      ]
-      [
-        (mod + shift)
-        "D"
-        exec
-        "wofi --show run"
-      ]
-      [
-        mod
-        "Space"
-        exec
-        "wofi --show drun"
-      ]
-
-      [
-        mod
-        "F"
-        "fullscreen"
-        "0"
-      ]
-      [
-        mod
-        "V"
-        "togglefloating"
-        "active"
-      ]
-
-      [
-        mod
-        tab
-        "cyclenext"
-      ]
-
-      # media control
-      [
-        ""
-        "XF86AudioRaiseVolume"
-        exec
-        "wpctl set-volume -l 1 @DEFAULT_AUDIO_SINK@ 5%+"
-      ]
-      [
-        ""
-        "XF86AudioLowerVolume"
-        exec
-        "wpctl set-volume -l 1 @DEFAULT_AUDIO_SINK@ 5%-"
-      ]
-      [
-        ""
-        "XF86AudioMute"
-        exec
-        "wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle"
-      ]
-      [
-        (mod + shift)
-        "s"
-        exec
-        "sleep 1 && hyprctl dispatch dpms on"
-      ]
-      [
-        (mod + ctrl)
-        "s"
-        exec
-        "sleep 1 && hyprctl dispatch dpms off"
-      ]
+      "float"
+      alacritty_float_class
     ]
-    ++ (
-      let
-        mmove =
-          {
-            l,
-            r,
-            u,
-            d,
-          }:
-          [
-            # move window
-            [
-              (mod + shift)
-              l
-              "movewindow"
-              "l"
-            ]
-            [
-              (mod + shift)
-              r
-              "movewindow"
-              "r"
-            ]
-            [
-              (mod + shift)
-              u
-              "movewindow"
-              "u"
-            ]
-            [
-              (mod + shift)
-              d
-              "movewindow"
-              "d"
-            ]
-
-            # move focus
-            [
-              mod
-              l
-              "movefocus"
-              "l"
-            ]
-            [
-              mod
-              r
-              "movefocus"
-              "r"
-            ]
-            [
-              mod
-              u
-              "movefocus"
-              "u"
-            ]
-            [
-              mod
-              d
-              "movefocus"
-              "d"
-            ]
-
-            # move workspace between monitors
-            [
-              (mod + ctrl)
-              l
-              "movecurrentworkspacetomonitor"
-              "l"
-            ]
-            [
-              (mod + ctrl)
-              r
-              "movecurrentworkspacetomonitor"
-              "r"
-            ]
-          ];
-      in
-      mmove arrow_keys ++ mmove vim_keys
-    )
-
-    ++ (
-      # workspaces
-      # binds $mod + [shift +] {1..10} to [move to] workspace {1..10}
-      builtins.concatLists (
-        builtins.genList (
-          x:
-          let
-            ws =
-              let
-                c = (x + 1) / 10;
-              in
-              builtins.toString (x + 1 - (c * 10));
-          in
-          [
-            [
-              mod
-              ws
-              "workspace"
-              (toString (x + 1))
-            ]
-            [
-              (mod + shift)
-              ws
-              "movetoworkspace"
-              (toString (x + 1))
-            ]
-          ]
-        ) 10
-      )
-    )
-  );
+  ];
 
   misc = {
     disable_hyprland_logo = true;
