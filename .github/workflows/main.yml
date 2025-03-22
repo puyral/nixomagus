@@ -1,4 +1,4 @@
-name: Nix Build
+name: Nix Build and Check
 
 on:
   push:
@@ -15,42 +15,50 @@ jobs:
 
   dynas:
     needs: check
-    uses: ./.github/workflows/build.yml
+    uses: ./.github/workflows/build-nixos.yml
     secrets: inherit
     with:
       hostname: dynas
 
   amdra:
     needs: check
-    uses: ./.github/workflows/build.yml
+    uses: ./.github/workflows/build-nixos.yml
     secrets: inherit
     with:
       hostname: amdra
 
   ovh-pl:
     needs: check
-    uses: ./.github/workflows/build.yml
+    uses: ./.github/workflows/build-nixos.yml
     secrets: inherit
     with:
       hostname: ovh-pl
 
   nixomagus:
     needs: check
-    uses: ./.github/workflows/build.yml
+    uses: ./.github/workflows/build-nixos.yml
     secrets: inherit
     with:
       hostname: nixomagus
 
   i7:
     needs: check
-    uses: ./.github/workflows/build.yml
+    uses: ./.github/workflows/build-nixos.yml
     secrets: inherit
     with:
       hostname: i7
 
   mydos:
     needs: check
-    uses: ./.github/workflows/build.yml
+    uses: ./.github/workflows/build-nixos.yml
     secrets: inherit
     with:
       hostname: mydos
+
+  vampire:
+    needs: check
+    uses: ./.github/workflows/build-hm.yml
+    secrets: inherit
+    with:
+      hostname: vampire
+      user: simon
