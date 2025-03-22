@@ -40,6 +40,6 @@ in
 
       settings = (import ./settings.nix attrs) // cfg.extraSettings;
     };
-    programs.wpaperd.enable = true;
+    services.wpaperd.enable = true;
   };
 }

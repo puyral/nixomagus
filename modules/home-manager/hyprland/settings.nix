@@ -2,10 +2,12 @@
   lib,
   mconfig,
   config,
+  pkgs,
   ...
 }:
 let
-  mod = "Super";
+  modulo = a: b: a - (b * (a / b));
+  mod = "SUPER";
   alt = "ALT";
   shift = "SHIFT";
   ctrl = "CTRL";
@@ -33,12 +35,15 @@ let
     else
       config.extra.hyprland.defaultMonitor;
   alacritty_float_class = "alacritty_float";
+  toogle_fs_script = pkgs.callPackage ./scripts/toogle_fs.nix { };
 in
 {
   exec-once = [
     "args -b hypr"
     "wpaperd"
     "waybar"
+    "[workspace 1 silent] firefox"
+    "[workspace 17 silent] thunderbird"
   ];
 
   monitor = map (builtins.concatStringsSep ",") monitor-cfg;
@@ -109,12 +114,29 @@ in
           "Q"
           "killactive"
         ]
-
         [
           mod
           "F"
           "fullscreen"
           "0"
+        ]
+        [
+          (mod + shift)
+          "F"
+          # "exec"
+          # "${toogle_fs_script}/bin/toogle_fs"
+          "fullscreenstate"
+          "0"
+          "2"
+        ]
+        [
+          (mod + shift + ctrl)
+          "F"
+          # "exec"
+          # "${toogle_fs_script}/bin/toogle_fs"
+          "fullscreenstate"
+          "0"
+          "-1"
         ]
         [
           mod
@@ -313,24 +335,44 @@ in
           builtins.genList (
             x:
             let
-              ws =
-                let
-                  c = (x + 1) / 10;
-                in
-                builtins.toString (x + 1 - (c * 10));
+              ws = x + 1;
+              ws_key = toString (modulo ws 10);
+              ws_name = toString ws;
             in
             [
               [
                 mod
-                ws
+                ws_key
                 "workspace"
-                (toString (x + 1))
+                ws_name
               ]
               [
                 (mod + shift)
-                ws
+                ws_key
                 "movetoworkspace"
-                (toString (x + 1))
+                ws_name
+              ]
+            ]
+          ) 10
+          ++ builtins.genList (
+            x:
+            let
+              ws = x + 1;
+              ws_key = toString (modulo ws 10);
+              ws_name = toString (ws + 10);
+            in
+            [
+              [
+                (mod + ctrl)
+                ws_key
+                "workspace"
+                ws_name
+              ]
+              [
+                (mod + ctrl + shift)
+                ws_key
+                "movetoworkspace"
+                ws_name
               ]
             ]
           ) 10

@@ -52,6 +52,7 @@ rec {
   users = {
     simon = {
       name = "simon";
+      description = "Simon Jeanteur";
     };
   };
 }

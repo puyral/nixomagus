@@ -99,6 +99,7 @@
   };
 
   users.users.simon = {
+    description = "Simon Jeanteur";
     isNormalUser = true;
     extraGroups = [
       "wheel"

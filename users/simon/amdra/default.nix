@@ -20,6 +20,7 @@
     wallpaper.enable = true;
     hyprland = {
       enable = true;
+      defaultMonitor = "DP-1";
       monitors = [
         [
           "DP-1"
