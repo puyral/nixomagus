@@ -22,5 +22,6 @@
     ./v4l2loopback
     ./github-runner
     ./binary-cache
+    ./immich
   ];
 }

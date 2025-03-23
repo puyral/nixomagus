@@ -58,6 +58,10 @@
     };
 
     cache.enable = true;
+
+    immich = {
+      enable = true;
+    };
   };
 
   networking = {
