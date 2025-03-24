@@ -32,6 +32,10 @@ in
           hostPath = "${cfg.dataDir}/cache";
           isReadOnly = false;
         };
+        "/var/lib/postgresql" = {
+          hostPath = "${cfg.dataDir}/postgresql";
+          isReadOnly = false;
+        };
       };
       autoStart = true;
       ephemeral = true;
@@ -39,7 +43,7 @@ in
       config =
         { ... }:
         let
-          user = "photos";
+          user = "immich";
         in
         {
           environment.systemPackages =
@@ -57,6 +61,8 @@ in
             enable = true;
             user = user;
             group = user;
+            openFirewall = true;
+            host = "0.0.0.0";
           };
 
           users.users.${user} = {
