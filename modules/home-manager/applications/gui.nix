@@ -5,6 +5,7 @@
   pkgs-unstable,
   pkgs-stable,
   custom,
+  xp-pen-pentablet,
   ...
 }:
 let
@@ -22,7 +23,10 @@ in
       ];
     };
     home.packages =
-      [ custom.rnote ]
+      [
+        custom.rnote
+      ]
+
       ++ (with pkgs-stable; [
 
         btop
@@ -77,6 +81,7 @@ in
         easyeffects
 
         # steam
+        obsidian
 
         #zoom-us
 

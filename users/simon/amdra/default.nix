@@ -47,6 +47,7 @@
       ++ (with pkgs; [
         nvtopPackages.amd
         kitty
+        urserver
       ])
       ++ (with pkgs-unstable; [ fastfetch ]);
 

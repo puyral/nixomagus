@@ -20,6 +20,23 @@
     withUWSM = true;
   };
 
+  xdg.portal = {
+    enable = true;
+    xdgOpenUsePortal = true;
+    config = {
+      common.default = [ "gtk" ];
+      hyprland.default = [
+        "gtk"
+        "hyprland"
+      ];
+    };
+    extraPortals = [
+      pkgs.xdg-desktop-portal-gtk
+      pkgs.xdg-desktop-portal-wlr
+      pkgs.xdg-desktop-portal-hyprland
+    ];
+  };
+
   # https://nixos.wiki/wiki/Visual_Studio_Code#Error_after_Sign_On
   services.gnome.gnome-keyring.enable = true;
 
@@ -31,4 +48,6 @@
     # dedicatedServer.openFirewall = true; # Open ports in the firewall for Source Dedicated Server
     localNetworkGameTransfers.openFirewall = true; # Open ports in the firewall for Steam Local Network Game Transfers
   };
+
+  hardware.opentabletdriver.enable = true;
 }

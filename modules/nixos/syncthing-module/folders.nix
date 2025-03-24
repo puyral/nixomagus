@@ -88,6 +88,29 @@
       ];
     };
 
+    "Obsidian" = {
+      id = "2dxtw-razjq";
+      devices = {
+        nixomagus = {
+          path = "/home/simon/Documents/Obsidian";
+        };
+        amdra = {
+          path = "/home/simon/Documents/Obsidian";
+        };
+        mydos = {
+          path = "/home/simon/Documents/Obsidian";
+        };
+        "i7" = {
+          path = "/home/simon/Documents/Obsidian";
+        };
+        dynas = {
+          path = "/mnt/Zeno/work/Obsidian";
+        };
+      };
+      extraDevices = [
+        "MacPro"
+      ];
+    };
     "Hand Notes" = {
       id = "igvtz-mfsxj";
       devices = {
