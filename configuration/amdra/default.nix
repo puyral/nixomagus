@@ -22,6 +22,8 @@
     splash_screen.enable = false;
     v4l2loopback.enable = true;
     keyboard.enable = true;
+    virtualisation.enable = true;
+    cache.substituter = false;
   };
 
   fonts.packages =

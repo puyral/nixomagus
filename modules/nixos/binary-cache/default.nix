@@ -13,6 +13,12 @@ in
   ];
 
   config = lib.mkIf cfg.enable {
+    assertions = [
+      {
+        assertion = !cfg.substituter;
+        message = "you can be substituter on your own machine";
+      }
+    ];
     containers.${cname} = {
       autoStart = true;
       ephemeral = true;

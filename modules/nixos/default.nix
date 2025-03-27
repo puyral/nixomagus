@@ -23,5 +23,6 @@
     ./github-runner
     ./binary-cache
     ./immich
+    ./virtualisation
   ];
 }

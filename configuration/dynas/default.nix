@@ -9,7 +9,10 @@
     ./power_management.nix
     ./networking.nix
   ];
-  extra.mail.enable = true;
+  extra = {
+    mail.enable = true;
+    cache.substituter = false;
+  };
   programs.gnupg.agent.pinentryPackage = pkgs.pinentry-curses;
 
   # docker
