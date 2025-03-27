@@ -50,4 +50,5 @@
   };
 
   hardware.opentabletdriver.enable = true;
+security.polkit.enable = true;
 }
