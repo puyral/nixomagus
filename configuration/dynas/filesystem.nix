@@ -8,7 +8,7 @@
     let
       pool = "DynasRoot";
       mkZfs = name: {
-        device = "${pool}/${name}";
+        device = "${pool}${name}";
         fsType = "zfs";
       };
 
