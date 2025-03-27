@@ -49,17 +49,17 @@
 
       };
 
-      "/mnt/Windows" = {
-        device = "/dev/sda3";
-        fsType = "ntfs-3g";
-        options = [
-          "rw"
-          "uid=1000"
-          "nofail"
-        ];
-      };
-      "/mnt/Zeno" = zeno;
-      "/Volumes/Zeno" = zeno;
+      # "/mnt/Windows" = {
+      #   device = "/dev/sda3";
+      #   fsType = "ntfs-3g";
+      #   options = [
+      #     "rw"
+      #     "uid=1000"
+      #     "nofail"
+      #   ];
+      # };
+      # "/mnt/Zeno" = zeno;
+      # "/Volumes/Zeno" = zeno;
 
     };
   boot.supportedFilesystems = [ "nfs" ];
