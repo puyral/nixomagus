@@ -47,7 +47,7 @@
       ++ (with pkgs; [
         nvtopPackages.amd
         kitty
-	gparted
+        gparted
       ])
       ++ (with pkgs-unstable; [ fastfetch ]);
 

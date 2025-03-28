@@ -44,6 +44,7 @@ in
     "waybar"
     "[workspace 1 silent] firefox"
     "[workspace 17 silent] thunderbird"
+    "hyprctl dispatch workspace 1"
   ];
 
   monitor = map (builtins.concatStringsSep ",") monitor-cfg;
@@ -390,7 +391,8 @@ in
     let
       inner =
         { name, value }:
-        if name == "name" && builtins.isInt value then builtins.toString value else "${name}:${value}";
+        # if name == "name" && builtins.isInt value then builtins.toString value else
+        "${name}:${builtins.toString value}";
       generate =
         attrs:
         let
@@ -406,12 +408,26 @@ in
       }
     ];
 
-  windowrule = map (builtins.concatStringsSep ",") [
-    [
-      "float"
-      alacritty_float_class
-    ]
-  ];
+  windowrule =
+    with builtins;
+    (
+      let
+        each =
+          attrs@{ rule, ... }:
+          let
+            others = removeAttrs attrs [ "rule" ];
+            lefover = lib.mapAttrsToList (n: v: "${n}:${v}") others;
+          in
+          lib.concatStringsSep "," ([ rule ] ++ lefover);
+        gather = map each;
+      in
+      gather [
+        {
+          rule = "float";
+          class = alacritty_float_class;
+        }
+      ]
+    );
 
   misc = {
     disable_hyprland_logo = true;
