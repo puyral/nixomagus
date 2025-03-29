@@ -48,6 +48,7 @@
         nvtopPackages.amd
         kitty
         gparted
+        vampire
       ])
       ++ (with pkgs-unstable; [ fastfetch ]);
 

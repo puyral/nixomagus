@@ -19,6 +19,7 @@
             rustc
             rustfmt
             gcc
+            vampire
           ]
         );
       in
