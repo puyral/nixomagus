@@ -16,13 +16,11 @@
       enable = true;
       enable32Bit = true;
       extraPackages = with pkgs-unstable; [
-        rocmPackages.clr.icd
         clinfo
       ];
     };
-    # amdgpu.amdvlk = {
-    #   enable = true;
-    #   support32Bit.enable = true;
-    # };
+    amdgpu = {
+      opencl.enable = true;
+    };
   };
 }
