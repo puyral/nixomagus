@@ -58,8 +58,8 @@
       #     "nofail"
       #   ];
       # };
-      # "/mnt/Zeno" = zeno;
-      # "/Volumes/Zeno" = zeno;
+      "/mnt/Zeno" = zeno;
+      "/Volumes/Zeno" = zeno;
 
     };
   boot.supportedFilesystems = [ "nfs" ];
