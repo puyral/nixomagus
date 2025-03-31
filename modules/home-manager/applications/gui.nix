@@ -13,6 +13,7 @@ let
 in
 {
   config = lib.mkIf gui.enable {
+    services.mpris-proxy.enable = true;
     extra = {
       firefox.enable = true;
       alacritty.enable = lib.mkDefault true;
