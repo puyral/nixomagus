@@ -25,6 +25,7 @@
     keyboard.enable = true;
     virtualisation.enable = true;
     cache.substituter = false;
+    controllers.nintendo.enable = true;
   };
 
   fonts.packages =

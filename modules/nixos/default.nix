@@ -24,5 +24,6 @@
     ./binary-cache
     ./immich
     ./virtualisation
+    ./controllers
   ];
 }
