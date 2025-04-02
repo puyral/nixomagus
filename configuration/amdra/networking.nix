@@ -1,6 +1,6 @@
 { ... }:
 {
-  networking.interfaces.enp7s0 = {
+  networking.interfaces.enp10s0 = {
     wakeOnLan.enable = true;
   };
 }
