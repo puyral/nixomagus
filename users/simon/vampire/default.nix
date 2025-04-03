@@ -20,6 +20,8 @@
             rustfmt
             gcc
             vampire
+            z3
+            libclang
           ]
         );
       in
