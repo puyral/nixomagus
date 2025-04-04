@@ -4,7 +4,7 @@ mkShell {
   buildInputs = with pkgs; [
     cargo
     cargo-expand
-    rust-analyser
+    rust-analyzer
     rustPlatform.bindgenHook
     z3
   ];
