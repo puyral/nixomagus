@@ -1,7 +1,7 @@
-{ mkShell, cargo, rustPlatform, ... }:
+{ mkShell, pkgs, ... }:
 mkShell {
   name = "config";
-  buildInputs = [
+  buildInputs = with pkgs; [
     cargo
     cargo-expand
     rust-analyser
