@@ -50,17 +50,32 @@
         pkgs-stable = (functions.mkpkgs system).pkgs-stable;
         pkgs-unstable = (functions.mkpkgs system).pkgs-unstable;
         pkgs = pkgs-unstable;
+        l = pkgs.lib;
+
         # Eval the treefmt modules from ./treefmt.nix
         treefmtEval = treefmt-nix.lib.evalModule pkgs ./fmt.nix;
+
+        pkgsArgs = attrs // {
+          inherit pkgs pkgs-stable pkgs-unstable;
+        };
+
+        mkName = file: l.removeSuffix ".nix" file;
+        mkPkgs = dir: file: pkgs.callPackage ./${dir}/${file} pkgsArgs;
+
+        devShellsDir = "devShells";
+        devShellsFiles = builtins.readDir ./${devShellsDir};
+        devShells = l.mapAttrs' (file: _: {
+          name = mkName file;
+          value = mkPkgs devShellsDir file;
+        }) devShellsFiles;
       in
       {
+        inherit devShells;
 
         formatter = treefmtEval.config.build.wrapper;
         checks = {
           # formatting = treefmtEval.config.build.check self;
         };
-
-        devShells.default = import ./shell.nix { inherit pkgs pkgs-stable pkgs-unstable; };
       }
     )
     // (

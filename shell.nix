@@ -2,12 +2,12 @@
   pkgs ? import <nixpkgs> { },
   pkgs-unstable ? import <nixpkgs> { },
   pkgs-stable ? import <nixpkgs> { },
+  ...
 }:
 pkgs.mkShell {
   name = "config";
   buildInputs =
-    (with pkgs-unstable; [ compose2nix ])
-    ++ (with pkgs; [
+    (with pkgs; [
       vim
       git
       git-crypt
