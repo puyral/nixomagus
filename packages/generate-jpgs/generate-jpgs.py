@@ -13,7 +13,7 @@ import logging
 logger = logging.getLogger(__name__)
 log_level = logging.INFO
 
-logging.basicConfig(level=log_level, format='%(asctime)s - %(levelname)s - %(message)s')
+logging.basicConfig(level=log_level, format='\033[96m%(levelname)s\033[0m: %(message)s')
 
 
 handler = logging.StreamHandler(sys.stdout)
@@ -46,7 +46,7 @@ def cmd(cmd:list[str], stop_on_error=True):
             if stop_on_error:
                 exit(ret.returncode)
             else:
-                logger.error("Failed")
+                logger.error("Cmd \033[91mFailed\033[0m (" + str(ret.returncode) + "): " + " ".join(cmd))
 
 def setup_db() -> sqlite3.Connection:
     global config
@@ -90,11 +90,11 @@ def main():
     logging.info("fetching jpgs...")
     files = find_files()
 
-    logging.info("fetching images")
+    logging.info("fetching images...")
     db = setup_db()
     q = get_from_db(db)
     
-    logging.info("exporting")
+    logging.info("analysing what to do...")
     todo = []
     for f in q:
         file, date, xmp, jpg = extract_data(f, jpg_dir)
@@ -132,38 +132,26 @@ def main():
                 exit(1)
 
         todo.append(run_dt(quality, file, xmp, jpg))
-
-        
-        # print("{id}\n\t{file}\n\t{xmp}".format(
-        #     id=id,
-        #     file=file,
-        #     xmp=xmp
-        # ))
     
     for f in files:
         todo.append([ "rm", f])
     db.close()
     
+    logger.info("executing commands...")
     for c in todo:
         cmd(c, stop_on_error=False)
 
 def run_dt(quality, file, xmp, jpg):
     global config
-    # if config["use_flatpack"]:
-    #     dtcli = ["flatpak", "run", "--command=darktable-cli", "org.darktable.Darktable"]
-    # else:
     dtcli = ["darktable-cli"]
     if config["stateless"]:
         dtlibrary = ["--library", ":memory:"]
     else:
         dtlibrary = ["--library", config["library"]]
     dtargs = [file, xmp, jpg,
-    # '--style', 'signature',
-    # '--apply-custom-presets', 'false',
     '--core',
         '--conf', f'plugins/imageio/format/jpeg/quality={quality}',
         '--conf', 'plugins/imageio/storage/disk/overwrite=1',
-        # '--conf', 'plugins/lighttable/export/metadata_flags=7003f',
     ] + dtlibrary
     
     return dtcli + dtargs
