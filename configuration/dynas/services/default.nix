@@ -9,7 +9,7 @@
     ./portainer.nix
     ./mosquitto.nix
     ./tailscale.nix
-    ./photos
+    ./photos.nix
     ./github
   ];
   virtualisation.docker.autoPrune.enable = true;
@@ -58,10 +58,6 @@
     };
 
     cache.enable = true;
-
-    immich = {
-      enable = true;
-    };
   };
 
   networking = {

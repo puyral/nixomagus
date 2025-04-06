@@ -25,5 +25,7 @@
     ./immich
     ./virtualisation
     ./controllers
+    ./photoprism
+    ./generate-jpgs
   ];
 }

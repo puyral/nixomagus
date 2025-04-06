@@ -17,7 +17,7 @@ in
     containers.immich = {
       bindMounts = {
         "/photos" = {
-          hostPath = "/mnt/Zeno/media/photos";
+          hostPath = cfg.photos;
           isReadOnly = true;
         };
         "/var/lib/tailscale" = {
@@ -80,9 +80,9 @@ in
       traefik = [
         {
           inherit port;
-          name = "immich";
+          name = cfg.subdomain;
           enable = true;
-          providers = [ "ovh-pl" ];
+          providers = cfg.providers;
           address = "100.65.3.113";
         }
       ];

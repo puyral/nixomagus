@@ -1,11 +1,10 @@
 { lib, ... }:
-with lib;
 {
-  options.extra.immich = {
-    enable = mkEnableOption "immich";
+  options.extra.photoprism = with lib; {
+    enable = mkEnableOption "photoprism";
     dataDir = mkOption {
       type = types.path;
-      default = "/containers/immich";
+      default = "/container/photoprism";
     };
     subdomain = mkOption {
       type = types.str;
@@ -17,6 +16,10 @@ with lib;
     photos = mkOption {
       type = types.path;
       example = "/mnt/Zeno/media/photos/exports/complete";
+    };
+    videos = mkOption {
+      type = types.path;
+      example = "/mnt/Zeno/media/photos/video_clips";
     };
   };
 }
