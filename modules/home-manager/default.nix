@@ -14,5 +14,6 @@
     ./alacritty
     ./applications
     ./git-config-fetcher
+    ./generate-jpgs
   ];
 }

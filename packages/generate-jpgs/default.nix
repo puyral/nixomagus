@@ -4,11 +4,12 @@
   writeText,
   darktable,
   python312,
-  gen-config,
+  gen-config ? null,
   ...
 }:
 let
-  configFile = writeText "config.json" (builtins.toJSON gen-config);
+  configFile =
+    if gen-config == null then "" else writeText "config.json" (builtins.toJSON gen-config);
 in
 # configFile = writeText "";
 writeShellApplication {

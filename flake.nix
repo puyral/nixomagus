@@ -56,21 +56,33 @@
         treefmtEval = treefmt-nix.lib.evalModule pkgs ./fmt.nix;
 
         pkgsArgs = attrs // {
-          inherit pkgs pkgs-stable pkgs-unstable;
+          inherit pkgs-stable pkgs-unstable;
         };
 
         mkName = file: l.removeSuffix ".nix" file;
-        mkPkgs = dir: file: pkgs.callPackage ./${dir}/${file} pkgsArgs;
 
-        devShellsDir = "devShells";
-        devShellsFiles = builtins.readDir ./${devShellsDir};
-        devShells = l.mapAttrs' (file: _: {
-          name = mkName file;
-          value = mkPkgs devShellsDir file;
-        }) devShellsFiles;
+        devShells =
+          let
+            dir = "devShells";
+            files = builtins.readDir ./${dir};
+          in
+          l.mapAttrs' (file: _: {
+            name = mkName file;
+            value = pkgs.callPackage ./${dir}/${file} (pkgsArgs // packages);
+          }) files;
+
+        packages =
+          let
+            dir = "packages";
+            files = builtins.readDir ./${dir};
+          in
+          l.mapAttrs' (file: _: {
+            name = mkName file;
+            value = pkgs.callPackage ./${dir}/${file} pkgsArgs;
+          }) files;
       in
       {
-        inherit devShells;
+        inherit devShells packages;
 
         formatter = treefmtEval.config.build.wrapper;
         checks = {

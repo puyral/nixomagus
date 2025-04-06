@@ -50,7 +50,7 @@ in
 
         texliveFull
       ])
-      ++ (with pkgs-unstable; [
+      ++ (with pkgs; [
         thunderbird
         vscode
         pavucontrol
@@ -66,7 +66,6 @@ in
         #davinci-resolve
         libsForQt5.kdenlive
         inkscape-with-extensions
-        darktable
         # hugin # -> custom
         geeqie
         feh
@@ -94,6 +93,10 @@ in
         mattermost-desktop
 
         nemo-with-extensions
+
+        darktable
+      ])
+      ++ (with pkgs-unstable; [
       ])
       ++ lib.optional gui.pinentry-qt pkgs.pinentry-qt;
   };

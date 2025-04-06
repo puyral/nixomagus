@@ -16,14 +16,6 @@ in
     networking.nat.internalInterfaces = [ "ve-photoprism" ];
     containers.photoprism = {
       bindMounts = {
-        # "/Volumes/Zeno/media/photos" = {
-        #   hostPath = "/mnt/Zeno/media/photos";
-        #   isReadOnly = true;
-        # };
-        # "/library.db" = {
-        #   hostPath = "/mnt/Zeno/media/darktable-database/library.db";
-        #   isReadOnly = true;
-        # };
         "/originals" = {
           hostPath = cfg.photos;
           isReadOnly = false;
@@ -36,11 +28,6 @@ in
           hostPath = cfg.dataDir;
           isReadOnly = false;
         };
-        # # to retain the zt config
-        # "/var/lib/zerotier-one" = {
-        #   hostPath = "${cfg.dataDir}/zerotier";
-        #   isReadOnly = false;
-        # };
         "/var/lib/tailscale" = {
           hostPath = "${cfg.dataDir}/tailscale";
           isReadOnly = false;
@@ -55,7 +42,6 @@ in
           environment.systemPackages =
             (with pkgs-unstable; [
               darktable
-              #{ inherit darktable gen-config; })
             ])
             ++ (with pkgs; [
               ffmpeg

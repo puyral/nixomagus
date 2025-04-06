@@ -5,6 +5,7 @@ attrs@{
   nixpkgs-unstable,
   nixpkgs,
   custom,
+  self,
   # paperless-nixpkgs,
   ...
 }:
@@ -137,6 +138,7 @@ rec {
       extra-pkgs = pkgs.lib.mapAttrs (name: value: value.legacyPackages.${system}) {
         # inherit paperless-nixpkgs;
       };
+      pkgs-self = self.packages.${system};
     };
   mkExtraArgs =
     { computer, ... }:
@@ -148,6 +150,7 @@ rec {
       pkgs-stable = pkgs-attr.pkgs-stable;
       pkgs-unstable = pkgs-attr.pkgs-unstable;
       extra-pkgs = pkgs-attr.extra-pkgs;
+      pkgs-self = pkgs-attr.pkgs-self;
     in
     attrs
     // {
@@ -162,6 +165,7 @@ rec {
         rootDir
         mlib
         extra-pkgs
+        pkgs-self
         ;
     };
 

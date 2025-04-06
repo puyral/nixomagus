@@ -26,6 +26,5 @@
     ./virtualisation
     ./controllers
     ./photoprism
-    ./generate-jpgs
   ];
 }
