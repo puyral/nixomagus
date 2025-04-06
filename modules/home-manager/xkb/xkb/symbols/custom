@@ -1,0 +1,13 @@
+default partial alphanumeric_keys modifier_keys
+xkb_symbols "basic" {
+
+    include "us(basic)"
+    key <CAPS> { [ F13 ] };
+    key <MENU> { [ Compose ] };
+
+    // Map AltGr + e to the euro sign
+    key <AD03> { [ e, E, EuroSign, EuroSign ] };
+    
+    // Change layout
+    key <RALT> { [ ISO_Level3_Shift ] };
+};

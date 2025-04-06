@@ -15,5 +15,6 @@
     ./applications
     ./git-config-fetcher
     ./generate-jpgs
+    ./xkb
   ];
 }

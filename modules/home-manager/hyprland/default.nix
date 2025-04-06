@@ -39,6 +39,9 @@ in
       # enableNvidiaPatches = true;
 
       settings = (import ./settings.nix attrs) // cfg.extraSettings;
+      # extraConfig = ''
+      #   input.kb_file = ${./layout.xkb};
+      # '';
     };
     services.wpaperd.enable = true;
   };

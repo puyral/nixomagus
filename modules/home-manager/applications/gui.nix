@@ -53,7 +53,8 @@ in
       ++ (with pkgs; [
         thunderbird
         vscode
-        pavucontrol
+        # pavucontrol
+        pwvucontrol
 
         kdePackages.okular
 

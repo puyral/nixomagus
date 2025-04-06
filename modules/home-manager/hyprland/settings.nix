@@ -55,7 +55,10 @@ in
 
   input = {
     follow_mouse = 1;
-    # kb_options = "caps:swapescape";
+    kb_options = "compose:menu";
+    kb_layout = "custom";
+    # kb_file = ./layout.xkb;
+
     repeat_rate = 50;
     numlock_by_default = true;
   };
@@ -244,27 +247,15 @@ in
       launcher = [
         [
           mod
-          "U"
+          "Space"
           exec
           "wofi --show drun --height=984 --style=$HOME/.config/wofi.css --term=footclient --prompt=Run"
         ]
         [
-          mod
-          "D"
-          exec
-          "wofi --show drun"
-        ]
-        [
           (mod + shift)
-          "D"
-          exec
-          "wofi --show run"
-        ]
-        [
-          mod
           "Space"
           exec
-          "wofi --show drun"
+          "wofi --show run --height=984 --style=$HOME/.config/wofi.css --term=footclient --prompt=Run"
         ]
       ];
       powerManagement = [
