@@ -55,7 +55,7 @@ in
 
   input = {
     follow_mouse = 1;
-    kb_options = "compose:menu";
+    kb_options = "compose:menu, shift:both_capslock";
     kb_layout = "custom";
     # kb_file = ./layout.xkb;
 
