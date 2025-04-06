@@ -140,12 +140,11 @@ rec {
       };
       pkgs-self = self.packages.${system};
     };
-  mkExtraArgs =
-    { computer, ... }:
+
+  mkExtraArgs' =
+    system:
     let
-      pkgs-attr = (mkpkgs computer.system);
-      overlays = (import (rootDir + /overlays)) computer;
-      system = computer.system;
+      pkgs-attr = (mkpkgs system);
       pkgs = pkgs-attr.pkgs;
       pkgs-stable = pkgs-attr.pkgs-stable;
       pkgs-unstable = pkgs-attr.pkgs-unstable;
@@ -154,19 +153,25 @@ rec {
     in
     attrs
     // {
-      custom = custom.packages.${computer.system};
-      computer_name = computer.name;
-      mconfig = computer;
+      custom = custom.packages.${system};
       inherit
         system
         pkgs-unstable
         pkgs-stable
-        overlays
         rootDir
         mlib
         extra-pkgs
         pkgs-self
         ;
+    };
+
+  mkExtraArgs =
+    { computer, ... }:
+    (mkExtraArgs' computer.system)
+    // {
+      computer_name = computer.name;
+      mconfig = computer;
+      overlays = (import (rootDir + /overlays)) computer;
     };
 
   # asModules = modules: inputs: merge (builtins.map (m: (import m) inputs) modules);

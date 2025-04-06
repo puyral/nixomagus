@@ -55,9 +55,7 @@
         # Eval the treefmt modules from ./treefmt.nix
         treefmtEval = treefmt-nix.lib.evalModule pkgs ./fmt.nix;
 
-        pkgsArgs = attrs // {
-          inherit pkgs-stable pkgs-unstable;
-        };
+        pkgsArgs = functions.mkExtraArgs' system;
 
         mkName = file: l.removeSuffix ".nix" file;
 
