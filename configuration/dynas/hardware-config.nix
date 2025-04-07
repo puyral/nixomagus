@@ -25,6 +25,7 @@
       "sd_mod"
     ];
     initrd.kernelModules = [ ];
+    initrd.systemd.tpm2.enable = false;
     kernelModules = [ "kvm-amd" ];
     extraModulePackages = [ ];
 

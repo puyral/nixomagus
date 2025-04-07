@@ -22,7 +22,7 @@ in
       default = 120;
     };
   };
-  config.services.wpaperd = lib.mkIf cfg.enable {
+  config.programs.wpaperd = lib.mkIf cfg.enable {
     # enable = true;
     settings = {
       default = {

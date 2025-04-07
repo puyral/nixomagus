@@ -1,35 +1,23 @@
-{ pkgs, ... }:
+{ pkgs, lib, ... }:
 {
   imports = [
     ./zfs.nix
-    ../commun/filesystem.nix
+    # ../commun/filesystem.nix
   ];
-  fileSystems = {
-    "/boot" = {
-      device = "/dev/disk/by-uuid/624A-A8EF";
-      fsType = "vfat";
-      options = [
-        "fmask=0022"
-        "dmask=0022"
-      ];
-    };
-
-    "/containers" = {
-      device = "/dev/disk/by-label/NIXROOT";
-      fsType = "btrfs";
-      options = [
-        "subvol=containers"
-        "compress=zstd"
-      ];
-    };
-    "/swap" = {
-      label = "NIXROOT";
-      fsType = "btrfs";
-      options = [
-        "subvol=swap"
-        "noatime"
-      ];
-    };
+  fileSystems."/" = {
+    device = "/dev/disk/by-uuid/0afeaab9-e25b-4ee9-b611-659ebd52a33d";
+    fsType = "ext4";
   };
-  swapDevices = [ { device = "/swap/swapfile"; } ];
+
+  fileSystems."/boot" = {
+    device = "/dev/disk/by-uuid/B8CE-5FA8";
+    fsType = "vfat";
+    options = [
+      "fmask=0077"
+      "dmask=0077"
+    ];
+  };
+  swapDevices = [ ];
+  boot.tmp.useTmpfs = true;
+  boot.tmp.tmpfsSize = lib.mkDefault "70%";
 }

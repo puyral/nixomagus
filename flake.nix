@@ -39,6 +39,7 @@
       flake-utils,
       treefmt-nix,
       nixpkgs-unstable,
+      nixpkgs-stable,
       ...
     }@attrs:
     let

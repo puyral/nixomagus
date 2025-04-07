@@ -5,3 +5,4 @@ SteamLibrary
 syncthing
 .direnv
 **/*.swp
+**/._*
