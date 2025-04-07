@@ -14,7 +14,7 @@ in
     enable = mkEnableOption "torrent client";
     downloadDir = mkOption {
       type = types.path;
-      default = "/dev/null";
+      default = "${cfg.dataDir}/downloads";
     };
     dataDir = mkOption {
       type = types.path;

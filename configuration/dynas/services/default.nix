@@ -35,8 +35,7 @@
       user = "simon";
       group = "torrent";
       containered = true;
-      downloadDir = "${config.vars.Zeno.mountPoint}/other/download";
-      transmission = true;
+      transmission = false;
       rtorrent = true;
     };
 
