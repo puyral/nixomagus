@@ -29,9 +29,12 @@
         default = 3001;
         type = types.port;
       };
+      dataDir = mkOption {
+        default = "${config.params.locations.containers}/loki";
+        type = type.path;
+      };
     };
     promtail = {
-
       enable = mkEnableOption "promtail";
       lokiPort = mkOption {
         default = 3001;

@@ -8,7 +8,7 @@ in
   # docker.for.mac.localhost
   virtualisation.oci-containers.containers.${name} = {
     image = "homeassistant/home-assistant:latest";
-    volumes = [ "/containers/homeassistant:/config:rw" ];
+    volumes = [ "${config.params.locations.containers}/homeassistant:/config:rw" ];
     autoStart = true;
     # labels = {
     #   "traefik.enable" = "true";

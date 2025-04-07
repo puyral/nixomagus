@@ -1,11 +1,11 @@
-{ lib, ... }:
+{ lib, config, ... }:
 with lib;
 {
   options.extra.immich = {
     enable = mkEnableOption "immich";
     dataDir = mkOption {
       type = types.path;
-      default = "/containers/immich";
+      default = "${config.params.locations.containers}/immich";
     };
     subdomain = mkOption {
       type = types.str;

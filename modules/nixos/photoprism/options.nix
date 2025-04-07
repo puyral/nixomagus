@@ -1,10 +1,10 @@
-{ lib, ... }:
+{ lib, config, ... }:
 {
   options.extra.photoprism = with lib; {
     enable = mkEnableOption "photoprism";
     dataDir = mkOption {
       type = types.path;
-      default = "/container/photoprism";
+      default = "${config.params.locations.containers}/photoprism";
     };
     subdomain = mkOption {
       type = types.str;

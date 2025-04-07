@@ -1,4 +1,4 @@
-{ ... }:
+{ config, ... }:
 {
   services.samba = {
     enable = true;
@@ -19,7 +19,7 @@
       # '';
 
       Zeno = {
-        "path" = "/mnt/Zeno";
+        "path" = config.vars.Zeno.mountPoint;
         "guest ok" = "no";
         "read only" = "no";
         "veto files" = "/._*/.DS_Store/";

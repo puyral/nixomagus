@@ -1,7 +1,7 @@
 { mconfig, config, ... }:
 let
   name = "jellyfin";
-  base_dir = "/containers/${name}";
+  base_dir = "${config.params.locations.containers}/${name}";
   entrypoint = name;
   localAddress = config.containers.${name}.localAddress;
 in
@@ -18,7 +18,7 @@ in
         isReadOnly = false;
       };
       "/videos" = {
-        hostPath = "/mnt/Zeno/media/videos";
+        hostPath = "${config.vars.Zeno.mountPoint}/media/videos";
         isReadOnly = false;
       };
     };

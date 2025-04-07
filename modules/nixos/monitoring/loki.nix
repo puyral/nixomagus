@@ -2,7 +2,7 @@
 let
   enable = config.extra.monitoring.enable;
   cfg = config.extra.monitoring.loki;
-  dataDir = "/mnt/Zeno/containers/loki";
+  dataDir = cfg.dataDir;
 in
 lib.mkIf enable {
   services.loki = {
@@ -81,6 +81,6 @@ lib.mkIf enable {
       };
       # user, group, dataDir, extraFlags, (configFile)
     };
-    dataDir = "/mnt/Zeno/containers/loki";
+    inherit dataDir;
   };
 }

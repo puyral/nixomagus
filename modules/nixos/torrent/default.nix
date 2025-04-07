@@ -21,7 +21,7 @@ in
           isReadOnly = false;
         };
         "/videos" = {
-          hostPath = "/mnt/Zeno/media/videos";
+          hostPath = "${config.vars.Zeno.mountPoint}/media/videos";
           isReadOnly = false;
         };
         "/var/lib/transmission" = {

@@ -1,7 +1,7 @@
-{ ... }:
+{ config, ... }:
 let
-  photos = "/mnt/Zeno/media/photos/exports/complete";
-  videos = "/mnt/Zeno/media/photos/video_clips";
+  photos = "${config.vars.Zeno.mountPoint}/media/photos/exports/complete";
+  videos = "${config.vars.Zeno.mountPoint}/media/photos/video_clips";
   providers = [ "ovh-pl" ];
 in
 {

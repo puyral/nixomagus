@@ -16,7 +16,15 @@ in
     enable = mkEnableOption name;
     dataDir = mkOption {
       type = types.path;
-      default = "/containers/${name}";
+      default = "${config.params.locations.containers}/${name}";
+    };
+    mediaDir = mkOption {
+      type = types.path;
+      default = "${config.vars.Zeno.mountPoint}/paperless";
+    };
+    incommingDir = mkOption {
+      type = types.path;
+      default = "${config.vars.Zeno.mountPoint}/administratif/paperless";
     };
   };
   config = lib.mkIf cfg.enable {
@@ -27,11 +35,11 @@ in
           isReadOnly = false;
         };
         "/media" = {
-          hostPath = "/mnt/Zeno/paperless";
+          hostPath = cfg.mediaDir;
           isReadOnly = false;
         };
         "/incomming" = {
-          hostPath = "/mnt/Zeno/administratif/paperless";
+          hostPath = cfg.incommingDir;
           isReadOnly = false;
         };
       };

@@ -16,6 +16,10 @@
 
   services.watchtower.enable = true;
 
+  params.locations = {
+    containers = "${config.vars.Zeno.mountPoint}/containers";
+  };
+
   extra = {
     zigbee2mqtt = {
       enable = true;
@@ -31,14 +35,14 @@
       user = "simon";
       group = "torrent";
       containered = true;
-      downloadDir = "/mnt/Zeno/other/download";
+      downloadDir = "${config.vars.Zeno.mountPoint}/other/download";
       transmission = true;
       rtorrent = true;
     };
 
     calibre-web = {
       enable = true;
-      calibreLibrary = "/mnt/Zeno/media/books";
+      calibreLibrary = "${config.vars.Zeno.mountPoint}/media/books";
       enableBookUploading = true;
       enableBookConversion = true;
     };

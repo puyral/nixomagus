@@ -1,5 +1,13 @@
 # Auto-generated using compose2nix v0.2.2.
-{ pkgs, lib, ... }:
+{
+  pkgs,
+  lib,
+  config,
+  ...
+}:
+let
+  baseDir = config.params.location.containers;
+in
 
 {
   # Runtime
@@ -15,7 +23,7 @@
     environment = {
       "TZ" = "Europe/Vienna";
     };
-    volumes = [ "/containers/homeassistant:/config:rw" ];
+    volumes = [ "${baseDir}/homeassistant:/config:rw" ];
     labels = {
       "traefik.enable" = "true";
       "traefik.http.routers.homeassistant.entrypoints" = "https";
@@ -48,7 +56,7 @@
     environment = {
       "TZ" = "Europe/Vienna";
     };
-    volumes = [ "/containers/mosquitto:/mosquitto:rw" ];
+    volumes = [ "${baseDir}/mosquitto:/mosquitto:rw" ];
     log-driver = "journald";
     extraOptions = [
       "--network-alias=mosquitto"
@@ -73,7 +81,7 @@
       "TZ" = "Europe/Vienna";
     };
     volumes = [
-      "/containers/zigbee2mqtt:/app/data:rw"
+      "${baseDir}/zigbee2mqtt:/app/data:rw"
       "/run/udev:/run/udev:ro"
     ];
     labels = {

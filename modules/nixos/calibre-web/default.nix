@@ -21,7 +21,7 @@ in
     };
     dataDir = mkOption {
       type = types.path;
-      default = "/containers/calibre";
+      default = "${config.params.locations.containers}/calibre";
     };
     enableBookUploading = myMkEnbale "enable book uploading for ui";
     enableBookConversion = myMkEnbale "enable book conversion";

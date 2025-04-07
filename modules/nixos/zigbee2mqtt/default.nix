@@ -15,7 +15,7 @@ in
     dongle = mkOption { type = types.path; };
     dataDir = mkOption {
       type = types.path;
-      default = "/containers/zigbee2mqtt";
+      default = "${config.params.locations.containers}/zigbee2mqtt";
     };
   };
   config = lib.mkIf cfg.enable {

@@ -19,7 +19,7 @@ in
     };
     services.traefik = mkIf cfg.enable {
       enable = true;
-      dataDir = "/containers/traefik";
+      dataDir = "${config.params.locations.containers}/traefik";
       group = "traefik";
       environmentFiles = [ ./secrets/ovh.env ];
     };

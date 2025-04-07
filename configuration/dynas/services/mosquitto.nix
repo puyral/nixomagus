@@ -1,4 +1,4 @@
-{ ... }:
+{ config, ... }:
 let
   listener = {
     # acl = [
@@ -14,7 +14,7 @@ in
 {
   services.mosquitto = {
     enable = true;
-    dataDir = "/containers/mosquitto";
+    dataDir = "${config.params.locations.containers}/mosquitto";
     listeners = [ listener ];
     # settings = {allow_anonymous = true;};
   };

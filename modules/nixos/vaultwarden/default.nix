@@ -10,7 +10,7 @@ in
     dongle = mkOption { type = types.path; };
     dataDir = mkOption {
       type = types.path;
-      default = "/containers/vaultwarden";
+      default = "${config.params.locations.containers}/vaultwarden";
     };
     config = mkIf cfg.enable {
       containers.${name} = {

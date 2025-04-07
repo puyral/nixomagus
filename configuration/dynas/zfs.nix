@@ -84,4 +84,5 @@
       };
     };
   };
+  vars.Zeno.mountPoint = "/mnt/Zeno";
 }

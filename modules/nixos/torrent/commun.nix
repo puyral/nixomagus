@@ -18,7 +18,7 @@ in
     };
     dataDir = mkOption {
       type = types.path;
-      default = "/containers/torrent";
+      default = "${config.params.locations.containers}/torrent";
     };
     user = mkOption {
       type = types.nullOr types.str;

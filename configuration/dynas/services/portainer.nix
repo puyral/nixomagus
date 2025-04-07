@@ -11,7 +11,7 @@ in
     autoStart = true;
     ports = [ "9000:9000" ];
     volumes = [
-      "/containers/portainer:/data"
+      "${config.params.locations.containers}/portainer:/data"
       "${socket}:/var/run/docker.sock:rw"
     ];
   };
