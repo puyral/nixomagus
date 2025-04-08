@@ -2,6 +2,7 @@
   pkgs,
   pkgs-unstable,
   is_nixos,
+  config,
   ...
 }:
 {
@@ -48,7 +49,9 @@
     #
     sessionVariables = {
       EDITOR = "vim";
-      CONFIG_LOCATION = if is_nixos then "/config" else "$HOME/.config/home-manager/";
+      #      CONFIG_LOCATION = if is_nixos then "/config" else "$HOME/.config/home-manager/";
     };
   };
+  extra.gitConfigFetcher.location =
+    if is_nixos then "/config" else "${config.home.homeDirectory}/.config/home-manager";
 }
