@@ -18,7 +18,6 @@
             rust-analyzer
             rustc
             rustfmt
-            gcc
             vampire
             z3
             clang
