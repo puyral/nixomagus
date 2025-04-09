@@ -41,6 +41,8 @@ in
   };
   swapDevices = [ ];
 
+  virtualisation.docker.storageDriver = "zfs";
+
   boot = {
     supportedFilesystems = [ "zfs" ];
     zfs = {

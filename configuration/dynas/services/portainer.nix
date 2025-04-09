@@ -17,7 +17,7 @@ in
   };
   virtualisation.oci-containers.proxy.containers.${name} = {
     port = 9000;
-    domain = "dynas.puyral.fr";
+    # domain = "dynas.puyral.fr";
   };
   virtualisation.docker = {
     daemon.settings.hosts = [ "unix://${socket}" ];
