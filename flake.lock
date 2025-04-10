@@ -198,22 +198,6 @@
         "type": "github"
       }
     },
-    "my-nixpkgs": {
-      "locked": {
-        "lastModified": 1728124837,
-        "narHash": "sha256-PK/rhGxrYKhX6KBd7LtA68BKn7bEwRjLBO4Gp9DpjO0=",
-        "owner": "puyral",
-        "repo": "nixpkgs",
-        "rev": "f9ef3ab5b9d73f782c944309257d153f8fd094fe",
-        "type": "github"
-      },
-      "original": {
-        "owner": "puyral",
-        "ref": "in-use",
-        "repo": "nixpkgs",
-        "type": "github"
-      }
-    },
     "nixos-hardware": {
       "locked": {
         "lastModified": 1743420942,
@@ -364,7 +348,6 @@
         "flake-utils": "flake-utils_3",
         "home-manager": "home-manager",
         "kmonad": "kmonad",
-        "my-nixpkgs": "my-nixpkgs",
         "nixos-hardware": "nixos-hardware",
         "nixpkgs-stable": "nixpkgs-stable",
         "nixpkgs-unstable": "nixpkgs-unstable",

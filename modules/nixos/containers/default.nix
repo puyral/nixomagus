@@ -6,7 +6,6 @@
   rootDir,
   nixpkgs-unstable,
   pkgs-unstable,
-  my-nixpkgs,
   ...
 }:
 with lib;
@@ -63,7 +62,6 @@ in
                 mlib
                 nixpkgs-unstable
                 pkgs-unstable
-                my-nixpkgs
                 ;
             };
           }
