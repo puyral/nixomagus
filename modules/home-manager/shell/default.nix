@@ -9,7 +9,8 @@ let
   cfg = config.extra.shell;
 in
 {
-  options.extra.shell = {enable = mkEnableOption "custom shell";
+  options.extra.shell = {
+    enable = mkEnableOption "custom shell";
     rebuildScript = mkOption {
       type = types.path;
       default = ./scripts/rebuild.sh;

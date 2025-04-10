@@ -1,10 +1,11 @@
 {
   config,
   rootDir,
+  lib,
   ...
 }:
 {
-  boot = {
+  boot = lib.mkIf config.vars.zfs {
     supportedFilesystems = [ "zfs" ];
     zfs = {
       extraPools = [ "Backup" ];

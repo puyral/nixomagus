@@ -1,5 +1,8 @@
-{pkgs, mkShell, ...}:
+{ pkgs, mkShell, ... }:
 mkShell {
-          name = "leanspi";
-          buildInputs = with pkgs; [ elan nixd ];
-        }
+  name = "leanspi";
+  buildInputs = with pkgs; [
+    elan
+    nixd
+  ];
+}

@@ -5,9 +5,12 @@
   pkgs-unstable,
   ...
 }:
+let
+  kernel = pkgs-unstable.linuxPackages_zen;
+in
 {
   # need the latest kernel
-  boot.kernelPackages = pkgs-unstable.linuxPackages_zen;
+  boot.kernelPackages = kernel;
   # boot.zfs.package = pkgs-unstable.zfs; # and zfs
   boot.initrd.kernelModules = [ "amdgpu" ];
   services.xserver.videoDrivers = [ "amdgpu" ];
@@ -20,4 +23,10 @@
       opencl.enable = true;
     };
   };
+  vars.zfs =
+    let
+      zfsAttribute = config.boot.zfs.package.kernelModuleAttribute;
+      pkg = kernel.${zfsAttribute};
+    in
+    !pkg.meta.broken;
 }

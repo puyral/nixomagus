@@ -40,6 +40,6 @@
     pinentryPackage = pkgs.pinentry-tty;
 
   };
-    extra.shell.rebuildScript = ./rebuild.sh;
+  extra.shell.rebuildScript = ./rebuild.sh;
   # programs.gnupg.agent.pinentryPackage =  pkgs.pinentry-curses;
 }
