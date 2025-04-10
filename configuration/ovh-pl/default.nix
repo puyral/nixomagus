@@ -6,6 +6,8 @@
     ./networking.nix
   ];
 
+  extra.cache.substituter = false;
+
   programs.gnupg.agent.pinentryPackage = pkgs.pinentry-curses;
 
   boot.tmp.cleanOnBoot = true;
