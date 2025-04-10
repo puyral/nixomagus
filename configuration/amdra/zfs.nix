@@ -18,27 +18,27 @@
   };
   networking.hostId = "007f0201";
 
-  services.smartd = {
-    enable = true;
-    defaults = {
-      monitored = "-a -o on -s (S/../.././02|L/../../1/02)";
-    };
-    devices =
-      let
-        zfsDisk = id: { device = "/dev/disk/by-id/${id}"; };
-        zfsDisks = [
-          # 10TB toshiba
-          "wwn-0x5000039b38d17cf2"
-        ];
-      in
-      builtins.map zfsDisk zfsDisks ++ [ ];
+  # services.smartd = {
+  #   enable = true;
+  #   defaults = {
+  #     monitored = "-a -o on -s (S/../.././02|L/../../1/02)";
+  #   };
+  #   devices =
+  #     let
+  #       zfsDisk = id: { device = "/dev/disk/by-id/${id}"; };
+  #       zfsDisks = [
+  #         # 10TB toshiba
+  #         "wwn-0x5000039b38d17cf2"
+  #       ];
+  #     in
+  #     builtins.map zfsDisk zfsDisks ++ [ ];
 
-    notifications = {
-      # test = true;
-      mail = {
-        sender = config.programs.msmtp.accounts.default.from;
-        recipient = (import (rootDir + /secrets/email.nix)).gmail "smart-amdra";
-      };
-    };
-  };
+  #   notifications = {
+  #     # test = true;
+  #     mail = {
+  #       sender = config.programs.msmtp.accounts.default.from;
+  #       recipient = (import (rootDir + /secrets/email.nix)).gmail "smart-amdra";
+  #     };
+  #   };
+  # };
 }

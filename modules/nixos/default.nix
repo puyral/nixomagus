@@ -26,6 +26,7 @@
     ./virtualisation
     ./controllers
     ./photoprism
+    ./smartd
   ];
 
   options = with lib; {

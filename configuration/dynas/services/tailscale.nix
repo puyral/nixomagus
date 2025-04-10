@@ -1,6 +1,11 @@
-{ lib, pkgs, ... }:
+{
+  lib,
+  pkgs,
+  config,
+  ...
+}:
 let
-  interface = "enp9s0";
+  interface = config.vars.mainNetworkInterface;
 in
 {
   services.tailscale = {
