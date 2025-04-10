@@ -24,7 +24,7 @@
     v4l2loopback.enable = true;
     keyboard.enable = true;
     virtualisation.enable = true;
-    cache.substituter = false;
+    cache.substituter = true;
     controllers.nintendo.enable = true;
   };
 
