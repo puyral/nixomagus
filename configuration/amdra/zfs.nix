@@ -23,4 +23,5 @@ in
     };
   };
   networking.hostId = "007f0201";
+  warnings = lib.mkIf (!enabled) [ "zfs disabled" ];
 }
