@@ -23,10 +23,5 @@ in
       opencl.enable = true;
     };
   };
-  vars.zfs =
-    let
-      zfsAttribute = config.boot.zfs.package.kernelModuleAttribute;
-      pkg = kernel.${zfsAttribute};
-    in
-    !pkg.meta.broken;
+  vars = { inherit kernel; };
 }

@@ -244,20 +244,24 @@ in
           "kitty"
         ]
       ];
-      launcher = [
-        [
-          mod
-          "Space"
-          exec
-          "wofi --show drun --height=984 --style=$HOME/.config/wofi.css --term=footclient --prompt=Run"
-        ]
-        [
-          (mod + shift)
-          "Space"
-          exec
-          "wofi --show run --height=984 --style=$HOME/.config/wofi.css --term=footclient --prompt=Run"
-        ]
-      ];
+      launcher =
+        let
+          keymap = key: [
+            [
+              mod
+              key
+              exec
+              "wofi --show drun --height=984 --style=$HOME/.config/wofi.css --term=footclient --prompt=Run"
+            ]
+            [
+              (mod + shift)
+              key
+              exec
+              "wofi --show run --height=984 --style=$HOME/.config/wofi.css --term=footclient --prompt=Run"
+            ]
+          ];
+        in
+        keymap "Space" ++ keymap "D";
       powerManagement = [
         [
           (mod + shift)
