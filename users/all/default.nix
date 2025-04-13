@@ -8,12 +8,18 @@
 }:
 {
   imports = [ (rootDir + "/registeries.nix") ];
-  nixpkgs.config = {
-    allowUnfree = _: true;
+  options.vars = lib.mkOption {
+    type = lib.types.attrs;
+    default = { };
   };
-  home = lib.mkIf (!is_nixos) {
-    packages = [
-      home-manager.packages.${pkgs.system}.default
-    ];
+  config = {
+    nixpkgs.config = {
+      allowUnfree = _: true;
+    };
+    home = lib.mkIf (!is_nixos) {
+      packages = [
+        home-manager.packages.${pkgs.system}.default
+      ];
+    };
   };
 }

@@ -43,6 +43,5 @@ in
       #   input.kb_file = ${./layout.xkb};
       # '';
     };
-    programs.wpaperd.enable = true;
   };
 }

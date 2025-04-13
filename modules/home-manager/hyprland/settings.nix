@@ -40,11 +40,11 @@ in
 {
   exec-once = [
     "args -b hypr"
-    "wpaperd"
     "waybar"
     "[workspace 1 silent] firefox"
     "[workspace 17 silent] thunderbird"
     "hyprctl dispatch workspace 1"
+    "systemctl --user start ${config.vars.wallpaperTarget}"
   ];
 
   monitor = map (builtins.concatStringsSep ",") monitor-cfg;
