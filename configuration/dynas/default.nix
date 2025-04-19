@@ -14,9 +14,4 @@
     cache.substituter = false;
   };
   programs.gnupg.agent.pinentryPackage = pkgs.pinentry-curses;
-
-  # docker
-  virtualisation.docker = {
-    enable = true;
-  };
 }

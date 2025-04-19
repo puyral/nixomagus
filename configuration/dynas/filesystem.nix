@@ -38,6 +38,11 @@ in
       device = "${poolName}/home";
       fsType = "zfs";
     };
+    "/var/lib/docker" = {
+      # DynasOs/docker
+      device = "${poolName}/docker";
+      fsType = "zfs";
+    };
   };
   swapDevices = [ ];
 
@@ -55,4 +60,5 @@ in
       tmpfsSize = lib.mkDefault "50%";
     };
   };
+  vars.poolName = poolName;
 }
