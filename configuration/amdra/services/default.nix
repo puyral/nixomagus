@@ -1,6 +1,8 @@
 { ... }:
 {
-  imports = [ ];
+  imports = [ 
+    # ./printing.nix 
+    ];
 
   extra = {
     smartd = {

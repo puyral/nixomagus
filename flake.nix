@@ -31,6 +31,15 @@
       url = "github:numtide/treefmt-nix";
       inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
+
+    turboprint-nix = {
+      url = "github:puyral/turboprint-nix";
+      inputs = {
+        nixpkgs.follows = "nixpkgs-unstable";
+        treefmt-nix.follows = "treefmt-nix";
+        flake-utils.follows = "flake-utils";
+      };
+    };
   };
 
   outputs =
@@ -39,6 +48,7 @@
       treefmt-nix,
       nixpkgs-unstable,
       nixpkgs-stable,
+      turboprint-nix,
       ...
     }@attrs:
     let
@@ -70,14 +80,17 @@
           }) files;
 
         packages =
-          let
-            dir = "packages";
-            files = builtins.readDir ./${dir};
-          in
-          l.mapAttrs' (file: _: {
-            name = mkName file;
-            value = pkgs.callPackage ./${dir}/${file} pkgsArgs;
-          }) files;
+          turboprint-nix.packages.${system}
+          // (
+            let
+              dir = "packages";
+              files = builtins.readDir ./${dir};
+            in
+            l.mapAttrs' (file: _: {
+              name = mkName file;
+              value = pkgs.callPackage ./${dir}/${file} pkgsArgs;
+            }) files
+          );
       in
       {
         inherit devShells packages;
