@@ -57,6 +57,7 @@
         kitty
         gparted
         vampire
+        hugin
       ])
       ++ (with pkgs-unstable; [ fastfetch ]);
 
