@@ -4,18 +4,21 @@
     enable = true;
     openFirewall = true;
     settings = {
-      global.security = "user";
+      global = {
+        security = "user";
+        "log level" = "3";
+
+      };
       # nmbd.enable = false;
       # winbindd.enable = false;
       # extraConfig = ''
-      #   guest account = simon
-      #   map to guest = Bad User
+      # #   guest account = simon
+      # #   map to guest = Bad User
 
-      #   load printers = no
-      #   printcap name = /dev/null
+      # #   load printers = no
+      # #   printcap name = /dev/null
 
-      #   log file = /var/log/samba/client.%I
-      #   log level = 2
+      # #   log file = /var/log/samba/client.%I
       # '';
 
       Zeno = {
