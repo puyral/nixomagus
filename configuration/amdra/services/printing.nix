@@ -1,4 +1,9 @@
-{ turboprint-nix, system, pkgs-self, ... }:
+{
+  turboprint-nix,
+  system,
+  pkgs-self,
+  ...
+}:
 {
   imports = [ turboprint-nix.nixosModules.${system} ];
 
