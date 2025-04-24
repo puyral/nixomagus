@@ -8,10 +8,12 @@ let
   cfg = config.extra.virtualisation;
 in
 {
-  options.extra.virtualisation = {
-    enable = lib.mkEnableOption "virtualisaiont";
-    users = lib.mkOption {
-      type = lib.types.listOf lib.types.str;
+  imports = [ ./passthrough.nix ];
+
+  options.extra.virtualisation = with lib; {
+    enable = mkEnableOption "virtualisation";
+    users = mkOption {
+      type = types.listOf types.str;
       default = [ "simon" ];
     };
   };
@@ -23,6 +25,7 @@ in
     virtualisation = {
       libvirtd = {
         enable = true;
+
         qemu = {
           runAsRoot = true;
           swtpm.enable = true;
@@ -36,6 +39,9 @@ in
             ];
           };
         };
+
+        # Stop all running VMs on shutdown.
+        onShutdown = "shutdown";
 
       };
       spiceUSBRedirection.enable = true;

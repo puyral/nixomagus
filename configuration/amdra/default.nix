@@ -23,9 +23,18 @@
     splash_screen.enable = false;
     v4l2loopback.enable = true;
     keyboard.enable = true;
-    virtualisation.enable = true;
     cache.substituter = true;
     controllers.nintendo.enable = true;
+    virtualisation = {
+      enable = true;
+      passthrough = {
+        enable = false;
+        ids = [
+          "1002:13c0"
+          "1002:1640"
+        ];
+      };
+    };
   };
 
   fonts.packages =
