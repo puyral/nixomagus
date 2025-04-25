@@ -40,6 +40,13 @@
         flake-utils.follows = "flake-utils";
       };
     };
+
+    headplane = {
+      url = "github:tale/headplane";
+      inputs = {
+        nixpkgs.follows = "nixpkgs-unstable";
+      };
+    };
   };
 
   outputs =

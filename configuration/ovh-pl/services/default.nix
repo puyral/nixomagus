@@ -13,4 +13,11 @@
       instances = self.nixosConfigurations.dynas.config.networking.traefik.instances;
     };
   };
+  extra = {
+    headscale = {
+      enable = true;
+      headscale.extraDomain = "server.headscale";
+      headplane.extraDomain = "headscale";
+    };
+  };
 }

@@ -27,6 +27,7 @@
     ./controllers
     ./photoprism
     ./smartd
+    ./headscale
   ];
 
   options = with lib; {
