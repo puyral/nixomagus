@@ -14,4 +14,5 @@
     device = "/dev/sda1";
     fsType = "ext4";
   };
+  swapDevices = [ { device = "/swap/swapfile-1"; } ];
 }
