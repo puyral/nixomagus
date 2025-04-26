@@ -47,12 +47,6 @@
         nixpkgs.follows = "nixpkgs-unstable";
       };
     };
-    authentik-nix = {
-      url = "github:nix-community/authentik-nix";
-      inputs = {
-        nixpkgs.follows = "nixpkgs-unstable";
-      };
-    };
   };
 
   outputs =

@@ -1,6 +1,14 @@
+# requires the module to work
+# authentik-nix = {
+#   url = "github:nix-community/authentik-nix";
+#   inputs = {
+#     nixpkgs.follows = "nixpkgs-unstable";
+#   };
+# };
+
 attrs@{
   rootDir,
-  authentik-nix,
+  authentik-nix ? null,
   config,
   lib,
   pkgs,
@@ -27,6 +35,12 @@ in
   };
 
   config = lib.mkIf cfg.enable {
+    assertions = [
+      {
+        assertion = false;
+        message = "athentik doesn't work";
+      }
+    ];
     containers.${name} = {
       autoStart = true;
       ephemeral = true;
@@ -70,8 +84,7 @@ in
 
           services.authentik = {
             enable = true;
-            environmentFile = pkgs.substituteAll {
-              src = ./secrets/env.env;
+            environmentFile = pkgs.replaceVars ./secrets/env.env {
               emailPwd = builtins.readFile (rootDir + /secrets/mail-passwd);
               httpPort = builtins.toString httpPort;
               httpsPort = builtins.toString httpsPort;

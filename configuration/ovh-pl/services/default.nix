@@ -18,7 +18,7 @@
       enable = true;
       extraDomain = "headscale";
     };
-    authentik = {
+    authelia = {
       enable = true;
     };
   };

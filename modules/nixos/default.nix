@@ -29,6 +29,7 @@
     ./smartd
     ./headscale
     ./authentik
+    ./authelia
   ];
 
   options = with lib; {
