@@ -1,9 +1,12 @@
-headplane: cfg:
+headplane:
 {
   config,
+  lib,
   ...
 }:
 let
+  oidc = config.vars.oidc;
+  cfg = config.vars.cfg;
   secrets = if cfg.secrets == null then (import ./secrets/default.nix) else cfg.secrets;
   port = cfg.headplane.port;
 in
@@ -42,16 +45,21 @@ in
         config_strict = true;
       };
       integration.proc.enabled = false;
-      # oidc = {
-      #   issuer = "https://oidc.example.com";
-      #   client_id = "headplane";
-      #   client_secret = "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx";
-      #   disable_api_key_login = true;
-      #   # Might needed when integrating with Authelia.
-      #   token_endpoint_auth_method = "client_secret_basic";
-      #   headscale_api_key = "xxxxxxxxxx.xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx";
-      #   redirect_uri = "https://oidc.example.com/admin/oidc/callback";
-      # };
+      oidc = lib.mkIf config.vars.authcfg.enable (
+        let
+          issuer = "https://${config.vars.authcfg.extraDomain}.${config.vars.baseDomain}";
+        in
+        {
+          inherit issuer;
+          client_id = oidc.headplane.id;
+          client_secret = oidc.headplane.plain;
+          disable_api_key_login = true;
+          # Might needed when integrating with Authelia.
+          token_endpoint_auth_method = "client_secret_basic";
+          headscale_api_key = secrets.headscale_api_key;
+          redirect_uri = "https://${cfg.extraDomain}.${config.vars.baseDomain}/admin/oidc/callback";
+        }
+      );
     };
   };
 

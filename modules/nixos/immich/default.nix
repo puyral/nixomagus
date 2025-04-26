@@ -83,7 +83,7 @@ in
           name = cfg.subdomain;
           enable = true;
           providers = cfg.providers;
-          address = "100.65.3.113";
+          address = "100.64.0.8";
         }
       ];
     };

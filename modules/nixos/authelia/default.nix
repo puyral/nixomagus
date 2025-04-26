@@ -8,6 +8,19 @@ let
   port = 9091;
   address = config.containers.${name}.localAddress;
 
+  hscfg = config.extra.headscale;
+  attrs = {
+    inherit
+      name
+      url
+      domain
+      instanceName
+      port
+      address
+      cfg
+      hscfg
+      ;
+  };
 in
 {
   options.extra.authelia = with lib; {
@@ -20,9 +33,14 @@ in
       type = types.str;
       default = name;
     };
+    oidc.secrets = mkOption {
+      type = types.attrs;
+      default = { };
+    };
   };
 
   config = lib.mkIf cfg.enable {
+    extra.authelia.oidc.secrets = lib.mkIf hscfg.enable (import ./secrets/oidc.nix);
 
     containers.${name} = {
       autoStart = true;
@@ -37,76 +55,17 @@ in
       config =
         { config, ... }:
         {
-          services.authelia.instances.${instanceName} = {
-            enable = true;
-            secrets = import ./secrets/secrets.nix;
-            settings = {
-              default_redirection_url = "https://${url}";
-              server = {
-                host = "0.0.0.0";
-                inherit port;
-              };
 
-              log = {
-                level = "debug";
-                format = "text";
-              };
+          imports = [
+            ./authelia.nix
+          ];
 
-              authentication_backend = {
-                file = {
-                  path = "/var/lib/authelia-${instanceName}/users_database.yml";
-                  watch = true;
-                  search = {
-                    email = true;
-                  };
-                };
-              };
-
-              access_control = {
-                default_policy = "deny";
-                rules = [
-                  {
-                    domain = [ "${name}.${domain}" ];
-                    policy = "bypass";
-                  }
-                  {
-                    domain = [ "*.${domain}" ];
-                    policy = "one_factor";
-                  }
-                ];
-              };
-
-              session = {
-                inherit domain;
-                name = "authelia_session";
-                expiration = "12h";
-                inactivity = "45m";
-                remember_me_duration = "1M";
-                redis.host = config.services.redis.servers."authelia-${instanceName}".unixSocket;
-              };
-
-              regulation = {
-                max_retries = 3;
-                find_time = "5m";
-                ban_time = "15m";
-              };
-
-              storage = {
-                local = {
-                  path = "/var/lib/authelia-${instanceName}/db.sqlite3";
-                };
-              };
-
-              notifier = {
-                disable_startup_check = false;
-                filesystem = {
-                  filename = "/var/lib/authelia-${instanceName}/notification.txt";
-                };
-              };
-            };
+          options.vars = lib.mkOption {
+            type = lib.types.attrs;
           };
 
-          services.redis.servers."authelia-${instanceName}" = {
+          config.vars = attrs;
+          config.services.redis.servers."authelia-${instanceName}" = {
             enable = true;
             user = config.services.authelia.instances.${instanceName}.user;
             port = 0;

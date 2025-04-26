@@ -6,6 +6,8 @@
 }:
 let
   cfg = config.extra.headscale;
+  authcfg = config.extra.authelia;
+  oidc = authcfg.oidc.secrets;
   name = "headscale";
 in
 {
@@ -25,30 +27,44 @@ in
           hostPath = cfg.headplane.dataDir;
           isReadOnly = false;
         };
+        "/var/lib/tailscale" = {
+          hostPath = "${cfg.headscale.dataDir}/tailscale";
+          isReadOnly = false;
+        };
       };
       autoStart = true;
       ephemeral = true;
-      forwardPorts = [
-        {
-          containerPort = 8080;
-          hostPort = 8080;
-          protocol = "tcp";
-        }
-        {
-          containerPort = 8080;
-          hostPort = 8080;
-          protocol = "udp";
-        }
-      ];
+      # forwardPorts = [
+      #   {
+      #     containerPort = 8080;
+      #     hostPort = 8080;
+      #     protocol = "tcp";
+      #   }
+      #   {
+      #     containerPort = 8080;
+      #     hostPort = 8080;
+      #     protocol = "udp";
+      #   }
+      # ];
       config =
         { ... }:
         {
           imports = [
-            ((import ./headplane.nix) headplane cfg)
-            ((import ./headscale.nix) cfg)
+            ((import ./headplane.nix) headplane)
+            ./headscale.nix
           ];
           options.vars = lib.mkOption { type = lib.types.attrs; };
-          config.vars.baseDomain = config.networking.traefik.baseDomain;
+          config = {
+            vars = {
+              inherit
+                cfg
+                authcfg
+                oidc
+                ;
+              baseDomain = config.networking.traefik.baseDomain;
+            };
+            services.tailscale.enable = true;
+          };
         };
     };
 
@@ -57,6 +73,7 @@ in
         domain = "${cfg.extraDomain}.${config.networking.traefik.baseDomain}";
       in
       {
+        vpn = true;
         traefik = [
           {
             port = cfg.headscale.port;

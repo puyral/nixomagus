@@ -94,7 +94,7 @@ in
           name = cfg.subdomain;
           enable = true;
           providers = cfg.providers;
-          address = "100.125.20.5";
+          address = "100.64.0.10";
         }
       ];
     };
