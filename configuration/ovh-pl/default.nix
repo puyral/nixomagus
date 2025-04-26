@@ -1,5 +1,7 @@
 { pkgs, lib, ... }:
 {
+# how to rescue: https://www.adyxax.org/blog/2023/11/13/recovering-a-nixos-installation-from-a-linux-rescue-image/
+
   imports = [
     ./hardware-configuration.nix
     ./services
@@ -17,4 +19,5 @@
   services.openssh.enable = true;
 
   boot.loader.systemd-boot.enable = lib.mkForce false;
+
 }
