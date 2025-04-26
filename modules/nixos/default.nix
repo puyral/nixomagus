@@ -28,6 +28,7 @@
     ./photoprism
     ./smartd
     ./headscale
+    ./authentik
   ];
 
   options = with lib; {

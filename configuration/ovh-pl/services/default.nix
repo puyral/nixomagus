@@ -18,5 +18,8 @@
       enable = true;
       extraDomain = "headscale";
     };
+    authentik = {
+      enable = true;
+    };
   };
 }

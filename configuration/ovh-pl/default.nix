@@ -1,6 +1,6 @@
 { pkgs, lib, ... }:
 {
-# how to rescue: https://www.adyxax.org/blog/2023/11/13/recovering-a-nixos-installation-from-a-linux-rescue-image/
+  # how to rescue: https://www.adyxax.org/blog/2023/11/13/recovering-a-nixos-installation-from-a-linux-rescue-image/
 
   imports = [
     ./hardware-configuration.nix

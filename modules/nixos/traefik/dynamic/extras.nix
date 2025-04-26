@@ -7,9 +7,16 @@ let
   instances = lib.filterAttrs (
     _: { enable, providers, ... }: enable && (builtins.elem name providers)
   ) cfg.instances;
+  entrypoints = "https";
+  tls = {
+    certResolver = "ovh";
+  };
 in
 {
-  services.traefik.dynamicConfigOptions.http =
+  config.vars.traefik = {
+    inherit entrypoints tls;
+  };
+  config.services.traefik.dynamicConfigOptions.http =
     if instances == { } then
       { }
     else
@@ -22,9 +29,9 @@ in
             rule = if attrs.extra.rule == null then "Host(`${host}.${domain}`)" else attrs.extra.rule;
           in
           {
-            inherit rule;
-            entrypoints = "https";
-            tls.certResolver = "ovh";
+            inherit rule entrypoints tls;
+            # entrypoints = "https";
+            # tls.certResolver = "ovh";
             service = host;
           }
         ) instances;
