@@ -27,4 +27,10 @@ with builtins;
     description = "the ip address";
     default = null;
   };
+  extra = {
+    rule = mkOption {
+      type = with types; nullOr str;
+      default = null;
+    };
+  };
 }

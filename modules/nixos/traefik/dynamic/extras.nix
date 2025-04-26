@@ -19,9 +19,10 @@ in
           let
             enable = attrs.enable;
             domain = if attrs.domain == null then cfg.baseDomain else attrs.domain;
+            rule = if attrs.extra.rule == null then "Host(`${host}.${domain}`)" else attrs.extra.rule;
           in
           {
-            rule = "Host(`${host}.${domain}`)";
+            inherit rule;
             entrypoints = "https";
             tls.certResolver = "ovh";
             service = host;

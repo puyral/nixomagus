@@ -28,6 +28,18 @@ in
       };
       autoStart = true;
       ephemeral = true;
+      forwardPorts = [
+        {
+          containerPort = 8080;
+          hostPort = 8080;
+          protocol = "tcp";
+        }
+        {
+          containerPort = 8080;
+          hostPort = 8080;
+          protocol = "udp";
+        }
+      ];
       config =
         { ... }:
         {
@@ -35,28 +47,31 @@ in
             ((import ./headplane.nix) headplane cfg)
             ((import ./headscale.nix) cfg)
           ];
-          options.vars.baseDomain = lib.mkOption {
-            type = lib.types.str;
-          };
+          options.vars = lib.mkOption { type = lib.types.attrs; };
           config.vars.baseDomain = config.networking.traefik.baseDomain;
         };
     };
 
-    extra.containers.${name} = {
-      traefik = [
-        {
-          port = cfg.headscale.port;
-          name = cfg.headscale.extraDomain;
-          enable = true;
-          providers = [ "ovh-pl" ];
-        }
-        {
-          port = cfg.headplane.port;
-          name = cfg.headplane.extraDomain;
-          enable = true;
-          providers = [ "ovh-pl" ];
-        }
-      ];
-    };
+    extra.containers.${name} =
+      let
+        domain = "${cfg.extraDomain}.${config.networking.traefik.baseDomain}";
+      in
+      {
+        traefik = [
+          {
+            port = cfg.headscale.port;
+            enable = true;
+            providers = [ "ovh-pl" ];
+            extra.rule = "Host(`${domain}`) && PathPrefix(`/`)";
+          }
+          {
+            port = cfg.headplane.port;
+            name = "headplane";
+            enable = true;
+            providers = [ "ovh-pl" ];
+            extra.rule = "Host(`${domain}`) && PathPrefix(`/admin`)";
+          }
+        ];
+      };
   };
 }

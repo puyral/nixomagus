@@ -6,10 +6,10 @@
       type = types.nullOr types.attrs;
       default = null;
     };
+    extraDomain = mkOption {
+      type = types.str;
+    };
     headscale = {
-      extraDomain = mkOption {
-        type = types.str;
-      };
       port = mkOption {
         type = types.port;
         default = 8080;
@@ -20,9 +20,6 @@
       };
     };
     headplane = {
-      extraDomain = mkOption {
-        type = types.str;
-      };
       port = mkOption {
         type = types.port;
         default = 3000;

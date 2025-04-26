@@ -4,7 +4,7 @@ headplane: cfg:
   ...
 }:
 let
-  secrets = cfg.secrets or import ./secrets;
+  secrets = if cfg.secrets == null then (import ./secrets/default.nix) else cfg.secrets;
   port = cfg.headplane.port;
 in
 {
@@ -15,11 +15,11 @@ in
     }
   ];
   services.headplane = {
-    enable = false;
+    enable = true;
     agent = {
       # As an example only.
       # Headplane Agent hasn't yet been ready at the moment of writing the doc.
-      enable = true;
+      enable = false;
       settings = {
         HEADPLANE_AGENT_DEBUG = true;
         HEADPLANE_AGENT_HOSTNAME = "localhost";
@@ -36,12 +36,12 @@ in
         cookie_secret = secrets.cookie_secret;
         cookie_secure = true;
       };
-      headscale = {
-        url = "0.0.0.0:${cfg.headscale.port}";
-        public_url = "${cfg.headscale.extraDomain}.${config.vars.baseDomain}";
+      headscale = rec {
+        url = "https://${cfg.extraDomain}.${config.vars.baseDomain}";
+        public_url = url;
         config_strict = true;
       };
-      integration.proc.enabled = true;
+      integration.proc.enabled = false;
       # oidc = {
       #   issuer = "https://oidc.example.com";
       #   client_id = "headplane";
