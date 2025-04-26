@@ -50,6 +50,9 @@ in
               amdra = {
                 hostname = amdra-ip;
               };
+              ovh-pl = {
+                hostname = "ovh-pl.puyral.fr";
+              };
             };
           };
       };
