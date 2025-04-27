@@ -58,10 +58,12 @@ in
           {
             config = c_config name;
             specialArgs = {
+              # extra arguments given to the containers
               inherit
                 mlib
                 nixpkgs-unstable
                 pkgs-unstable
+                rootDir
                 ;
             };
           }
