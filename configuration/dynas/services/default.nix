@@ -8,7 +8,7 @@
     ./homeassistant
     ./portainer.nix
     ./mosquitto.nix
-    ./tailscale.nix
+    # ./tailscale.nix
     ./photos.nix
     ./github
   ];
@@ -87,6 +87,11 @@
     };
 
     cache.enable = true;
+
+    tailscale.exitNode = {
+      enable = true;
+      interfaces = [ config.vars.mainNetworkInterface ];
+    };
   };
 
   networking = {

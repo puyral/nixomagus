@@ -30,6 +30,7 @@
     ./headscale
     ./authentik
     ./authelia
+    ./tailscale
   ];
 
   options = with lib; {

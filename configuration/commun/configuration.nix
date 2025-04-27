@@ -148,7 +148,7 @@
     "simon"
     "@wheel"
   ];
-  extra.cache.substituter = lib.mkDefault false; # dynas is down
+  extra.cache.substituter = lib.mkDefault true; # dynas is down
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
