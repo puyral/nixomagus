@@ -1,11 +1,17 @@
 { lib, ... }:
+let
+  eimports = [
+    ./tailscale
+    # ./isw
+  ];
+in
 {
   imports = [
-    # ./isw
+    ((import ./containers) eimports)
+    ./binary-cache
     ./traefik
     ./wachtower
     ./docker-traefik
-    ./containers
     ./zigbee2mqtt
     ./paperless
     ./usersNgroups.nix
@@ -15,23 +21,22 @@
     ./splashscreen
     ./syncthing-module
     ./calibre-web
-    ./monitoring
     ./cachefilesd
     ./printing
-    ./keyboard
     ./v4l2loopback
     ./github-runner
-    ./binary-cache
     ./immich
     ./virtualisation
+    ./monitoring
     ./controllers
     ./photoprism
     ./smartd
     ./headscale
     ./authentik
     ./authelia
-    ./tailscale
-  ];
+    ./tailscale-exit-container
+    # ./keyboard
+  ] ++ eimports;
 
   options = with lib; {
     params = {

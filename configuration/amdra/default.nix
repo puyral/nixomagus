@@ -22,7 +22,7 @@
   extra = {
     splash_screen.enable = false;
     v4l2loopback.enable = true;
-    keyboard.enable = true;
+    # keyboard.enable = true;
     cache.substituter = true;
     controllers.nintendo.enable = true;
     virtualisation = {

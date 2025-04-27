@@ -92,6 +92,7 @@
       enable = true;
       interfaces = [ config.vars.mainNetworkInterface ];
     };
+    tailscale.exit-container.enable = false;
   };
 
   networking = {

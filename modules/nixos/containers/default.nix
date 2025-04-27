@@ -1,3 +1,4 @@
+eimports:
 {
   mlib,
   config,
@@ -19,7 +20,7 @@ let
       c_config = config.extra.containers.${name};
     in
     {
-      imports = [
+      imports = eimports ++ [
         (rootDir + "/registeries.nix")
         ((import ./base_config.nix) {
           inherit
