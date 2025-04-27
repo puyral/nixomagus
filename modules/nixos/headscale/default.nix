@@ -13,7 +13,6 @@ in
 {
   imports = [
     ./options.nix
-    # ./headplane.nix
   ];
   config = lib.mkIf cfg.enable {
 
@@ -85,5 +84,6 @@ in
           }
         ];
       };
+    networking.firewall.allowedUDPPorts = [ cfg.derpPort ];
   };
 }
