@@ -15,13 +15,18 @@ in
     address = "0.0.0.0";
     settings = {
       logtail.enabled = false;
+      #log.level = "debug";
       server_url = "https://${domain}";
       dns = {
         base_domain = "hs.${config.vars.baseDomain}";
         nameservers.global = [ "1.1.1.1" ];
         magic_dns = false;
       };
-      log.level = "debug";
+
+      derp = {
+        stun_listen_addr = "0.0.0.0:${builtins.toString cfg.derpPort}";
+      };
+      policy.mode = "database";
 
       oidc = lib.mkIf config.vars.authcfg.enable {
         only_start_if_oidc_is_available = true;

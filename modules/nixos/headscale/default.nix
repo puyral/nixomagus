@@ -34,18 +34,13 @@ in
       };
       autoStart = true;
       ephemeral = true;
-      # forwardPorts = [
-      #   {
-      #     containerPort = 8080;
-      #     hostPort = 8080;
-      #     protocol = "tcp";
-      #   }
-      #   {
-      #     containerPort = 8080;
-      #     hostPort = 8080;
-      #     protocol = "udp";
-      #   }
-      # ];
+      forwardPorts = [
+        {
+          containerPort = cfg.derpPort;
+          hostPort = cfg.derpPort;
+          protocol = "udp";
+        }
+      ];
       config =
         { ... }:
         {

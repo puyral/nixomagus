@@ -9,6 +9,10 @@
     extraDomain = mkOption {
       type = types.str;
     };
+    derpPort = mkOption {
+      type = types.port;
+      default = 3478;
+    };
     headscale = {
       port = mkOption {
         type = types.port;
