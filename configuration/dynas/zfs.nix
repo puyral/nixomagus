@@ -8,7 +8,7 @@
     supportedFilesystems = [ "zfs" ];
     zfs = {
       extraPools = [ "Zeno" ];
-      # forceImportRoot = false;
+      forceImportRoot = true;
     };
     kernel.sysctl = {
       "vfs.zfs.l2arc_rebuild_enabled" = 1;
