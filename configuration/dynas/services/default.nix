@@ -60,9 +60,10 @@
       enable = true;
       disks = [
         # boot
-        "ata-INTENSO_SSD_1642403001004929"
-        "ata-INTENSO_SSD_1642403001012229"
-        "wwn-0x500a0751e608b583" # spare
+        "nvme-SAMSUNG_MZVLB256HAHQ-00000_S444NB0K507384"
+        #"ata-INTENSO_SSD_1642403001004929" # dead
+        #"ata-INTENSO_SSD_1642403001012229" # dead
+        #"wwn-0x500a0751e608b583" # spare # unplugged because useless
 
         # other
         "nvme-eui.0025385991b0d6e9" # l2arc
