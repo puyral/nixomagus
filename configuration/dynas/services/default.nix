@@ -37,6 +37,7 @@
       containered = true;
       transmission = false;
       rtorrent = true;
+      downloadDir = "/mnt/Zeno/other/downloads";
     };
 
     calibre-web = {
