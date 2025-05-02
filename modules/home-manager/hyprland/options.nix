@@ -31,10 +31,5 @@ with lib;
       type = types.attrs;
       default = { };
     };
-    defaultMonitor = mkOption {
-      type = types.nullOr types.str;
-      example = "HDMI-A-2";
-      default = null;
-    };
   };
 }

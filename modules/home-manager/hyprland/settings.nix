@@ -3,6 +3,7 @@
   mconfig,
   config,
   pkgs,
+  mlib,
   ...
 }:
 let
@@ -29,13 +30,14 @@ let
     r = "l";
   };
   monitor-cfg = config.extra.hyprland.monitors;
-  defaultMonitor =
-    if config.extra.hyprland.defaultMonitor == null then
-      (with builtins; (elemAt (elemAt monitor-cfg 0) 0))
-    else
-      config.extra.hyprland.defaultMonitor;
+  # defaultMonitor =
+  #   if config.extra.hyprland.defaultMonitor == null then
+  #     (with builtins; (elemAt (elemAt monitor-cfg 0) 0))
+  #   else
+  #     config.extra.hyprland.defaultMonitor;
   alacritty_float_class = "alacritty_float";
   toogle_fs_script = pkgs.callPackage ./scripts/toogle_fs.nix { };
+  cfg = config.extra.hyprland;
 in
 {
   exec-once = [
@@ -414,26 +416,33 @@ in
     in
     map mbind (basics ++ terminals ++ launcher ++ powerManagement ++ movements ++ workspaces);
 
-  workspace =
+  workspace = # for i in 1..=10 -> map n*10 + i to the nth monitor
     let
-      inner =
-        { name, value }:
-        # if name == "name" && builtins.isInt value then builtins.toString value else
-        "${name}:${builtins.toString value}";
+      activeMonitors = with builtins; filter (m: !(elem "disable" m)) cfg.monitors;
+      monitors = with builtins; map head activeMonitors;
+      idx = lib.range 1 10;
+
+      mkListOne =
+        id: m:
+        map (i: {
+          name = 10 * id + i;
+          value = m;
+        }) idx;
+      mkLists = lib.imap0 mkListOne monitors;
+      baseList = builtins.concatLists mkLists;
+
+      generateOne = { name, value }: "${name}:${builtins.toString value}";
       generate =
         attrs:
         let
           as_list = lib.attrsToList attrs;
-          preprocessed = map inner as_list;
+          preprocessed = map generateOne as_list;
         in
         (builtins.concatStringsSep ",") preprocessed;
+
+      extras = [ ];
     in
-    map generate [
-      {
-        name = 1;
-        monitor = defaultMonitor;
-      }
-    ];
+    map generate (baseList ++ extras);
 
   windowrule =
     with builtins;
