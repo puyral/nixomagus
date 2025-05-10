@@ -26,6 +26,7 @@
         gnupg
         vim
         htop
+        gitui
         # nbstripout # for jupyter notebooks. This way I can support all of them
 
         # docker
