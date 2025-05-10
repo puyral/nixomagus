@@ -23,9 +23,13 @@ in
         "alacritty.desktop"
       ];
     };
-    home.packages =
+    home.packages = let
+      darktable = pkgs-unstable.darktable.override{ stdenv = pkgs-unstable.clangStdenv; };
+    
+     in
       [
         custom.rnote
+        darktable
       ]
 
       ++ (with pkgs-stable; [
@@ -95,7 +99,6 @@ in
 
         nemo-with-extensions
 
-        darktable
       ])
       ++ (with pkgs-unstable; [
       ])
