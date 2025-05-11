@@ -57,6 +57,9 @@ in
     programs.fzf = {
       enable = true;
       enableZshIntegration = true;
+      tmux = lib.mkIf config.extra.tmux.enable {
+        enableShellIntegration = true;
+      };
     };
 
     programs.zoxide = {
