@@ -120,7 +120,7 @@
     wget
     htop
     git
-    tmux
+    # tmux
     usbutils
   ];
 

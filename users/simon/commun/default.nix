@@ -15,6 +15,7 @@
     shell.enable = lib.mkDefault true;
     zsh.enable = lib.mkDefault true;
     ssh.enable = lib.mkDefault true;
+    tmux.enable = lib.mkDefault true;
   };
 
   # This value determines the Home Manager release that your configuration is

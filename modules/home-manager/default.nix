@@ -16,5 +16,6 @@
     ./git-config-fetcher
     ./generate-jpgs
     ./xkb
+    ./yazi
   ];
 }
