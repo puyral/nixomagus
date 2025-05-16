@@ -1,7 +1,8 @@
-{ mkShell, pkgs, ... }:
+{ mkShell, rustPlatform,  cargo, clippy, cargo-expand, rust-analyzer, z3, ... }:
 mkShell {
   name = "config";
-  buildInputs = with pkgs; [
+  RUST_SRC_PATH = "${rustPlatform.rustLibSrc}";
+  buildInputs = [
     cargo
     clippy
     cargo-expand
