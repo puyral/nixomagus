@@ -10,10 +10,11 @@
       mtu = 9000;
       ipv4.addresses = [
         {
-          addresse = "192.168.1.3";
+          address = "192.168.1.3";
           prefixLength = 24;
         }
       ];
+      ipv6.addresses = [];
     };
   };
   systemd.services.NetworkManager-wait-online.enable = false;

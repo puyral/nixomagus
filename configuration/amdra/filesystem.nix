@@ -10,7 +10,7 @@ let
   dynas-config = self.nixosConfigurations.dynas.config;
   dynas-10g = dynas-config.vars.fastNetworkInterface;
   dynas-interfaces = dynas-config.networking.interfaces;
-  dynas-ip = (builtins.head dynas-interfaces.${dynas-10g}.ipv4.address).address;
+  dynas-ip = (builtins.head dynas-interfaces.${dynas-10g}.ipv4.addresses).address;
 in
 {
   imports = [ ../commun/filesystem.nix ];
