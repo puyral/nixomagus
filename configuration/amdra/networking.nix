@@ -6,15 +6,15 @@
     };
     enp15s0 = {
       wakeOnLan.enable = true;
-      useDHCP = false;
-      mtu = 9000;
-      ipv4.addresses = [
-        {
-          address = "192.168.1.3";
-          prefixLength = 24;
-        }
-      ];
-      ipv6.addresses = [];
+      useDHCP = true;
+      # mtu = 9000;
+      # ipv4.addresses = [
+      #   {
+      #     address = "192.168.1.3";
+      #     prefixLength = 24;
+      #   }
+      # ];
+      # ipv6.addresses = [];
     };
   };
   systemd.services.NetworkManager-wait-online.enable = false;
