@@ -3,8 +3,15 @@
   lib,
   pkgs,
   modulesPath,
+  self,
   ...
 }:
+let
+  dynas-config = self.nixosConfigurations.dynas.config;
+  dynas-10g = dynas-config.vars.fastNetworkInterface;
+  dynas-interfaces = dynas-config.networking.interfaces;
+  dynas-ip = (builtins.head dynas-interfaces.${dynas-10g}.ipv4.address).address;
+in
 {
   imports = [ ../commun/filesystem.nix ];
 
@@ -12,7 +19,7 @@
   fileSystems =
     let
       zeno = {
-        device = "192.168.0.2:/mnt/Zeno";
+        device = "${dynas-ip}:/mnt/Zeno";
         fsType = "nfs";
         options = [
           "x-systemd.automount"
