@@ -1,4 +1,12 @@
-{pkgs, config,  lib, ...}: let cfg = config.extra.tmux; in
+{
+  pkgs,
+  config,
+  lib,
+  ...
+}:
+let
+  cfg = config.extra.tmux;
+in
 {
   options.extra.tmux = with lib; {
     enable = mkEnableOption "tmux";

@@ -11,7 +11,7 @@
 let
   configFile =
     if gen-config == null then "" else writeText "config.json" (builtins.toJSON gen-config);
-    mdarktable = darktable.override{ stdenv = clangStdenv; };
+  mdarktable = darktable.override { stdenv = clangStdenv; };
 in
 # configFile = writeText "";
 writeShellApplication {

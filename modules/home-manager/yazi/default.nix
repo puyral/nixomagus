@@ -1,4 +1,13 @@
-{lib, config, pkgs, ...}: let cfg = config.extra.yazi; in {
+{
+  lib,
+  config,
+  pkgs,
+  ...
+}:
+let
+  cfg = config.extra.yazi;
+in
+{
   options.extra.yazi = with lib; {
     enable = mkEnableOption "yazi";
   };
@@ -8,7 +17,7 @@
       enable = true;
       enableZshIntegration = true;
     };
-    home.packages = with pkgs; [ueberzugpp];
+    home.packages = with pkgs; [ ueberzugpp ];
 
     programs.tmux.extraConfig = ''
       set -g allow-passthrough on

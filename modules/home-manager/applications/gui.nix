@@ -23,10 +23,11 @@ in
         "alacritty.desktop"
       ];
     };
-    home.packages = let
-      darktable = pkgs-unstable.darktable.override{ stdenv = pkgs-unstable.clangStdenv; };
-    
-     in
+    home.packages =
+      let
+        darktable = pkgs-unstable.darktable.override { stdenv = pkgs-unstable.clangStdenv; };
+
+      in
       [
         custom.rnote
         darktable
