@@ -165,7 +165,7 @@
   nix.buildMachines = [
     # vampire
     {
-      hostName = "root@100.111.36.99";
+      hostName = "root@100.64.0.16";
       system = "x86_64-linux";
       sshKey = "/home/simon/.ssh/id_ed25519";
       supportedFeatures = [
@@ -185,7 +185,7 @@
       supportedFeatures = [
         "nixos-test"
         "benchmark"
-        #  "big-parallel"
+        "big-parallel"
         "kvm"
       ];
       maxJobs = 2;
