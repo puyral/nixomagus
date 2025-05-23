@@ -34,7 +34,7 @@ in
       services.tailscale = {
         enable = true;
         openFirewall = true;
-        useRoutingFeatures = lib.mkIf cfg.exitNode.enable "server";
+        useRoutingFeatures = if cfg.exitNode.enable then "server" else "client";
       };
       networking.firewall.trustedInterfaces = lib.mkIf cfg.trustVPN [ tsinterface ];
 
