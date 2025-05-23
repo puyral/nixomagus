@@ -2,13 +2,13 @@
   description = "Nix configuration";
 
   inputs = {
-    nixpkgs-stable.url = "nixpkgs/nixos-24.11";
+    nixpkgs-stable.url = "nixpkgs/nixos-25.05";
     nixpkgs-unstable.url = "nixpkgs/nixos-unstable";
 
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";
 
     home-manager = {
-      url = "github:nix-community/home-manager"; # /release-24.11";
+      url = "github:nix-community/home-manager"; # /release-25.05";
       inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
     # nix-std.url = "github:chessai/nix-std"; # https://github.com/chessai/nix-std
