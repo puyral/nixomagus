@@ -1,4 +1,13 @@
-{ mkShell, rustPlatform,  cargo, clippy, cargo-expand, rust-analyzer, z3, ... }:
+{
+  mkShell,
+  rustPlatform,
+  cargo,
+  clippy,
+  cargo-expand,
+  rust-analyzer,
+  z3,
+  ...
+}:
 mkShell {
   name = "config";
   RUST_SRC_PATH = "${rustPlatform.rustLibSrc}";

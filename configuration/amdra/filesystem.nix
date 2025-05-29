@@ -8,7 +8,7 @@
 }:
 let
   dynas-config = self.nixosConfigurations.dynas.config;
-  dynas-ip =  dynas-config.vars.fastIp;
+  dynas-ip = dynas-config.vars.fastIp;
 in
 {
   imports = [ ../commun/filesystem.nix ];

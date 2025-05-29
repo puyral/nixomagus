@@ -28,7 +28,13 @@ in
       systemd.enable = true;
       # enableNvidiaPatches = true;
 
-      settings = (import ./settings.nix attrs) // cfg.extraSettings;
+      plugins = with pkgs.hyprlandPlugins; [
+        # hy3
+        hypr-dynamic-cursors
+        # hyprtrails
+      ];
+
+      settings = (import ./settings.nix (attrs // { i3 = false; })) // cfg.extraSettings;
       # extraConfig = ''
       #   input.kb_file = ${./layout.xkb};
       # '';
