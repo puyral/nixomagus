@@ -230,7 +230,7 @@ in
             [
               (mod+ctrl+alt)
               "left"
-              "moveintogroun"
+              "moveintogroup"
               "left"
             ]
             [
