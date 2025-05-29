@@ -11,10 +11,7 @@ attrs@{ config, ... }:
     settings = {
       default_redirection_url = "https://${url}";
       theme = "auto";
-      server = {
-        host = "0.0.0.0";
-        inherit port;
-      };
+      address = "0.0.0.0:${builtins.toString port}";
 
       log = {
         level = "debug";

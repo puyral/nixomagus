@@ -13,7 +13,7 @@
     default = { };
   };
   config = {
-    nixpkgs.config = {
+    nixpkgs.config = lib.mkIf (!is_nixos) {
       allowUnfree = _: true;
     };
     home = lib.mkIf (!is_nixos) {
