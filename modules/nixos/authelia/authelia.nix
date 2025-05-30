@@ -11,8 +11,7 @@ attrs@{ config, ... }:
     settings = {
       default_redirection_url = "https://${url}";
       theme = "auto";
-      serrver.address = "0.0.0.0:${builtins.toString port}";
-
+      server.address = "0.0.0.0:${builtins.toString port}";
       log = {
         level = "debug";
         format = "text";
