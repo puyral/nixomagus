@@ -23,7 +23,7 @@
     splash_screen.enable = false;
     v4l2loopback.enable = true;
     # keyboard.enable = true;
-    cache.substituter = true;
+    cache.substituter = false;
     controllers.nintendo.enable = true;
     virtualisation = {
       enable = true;
