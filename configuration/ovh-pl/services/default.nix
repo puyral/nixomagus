@@ -9,7 +9,7 @@
       enable = true;
       baseDomain = "puyral.fr";
       # docker.enable = true;
-      log.level = "DEBUG";
+      # log.level = "DEBUG";
       instances = self.nixosConfigurations.dynas.config.networking.traefik.instances;
     };
   };
