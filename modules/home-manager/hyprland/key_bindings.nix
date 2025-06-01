@@ -228,13 +228,13 @@ in
               "f"
             ]
             [
-              (mod+ctrl+alt)
+              (mod + ctrl + alt)
               "left"
               "moveintogroup"
               "left"
             ]
             [
-              (mod+ctrl+alt)
+              (mod + ctrl + alt)
               "right"
               "moveintogroup"
               "right"

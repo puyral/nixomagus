@@ -2,7 +2,10 @@
 let
   photos = "${config.vars.Zeno.mountPoint}/media/photos/exports/complete";
   videos = "${config.vars.Zeno.mountPoint}/media/photos/video_clips";
-  providers = [ "ovh-pl" "dynas" ];
+  providers = [
+    "ovh-pl"
+    "dynas"
+  ];
 in
 {
   extra = {
