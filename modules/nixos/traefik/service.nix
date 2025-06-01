@@ -10,6 +10,11 @@ in
   ];
 
   config = {
+    sops.secrets.ovh = {
+      sopsFile = ./secrets-sops/ovh.env;
+      owner = "traefik";
+      format = "dotenv";
+    };
     users.groups.traefik = mkIf cfg.enable { members = [ "root" ]; };
     users.users.traefik = mkIf cfg.enable {
       extraGroups = [
@@ -21,7 +26,7 @@ in
       enable = true;
       dataDir = "${config.params.locations.containers}/traefik";
       group = "traefik";
-      environmentFiles = [ ./secrets/ovh.env ];
+      environmentFiles = [ config.sops.secrets.ovh.path ];
     };
 
   };
