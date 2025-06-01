@@ -82,8 +82,8 @@ in
           inherit port;
           name = cfg.subdomain;
           enable = true;
-          providers = cfg.providers;
-          address = "100.64.0.8";
+          #providers = cfg.providers;
+          #address = "100.64.0.8";
         }
       ];
     };
