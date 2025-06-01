@@ -1,5 +1,8 @@
-{ pkgs, ... }:
+{ pkgs, config, ... }:
 {
+  sops.secrets.github-token = {
+    sopsFile = ./secrets-sops/token.yaml;
+  };
   extra.github-runners = {
     enable = true;
     runners = {
@@ -10,7 +13,7 @@
         {
           enable = true;
           url = "https://github.com/puyral/nixomagus";
-          tokenFile = ./secrets/auto-config-token;
+          tokenFile = config.sops.secrets.github-token.path;
           name = "dynas";
           extraPackages = [
             git-crypt-unlocker

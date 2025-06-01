@@ -53,7 +53,7 @@
     networkmanager = {
       enable = true; # Easiest to use and most distros use this by default.
 
-      insertNameservers = [ "1.1.1.1" ];
+      # insertNameservers = [ "1.1.1.1" ];
     };
   };
 

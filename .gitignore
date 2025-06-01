@@ -6,3 +6,4 @@ syncthing
 .direnv
 **/*.swp
 **/._*
+**/.decrypted*

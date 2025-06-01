@@ -1,0 +1,37 @@
+github-token: ENC[AES256_GCM,data:e91+hWRPKgUYa75p/SHW43if0tGjsDd0Z+uxt5o=,iv:s7P03MveNAA+UkVJVO5thg0MNI463ZCL/uikYTgcM4Y=,tag:oXuVBMotlnEKfsvVrD5VCg==,type:str]
+sops:
+    age:
+        - recipient: age16dzl2wd0c3qsr7rfs30v5f73xrshpxp9feu9zf5szv7yznma8cuqfcq9zy
+          enc: |
+            -----BEGIN AGE ENCRYPTED FILE-----
+            YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSBEa1puWE53SlE1U1lpNC9t
+            cWN0QzdkUmQ4Nmlab3NWSXZIMy9GL3Q5UzNvCldyMmloWVBRVlpuMzBXcGhDMnVr
+            WDV0NU9BVCt5UlY2RmlQbW9WRnRSUzgKLS0tIG84T3RVZUY3VWhiVkcyZloyd20y
+            SEVBSDVHSFVOcStIT280eWJMUHFjaWsKtB54mhDO0hc9JGviWqj/z9PCsiAbDosH
+            ZcobUvg3WDRTlqSqIa7x84g1bUr74l2fzPrLV33BNyBYn3EmjYwd1A==
+            -----END AGE ENCRYPTED FILE-----
+        - recipient: age1hqxy0a6je6t6xd6gldex29pjeacs47f2s683jy87kf3c9agm3q9sk4f996
+          enc: |
+            -----BEGIN AGE ENCRYPTED FILE-----
+            YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSBSbm9zUXJ5eWlJUUhiVllk
+            Zjl3WmxKdjVET3gzdkJsNDFmK1VNYXN3OFhNClo3aFA5QUpyWG5idEpNaHNJUXlN
+            cnZ1bTd6Uzl5NjhaL2pSdnVFdVlla0EKLS0tIGZZZWdqWVVFS0FXQ1NMUDJnRzAw
+            YkVRS29WV2luRmZLTUZJQmh6UnJjZEUKVOobIeDpmNPpKMC0HGGSHRcQq+Ubg0Kd
+            P1po/OrCUHkEQED9i9RSsCZN72qzJVkEdtJaKmDWTO0RcDvcxwknfA==
+            -----END AGE ENCRYPTED FILE-----
+    lastmodified: "2025-06-01T08:26:06Z"
+    mac: ENC[AES256_GCM,data:uUeCxZgp9iAucZE9dM1cRH6fbgeERapR64A2M0gdOp+93WgMCoGUMC7FcA9ybGGWGMJUpKdg1EMiXQACJvCe3Bgelro4l0NQWUNJiD5oKIsOW6bXgdJmZOenAT/4FY6+t8CnDgIF3Pms+Sw5VYQpM/d/pwhhjS/Tluo93CDqZX8=,iv:uUiEGSxhduV2yAOTN6sXkXRfhnrKrS405DBbcPOSabE=,tag:R+lftgkx6OmokT+wdlJMqA==,type:str]
+    pgp:
+        - created_at: "2025-06-01T08:21:42Z"
+          enc: |-
+            -----BEGIN PGP MESSAGE-----
+
+            hF4D9e5s8S4D4aoSAQdADLM03Tw/+gw4nrnGuwoOJ5YC80zmKL8d9Qdi43S3wlww
+            z5k69FdLHXUhomnRutGUh9jZqNyV/aHTqW9rOdFwy/9sPkpL1BBPBy3mululdpx3
+            0l4BVd69rKTEVWnrWcPTMzfuFxxVz8qbySw3nEsCwce/wFnDEVwQP1SX7LA2IVox
+            SNMktPnH34TRHraBp7K28wLjh4QprcHyATw013/WuhnSkWewPmLtER0r31Kh9Be9
+            =X6bd
+            -----END PGP MESSAGE-----
+          fp: 1E96E80F8B44B1242EB2645A2F89AA8206299121
+    unencrypted_suffix: _unencrypted
+    version: 3.10.2

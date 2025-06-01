@@ -6,6 +6,7 @@ attrs@{
   nixpkgs,
   custom,
   self,
+  sops-nix,
   # paperless-nixpkgs,
   ...
 }:
@@ -71,7 +72,10 @@ rec {
   mkHome =
     inputs@{ computer, user }:
     home-manager.lib.homeManagerConfiguration {
-      modules = [ ((import (rootDir + /home_manager.nix)) user) ];
+      modules = [
+        ((import (rootDir + /home_manager.nix)) user)
+        sops-nix.homeManagerModules.sops
+      ];
       pkgs = (mkpkgs computer.system).pkgs;
       extraSpecialArgs = (mkExtraArgs inputs) // {
         inherit computer;
@@ -93,6 +97,9 @@ rec {
             inherit computer;
             is_nixos = true;
           };
+          sharedModules = [
+            sops-nix.homeManagerModules.sops
+          ];
           users = builtins.listToAttrs usersAndModules;
         };
       };
@@ -102,7 +109,7 @@ rec {
       specialArgs = attrs // mkExtraArgs inputs;
       system = computer.system;
       modules = [
-        # ../extensions/isw
+        sops-nix.nixosModules.sops
         (rootDir + /modules/nixos)
         (rootDir + /configuration/commun)
         (rootDir + /configuration + "/${computer.name}")

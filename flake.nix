@@ -47,6 +47,11 @@
         nixpkgs.follows = "nixpkgs-unstable";
       };
     };
+
+    sops-nix = {
+      url = "github:Mic92/sops-nix";
+      inputs.nixpkgs.follows = "nixpkgs-unstable";
+    };
   };
 
   outputs =
@@ -56,6 +61,7 @@
       nixpkgs-unstable,
       nixpkgs-stable,
       turboprint-nix,
+      sops-nix,
       ...
     }@attrs:
     let
@@ -97,7 +103,10 @@
               name = mkName file;
               value = pkgs.callPackage ./${dir}/${file} pkgsArgs;
             }) files
-          );
+          )
+          // {
+            sops-nix = sops-nix.packages.${system}.default;
+          };
       in
       {
         inherit devShells packages;
