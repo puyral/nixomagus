@@ -178,7 +178,7 @@
           path = "/mnt/Zeno/media/photos/exports/complete";
         };
       };
-      extraDevices = [ "poco-f6" ];
+      extraDevices = [ ];
     };
   };
 }
