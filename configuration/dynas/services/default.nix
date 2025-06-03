@@ -68,7 +68,7 @@
 
         # other
         "nvme-eui.0025385991b0d6e9" # l2arc
-        "nvme-eui.5cd2e4e8e6520100" # optane
+        # "nvme-eui.5cd2e4e8e6520100" # optane
 
         # Toshiba 3TB
         "wwn-0x5000039fc0c49a69"
