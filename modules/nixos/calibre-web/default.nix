@@ -48,7 +48,7 @@ in
         };
       };
       autoStart = true;
-      ephemeral = true;
+      ephemeral = false;
       config =
         { ... }:
         {
