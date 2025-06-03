@@ -9,20 +9,20 @@ in
     ./dynamic
   ];
 
-  config = {
+  config = mkIf cfg.enable {
     sops.secrets.ovh = {
       sopsFile = ./secrets-sops/ovh.env;
       owner = "traefik";
       format = "dotenv";
     };
-    users.groups.traefik = mkIf cfg.enable { members = [ "root" ]; };
-    users.users.traefik = mkIf cfg.enable {
+    users.groups.traefik =  { members = [ "root" ]; };
+    users.users.traefik = {
       extraGroups = [
         "traefik"
         "docker"
       ];
     };
-    services.traefik = mkIf cfg.enable {
+    services.traefik = {
       enable = true;
       dataDir = "${config.params.locations.containers}/traefik";
       group = "traefik";
