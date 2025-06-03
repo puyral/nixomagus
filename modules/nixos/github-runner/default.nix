@@ -41,12 +41,20 @@ in
   };
   config = lib.mkIf enable {
     containers.${name} = {
+      bindMounts = {
+        "/token" = {
+          hostPath = cfg.tokenFile;
+          isReadOnly = true;
+        };
+      };
       autoStart = true;
       ephemeral = false;
       config =
         { ... }:
         {
-          services.github-runners = cfg.runners;
+          services.github-runners = cfg.runners // {
+            tokenFile = "/token";
+          };
         };
     };
     extra.containers.${name} = {

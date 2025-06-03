@@ -172,7 +172,7 @@ rec {
         mlib
         extra-pkgs
         pkgs-self
-        pkgs-rapid-photo-downloader 
+        pkgs-rapid-photo-downloader
         ;
     };
 
