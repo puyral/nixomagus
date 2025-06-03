@@ -40,23 +40,31 @@ in
     };
   };
   config = lib.mkIf enable {
-    containers.${name} = {
-      bindMounts = {
-        "/token" = {
-          hostPath = cfg.tokenFile;
-          isReadOnly = true;
-        };
-      };
-      autoStart = true;
-      ephemeral = false;
-      config =
-        { ... }:
-        {
-          services.github-runners = cfg.runners // {
-            tokenFile = "/token";
+    containers.${name} =
+      let
+        mkTokenFile = name: "/run/secrets/github-runner/${name}.token";
+        mkBindMounts =
+          name:
+          { tokenFile, ... }:
+          {
+            name = mkTokenFile name;
+            value = {
+              hostPath = tokenFile;
+              isReadOnly = true;
+            };
           };
-        };
-    };
+        mkRunnerConfig = name: cfg: cfg // { tokenFile = mkTokenFile name; };
+      in
+      {
+        bindMounts = lib.mapAttrs' mkBindMounts cfg.runners;
+        autoStart = true;
+        ephemeral = false;
+        config =
+          { ... }:
+          {
+            services.github-runners = lib.mapAttrs mkRunnerConfig cfg.runners;
+          };
+      };
     extra.containers.${name} = {
       privateNetwork = false;
     };
