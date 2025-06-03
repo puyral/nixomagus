@@ -5,6 +5,8 @@
     nixpkgs-stable.url = "nixpkgs/nixos-25.05";
     nixpkgs-unstable.url = "nixpkgs/nixos-unstable";
 
+    nixpkgs-rapid-photo-downloader.url = "nixpkgs/b000159bba69b0106a42f65e52dbf27f77aca9d3";
+
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";
 
     home-manager = {

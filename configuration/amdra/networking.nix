@@ -1,5 +1,6 @@
 { ... }:
 {
+  services.cloudflare-warp.enable = true;
   networking.interfaces = {
     enp10s0 = {
       wakeOnLan.enable = true;

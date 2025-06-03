@@ -5,6 +5,7 @@
   pkgs-unstable,
   pkgs-stable,
   custom,
+  pkgs-rapid-photo-downloader,
   xp-pen-pentablet,
   ...
 }:
@@ -45,6 +46,7 @@ in
 
         #logseq
 
+        # pkgs-rapid-photo-downloader.rapid-photo-downloader
         rapid-photo-downloader
 
         youtube-music
@@ -98,8 +100,10 @@ in
         signal-desktop
         mattermost-desktop
 
-        nemo-with-extensions
-
+        nautilus
+        nautilus-open-any-terminal
+        sushi
+        code-nautilus
       ])
       ++ (with pkgs-unstable; [
       ])

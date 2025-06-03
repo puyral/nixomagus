@@ -8,6 +8,7 @@ attrs@{
   self,
   sops-nix,
   # paperless-nixpkgs,
+  nixpkgs-rapid-photo-downloader,
   ...
 }:
 rec {
@@ -142,6 +143,7 @@ rec {
       pkgs = aux nixpkgs;
       pkgs-stable = aux nixpkgs-stable;
       pkgs-unstable = aux nixpkgs-unstable;
+      pkgs-rapid-photo-downloader = aux nixpkgs-rapid-photo-downloader;
       extra-pkgs = pkgs.lib.mapAttrs (name: value: value.legacyPackages.${system}) {
         # inherit paperless-nixpkgs;
       };
@@ -155,6 +157,7 @@ rec {
       pkgs = pkgs-attr.pkgs;
       pkgs-stable = pkgs-attr.pkgs-stable;
       pkgs-unstable = pkgs-attr.pkgs-unstable;
+      pkgs-rapid-photo-downloader = pkgs-attr.pkgs-rapid-photo-downloader;
       extra-pkgs = pkgs-attr.extra-pkgs;
       pkgs-self = pkgs-attr.pkgs-self;
     in
@@ -169,6 +172,7 @@ rec {
         mlib
         extra-pkgs
         pkgs-self
+        pkgs-rapid-photo-downloader 
         ;
     };
 
