@@ -42,8 +42,6 @@ in
           "groups"
         ];
         allowed_groups = [ ];
-        strip_email_domain = true;
-
       };
     };
   };
