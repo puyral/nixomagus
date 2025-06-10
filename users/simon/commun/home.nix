@@ -26,7 +26,10 @@
         gnupg
         vim
         htop
-        gitui
+
+        # gitui
+        lazygit
+        lazysql
         # nbstripout # for jupyter notebooks. This way I can support all of them
 
         # docker
