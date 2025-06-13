@@ -15,7 +15,9 @@ in
       owner = "traefik";
       format = "dotenv";
     };
-    users.groups.traefik =  { members = [ "root" ]; };
+    users.groups.traefik = {
+      members = [ "root" ];
+    };
     users.users.traefik = {
       extraGroups = [
         "traefik"

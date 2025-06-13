@@ -35,7 +35,7 @@
       user = "simon";
       group = "torrent";
       containered = true;
-      transmission = false;
+      transmission = true;
       rtorrent = true;
       downloadDir = "/mnt/Zeno/other/downloads";
     };

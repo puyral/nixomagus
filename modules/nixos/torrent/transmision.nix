@@ -14,8 +14,8 @@ in
         enable = true;
         # home = "${dataDir}/transmission";
         settings = {
-          download-dir = "/downloads";
-          incomplete-dir = "/downloads";
+          download-dir = downloadDir;
+          incomplete-dir = downloadDir;
           incomplete-dir-enabled = false;
           rpc-bind-address = "0.0.0.0";
           # rpc-whitelist = "*.*.*.*";
@@ -25,8 +25,8 @@ in
         openFirewall = true;
         openRPCPort = true;
       }
-      // (if user == null then { } else { inherit user; })
-      // (if group == null then { } else { inherit group; })
+      // (if cfg.user == null then { } else { user = cfg.user; })
+      // (if cfg.group == null then { } else { group = cfg.group; })
     );
 
     # https://github.com/NixOS/nixpkgs/issues/258793
