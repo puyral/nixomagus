@@ -130,6 +130,10 @@ def main():
             if jpg in files:
                 logger.error(f"!!!!!!!!!!!!!!!!!!!!!!!!1\nerror on {jpg}, {xmp}")
                 exit(1)
+        except Exception as e:
+            print(f"error occured with {jpg}:\n{e}\n, skipping")
+            files.discard(jpg)
+            continue
 
         todo.append(run_dt(quality, file, xmp, jpg))
     
