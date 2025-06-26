@@ -28,6 +28,10 @@ in
           hostPath = "${cfg.dataDir}/transmission";
           isReadOnly = false;
         };
+        "/var/lib/flood" = {
+          hostPath = "${cfg.dataDir}/flood";
+          isReadOnly = false;
+        };
       };
       autoStart = true;
       ephemeral = true;
@@ -69,7 +73,7 @@ in
     extra.containers.torrent = {
       traefik = [
         {
-          port = 80;
+          port = 3000;
           enable = true;
           name = "rutorrent";
         }

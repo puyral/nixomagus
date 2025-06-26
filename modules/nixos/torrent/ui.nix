@@ -9,10 +9,28 @@ let
 in
 {
   config = {
+    systemd.services.flood = lib.mkIf (cfg.enable && !cfg.containered && cfg.rtorrent) {
+      # otherwise the mapping of directories doesn't work
+      serviceConfig = {
+        DynamicUser = lib.mkForce false;
+        BindPaths = "/run/rtorrent";
+        User = "simon";
+
+      };
+    };
+
     services = lib.mkIf (cfg.enable && !cfg.containered && cfg.rtorrent) {
+      flood = {
+        enable = true;
+        #extraArgs = [''--rundir="${cfg.dataDir}/flood"''];
+        port = 3000;
+        openFirewall = true;
+        host = "0.0.0.0";
+      };
+
       rutorrent = {
         # package = pkgs-unstable.rutorrent;
-        enable = true;
+        enable = false;
         hostName = "0.0.0.0";
         dataDir = "${cfg.dataDir}/rutorrent";
         nginx = {
