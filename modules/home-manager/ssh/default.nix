@@ -27,31 +27,14 @@ in
 
         programs.ssh =
           let
-            vampire-ip = "100.111.36.99";
-            nixomagus-ip = "100.106.190.9";
-            amdra-ip = "100.84.31.85";
+            ips = import ./secrets/ip.nix;
           in
           {
             enable = true;
-            matchBlocks = {
-              dynas = {
-                hostname = "dynas.puyral.fr";
-              };
-              vampire = {
-                hostname = vampire-ip;
-              };
+            matchBlocks = (lib.mapAttrs (_: ip: { hostname = ip; }) ips) // {
               "vampire-root" = {
-                hostname = vampire-ip;
+                hostname = ips.vampire;
                 user = "root";
-              };
-              nixomagus = {
-                hostname = nixomagus-ip;
-              };
-              amdra = {
-                hostname = amdra-ip;
-              };
-              ovh-pl = {
-                hostname = "ovh-pl.puyral.fr";
               };
             };
           };
