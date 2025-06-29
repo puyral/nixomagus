@@ -73,7 +73,7 @@ in
     extra.containers.torrent = {
       traefik = [
         {
-          port = 3000;
+          port = 80;
           enable = true;
           name = "rutorrent";
         }

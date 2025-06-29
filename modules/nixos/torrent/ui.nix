@@ -6,10 +6,12 @@
 }:
 let
   cfg = config.extra.torrent;
+  flood = false;
+  rtorrent = !flood;
 in
 {
   config = {
-    systemd.services.flood = lib.mkIf (cfg.enable && !cfg.containered && cfg.rtorrent) {
+    systemd.services.flood = lib.mkIf (flood && cfg.enable && !cfg.containered && cfg.rtorrent) {
       # otherwise the mapping of directories doesn't work
       serviceConfig = {
         DynamicUser = lib.mkForce false;
@@ -20,17 +22,17 @@ in
     };
 
     services = lib.mkIf (cfg.enable && !cfg.containered && cfg.rtorrent) {
-      flood = {
-        enable = true;
+      flood = lib.mkIf flood {
+        enable = flood;
         #extraArgs = [''--rundir="${cfg.dataDir}/flood"''];
         port = 3000;
         openFirewall = true;
         host = "0.0.0.0";
       };
 
-      rutorrent = {
+      rutorrent = lib.mkIf rtorrent {
         # package = pkgs-unstable.rutorrent;
-        enable = false;
+        enable = rtorrent;
         hostName = "0.0.0.0";
         dataDir = "${cfg.dataDir}/rutorrent";
         nginx = {
