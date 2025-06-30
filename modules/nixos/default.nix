@@ -36,6 +36,7 @@ in
     ./authelia
     ./tailscale-exit-container
     ./sops
+    ./gui
     # ./keyboard
   ] ++ eimports;
 
