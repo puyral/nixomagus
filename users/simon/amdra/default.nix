@@ -54,7 +54,6 @@
       ++ (with pkgs; [
         nvtopPackages.amd
         kitty
-        gparted
         vampire
         hugin
       ])

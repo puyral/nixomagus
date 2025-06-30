@@ -51,4 +51,6 @@
 
   hardware.opentabletdriver.enable = true;
   security.polkit.enable = true;
+
+  environment.systemPackages = with pkgs; [ gparted ];
 }
