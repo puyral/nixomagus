@@ -55,6 +55,15 @@ in
 
       };
 
+      "/mnt/Steam" = {
+        device = "/dev/disk/by-partuuid/0ad6e9a0-941c-4dcf-8d07-5bfe24091184";
+        fsType = "ext4";
+        options = [
+          "rw"
+          "nofail"
+        ];
+      };
+
       # "/mnt/Windows" = {
       #   device = "/dev/sda3";
       #   fsType = "ntfs-3g";
