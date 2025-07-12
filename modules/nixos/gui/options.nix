@@ -6,6 +6,7 @@ with lib;
     enable = mkEnableOption "gui";
     hyprland = mkEnableOption "hyprland";
     i3 = mkEnableOption "i3";
+    sway = mkEnableOption "sway";
     gnome = mkOption {
       description = "enable gnome";
       default = true;

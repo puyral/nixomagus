@@ -8,6 +8,7 @@
 # i3 config file (v4)
 #
 # Please see https://i3wm.org/docs/userguide.html for a complete reference!
+set $scripts ./path/to/scripts 
 
 set $mod Mod4
 set $alt Mod1
@@ -111,7 +112,7 @@ bindsym $mod+Up focus up
 bindsym $mod+Right focus right
 
 # move focused window
-bindsym $mod+Shift+h move left
+bindsym $mod+Shift+    count = genList (i: i) 10;h move left
 bindsym $mod+Shift+j move down
 bindsym $mod+Shift+k move up
 bindsym $mod+Shift+l move right
@@ -311,7 +312,7 @@ bindsym XF86AudioPlay exec --no-startup-id playerctl play-pause
 bindsym XF86AudioNext exec --no-startup-id playerctl next
 bindsym XF86AudioPrev exec --no-startup-id playerctl previous
 
-bindsym XF86Tools exec --no-startup-id -no-startup-id $terminal --command sh -c "ncmpcpp"; mode "default
+bindsym XF86Tools exec --no-startup-id -no-startup-id $terminal --command sh -c "ncmpcpp"; mode "default"
 
 bindsym Shift+XF86AudioRaiseVolume exec $vol_up_mpd
 bindsym $alt+Shift+XF86AudioRaiseVolume exec $vol_full_up_mpd

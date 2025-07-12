@@ -1,4 +1,4 @@
-{ ... }:
+{ lib, ... }:
 {
   imports = [
     ./zsh
@@ -18,5 +18,6 @@
     ./xkb
     ./tmux
     ./yazi
+    ./sway
   ];
 }

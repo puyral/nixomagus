@@ -10,6 +10,7 @@ in
     ./hyprland.nix
     ./apps.nix
     ./gnome.nix
+    ./sway.nix
   ];
 
   config = lib.mkIf cfg.enable {
