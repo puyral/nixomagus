@@ -15,10 +15,12 @@
     nixos-hardware.nixosModules.microsoft-surface-common
   ];
 
+  # microsoft-surface-surface-pro-intel
+
   # microsoft-surface.ipts.enable = true;
   # microsoft-surface.surface-control.enable = true;
-  services.iptsd.enable = true;
   environment.systemPackages = with pkgs; [ surface-control ];
+  hardware.opentabletdriver.enable = true;
 
   boot.initrd.availableKernelModules = [
     "xhci_pci"
