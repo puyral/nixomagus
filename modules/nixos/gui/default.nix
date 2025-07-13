@@ -1,4 +1,9 @@
-{ config, lib, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 let
   cfg = config.extra.gui;
 in
@@ -20,5 +25,16 @@ in
     services.gnome.gnome-keyring.enable = true;
 
     extra.printing.enable = true;
+
+    xdg.portal = {
+      enable = true;
+      xdgOpenUsePortal = true;
+      config = {
+        # common.default = [ "gtk"];
+      };
+      # extraPortals = with pkgs; [
+      #   xdg-desktop-portal-gtk
+      # ];
+    };
   };
 }

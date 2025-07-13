@@ -14,17 +14,19 @@ in
   imports = [
     ./options.nix
     ./config.nix
+    ./bar.nix
   ];
 
   config = mkIf cfg.enable {
     wayland.windowManager.sway = {
       enable = true;
+      package = pkgs.swayfx;
     };
 
     # Make sure the necessary packages are installed
     home.packages = with pkgs; [
-      sway
-      waybar # or i3status
+      swayfx
+      # waybar # or i3status
       # wofi
       alacritty
       flameshot
@@ -34,9 +36,9 @@ in
       mpc-cli
       pavucontrol
       dunst
-      unclutter
-      solaar
-      numlockx
+      # unclutter
+      # solaar
+      # numlockx
       # swaynag
       # Add any other packages you need
     ];

@@ -59,6 +59,5 @@
         hugin
       ])
       ++ (with pkgs-unstable; [ fastfetch ]);
-
   };
 }
