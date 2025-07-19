@@ -25,7 +25,7 @@ in
           "noauto"
           "nofail"
           "x-systemd.idle-timeout=60"
-          "fsc"
+          # "fsc"
         ];
       };
     in
