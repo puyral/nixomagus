@@ -30,11 +30,6 @@ in
       };
       enableCompletion = true;
 
-      # oh-my-zsh = {
-      #   enable = true;
-      #   plugins = [ "git" ];
-      # };
-
       plugins = [
         {
           name = "zsh-nix-shell";
@@ -72,11 +67,6 @@ in
       enable = true;
       enableZshIntegration = true;
     };
-
-    # programs.pay-respects = {
-    #   enable = true;
-    #   enableZshIntegration = true;
-    # };
 
     extra.gitConfigFetcher.enable = true;
 

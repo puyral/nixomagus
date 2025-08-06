@@ -18,6 +18,7 @@
     ./xkb
     ./tmux
     ./yazi
+    ./lazygit
     ./sway
   ];
 }

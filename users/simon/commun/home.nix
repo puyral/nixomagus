@@ -27,8 +27,6 @@
         vim
         htop
 
-        # gitui
-        lazygit
         lazysql
         # nbstripout # for jupyter notebooks. This way I can support all of them
 
