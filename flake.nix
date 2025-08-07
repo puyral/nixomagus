@@ -44,8 +44,10 @@
       };
     };
 
+    # see https://github.com/tale/headplane/pull/282
     headplane = {
-      url = "github:tale/headplane/v0.6.0";
+      # url = "github:tale/headplane/v0.6.0";
+      url = "github:tale/headplane/1ce0dc375e88b371110756a913b62d1e9d9cf679";
       inputs = {
         nixpkgs.follows = "nixpkgs-unstable";
       };
