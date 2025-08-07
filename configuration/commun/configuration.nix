@@ -13,6 +13,7 @@
   computer,
   mconfig,
   rootDir,
+  pkgs-libsoup-escape,
   ...
 }@attrs:
 # general modules that should be into nixos, in oppositions to modules that cleanly extend this config file
@@ -39,12 +40,6 @@
     memtest86.enable = true;
   };
   boot.loader.efi.canTouchEfiVariables = true;
-
-  nixpkgs.config.allowUnfree = true;
-  nix.settings.experimental-features = [
-    "nix-command"
-    "flakes"
-  ];
   networking = {
 
     hostName = computer_name; # Define your hostname.
@@ -202,6 +197,23 @@
     ];
   };
 
+  nixpkgs = {
+    overlays = [
+      (
+        final: prev: with pkgs-libsoup-escape; {
+          darktable = darktable;
+          geeqie = geeqie;
+        }
+      )
+    ];
+    config = {
+      allowUnfree = true;
+    };
+  };
+  nix.settings.experimental-features = [
+    "nix-command"
+    "flakes"
+  ];
   # Open ports in the firewall.
   # networking.firewall.allowedTCPPorts = [ ... ];
   # networking.firewall.allowedUDPPorts = [ ... ];

@@ -5,8 +5,6 @@
   pkgs-unstable,
   pkgs-stable,
   custom,
-  pkgs-rapid-photo-downloader,
-  xp-pen-pentablet,
   ...
 }:
 let
@@ -26,12 +24,12 @@ in
     };
     home.packages =
       let
-        darktable = pkgs-unstable.darktable.override { stdenv = pkgs-unstable.clangStdenv; };
+        # darktable = pkgs-unstable.darktable.override { stdenv = pkgs-unstable.clangStdenv; };
 
       in
       [
         custom.rnote
-        darktable
+        pkgs.darktable
       ]
 
       ++ (with pkgs-stable; [
@@ -46,7 +44,6 @@ in
 
         #logseq
 
-        # pkgs-rapid-photo-downloader.rapid-photo-downloader
         rapid-photo-downloader
 
         youtube-music
@@ -60,12 +57,11 @@ in
       ++ (with pkgs; [
         thunderbird
         vscode
-        # pavucontrol
         pwvucontrol
 
         kdePackages.okular
 
-        libsForQt5.xp-pen-g430-driver
+        xp-pen-g430-driver
         zotero
 
         emacs
@@ -74,7 +70,6 @@ in
         #davinci-resolve
         libsForQt5.kdenlive
         inkscape-with-extensions
-        # hugin # -> custom
         geeqie
         feh
         xpano
@@ -90,8 +85,6 @@ in
 
         # steam
         obsidian
-
-        #zoom-us
 
         jellyfin-media-player # see https://github.com/jellyfin/jellyfin-media-player/issues/165
 

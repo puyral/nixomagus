@@ -5,8 +5,8 @@
     nixpkgs-stable.url = "nixpkgs/nixos-25.05";
     nixpkgs-unstable.url = "nixpkgs/nixos-unstable";
 
-    nixpkgs-rapid-photo-downloader.url = "nixpkgs/b000159bba69b0106a42f65e52dbf27f77aca9d3";
-    nixpkgs-pinned-darktable.url = "nixpkgs/9807714d6944a957c2e036f84b0ff8caf9930bc0";
+    # https://github.com/NixOS/nixpkgs/pull/427813
+    nixpkgs-libsoup-escape.url = "nixpkgs/30e2e2857ba47844aa71991daa6ed1fc678bcbb7";
 
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";
 

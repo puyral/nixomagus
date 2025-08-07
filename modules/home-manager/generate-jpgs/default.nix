@@ -1,7 +1,6 @@
 {
   config,
   pkgs,
-  pkgs-unstable,
   lib,
   pkgs-self,
   ...
@@ -18,9 +17,13 @@ let
     use_flatpack = false;
     quality = 80;
     stateless = true;
-  } // cfg.extraConfig;
+  }
+  // cfg.extraConfig;
 
-  generate-jpgs = pkgs-self.generate-jpgs.override { inherit gen-config; };
+  generate-jpgs = pkgs-self.generate-jpgs.override {
+    inherit gen-config;
+    darktable = pkgs.darktable;
+  };
   name = "photos-generate-jpgs";
 in
 {
@@ -71,7 +74,8 @@ in
         #   "${cfg.locations.export}:${jpgsDir}"
         #   "${generate-jpgs}:${generate-jpgs}"
         # ];
-      } // cfg.extraServiceConfig;
+      }
+      // cfg.extraServiceConfig;
       Install.WantedBy = [ ]; # Optional: ensure the service can be started manually
     };
 
