@@ -9,6 +9,7 @@ attrs@{
   sops-nix,
   # paperless-nixpkgs,
   nixpkgs-rapid-photo-downloader,
+  nixpkgs-pinned-darktable,
   ...
 }:
 rec {
@@ -144,6 +145,7 @@ rec {
       pkgs-stable = aux nixpkgs-stable;
       pkgs-unstable = aux nixpkgs-unstable;
       pkgs-rapid-photo-downloader = aux nixpkgs-rapid-photo-downloader;
+      pkgs-pinned-darktable = aux nixpkgs-pinned-darktable;
       extra-pkgs = pkgs.lib.mapAttrs (name: value: value.legacyPackages.${system}) {
         # inherit paperless-nixpkgs;
       };
@@ -158,6 +160,7 @@ rec {
       pkgs-stable = pkgs-attr.pkgs-stable;
       pkgs-unstable = pkgs-attr.pkgs-unstable;
       pkgs-rapid-photo-downloader = pkgs-attr.pkgs-rapid-photo-downloader;
+      pkgs-pinned-darktable = pkgs-attr.nixpkgs-pinned-darktable;
       extra-pkgs = pkgs-attr.extra-pkgs;
       pkgs-self = pkgs-attr.pkgs-self;
     in
@@ -173,6 +176,7 @@ rec {
         extra-pkgs
         pkgs-self
         pkgs-rapid-photo-downloader
+        pkgs-pinned-darktable
         ;
     };
 

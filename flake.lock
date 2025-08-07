@@ -276,6 +276,21 @@
         "type": "github"
       }
     },
+    "nixpkgs-pinned-darktable": {
+      "locked": {
+        "lastModified": 1751984180,
+        "narHash": "sha256-LwWRsENAZJKUdD3SpLluwDmdXY9F45ZEgCb0X+xgOL0=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "9807714d6944a957c2e036f84b0ff8caf9930bc0",
+        "type": "github"
+      },
+      "original": {
+        "id": "nixpkgs",
+        "rev": "9807714d6944a957c2e036f84b0ff8caf9930bc0",
+        "type": "indirect"
+      }
+    },
     "nixpkgs-rapid-photo-downloader": {
       "locked": {
         "lastModified": 1745921652,
@@ -428,6 +443,7 @@
         "home-manager": "home-manager",
         "kmonad": "kmonad",
         "nixos-hardware": "nixos-hardware",
+        "nixpkgs-pinned-darktable": "nixpkgs-pinned-darktable",
         "nixpkgs-rapid-photo-downloader": "nixpkgs-rapid-photo-downloader",
         "nixpkgs-stable": "nixpkgs-stable",
         "nixpkgs-unstable": "nixpkgs-unstable",
