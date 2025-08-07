@@ -23,5 +23,8 @@ in
       opencl.enable = true;
     };
   };
+
+  services.ollama.acceleration = "rocm";
+
   vars = { inherit kernel; };
 }

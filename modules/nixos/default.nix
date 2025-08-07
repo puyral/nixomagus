@@ -37,8 +37,10 @@ in
     ./tailscale-exit-container
     ./sops
     ./gui
+    ./llm
     # ./keyboard
-  ] ++ eimports;
+  ]
+  ++ eimports;
 
   options = with lib; {
     params = {
