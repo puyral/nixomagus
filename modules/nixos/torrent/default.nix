@@ -57,7 +57,8 @@ in
                 };
             groups = {
               rtorrent = { };
-            } // (if cfg.group == null then { } else { "${cfg.group}".gid = users.groups."${cfg.group}".gid; });
+            }
+            // (if cfg.group == null then { } else { "${cfg.group}".gid = users.groups."${cfg.group}".gid; });
           };
 
           extra.torrent = with cfg; {

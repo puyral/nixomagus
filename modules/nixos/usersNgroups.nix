@@ -28,7 +28,8 @@ with lib;
       members = [
         "simon"
         "root"
-      ] ++ v.members;
+      ]
+      ++ v.members;
     }
     // (if v.gid != null then { gid = v.gid; } else { })
   ) config.extra.extraGroups;

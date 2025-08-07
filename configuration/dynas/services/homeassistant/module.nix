@@ -28,13 +28,12 @@ let
           else
             { };
         autoStart = true;
-        extraOptions =
-          [
-            "--network-alias=${name}"
-            "--network=${cfg.innerNetwork}"
-          ]
-          ++ (if is_tranparent then [ "--network=traefik" ] else [ ])
-          ++ (attrs.extraOptions or [ ]);
+        extraOptions = [
+          "--network-alias=${name}"
+          "--network=${cfg.innerNetwork}"
+        ]
+        ++ (if is_tranparent then [ "--network=traefik" ] else [ ])
+        ++ (attrs.extraOptions or [ ]);
         environment = {
           TZ = config.time.timeZone;
         };
