@@ -1,8 +1,8 @@
 {
-  name,
   c_config ? {
     vpn = false;
   },
+  overlays,
   ...
 }:
 { pkgs, lib, ... }:
@@ -30,6 +30,7 @@
   };
 
   nixpkgs.config.allowUnfree = true;
+  nixpkgs.overlays = overlays;
   nix.settings.experimental-features = [
     "nix-command"
     "flakes"

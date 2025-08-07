@@ -22,7 +22,6 @@ let
 
   generate-jpgs = pkgs-self.generate-jpgs.override {
     inherit gen-config;
-    darktable = pkgs.darktable;
   };
   name = "photos-generate-jpgs";
 in

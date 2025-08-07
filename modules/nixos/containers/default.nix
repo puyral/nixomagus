@@ -18,6 +18,7 @@ let
     { lib, ... }:
     let
       c_config = config.extra.containers.${name};
+      overlays = config.nixpkgs.overlays;
     in
     {
       imports = eimports ++ [
@@ -28,6 +29,7 @@ let
             pkgs-unstable
             lib
             c_config
+            overlays
             ;
         })
       ];

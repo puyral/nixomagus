@@ -46,15 +46,14 @@ in
           user = "immich";
         in
         {
-          environment.systemPackages =
-            (with pkgs-unstable; [
-              darktable
-              #{ inherit darktable gen-config; })
-            ])
-            ++ (with pkgs; [
+          environment.systemPackages = (
+            with pkgs;
+            [
               ffmpeg
               exiftool
-            ]);
+              darktable
+            ]
+          );
 
           services.immich = {
             inherit port;

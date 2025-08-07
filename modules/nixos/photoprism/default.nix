@@ -39,14 +39,14 @@ in
       config =
         { ... }:
         {
-          environment.systemPackages =
-            (with pkgs-unstable; [
+          environment.systemPackages = (
+            with pkgs;
+            [
               darktable
-            ])
-            ++ (with pkgs; [
               ffmpeg
               exiftool
-            ]);
+            ]
+          );
           services.photoprism = {
             enable = true;
             originalsPath = "/originals";
