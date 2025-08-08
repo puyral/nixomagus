@@ -27,12 +27,12 @@ jobs:
     with:
       hostname: amdra
 
-  ovh-pl:
-    needs: check
-    uses: ./.github/workflows/build-nixos.yml
-    secrets: inherit
-    with:
-      hostname: ovh-pl
+#  ovh-pl:
+#    needs: check
+#    uses: ./.github/workflows/build-nixos.yml
+#    secrets: inherit
+#    with:
+#      hostname: ovh-pl
 
   nixomagus:
     needs: check
