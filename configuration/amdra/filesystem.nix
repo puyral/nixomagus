@@ -43,6 +43,14 @@ in
           "noatime"
         ];
       };
+      "/containers" = {
+        label = "NIXROOT";
+        fsType = "btrfs";
+        options = [
+          "subvol=containers"
+          "compress=zstd"
+        ];
+      };
 
       "${config.extra.cachefilesd.cacheDir}" = {
         label = "NIXROOT";
