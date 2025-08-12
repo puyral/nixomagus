@@ -20,5 +20,6 @@
     ./yazi
     ./lazygit
     ./sway
+    ./vscode
   ];
 }

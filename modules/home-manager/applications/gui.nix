@@ -16,6 +16,7 @@ in
     extra = {
       firefox.enable = true;
       alacritty.enable = lib.mkDefault true;
+      vscode.enable = true;
     };
     xdg.mimeApps.defaultApplications = lib.mkIf config.extra.alacritty.enable {
       "x-scheme-handler/terminal" = [
@@ -56,7 +57,6 @@ in
       ])
       ++ (with pkgs; [
         thunderbird
-        vscode
         pwvucontrol
 
         kdePackages.okular
