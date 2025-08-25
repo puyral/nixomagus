@@ -7,7 +7,6 @@ attrs@{
   custom,
   self,
   sops-nix,
-  nixpkgs-libsoup-escape,
   ...
 }:
 rec {
@@ -143,7 +142,6 @@ rec {
       pkgs = aux nixpkgs;
       pkgs-stable = aux nixpkgs-stable;
       pkgs-unstable = aux nixpkgs-unstable;
-      pkgs-libsoup-escape = aux nixpkgs-libsoup-escape;
       extra-pkgs = pkgs.lib.mapAttrs (name: value: value.legacyPackages.${system}) {
         # inherit paperless-nixpkgs;
       };
@@ -158,7 +156,6 @@ rec {
       pkgs-stable = pkgs-attr.pkgs-stable;
       pkgs-unstable = pkgs-attr.pkgs-unstable;
       pkgs-rapid-photo-downloader = pkgs-attr.pkgs-rapid-photo-downloader;
-      pkgs-libsoup-escape = pkgs-attr.pkgs-libsoup-escape;
       extra-pkgs = pkgs-attr.extra-pkgs;
       pkgs-self = pkgs-attr.pkgs-self;
     in
@@ -174,7 +171,6 @@ rec {
         extra-pkgs
         pkgs-self
         pkgs-rapid-photo-downloader
-        pkgs-libsoup-escape
         ;
     };
 

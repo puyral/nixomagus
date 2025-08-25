@@ -1,8 +1,7 @@
 {
   writeShellApplication,
-  pkgs-libsoup-escape,
   writeText,
-  # darktable,
+  darktable,
   python312,
   gen-config ? null,
   ...
@@ -15,7 +14,7 @@ in
 writeShellApplication {
   name = "generate-jpgs";
   runtimeInputs = [
-    pkgs-libsoup-escape.darktable
+    darktable
     python312
   ];
   text = ''

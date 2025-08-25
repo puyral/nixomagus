@@ -20,6 +20,7 @@ in
   ];
   services.headplane = {
     enable = true;
+    agent.enable = false;
     # agent = {
     #   # As an example only.
     #   # Headplane Agent hasn't yet been ready at the moment of writing the doc.

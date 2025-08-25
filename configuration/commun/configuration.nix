@@ -13,7 +13,6 @@
   computer,
   mconfig,
   rootDir,
-  pkgs-libsoup-escape,
   ...
 }@attrs:
 # general modules that should be into nixos, in oppositions to modules that cleanly extend this config file
@@ -199,12 +198,6 @@
 
   nixpkgs = {
     overlays = [
-      (
-        final: prev: with pkgs-libsoup-escape; {
-          darktable = darktable;
-          geeqie = geeqie;
-        }
-      )
     ];
     config = {
       allowUnfree = true;

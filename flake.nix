@@ -6,7 +6,7 @@
     nixpkgs-unstable.url = "nixpkgs/nixos-unstable";
 
     # https://github.com/NixOS/nixpkgs/pull/427813
-    nixpkgs-libsoup-escape.url = "nixpkgs/30e2e2857ba47844aa71991daa6ed1fc678bcbb7";
+    # nixpkgs-libsoup-escape.url = "nixpkgs/30e2e2857ba47844aa71991daa6ed1fc678bcbb7";
 
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";
 
@@ -47,7 +47,7 @@
     # see https://github.com/tale/headplane/pull/282
     headplane = {
       # url = "github:tale/headplane/v0.6.0";
-      url = "github:tale/headplane/1ce0dc375e88b371110756a913b62d1e9d9cf679";
+      url = "github:tale/headplane/bd8a7a56d4021edf58511c6ab333af864d91304c";
       inputs = {
         nixpkgs.follows = "nixpkgs-unstable";
       };

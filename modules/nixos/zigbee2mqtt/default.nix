@@ -45,7 +45,7 @@ in
             enable = true;
             dataDir = "/data";
             settings = {
-              homeassistant = true;
+              homeassistant.enabled = true;
               permit_join = false;
               serial = {
                 port = "/dev/ttyUSB1";
