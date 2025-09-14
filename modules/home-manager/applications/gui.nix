@@ -86,7 +86,7 @@ in
         # steam
         obsidian
 
-        jellyfin-media-player # see https://github.com/jellyfin/jellyfin-media-player/issues/165
+        # jellyfin-media-player
 
         discord
         whatsapp-for-linux
