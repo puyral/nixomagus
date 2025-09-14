@@ -121,24 +121,25 @@ in
     force_zero_scaling = true;
   };
 
-  "plugin:dynamic-cursors" = {
-    # see https://github.com/VirtCode/hypr-dynamic-cursors
-    mode = "stretch";
-    shake = {
-      enable = false;
-    };
-    stretch = {
-      # controls how much the cursor is stretched
-      # this value controls at which speed (px/s) the full stretch is reached
-      limit = 3000;
+  # see https://github.com/NixOS/nixpkgs/issues/366182
+  # "plugin:dynamic-cursors" = {
+  #   # see https://github.com/VirtCode/hypr-dynamic-cursors
+  #   mode = "stretch";
+  #   shake = {
+  #     enable = false;
+  #   };
+  #   stretch = {
+  #     # controls how much the cursor is stretched
+  #     # this value controls at which speed (px/s) the full stretch is reached
+  #     limit = 3000;
 
-      # relationship between speed and stretch amount, supports these values:
-      # linear             - a linear function is used
-      # quadratic          - a quadratic function is used
-      # negative_quadratic - negative version of the quadratic one, feels more aggressive
-      function = "quadratic";
+  #     # relationship between speed and stretch amount, supports these values:
+  #     # linear             - a linear function is used
+  #     # quadratic          - a quadratic function is used
+  #     # negative_quadratic - negative version of the quadratic one, feels more aggressive
+  #     function = "quadratic";
 
-    };
-  }; # // { hy3 = lib.mkIf i3 ((import ./hy3.nix) attrs); };
+  #   };
+  # }; # // { hy3 = lib.mkIf i3 ((import ./hy3.nix) attrs); };
 }
 // (import ./key_bindings.nix) attrs
