@@ -68,7 +68,7 @@ in
 
         blender
         #davinci-resolve
-        libsForQt5.kdenlive
+        kdePackages.kdenlive
         inkscape-with-extensions
         geeqie
         feh
