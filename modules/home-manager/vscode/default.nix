@@ -15,13 +15,14 @@ in
   config = lib.mkIf cfg.enable {
     programs.vscode = {
       enable = true;
-      extensions = with pkgs.vscode-extensions; [
-        continue.continue
-        vscodevim.vim
-        rust-lang.rust-analyzer
-        fill-labs.dependi
-      ];
+      profiles.default = {
+        extensions = with pkgs.vscode-extensions; [
+          continue.continue
+          vscodevim.vim
+          rust-lang.rust-analyzer
+          fill-labs.dependi
+        ];
+      };
     };
-
   };
 }

@@ -37,6 +37,7 @@ in
                 user = "root";
               };
             };
+            enableDefaultConfig = false;
           };
       };
 }
