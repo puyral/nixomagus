@@ -22,6 +22,8 @@ in
         path = "$HOME/.cache/zsh/history";
         share = true;
       };
+
+      autocd = true;
       syntaxHighlighting = {
         enable = true;
       };
