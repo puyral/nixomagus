@@ -14,7 +14,7 @@ in
       enable = true;
       dataDir = "${dataDir}/rtorrent";
       configText = ''
-        log.add_output = "tracker_debug", "log"
+        # log.add_output = "tracker_debug", "log"
         method.redirect=load.throw,load.normal
         method.redirect=load.start_throw,load.start
         method.insert=d.down.sequential,value|const,0
