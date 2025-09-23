@@ -48,12 +48,12 @@ jobs:
     with:
       hostname: i7
 
-  mydos:
-    needs: check
-    uses: ./.github/workflows/build-nixos.yml
-    secrets: inherit
-    with:
-      hostname: mydos
+#  mydos:
+#    needs: check
+#    uses: ./.github/workflows/build-nixos.yml
+#    secrets: inherit
+#    with:
+#      hostname: mydos
 
   vampire:
     needs: check
