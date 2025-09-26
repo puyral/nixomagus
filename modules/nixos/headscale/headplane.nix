@@ -39,7 +39,7 @@ in
         inherit port;
         host = "0.0.0.0";
         # cookie_secret_path = pkgs.writeText "smth_other" secrets.cookie_secret;
-        cookie_secret =  secrets.cookie_secret;
+        cookie_secret = secrets.cookie_secret;
         cookie_secure = true;
       };
       headscale = rec {
