@@ -2,6 +2,10 @@
 {
   networking = {
     defaultGateway6 = "2001:41d0:601:1100::1";
+    defaultGateway = {
+      address = "57.128.196.1";
+      interface = "ens3";
+    };
     enableIPv6 = true;
     interfaces = {
       ens3 = {
