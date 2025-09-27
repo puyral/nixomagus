@@ -97,6 +97,8 @@ in
         nautilus-open-any-terminal
         sushi
         code-nautilus
+
+        cemu
       ])
       ++ (with pkgs-unstable; [
       ])
