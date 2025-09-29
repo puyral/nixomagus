@@ -69,7 +69,7 @@
   programs.zsh.enable = true;
 
   # for compatibility
-  programs.nix-ld.enable = true;
+  extra.nix-ld.enable = true;
 
   # Configure keymap in X11
   # services.xserver.xkb.layout = "us";

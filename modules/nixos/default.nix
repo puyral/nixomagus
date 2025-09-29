@@ -38,6 +38,7 @@ in
     ./sops
     ./gui
     ./llm
+    ./nix-ld
     # ./keyboard
   ]
   ++ eimports;
