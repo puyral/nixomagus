@@ -14,7 +14,7 @@ in
 {
   imports = [ ../commun/filesystem.nix ];
 
-  extra.cachefilesd.enable = true;
+  extra.cachefilesd.enable = false;
   fileSystems =
     let
       zeno = {
@@ -52,16 +52,15 @@ in
         ];
       };
 
-      "${config.extra.cachefilesd.cacheDir}" = {
-        label = "NIXROOT";
-        fsType = "btrfs";
-        options = [
-          "subvol=cache"
-          "compress=zstd"
-          "noatime"
-        ];
-
-      };
+      # "${config.extra.cachefilesd.cacheDir}" = {
+      #   label = "NIXROOT";
+      #   fsType = "btrfs";
+      #   options = [
+      #     "subvol=cache"
+      #     "compress=zstd"
+      #     "noatime"
+      #   ];
+      # };
 
       "/mnt/Steam" = {
         device = "/dev/disk/by-partuuid/0ad6e9a0-941c-4dcf-8d07-5bfe24091184";
