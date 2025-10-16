@@ -17,8 +17,17 @@ in
       enable = true;
       clock24 = true;
       mouse = true;
-      keyMode = "vi";
       historyLimit = 5000;
+      sensibleOnTop = true;
+      shell = "${pkgs.zsh}/bin/zsh";
+
+      plugins = with pkgs.tmuxPlugins; [
+        pain-control
+      ];
+
+      extraConfig = ''
+        set-environment -g TMUX_FZF_MENU_POPUP 1
+      '';
     };
   };
 }
