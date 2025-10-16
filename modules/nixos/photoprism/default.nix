@@ -13,6 +13,11 @@ in
 {
   imports = [ ./options.nix ];
   config = lib.mkIf cfg.enable {
+    sops.secrets.photoprism = {
+      sopsFile = ./secrets-sops/photoprism.yaml;
+      key = "init_password";
+    };
+
     networking.nat.internalInterfaces = [ "ve-photoprism" ];
     containers.photoprism = {
       bindMounts = {
@@ -31,6 +36,10 @@ in
         "/var/lib/tailscale" = {
           hostPath = "${cfg.dataDir}/tailscale";
           isReadOnly = false;
+        };
+        "${gconfig.sops.secrets.photoprism.path}" = {
+          hostPath = gconfig.sops.secrets.photoprism.path;
+          isReadOnly = true;
         };
       };
       autoStart = true;
@@ -51,7 +60,7 @@ in
             enable = true;
             originalsPath = "/originals";
             storagePath = "/cache";
-            passwordFile = ./secrets/init_password;
+            passwordFile = gconfig.sops.secrets.photoprism.path;
             settings = {
               PHOTOPRISM_ADMIN_USER = "root";
               PHOTOPRISM_INDEX_SCHEDULE = "@every 3h";
