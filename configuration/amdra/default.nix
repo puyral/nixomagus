@@ -42,6 +42,7 @@
     [
       # nerdfonts
       fira-code
+      jetbrains-mono
     ]
     ++ builtins.filter lib.attrsets.isDerivation (builtins.attrValues pkgs.nerd-fonts);
 
