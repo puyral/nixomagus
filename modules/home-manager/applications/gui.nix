@@ -4,6 +4,7 @@
   pkgs,
   pkgs-unstable,
   pkgs-stable,
+  pkgs-rpd,
   custom,
   ...
 }:
@@ -31,6 +32,7 @@ in
       [
         custom.rnote
         pkgs.darktable
+        pkgs-rpd.rapid-photo-downloader
       ]
 
       ++ (with pkgs-stable; [
@@ -44,8 +46,6 @@ in
         # cudaPackages.cudatoolkit
 
         #logseq
-
-        rapid-photo-downloader
 
         youtube-music
 

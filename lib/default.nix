@@ -4,6 +4,7 @@ attrs@{
   nixpkgs-stable,
   nixpkgs-unstable,
   nixpkgs,
+  nixpkgs-rpd,
   custom,
   self,
   sops-nix,
@@ -129,19 +130,12 @@ rec {
             allowUnfree = true;
           };
         };
-    in
-    rec {
-      # pkgs = nixpkgs.legacyPackages.${system};
-      # # pkgs-unstable = (nixpkgs-unstable // {config.allowUnfree = true;}).legacyPackages.${system};
-      # pkgs-unstable = import nixpkgs-unstable {
-      #   system = system;
-      #   config = {
-      #     allowUnfree = true;
-      #   };
-      # }; # https://www.reddit.com/r/NixOS/comments/17p39u6/how_to_allow_unfree_packages_from_stable_and/
       pkgs = aux nixpkgs;
+    in
+    {
       pkgs-stable = aux nixpkgs-stable;
       pkgs-unstable = aux nixpkgs-unstable;
+      pkgs-rpd = aux nixpkgs-rpd;
       extra-pkgs = pkgs.lib.mapAttrs (name: value: value.legacyPackages.${system}) {
         # inherit paperless-nixpkgs;
       };
@@ -150,27 +144,14 @@ rec {
 
   mkExtraArgs' =
     system:
-    let
-      pkgs-attr = (mkpkgs system);
-      pkgs = pkgs-attr.pkgs;
-      pkgs-stable = pkgs-attr.pkgs-stable;
-      pkgs-unstable = pkgs-attr.pkgs-unstable;
-      pkgs-rapid-photo-downloader = pkgs-attr.pkgs-rapid-photo-downloader;
-      extra-pkgs = pkgs-attr.extra-pkgs;
-      pkgs-self = pkgs-attr.pkgs-self;
-    in
     attrs
+    // (mkpkgs system)
     // {
       custom = custom.packages.${system};
       inherit
         system
-        pkgs-unstable
-        pkgs-stable
         rootDir
         mlib
-        extra-pkgs
-        pkgs-self
-        pkgs-rapid-photo-downloader
         ;
     };
 
