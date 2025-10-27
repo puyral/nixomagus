@@ -32,7 +32,7 @@ in
       [
         custom.rnote
         pkgs.darktable
-        pkgs-rpd.rapid-photo-downloader
+        pkgs.rapid-photo-downloader
       ]
 
       ++ (with pkgs-stable; [
