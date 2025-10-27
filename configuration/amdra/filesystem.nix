@@ -7,7 +7,7 @@
   ...
 }:
 let
-  use-tailscale = true;
+  use-tailscale = false;
   dynas-config = self.nixosConfigurations.dynas.config;
   dynas-ip = if use-tailscale then "100.64.0.15" else dynas-config.vars.fastIp;
 in
