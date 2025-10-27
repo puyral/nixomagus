@@ -92,6 +92,7 @@ in
         whatsapp-for-linux
         signal-desktop
         mattermost-desktop
+        fluffychat
 
         nautilus
         nautilus-open-any-terminal
