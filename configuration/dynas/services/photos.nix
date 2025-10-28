@@ -12,7 +12,7 @@ in
     immich = {
       enable = true;
       subdomain = "immich";
-      inherit photos providers;
+      inherit photos providers videos;
     };
     photoprism = {
       enable = true;

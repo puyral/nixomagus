@@ -18,5 +18,9 @@ with lib;
       type = types.path;
       example = "/mnt/Zeno/media/photos/exports/complete";
     };
+    videos = mkOption {
+      type = types.path;
+      example = "/mnt/Zeno/media/photos/video_clips";
+    };
   };
 }

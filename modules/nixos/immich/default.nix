@@ -20,6 +20,10 @@ in
           hostPath = cfg.photos;
           isReadOnly = true;
         };
+        "/videos" = {
+          hostPath = cfg.videos;
+          isReadOnly = false;
+        };
         "/var/lib/tailscale" = {
           hostPath = "${cfg.dataDir}/tailscale";
           isReadOnly = false;
