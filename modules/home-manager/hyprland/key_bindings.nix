@@ -241,12 +241,12 @@ in
             ]
           ];
       terminals = [
-        [
-          alt
-          "T"
-          exec
-          "alacritty"
-        ]
+        # [
+        #   alt
+        #   "T"
+        #   exec
+        #   "alacritty"
+        # ]
         [
           mod
           "T"
