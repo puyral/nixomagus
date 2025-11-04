@@ -30,6 +30,10 @@ in
         xz
         systemd
 
+        #libgcc.lib
+        #glibc
+        stdenv.cc.cc.lib
+        #libgcc
       ];
     };
   };

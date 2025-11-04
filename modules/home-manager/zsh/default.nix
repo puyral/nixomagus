@@ -70,6 +70,10 @@ in
       enableZshIntegration = true;
     };
 
+    programs.nix-index = {
+      enable = true;
+    };
+
     extra.gitConfigFetcher.enable = true;
 
     home.sessionVariables = {
