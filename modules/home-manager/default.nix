@@ -21,5 +21,16 @@
     ./lazygit
     ./sway
     ./vscode
+    ./keyring
+    ./git
   ];
+
+  options.extra = {
+    nix.configDir =
+      with lib;
+      mkOption {
+        type = types.path;
+        default = "/config";
+      };
+  };
 }

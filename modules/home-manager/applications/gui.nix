@@ -18,6 +18,7 @@ in
       firefox.enable = true;
       alacritty.enable = lib.mkDefault true;
       vscode.enable = true;
+      keyring.enable = lib.mkDefault true;
     };
     xdg.mimeApps.defaultApplications = lib.mkIf config.extra.alacritty.enable {
       "x-scheme-handler/terminal" = [

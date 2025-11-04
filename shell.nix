@@ -10,7 +10,7 @@ pkgs.mkShell {
   buildInputs =
     (with pkgs; [
       vim
-      git
+      gitFull
       gh
       gnupg
       sops

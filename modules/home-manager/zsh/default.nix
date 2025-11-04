@@ -77,7 +77,7 @@ in
     extra.gitConfigFetcher.enable = true;
 
     home.sessionVariables = {
-      CONFIG_LOCATION = config.extra.gitConfigFetcher.location;
+      CONFIG_LOCATION = config.extra.nix.configDir;
     };
   };
 }

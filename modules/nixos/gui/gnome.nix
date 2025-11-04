@@ -21,6 +21,8 @@ in
       wallpaper-slideshow
       tailscale-status
     ];
+
+    services.gnome.gnome-keyring.enable = true;
   };
 
 }

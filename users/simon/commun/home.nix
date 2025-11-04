@@ -19,8 +19,7 @@
       [ ]
       # (with custom; [ clocktui ])
       ++ (with pkgs; [
-
-        git
+        gitFull
         git-crypt
         gh
         gnupg
@@ -54,6 +53,6 @@
       #      CONFIG_LOCATION = if is_nixos then "/config" else "$HOME/.config/home-manager/";
     };
   };
-  extra.gitConfigFetcher.location =
+  extra.nix.configDir =
     if is_nixos then "/config" else "${config.home.homeDirectory}/.config/home-manager";
 }
