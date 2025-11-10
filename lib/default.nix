@@ -133,6 +133,7 @@ rec {
       pkgs = aux nixpkgs;
     in
     {
+      inherit pkgs;
       pkgs-stable = aux nixpkgs-stable;
       pkgs-unstable = aux nixpkgs-unstable;
       pkgs-rpd = aux nixpkgs-rpd;
