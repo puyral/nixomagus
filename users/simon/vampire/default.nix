@@ -2,6 +2,7 @@
   custom,
   pkgs-unstable,
   pkgs,
+  lib,
   ...
 }:
 {
@@ -41,5 +42,10 @@
 
   };
   extra.shell.rebuildScript = ./rebuild.sh;
+
+  programs.git.settings = {
+    user.name = lib.mkForce "Simon Jeanteur";
+    user.email = lib.mkForce "simon.jeanteur@tuwien.ac.at";
+  };
   # programs.gnupg.agent.pinentryPackage =  pkgs.pinentry-curses;
 }
