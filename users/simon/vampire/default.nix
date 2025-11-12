@@ -16,6 +16,8 @@
             cargo
             clippy
             cargo-expand
+cargo-limit
+rust-bin.stable.latest.complete
             rust-analyzer
             rustc
             rustfmt
@@ -31,7 +33,7 @@
   programs.zsh.sessionVariables = (
     with pkgs-unstable;
     {
-      RUST_SRC_PATH = "${pkgs-unstable.rustPlatform.rustLibSrc}";
+      #RUST_SRC_PATH = "${pkgs-unstable.rustPlatform.rustLibSrc}";
       LIBCLANG_PATH = "${clang.cc.lib}/lib";
       BINDGEN_EXTRA_CLANG_ARGS = "\$(< ${clang}/nix-support/cc-cflags) \$(< ${clang}/nix-support/libc-cflags) \$(< ${clang}/nix-support/libcxx-cxxflags)";
     }
