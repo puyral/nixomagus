@@ -39,6 +39,7 @@ in
     ./gui
     ./llm
     ./nix-ld
+    ./kavita
     # ./keyboard
   ]
   ++ eimports;

@@ -41,10 +41,15 @@
     };
 
     calibre-web = {
-      enable = true;
+      enable = false;
       calibreLibrary = "${config.vars.Zeno.mountPoint}/media/books";
       enableBookUploading = true;
       enableBookConversion = true;
+    };
+
+    kavita = {
+      enable = true;
+      library = "${config.vars.Zeno.mountPoint}/media/books";
     };
 
     monitoring = {
