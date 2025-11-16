@@ -18,7 +18,7 @@ in
       bindMounts = {
         "/photos" = {
           hostPath = cfg.photos;
-          isReadOnly = true;
+          isReadOnly = false;
         };
         "/videos" = {
           hostPath = cfg.videos;
