@@ -77,7 +77,7 @@ rec {
         ((import (rootDir + /home_manager.nix)) user)
         sops-nix.homeManagerModules.sops
       ];
-      pkgs = (mkpkgs computer.system).pkgs;
+      pkgs = (mkpkgs computer.system).base-pkgs;
       extraSpecialArgs = (mkExtraArgs inputs) // {
         inherit computer;
         is_nixos = false;
@@ -130,14 +130,14 @@ rec {
             allowUnfree = true;
           };
         };
-      pkgs = aux nixpkgs;
+      base-pkgs = aux nixpkgs;
     in
     {
-      inherit pkgs;
+      inherit base-pkgs;
       pkgs-stable = aux nixpkgs-stable;
       pkgs-unstable = aux nixpkgs-unstable;
       pkgs-rpd = aux nixpkgs-rpd;
-      extra-pkgs = pkgs.lib.mapAttrs (name: value: value.legacyPackages.${system}) {
+      extra-pkgs = base-pkgs.lib.mapAttrs (name: value: value.legacyPackages.${system}) {
         # inherit paperless-nixpkgs;
       };
       pkgs-self = self.packages.${system};
