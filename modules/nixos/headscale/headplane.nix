@@ -20,7 +20,7 @@ in
   ];
   services.headplane = {
     enable = true;
-    agent.enable = false;
+    # agent.enable = false;
     # agent = {
     #   # As an example only.
     #   # Headplane Agent hasn't yet been ready at the moment of writing the doc.
@@ -38,8 +38,8 @@ in
       server = {
         inherit port;
         host = "0.0.0.0";
-        # cookie_secret_path = pkgs.writeText "smth_other" secrets.cookie_secret;
-        cookie_secret = secrets.cookie_secret;
+        cookie_secret_path = pkgs.writeText "smth_other" secrets.cookie_secret;
+        # cookie_secret = secrets.cookie_secret;
         cookie_secure = true;
       };
       headscale = rec {
@@ -56,14 +56,14 @@ in
         {
           inherit issuer;
           client_id = oidc.headplane.id;
-          # client_secret_path = pkgs.writeText "smth" oidc.headplane.plain;
-          client_secret = oidc.headplane.plain;
+          client_secret_path = pkgs.writeText "smth" oidc.headplane.plain;
+          # client_secret = oidc.headplane.plain;
           disable_api_key_login = true;
           # Might needed when integrating with Authelia.
           token_endpoint_auth_method = "client_secret_basic";
-          # headscale_api_key_path = pkgs.writeText "smth_else" secrets.headscale_api_key;
-          headscale_api_key = secrets.headscale_api_key;
-          # redirect_uri = "https://${cfg.extraDomain}.${config.vars.baseDomain}/admin/oidc/callback";
+          headscale_api_key_path = pkgs.writeText "smth_else" secrets.headscale_api_key;
+          # headscale_api_key = secrets.headscale_api_key;
+          redirect_uri = "https://${cfg.extraDomain}.${config.vars.baseDomain}/admin/oidc/callback";
         }
       );
     };
