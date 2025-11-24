@@ -21,7 +21,6 @@ in
   ];
 
   xsession.windowManager.i3 = mkIf cfg.enable {
-    package = pkgs.i3-gaps;
     enable = true;
 
     # config = { startup = [
