@@ -33,7 +33,7 @@ in
       wmfocus
       brightnessctl
       playerctl
-      mpc-cli
+      mpc
       pavucontrol
       dunst
       # unclutter
