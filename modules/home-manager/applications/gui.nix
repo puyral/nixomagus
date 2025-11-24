@@ -31,7 +31,7 @@ in
 
       in
       [
-        custom.rnote
+        # custom.rnote
         pkgs.darktable
         pkgs.rapid-photo-downloader
       ]
