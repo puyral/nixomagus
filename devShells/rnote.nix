@@ -10,11 +10,10 @@
 mkShell {
   name = "rnote";
   inputsFrom = [ custom.rnote ];
-  buildInputs =
-     [
-      cargo
-      cargo-expand
-      rust-analyzer
-      cargo-nextest
-    ];
+  buildInputs = [
+    cargo
+    cargo-expand
+    rust-analyzer
+    cargo-nextest
+  ];
 }
