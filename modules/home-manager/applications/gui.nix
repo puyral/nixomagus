@@ -90,7 +90,7 @@ in
         # jellyfin-media-player
 
         discord
-        whatsapp-for-linux
+        wasistlos
         signal-desktop
         mattermost-desktop
         fluffychat
