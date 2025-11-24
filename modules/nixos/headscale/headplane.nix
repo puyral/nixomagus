@@ -48,7 +48,14 @@ in
         config_strict = true;
       };
 
-      integration.proc.enabled = false;
+      # integration.proc.enabled = false;
+      integration = {
+        proc.enabled = true;
+        agent = {
+          enabled = false;
+          pre_authkey_path = "/dev/null";
+        };
+      };
       oidc = lib.mkIf config.vars.authcfg.enable (
         let
           issuer = "https://${config.vars.authcfg.extraDomain}.${config.vars.baseDomain}";
@@ -68,5 +75,4 @@ in
       );
     };
   };
-
 }
