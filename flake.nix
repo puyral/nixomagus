@@ -35,15 +35,6 @@
       inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
 
-    turboprint-nix = {
-      url = "github:puyral/turboprint-nix";
-      inputs = {
-        nixpkgs.follows = "nixpkgs-unstable";
-        treefmt-nix.follows = "treefmt-nix";
-        flake-utils.follows = "flake-utils";
-      };
-    };
-
     # see https://github.com/tale/headplane/pull/282
     headplane = {
       url = "github:tale/headplane/v0.6.1";
@@ -104,8 +95,7 @@
           }) files;
 
         packages =
-          turboprint-nix.packages.${system}
-          // (
+          (
             let
               dir = "packages";
               files = builtins.readDir ./${dir};
