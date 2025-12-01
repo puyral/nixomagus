@@ -32,7 +32,6 @@ in
       in
       [
         # custom.rnote
-        pkgs.darktable
         pkgs.rapid-photo-downloader
       ]
 
@@ -103,6 +102,7 @@ in
         cemu
       ])
       ++ (with pkgs-unstable; [
+        darktable
       ])
       ++ lib.optional gui.pinentry-qt pkgs.pinentry-qt;
   };
