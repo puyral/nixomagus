@@ -3,7 +3,7 @@
     "custom": {
       "inputs": {
         "cryptovampire-src": [
-          "nixpkgs-unstable"
+          "nixpkgs-stable"
         ],
         "fenix": "fenix",
         "flake-utils": "flake-utils",
@@ -168,7 +168,7 @@
         "devshell": "devshell",
         "flake-utils": "flake-utils_4",
         "nixpkgs": [
-          "nixpkgs-unstable"
+          "nixpkgs-stable"
         ]
       },
       "locked": {
@@ -189,7 +189,7 @@
     "home-manager": {
       "inputs": {
         "nixpkgs": [
-          "nixpkgs-unstable"
+          "nixpkgs-stable"
         ]
       },
       "locked": {
@@ -225,7 +225,7 @@
     "kmonad": {
       "inputs": {
         "nixpkgs": [
-          "nixpkgs-unstable"
+          "nixpkgs-stable"
         ]
       },
       "locked": {
@@ -456,7 +456,7 @@
     "rust-overlay": {
       "inputs": {
         "nixpkgs": [
-          "nixpkgs-unstable"
+          "nixpkgs-stable"
         ]
       },
       "locked": {
@@ -476,7 +476,7 @@
     "sops-nix": {
       "inputs": {
         "nixpkgs": [
-          "nixpkgs-unstable"
+          "nixpkgs-stable"
         ]
       },
       "locked": {
@@ -604,7 +604,7 @@
     "treefmt-nix": {
       "inputs": {
         "nixpkgs": [
-          "nixpkgs-unstable"
+          "nixpkgs-stable"
         ]
       },
       "locked": {

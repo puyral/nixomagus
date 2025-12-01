@@ -12,19 +12,19 @@
 
     home-manager = {
       url = "github:nix-community/home-manager"; # /release-25.05";
-      inputs.nixpkgs.follows = "nixpkgs-unstable";
+      inputs.nixpkgs.follows = "nixpkgs-stable";
     };
     # nix-std.url = "github:chessai/nix-std"; # https://github.com/chessai/nix-std
 
     kmonad = {
       url = "github:kmonad/kmonad?dir=nix";
-      inputs.nixpkgs.follows = "nixpkgs-unstable";
+      inputs.nixpkgs.follows = "nixpkgs-stable";
     };
 
     custom = {
       url = "github:puyral/custom-nix";
       inputs.nixpkgs.follows = "nixpkgs-unstable";
-      inputs.cryptovampire-src.follows = "nixpkgs-unstable";
+      inputs.cryptovampire-src.follows = "nixpkgs-stable";
     };
     flake-utils = {
       url = "github:numtide/flake-utils";
@@ -32,7 +32,7 @@
 
     treefmt-nix = {
       url = "github:numtide/treefmt-nix";
-      inputs.nixpkgs.follows = "nixpkgs-unstable";
+      inputs.nixpkgs.follows = "nixpkgs-stable";
     };
 
     # see https://github.com/tale/headplane/pull/282
@@ -41,18 +41,18 @@
       # url = "github:tale/headplane"; # master
       # url = "github:tale/headplane/bd8a7a56d4021edf58511c6ab333af864d91304c";
       inputs = {
-        nixpkgs.follows = "nixpkgs-unstable";
+        nixpkgs.follows = "nixpkgs-stable";
       };
     };
 
     sops-nix = {
       url = "github:Mic92/sops-nix";
-      inputs.nixpkgs.follows = "nixpkgs-unstable";
+      inputs.nixpkgs.follows = "nixpkgs-stable";
     };
 
     rust-overlay = {
       url = "github:oxalica/rust-overlay";
-      inputs.nixpkgs.follows = "nixpkgs-unstable";
+      inputs.nixpkgs.follows = "nixpkgs-stable";
     };
   };
 
