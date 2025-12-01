@@ -62,7 +62,6 @@
       treefmt-nix,
       nixpkgs-unstable,
       nixpkgs-stable,
-      turboprint-nix,
       sops-nix,
       ...
     }@attrs:

@@ -433,8 +433,7 @@
         "nixpkgs-unstable": "nixpkgs-unstable",
         "rust-overlay": "rust-overlay",
         "sops-nix": "sops-nix",
-        "treefmt-nix": "treefmt-nix",
-        "turboprint-nix": "turboprint-nix"
+        "treefmt-nix": "treefmt-nix"
       }
     },
     "rust-analyzer-src": {
@@ -619,32 +618,6 @@
       "original": {
         "owner": "numtide",
         "repo": "treefmt-nix",
-        "type": "github"
-      }
-    },
-    "turboprint-nix": {
-      "inputs": {
-        "flake-utils": [
-          "flake-utils"
-        ],
-        "nixpkgs": [
-          "nixpkgs-unstable"
-        ],
-        "treefmt-nix": [
-          "treefmt-nix"
-        ]
-      },
-      "locked": {
-        "lastModified": 1744974509,
-        "narHash": "sha256-4HseAZxFMlIA2Who2qpF7Yd/Sm6w9SengwXqilALNL8=",
-        "owner": "puyral",
-        "repo": "turboprint-nix",
-        "rev": "abd36d8df30c7228f95fc3910bef1ceb6f9c1a61",
-        "type": "github"
-      },
-      "original": {
-        "owner": "puyral",
-        "repo": "turboprint-nix",
         "type": "github"
       }
     },
