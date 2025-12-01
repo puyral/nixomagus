@@ -9,7 +9,7 @@
         "flake-utils": "flake-utils",
         "isw-src": "isw-src",
         "nixpkgs": [
-          "nixpkgs-unstable"
+          "nixpkgs-stable"
         ],
         "opam-nix": "opam-nix",
         "rnote-src": "rnote-src",
