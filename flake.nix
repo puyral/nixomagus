@@ -76,14 +76,14 @@
       ...
     }@attrs:
     let
-      functions = (import ./lib) ./. (attrs // { nixpkgs = nixpkgs-unstable; });
+      functions = (import ./lib) ./. (attrs // { nixpkgs = nixpkgs-stable; });
     in
     flake-utils.lib.eachDefaultSystem (
       system:
       let
         pkgs-stable = (functions.mkpkgs system).pkgs-stable;
         pkgs-unstable = (functions.mkpkgs system).pkgs-unstable;
-        pkgs = pkgs-unstable;
+        pkgs = pkgs-stable;
         l = pkgs.lib;
 
         # Eval the treefmt modules from ./treefmt.nix
