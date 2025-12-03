@@ -10,20 +10,6 @@
     # "pcie_aspm.policy=powersave"
   ];
 
-  # 3. Enable Power Management Tuning
-  # TLP is excellent for managing PCIe power states automatically.
-  services.tlp = {
-    enable = true;
-    settings = {
-      # This ensures the GPU is allowed to sleep
-      RUNTIME_PM_ON_AC = "auto";
-      # PCIE_ASPM_ON_AC = "powersupersave";
-      PCIE_ASPM_ON_AC = "default";
-
-      # "RUNTIME_PM_BLACKLIST" = "08:00.0"; # Replace with your actual Wi-Fi PCI ID
-    };
-  };
-
   # 3. INSTALL DRIVERS INSIDE THE CONTAINER
   # The container shares the kernel, but needs its own userspace libraries
   hardware.graphics = {

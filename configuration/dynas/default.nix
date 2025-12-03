@@ -8,6 +8,7 @@
     ./usersNgroups.nix
     ./power_management.nix
     ./networking.nix
+    ./gpu.nix
   ];
   extra = {
     mail.enable = true;
