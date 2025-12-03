@@ -12,9 +12,11 @@
   # 2. Kernel Parameters
   # "pcie_aspm=force": Forces ASPM even if the BIOS suggests otherwise (often needed for Arc).
   # "consoleblank=120": Turns off the screen output after 2 mins (good for NanoKVM/burn-in).
+  # "amd_pstate=active": 'active' mode allows the CPU to manage its own power states internally (EPP).
   boot.kernelParams = [
     "consoleblank=120"
     "pcie_aspm=force"
+    "amd_pstate=active"
   ];
 
   # 3. Disable Wifi drivers completely at the kernel level
@@ -38,6 +40,11 @@
       # "auto" is good for the GPU and general chipset, BUT we must whitelist specific devices below.
       "RUNTIME_PM_ON_AC" = "auto";
 
+      # This targets those "Runtime PM for port ataX" lines.
+      # "med_power_with_dipm" is the sweet spot for ZFS.
+      # "min_power" saves more but can cause drive timeouts.
+      "SATA_LINKPWR_ON_AC" = "med_power_with_dipm";
+
       # --- THE DENYLIST (The Fix for SSH & Stability) ---
       # Prevents TLP from suspending these specific devices.
       # 08:00.0 : Intel Wifi (Just in case module blacklist fails)
@@ -46,7 +53,7 @@
       # 0c:00.0 : LSI SAS2008 (Enterprise storage controllers crash if suspended)
       # 02:00.0 : AMD USB Controller (Keep USB active for NanoKVM input)
       # 10:00.0 : DO NOT ADD THE GPU HERE. The GPU *needs* to suspend to save power.
-      "RUNTIME_PM_DENYLIST" = "08:00.0 0d:00.0 0a:00.0 0c:00.0 02:00.0";
+      "RUNTIME_PM_DENYLIST" = "10:00.0 08:00.0 0d:00.0 0a:00.0 0c:00.0 02:00.0";
 
       # --- CPU Power Saving ---
       # For a NAS, we want efficiency.
@@ -64,6 +71,24 @@
       "USB_AUTOSUSPEND" = "0";
     };
   };
+
+  powerManagement = {
+    enable = true;
+    # 'powersave' with amd-pstate is NOT slow. It just biases towards lower clocks when idle.
+    cpuFreqGovernor = "powersave";
+  };
+
+  # ## Limit CPU Frequency (Soft Cap)
+  # # This prevents the CPU from boosting to 4GHz+ for tiny background tasks.
+  # # Adjust 'max' to something reasonable for a NAS (e.g., 2.2GHz or 3.0GHz).
+  # systemd.services.cpupower-limits = {
+  #   description = "Limit CPU frequency for power saving";
+  #   wantedBy = [ "multi-user.target" ];
+  #   serviceConfig = {
+  #     Type = "oneshot";
+  #     ExecStart = "${pkgs.linuxPackages.cpupower}/bin/cpupower frequency-set -u 2200MHz";
+  #   };
+  # };
 
   # Disable system sleep targets to prevent accidental hibernation
   systemd.targets = {
