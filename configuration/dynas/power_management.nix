@@ -10,17 +10,17 @@
   };
 
   # deactivate wifi
-  boot.blacklistedKernelModules = [
-    "iwlwifi"
-    "iwlmvm"
-    "btusb"
-  ];
+  # boot.blacklistedKernelModules = [
+  #   "iwlwifi"
+  #   "iwlmvm"
+  #   "btusb"
+  # ];
 
   boot.kernelParams = [ "consoleblank=120" ];
 
   # TLP is excellent for managing PCIe power states automatically.
   services.tlp = {
-    enable = true;
+    enable = false;
     settings = {
       # --- GPU / PCIe Power Saving (Critical for Arc B580) ---
       # "powersupersave" enables L1 states.
