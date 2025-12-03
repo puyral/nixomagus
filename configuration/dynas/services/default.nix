@@ -109,6 +109,12 @@
         interfaces = [ config.vars.mainNetworkInterface ];
       };
       tailscale.exit-container.enable = false;
+
+      llm = {
+        enable = true;
+        acceleration = "vulkan";
+        data = "${config.params.locations.containers}/llm/ollama";
+      };
     };
 
   networking = {
