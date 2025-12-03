@@ -23,6 +23,7 @@
     ./vscode
     ./keyring
     ./git
+    ./wandarr
   ];
 
   options.extra = {
