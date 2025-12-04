@@ -18,7 +18,6 @@
       intel-media-driver # QuickSync for Encoding
       intel-compute-runtime # OpenCL for Machine Learning (Immich)
       vpl-gpu-rt # Newer Video Processing Library
-      intel-gpu-tools
     ];
   };
 }
