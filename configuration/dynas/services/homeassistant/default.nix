@@ -5,11 +5,17 @@ let
 in
 
 {
-  # docker.for.mac.localhost
   virtualisation.oci-containers.containers.${name} = {
     image = "homeassistant/home-assistant:latest";
     volumes = [ "${config.params.locations.containers}/homeassistant:/config:rw" ];
     autoStart = true;
+  };
+  virtualisation.oci-containers.proxy.containers.${name} = {
+    inherit port;
+  };
+}
+
+  # docker.for.mac.localhost
     # labels = {
     #   "traefik.enable" = "true";
     #   "traefik.http.routers.${name}.entrypoints" = "https";
@@ -24,8 +30,3 @@ in
     # environment = {
     #   TZ = config.time.timeZone;
     # };
-  };
-  virtualisation.oci-containers.proxy.containers.${name} = {
-    inherit port;
-  };
-}

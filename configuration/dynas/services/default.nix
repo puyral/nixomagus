@@ -115,6 +115,15 @@
         acceleration = "vulkan";
         data = "${config.params.locations.containers}/llm/ollama";
       };
+
+      fileflows = {
+        enable = true;
+        networking.reverproxied = true;
+        hardware.intelArc = true;
+        mediaDirs = [
+          "/mnt/Zeno/media/videos/Anime"
+        ];
+      };
     };
 
   networking = {

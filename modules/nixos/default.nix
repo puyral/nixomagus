@@ -40,6 +40,7 @@ in
     ./llm
     ./nix-ld
     ./kavita
+    ./fileflows
     # ./keyboard
   ]
   ++ eimports;
