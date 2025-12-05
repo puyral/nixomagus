@@ -15,7 +15,7 @@
   # "amd_pstate=active": 'active' mode allows the CPU to manage its own power states internally (EPP).
   boot.kernelParams = [
     "consoleblank=120"
-    "pcie_aspm=force"
+    # "pcie_aspm=force"
     "amd_pstate=active"
   ];
 
@@ -29,7 +29,7 @@
 
   # 4. Power Management Services
   services.tlp = {
-    enable = true;
+    enable = false;
     settings = {
       # --- PCIe ASPM (Critical for Arc B580) ---
       # "powersupersave" allows the deepest sleep states (L1).
