@@ -6,7 +6,7 @@
   boot.kernelParams = [
   ];
 
-  # drivers 
+  # drivers
   hardware.graphics = {
     enable = true;
     extraPackages = with pkgs; [
@@ -15,4 +15,36 @@
       vpl-gpu-rt # Newer Video Processing Library
     ];
   };
+
+
+  # GPU notifier in case of crash
+
+  extra.mail.enable = true;
+  systemd.services.gpu-crash-monitor = {
+    description = "Monitor Intel Xe GPU for crashes and notify";
+    after = [ "network-online.target" ];
+    wants = [ "network-online.target" ];
+    wantedBy = [ "multi-user.target" ];
+
+    # Install necessary tools into the script's path
+    path = with pkgs; [
+      bash
+      systemd # for journalctl
+      util-linux # for dmesg
+      gzip
+      mailutils # for 'mail' command
+      coreutils
+    ];
+
+    serviceConfig = {
+      # Restart automatically if the monitoring script crashes
+      Restart = "always";
+      RestartSec = "10s";
+      # Run as root to access dmesg/journal
+      User = "root";
+    };
+
+    script = import ./gpu-crash-monitor.sh;
+  };
+
 }
