@@ -13,7 +13,6 @@ in
       enable = true;
       subdomain = "immich";
       inherit photos providers videos;
-      library = "${config.vars.Zeno.mountPoint}/media/photos/immich/library";
     };
     photoprism = {
       enable = true;

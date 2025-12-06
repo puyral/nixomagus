@@ -31,7 +31,7 @@
       bash
       systemd # for journalctl
       util-linux # for dmesg
-      gzip
+      zstd
       mailutils # for 'mail' command
       coreutils
     ];
@@ -44,7 +44,7 @@
       User = "root";
     };
 
-    script = import ./gpu-crash-monitor.sh;
+    script = builtins.readFile ./monitor-crashes.sh;
   };
 
 }
