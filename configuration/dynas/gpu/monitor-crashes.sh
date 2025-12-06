@@ -19,12 +19,12 @@ journalctl -k -f -n 0 | while read line; do
     FILEPATH="$LOG_DIR/$FILENAME"
 
     echo "Crash detected at $TIMESTAMP! Processing..."
-    CONTEXT=$(dmesg -T | tail -n 100 | tac)
+    CONTEXT=$(journalctl -k -n 100 -r --no-pager)
 
     # --- STEP A: LOCAL FALLBACK (Always works) ---
     # Dump the full dmesg ring buffer and compress it
     touch "$FILEPATH"
-    dmesg -T | zstd --ultra -19 -c > "$FILEPATH"
+    journalctl -k -b 0 --no-pager | zstd --ultra -19 -c > "$FILEPATH"
     echo "Log saved locally to $FILEPATH"
 
     # --- STEP B: EMAIL NOTIFICATION ---
