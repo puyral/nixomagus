@@ -16,7 +16,6 @@
     ];
   };
 
-
   # GPU notifier in case of crash
 
   extra.mail.enable = true;
