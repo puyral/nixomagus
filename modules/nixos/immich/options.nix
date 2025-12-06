@@ -18,6 +18,10 @@ with lib;
       type = types.path;
       example = "/mnt/Zeno/media/photos/exports/complete";
     };
+    library = mkOption {
+      type = types.path;
+      example = "/mnt/Zeno/media/photos/immich";
+    };
     videos = mkOption {
       type = types.path;
       example = "/mnt/Zeno/media/photos/video_clips";

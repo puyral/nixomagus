@@ -24,6 +24,10 @@ in
           hostPath = cfg.videos;
           isReadOnly = false;
         };
+        "/library" = {
+          hostPath = cfg.library;
+          isReadOnly = false;
+        };
         "/var/lib/tailscale" = {
           hostPath = "${cfg.dataDir}/tailscale";
           isReadOnly = false;
@@ -66,6 +70,7 @@ in
             group = user;
             openFirewall = true;
             host = "0.0.0.0";
+            # environment = { UPLOAD_LOCATION = "/Library"; };
 
             # # 2. Configure Acceleration
             # accelerators.machine-learning = {
