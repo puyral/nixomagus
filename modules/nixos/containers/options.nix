@@ -7,11 +7,8 @@ with lib;
         { name, ... }:
         {
           options = {
-            vpn = mkOption {
-              type = types.bool;
-              default = false;
-              description = "enable vpn access";
-            };
+            vpn = mkEnableOption "vpn access";
+            gpu = mkEnableOption "gpu passthough";
             traefik =
               let
                 inner_tf_options = (import ../traefik/options.nix) lib // {

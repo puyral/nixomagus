@@ -1,6 +1,7 @@
 {
   c_config ? {
     vpn = false;
+    gpu = false;
   },
   overlays,
   ...
@@ -40,5 +41,14 @@
     enable = c_config.vpn;
     openFirewall = true;
     # useRoutingFeatures = "server";
+  };
+
+  hardware.graphics = lib.mkIf c_config.gpu {
+    enable = true;
+    extraPackages = with pkgs; [
+      intel-compute-runtime # CRITICAL for Immich ML / OpenVINO
+      intel-media-driver
+      vpl-gpu-rt
+    ];
   };
 }

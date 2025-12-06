@@ -21,7 +21,19 @@ in
         hostPath = "${config.vars.Zeno.mountPoint}/media/videos";
         isReadOnly = false;
       };
+
+      # gpu
+      "/dev/dri" = {
+        hostPath = "/dev/dri";
+        isReadOnly = false;
+      };
     };
+    allowedDevices = [
+      {
+        node = "/dev/dri/renderD128";
+        modifier = "rw";
+      }
+    ];
     autoStart = true;
     ephemeral = true;
     privateNetwork = false;
@@ -32,7 +44,7 @@ in
     # see `getfacl` and `setfacl`
 
     config =
-      { lib, ... }:
+      { lib, pkgs, ... }:
       {
         services.jellyfin = {
           enable = true;
@@ -53,6 +65,21 @@ in
         services.resolved.enable = true;
         users.users.jellyfin = config.users.users.jellyfin;
         users.groups.jellyfin.gid = config.users.groups.jellyfin.gid;
+        users.groups."render".gid = config.users.groups."render".gid;
+        users.groups."video".gid = config.users.groups."video".gid;
+
+        # 4. Allow systemd to see the devices
+        systemd.services.jellyfin.serviceConfig.DeviceAllow = [ "/dev/dri/renderD128" ];
+
+        # 2. Enable Graphics inside the container
+        hardware.graphics = {
+          enable = true;
+          extraPackages = with pkgs; [
+            intel-media-driver # The iHD driver for QSV
+            vpl-gpu-rt # Video Processing Library (Critical for Arc/Battlemage)
+            intel-compute-runtime # OpenCL (Optional for Jellyfin, good for HDR tone mapping)
+          ];
+        };
       };
   };
 
@@ -61,6 +88,10 @@ in
       isSystemUser = true;
       uid = 1101;
       group = "jellyfin";
+      extraGroups = [
+        "render"
+        "video"
+      ];
     };
   };
   extra.extraGroups.jellyfin = {

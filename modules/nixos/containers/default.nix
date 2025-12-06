@@ -72,6 +72,25 @@ in
           }
           // (if value.vpn then { enableTun = true; } else { })
           // (
+            if value.gpu then
+              {
+                bindMounts = {
+                  "/dev/dri/renderD128" = {
+                    hostPath = "/dev/dri/renderD128";
+                    isReadOnly = false;
+                  };
+                };
+                allowedDevices = [
+                  {
+                    node = "/dev/dri/renderD128";
+                    modifier = "rw";
+                  }
+                ];
+              }
+            else
+              { }
+          )
+          // (
             if value.privateNetwork then
               {
                 privateNetwork = true;

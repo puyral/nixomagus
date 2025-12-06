@@ -66,19 +66,33 @@ in
             group = user;
             openFirewall = true;
             host = "0.0.0.0";
+
+            # # 2. Configure Acceleration
+            # accelerators.machine-learning = {
+            #   # This tells the ML container to look for the Arc GPU
+            #   device = "d128"; # corresponds to /dev/dri/renderD128
+            #   driver = "openvino"; # or "api" depending on your version, but OpenVINO is native for Intel
+            # };
           };
 
           users.users.${user} = {
             group = user;
             isSystemUser = true;
+            extraGroups = [
+              "render"
+              "video"
+            ];
           };
           users.groups.${user}.gid = gconfig.users.groups.photos.gid;
+          users.groups."render".gid = gconfig.users.groups."render".gid;
+          users.groups."video".gid = gconfig.users.groups."video".gid;
 
           services.tailscale.enable = true;
         };
     };
     extra.containers.immich = {
       vpn = true;
+      gpu = true;
 
       traefik = [
         {
