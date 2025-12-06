@@ -29,7 +29,7 @@
 
   # 4. Power Management Services
   services.tlp = {
-    enable = false;
+    enable = true;
     settings = {
       # --- PCIe ASPM (Critical for Arc B580) ---
       # "powersupersave" allows the deepest sleep states (L1).
