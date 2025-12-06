@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 with lib;
 
@@ -6,7 +11,7 @@ let
   cfg = config.extra.fileflows;
 in
 {
-  imports = [./options.nix];
+  imports = [ ./options.nix ];
 
   config = mkIf cfg.enable {
     # Ensure the temp directory exists with correct permissions if it's separate
@@ -18,11 +23,12 @@ in
       image = cfg.image;
       autoStart = true;
       ports = [ "5000:5000" ];
-      
+
       volumes = [
         "${cfg.dataDir}:/app/Data"
         "${cfg.tempDir}:/temp"
-      ] ++ (map (path: "${path}:${path}") cfg.mediaDirs);
+      ]
+      ++ (map (path: "${path}:${path}") cfg.mediaDirs);
 
       # Hardware Acceleration Logic
       extraOptions = optionals cfg.hardware.intelArc [
@@ -30,10 +36,10 @@ in
       ];
     };
 
-  virtualisation.oci-containers.proxy.containers.fileflows = lib.mkIf cfg.networking.reverproxied {
-    port = 5000;
-    name = cfg.networking.name;
-  };
+    virtualisation.oci-containers.proxy.containers.fileflows = lib.mkIf cfg.networking.reverproxied {
+      port = 5000;
+      name = cfg.networking.name;
+    };
 
     # networking.firewall.allowedTCPPorts = mkIf cfg.openFirewall [ 5000 ];
   };

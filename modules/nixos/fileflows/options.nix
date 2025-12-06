@@ -1,5 +1,9 @@
-
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 with lib;
 {
@@ -27,7 +31,7 @@ with lib;
 
     mediaDirs = mkOption {
       type = types.listOf types.str;
-      default = [];
+      default = [ ];
       description = ''
         List of media directories to mount into the container.
         They will be mounted at the same path as on the host to avoid confusion.
@@ -52,7 +56,7 @@ with lib;
     hardware = {
       intelArc = mkEnableOption "Intel Arc (QSV) hardware acceleration support";
     };
-    
+
     port = mkOption {
       type = types.port;
       default = 5000;
