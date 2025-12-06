@@ -24,10 +24,6 @@ in
           hostPath = cfg.videos;
           isReadOnly = false;
         };
-        "/library" = {
-          hostPath = cfg.library;
-          isReadOnly = false;
-        };
         "/var/lib/tailscale" = {
           hostPath = "${cfg.dataDir}/tailscale";
           isReadOnly = false;
@@ -70,14 +66,6 @@ in
             group = user;
             openFirewall = true;
             host = "0.0.0.0";
-            # environment = { UPLOAD_LOCATION = "/Library"; };
-
-            # # 2. Configure Acceleration
-            # accelerators.machine-learning = {
-            #   # This tells the ML container to look for the Arc GPU
-            #   device = "d128"; # corresponds to /dev/dri/renderD128
-            #   driver = "openvino"; # or "api" depending on your version, but OpenVINO is native for Intel
-            # };
           };
 
           users.users.${user} = {
