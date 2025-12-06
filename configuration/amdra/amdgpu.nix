@@ -24,7 +24,7 @@ in
     };
   };
 
-  services.ollama.acceleration = "rocm";
+  extra.llm.acceleration = "rocm";
 
   vars = { inherit kernel; };
 }
