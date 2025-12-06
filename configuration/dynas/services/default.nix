@@ -122,6 +122,7 @@
         hardware.intelArc = true;
         mediaDirs = [
           "/mnt/Zeno/media/videos/Anime"
+          "/mnt/Zeno/media/photos/video_clips"
         ];
       };
     };
