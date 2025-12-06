@@ -5,7 +5,7 @@
     # ./cockpit.nix
     ./syncthing.nix
     ./jellyfin.nix
-    ./homeassistant
+    ./homeassistant.nix
     ./portainer.nix
     ./mosquitto.nix
     # ./tailscale.nix
