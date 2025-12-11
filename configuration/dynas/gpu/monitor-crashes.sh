@@ -1,54 +1,94 @@
-# 1. Define the trigger pattern (Regex)
-# Matches: "trying reset", "*ERROR* GT0", "Run out of VRAM", etc.
-PATTERN="xe .*trying reset|xe .*ERROR.*GT|xe .*Force wake domain"
+# 1. NEW TRIGGER: Focus on the "Game Over" message
+# We ignore the noisy resets and wait for the definitive "device wedged"
+PATTERN="xe .*device wedged"
 
-# 2. Define storage for fallback logs
 LOG_DIR="/var/log/gpu-crashes"
 mkdir -p "$LOG_DIR"
 
 echo "Starting GPU Crash Monitor..."
 
-# 3. Start watching the kernel journal in real-time
-# -k : kernel messages only
-# -f : follow (live)
-# -n 0 : don't read old logs, only new ones
 journalctl -k -f -n 0 | while read line; do
   if [[ "$line" =~ $PATTERN ]]; then
     TIMESTAMP=$(date +%Y%m%d-%H%M%S)
-    FILENAME="dmesg-crash-$TIMESTAMP.ztsd"
-    FILEPATH="$LOG_DIR/$FILENAME"
-
-    echo "Crash detected at $TIMESTAMP! Processing..."
+    echo "CRITICAL: GPU Device Wedged at $TIMESTAMP"
+    
+    # --- 1. CAPTURE JOURNAL ---
+    LOG_FILENAME="journal-wedged-$TIMESTAMP.zst"
+    LOG_FILEPATH="$LOG_DIR/$LOG_FILENAME"
+    
+    # Context for Email Body (Last 100 lines, Newest First)
     CONTEXT=$(journalctl -k -n 100 -r --no-pager)
+    # Full Boot Log (Attachment 1)
+    journalctl -k -b 0 --no-pager | zstd --ultra -19 -c > "$LOG_FILEPATH"
+    echo "Journal saved."
 
-    # --- STEP A: LOCAL FALLBACK (Always works) ---
-    # Dump the full dmesg ring buffer and compress it
-    touch "$FILEPATH"
-    journalctl -k -b 0 --no-pager | zstd --ultra -19 -c > "$FILEPATH"
-    echo "Log saved locally to $FILEPATH"
+    # --- 2. CAPTURE GPU DEVICE COREDUMP ---
+    # The log says checking /sys/class/drm/card0/device/devcoredump/data
+    # We look for ANY card that might have a dump available.
+    
+    DUMP_ATTACH_OPT=""
+    DUMP_MSG="No GPU device dump found in /sys/class/drm/*/device/devcoredump/data"
+    
+    # Find the devcoredump file. 
+    # It usually lives at .../cardX/device/devcoredump/data
+    # We use `find` to handle card0, card1, etc.
+    DEV_DUMP_PATH=$(find /sys/class/drm/ -path "*/device/devcoredump/data" -print -quit)
 
-    # --- STEP B: EMAIL NOTIFICATION ---
-    # Try to send email. If network is down (e.g. NIC crash), this fails,
-    # but we already have the local file.
-    echo \
-"The Intel B580 GPU driver has crashed and attempts a reset.
-          
-Event Trigger:
-$line
+    if [ -n "$DEV_DUMP_PATH" ] && [ -f "$DEV_DUMP_PATH" ]; then
+        echo "Found GPU Device Dump at: $DEV_DUMP_PATH"
+        
+        RAW_DUMP="$LOG_DIR/gpu-dump-$TIMESTAMP.bin"
+        ZST_DUMP="$LOG_DIR/gpu-dump-$TIMESTAMP.bin.zst"
+        
+        # Read the sysfs file to disk (This captures the binary state)
+        cat "$DEV_DUMP_PATH" > "$RAW_DUMP"
+        
+        # Compress it
+        zstd --ultra -19 "$RAW_DUMP" -o "$ZST_DUMP"
+        rm "$RAW_DUMP"
+        
+        SIZE=$(stat -c%s "$ZST_DUMP")
+        echo "compressed dump down to $((SIZE/1024)) KB"
+        
+        # 5MB Limit Check
+        if [ $SIZE -le 5242880 ]; then
+          DUMP_ATTACH_OPT="-A $ZST_DUMP"
+          DUMP_MSG="Attached GPU Device Core Dump (Size: $((SIZE/1024)) KB)"
+        else
+          DUMP_MSG="GPU Dump too large ($((SIZE/1024/1024)) MB). Saved to $ZST_DUMP but not attached."
+        fi
+        
+        # Optional: Clear the dump from memory so the driver can create a new one next time
+        # echo 1 > "$DEV_DUMP_PATH"/../failing_device
+        # (Actually, writing to the 'data' file usually clears it, or the driver handles it)
+    fi
 
----------------------------------------------------------------
-LAST 100 LINES OF KERNEL CONTEXT
----------------------------------------------------------------
-$CONTEXT
-" | \
-    mail  -s "Dynas GPU driver crash detected" \
-          -A "$FILEPATH" \
+    # --- 3. SEND EMAIL ---
+    echo -e "The Intel B580 GPU driver has declared the device WEDGED.
+    Reboot is likely required to recover functionality.
+    
+    Event Trigger:
+    $line
+
+    GPU Dump Status:
+    ($DEV_DUMP_PATH)
+    $DUMP_MSG
+
+    ---------------------------------------------------------------
+    LAST 200 LINES (Newest First)
+    ---------------------------------------------------------------
+    $CONTEXT
+    " | \
+    mail -s "Dynas GPU driver crash detected at [$TIMESTAMP]" \
+          -A "$LOG_FILEPATH" \
+          $DUMP_ATTACH_OPT \
           simon.jeanteur@gmail.com
-    echo "Notification sent"
 
-    # --- STEP C: DEBOUNCE ---
-    # Sleep for 20 minutes to avoid spamming 500 emails 
-    # if the kernel loops errors.
+    echo "user notified"
+
+    # --- 4. DEBOUNCE ---
+    # If the device is wedged, it won't un-wedge itself quickly.
+    # Long sleep is appropriate.
     sleep 1200
   fi
 done
