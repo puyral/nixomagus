@@ -21,7 +21,7 @@ in
 
     virtualisation.oci-containers.containers.fileflows = {
       image = cfg.image;
-      autoStart = true;
+      autoStart = false;
       ports = [ "5000:5000" ];
 
       volumes = [
