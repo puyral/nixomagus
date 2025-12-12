@@ -14,6 +14,17 @@ with builtins;
 let
 
   journalPort = 19532;
+
+  mkInterfaceName =
+    { name, ... }:
+    let
+      net = "ve-${name}";
+    in
+    if (builtins.stringLength net) < 16 then
+      net
+    else
+      throw "${net} is too long for a network name, please change the name of container ${names}";
+
   c_config =
     {
       name,
@@ -146,17 +157,20 @@ in
       )
     );
 
-    nat.internalInterfaces = map (
-      { name, ... }:
-      let
-        net = "ve-${name}";
-      in
-      if (builtins.stringLength net) < 16 then
-        net
-      else
-        throw "${net} is too long for a network name, please change the name of container ${names}"
-    ) (filter ({ value, ... }: value.privateNetwork) containers);
-    firewall.allowedTCPPorts = [ journalPort ];
+    nat.internalInterfaces = map mkInterfaceName (
+      filter ({ value, ... }: value.privateNetwork) containers
+    );
+    firewall.interfaces = listToAttrs (
+      map (
+        attrs@{ ... }:
+        {
+          name = mkInterfaceName attrs;
+          value = {
+            allowedTCPPorts = [ journalPort ];
+          };
+        }
+      ) (filter ({ value, ... }: value.privateNetwork) containers)
+    );
   };
   services.journald.remote = {
     listen = "http";
