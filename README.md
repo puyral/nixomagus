@@ -8,6 +8,14 @@ The configuration is split quite a lot into modules. The ones for nixos are put 
 
 By convention, all extra modules are namespaced into `extra`. `config.vars` is reserved for cross module variables.
 
+### containers
+Where possible I use nixos containers. There is some automation to include some default config for them (e.g., include `vim` always). See [`containers`](modules/nixos/containers) for their base config.
+
+### reverse proxy
+I use `traefik` for the reverse proxy. I've added a ton of automation for it in  [`traefik`](modules/nixos/traefik).
+
+Also some containers run an instance of `tailscale` to go though the `ovh-pl` vps to be opened to the rest of the world.
+
 ## [Nixos](./configuration)
 The configurations for nixos are in [`configuration`](./configuration). There is one folder per computer and a [`commun`](./configuration/commun) folder. Both are loaded. All modules are loaded.
 
