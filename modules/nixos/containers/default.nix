@@ -25,6 +25,8 @@ let
     else
       throw "${net} is too long for a network name, please change the name of container ${names}";
 
+  mkLocalAdress = idx: "192.168.100.${toString (2 + idx)}";
+
   c_config =
     {
       name,
@@ -116,7 +118,7 @@ in
               {
                 privateNetwork = true;
                 inherit hostAddress;
-                localAddress = "192.168.100.${toString (2 + idx)}";
+                localAddress = mkLocalAdress idx; # "192.168.100.${toString (2 + idx)}";
               }
             else
               { }
@@ -168,6 +170,15 @@ in
           value = {
             allowedTCPPorts = [ journalPort ];
           };
+        }
+      ) (filter ({ value, ... }: value.privateNetwork) containers)
+    );
+    hosts = listToAttrs (
+      map (
+        { idx, name, ... }:
+        {
+          name = mkLocalAdress idx;
+          value = [ name ];
         }
       ) (filter ({ value, ... }: value.privateNetwork) containers)
     );
