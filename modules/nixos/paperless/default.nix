@@ -26,6 +26,10 @@ in
       type = types.path;
       default = "${config.vars.Zeno.mountPoint}/administratif/paperless";
     };
+    backupDir = mkOption {
+      type = types.path;
+      default = "${config.vars.Zeno.mountPoint}/administratif/backup";
+    };
   };
   config = lib.mkIf cfg.enable {
     containers.${name} = {
@@ -40,6 +44,10 @@ in
         };
         "/incomming" = {
           hostPath = cfg.incommingDir;
+          isReadOnly = false;
+        };
+        "/backup" = {
+          hostPath = cfg.backupDir;
           isReadOnly = false;
         };
       };
@@ -82,6 +90,11 @@ in
               # PAPERLESS_CSRF_TRUSTED_ORIGINS = "${PAPERLESS_URL},${PAPERLESS_TRUSTED_PROXIES}";
             };
             address = "0.0.0.0";
+
+            exporter = {
+              enable = true;
+              directory = "/backup";
+            };
           };
           users.groups.${user}.gid = lib.mkForce config.users.groups.${user}.gid;
           users.groups.syncthing = {
