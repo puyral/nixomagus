@@ -13,8 +13,13 @@ with lib;
 with builtins;
 let
 
+  journalPort = 19532;
   c_config =
-    name:
+    {
+      name,
+      hostAddress,
+      ...
+    }:
     { lib, ... }:
     let
       c_config = config.extra.containers.${name};
@@ -30,6 +35,8 @@ let
             lib
             c_config
             overlays
+            hostAddress
+            journalPort
             ;
         })
       ];
@@ -57,9 +64,12 @@ in
           value,
           name,
         }:
+        let
+          hostAddress = if value.privateNetwork then "192.168.${toString (2 + idx)}.2" else "127.0.0.1";
+        in
         (
           {
-            config = c_config name;
+            config = c_config { inherit name hostAddress; };
             specialArgs = {
               # extra arguments given to the containers
               inherit
@@ -94,7 +104,7 @@ in
             if value.privateNetwork then
               {
                 privateNetwork = true;
-                hostAddress = "192.168.${toString (2 + idx)}.2";
+                inherit hostAddress;
                 localAddress = "192.168.100.${toString (2 + idx)}";
               }
             else
@@ -146,5 +156,11 @@ in
       else
         throw "${net} is too long for a network name, please change the name of container ${names}"
     ) (filter ({ value, ... }: value.privateNetwork) containers);
+    firewall.allowedTCPPorts = [ journalPort ];
+  };
+  services.journald.remote = {
+    listen = "http";
+    enable = true;
+    port = journalPort;
   };
 }

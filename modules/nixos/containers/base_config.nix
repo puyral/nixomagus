@@ -4,6 +4,8 @@
     gpu = false;
   },
   overlays,
+  hostAddress,
+  journalPort,
   ...
 }:
 { pkgs, lib, ... }:
@@ -50,5 +52,10 @@
       intel-media-driver
       vpl-gpu-rt
     ];
+  };
+
+  services.journald.upload = {
+    enable = true;
+    settings.Upload.URL = "http://${hostAddress}:${builtins.toString journalPort}";
   };
 }
