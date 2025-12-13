@@ -45,6 +45,7 @@
         };
       };
       extraDevices = [ "MacPro" ];
+      extraIgnorePatterns = ["**/target"];
     };
 
     "TU-Wien" = {
