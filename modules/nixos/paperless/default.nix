@@ -74,7 +74,7 @@ in
             settings = rec {
               PAPERLESS_ADMIN_USER = "simon";
               PAPERLESS_CONSUMER_IGNORE_PATTERN = [
-                ".DS_STORE/*"
+                "*/.DS_Store"
                 "._*"
                 "desktop.ini"
               ];
