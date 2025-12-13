@@ -84,7 +84,11 @@ in
                 optimize = 1;
                 pdfa_image_compression = "lossless";
               };
-              PAPERLESS_OCR_SKIP_ARCHIVE_FILE = "with_text";
+
+              PAPERLESS_TASK_WORKERS = 2;
+              PAPERLESS_TIME_ZONE = "Europe/Vienna";
+
+              # PAPERLESS_OCR_SKIP_ARCHIVE_FILE = "with_text";
               PAPERLESS_TRUSTED_PROXIES = config.containers.${name}.hostAddress;
               PAPERLESS_URL = "https://${name}.${config.networking.traefik.baseDomain}";
               # PAPERLESS_CSRF_TRUSTED_ORIGINS = "${PAPERLESS_URL},${PAPERLESS_TRUSTED_PROXIES}";
@@ -94,6 +98,13 @@ in
             exporter = {
               enable = true;
               directory = "/backup";
+              settings = {
+                compare-checksums = true;
+                delete = true;
+                no-color = true;
+                no-progress-bar = true;
+                split-manifest = true;
+              };
             };
           };
           users.groups.${user}.gid = lib.mkForce config.users.groups.${user}.gid;
