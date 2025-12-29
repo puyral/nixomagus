@@ -1,0 +1,38 @@
+private: ENC[AES256_GCM,data:PpXRs4Ur0Fo80HxL0C7nO2EX9BBp0WZNH6DDjbNiBp8rx7veHcOLgS9l9eUzsRiEN6GiR98vulNx91k9ZSr1MuN6Gh2hwvhD6+RrbN41IrR2Dc2S0q41EH5cpXxqV5uWvYgoX0phc/a0GnTl/biqvUdcrM3oLpL40+lGSjKvNnquCVk3vCnEL9+LyL7vulQW3c2ERJ1X319N/KICsSEh1NBmJG1sjMVjHejTxwAfuo40kVANlZYcm+COlQ9xs2M1j9sMD9eoH9KXgYCy5Osm+Gt35n6epCjfbhB0phqb5SyJpnsVj1QhJiKAh7A7NsNRXim6s8KnT2hFH2N9GOGoaG5fOKmZhgL7sfHG2l3BwCJI/TA5C4rd6UJ3PoUH08fzihXJ1h+ieSX82TagW2mYRJlsU7hFw8gf86VkpD+rkNzmsCwk65UJgMc+obHfFhkD5rmaQgJxnlDGP3p0/FIPtnZGz6gfXnVPDalTfhJwuXMSxMF2mGgfGQCFJgARAg5T3R+Y/tQmyPb6ds//rimwT528LP9nJ8eLqSkd,iv:6FbmFvpiixfG3U9VClbxqO04F0kL0DXErNheO20hal4=,tag:fUAIFuOB0b3ZVy5X3WjgYA==,type:str]
+public: ENC[AES256_GCM,data:EGslbFIKcV4H85M4ZdqFEMQ9HHBr/H4MsH83BmOWZikdLmZBvc9G8mI/nS8oCfGjvNKjg74Nl0DhArrVHQd+Wc1mNUzQGhV7/6NO/IoqhTcDEKyoqnB0R76VRwxu+8EHS6TQK7rD,iv:IktpXdtkTXIvFAyPkyD6GZz/ETjGRN1Cvbn5EoRWpAU=,tag:M+G41KzudTxhT2IKbZw5FQ==,type:str]
+sops:
+    age:
+        - recipient: age16dzl2wd0c3qsr7rfs30v5f73xrshpxp9feu9zf5szv7yznma8cuqfcq9zy
+          enc: |
+            -----BEGIN AGE ENCRYPTED FILE-----
+            YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSBSS05aZzhFQ2U4YTd2MVUy
+            SGN3R0dOK3NpU05NNjl2b0VwSkJ1cjNDUXdzCk9JUmRpTjZQRVYxam1yaFRlMjdY
+            UmRlYWRFczljNElkNGw2Ly9ERGZQWGMKLS0tIFJyRTkrN2VUSlFqc3JUWkxaTWoz
+            NkwwL2N5QjY3ZENtUXJmRmpmdk44MjgKhUACHng1WElG1Hxal9OpXLA4tWb/YbUN
+            0mNNqL1z0FUHhrY9zOpxmEC+kPKPsNGC8bhQppMnUOBcIhlqxhIoKg==
+            -----END AGE ENCRYPTED FILE-----
+        - recipient: age1hqxy0a6je6t6xd6gldex29pjeacs47f2s683jy87kf3c9agm3q9sk4f996
+          enc: |
+            -----BEGIN AGE ENCRYPTED FILE-----
+            YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSBpRHZYSVZCdjhjNkVGbWtV
+            ekFFbWRYVm0rTmE4TFN5RlpCOXJWVlVPc2drCjFuNmxaNk0yV01BbklLTDlLNVhm
+            aG1aY0k0OEplNkd6SkJudlQ2RUs4amcKLS0tIFgyb0k0RzhyM1BWY0VCNGtrWk1v
+            Sld3d25EbFJ6NTMrcEhpbWZOMkxhaDAK6PRoJ9Nj115f0Yb0d1WEBPCbqPxxX8Hm
+            wHsiMK4vsd26ujmVmOu7THsnqyY8/kCLV9WLbExwrmqVAgecDE8ftw==
+            -----END AGE ENCRYPTED FILE-----
+    lastmodified: "2025-12-29T11:09:01Z"
+    mac: ENC[AES256_GCM,data:Sn5YoHiVQlBniJyjMsG3pMPb74u0U6NU+kPP90W6ooaNCebURVX4T27xiE0wJvAI+xn3B0wesUUU9QDor+TFUwa3InA88i+/Bi7LMFAJmpTYzuMZ8MIQvRyGy2cOAwa8tnH1qfFydCGfbRJgkzSlkri6s5ojlHcejcxoWCCGlFY=,iv:mQimUAUcCU4wZuWuKTCJCYu00nQoK7/0V8QPpFm3LhU=,tag:sl/+YE901LgZMTyAM6iNpg==,type:str]
+    pgp:
+        - created_at: "2025-12-29T10:26:29Z"
+          enc: |-
+            -----BEGIN PGP MESSAGE-----
+
+            hF4D9e5s8S4D4aoSAQdAbLHZgXlPbSEUC9V8/uKHMIsfh5i+BRCP2t0hKbOprE8w
+            aFySZY2xIZsE9M9n5Fhs937KGAlGsv1BVUMkIclRgCejaHUOAN2Cdqz/fjAyP4xs
+            0lwBAzcQF5PmGONNDGneMoxQWc//OWvS6EXJDpsrU57mW5FxvG72sKNZoYDoZSmC
+            8pHsXXo1rl9AwHC2eO15XAsl9KsZJ57wiD+XGg+cvuW74tu+TAFynBJE77IfyQ==
+            =2gUE
+            -----END PGP MESSAGE-----
+          fp: 1E96E80F8B44B1242EB2645A2F89AA8206299121
+    unencrypted_suffix: _unencrypted
+    version: 3.11.0

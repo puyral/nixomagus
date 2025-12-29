@@ -11,6 +11,7 @@
     # ./tailscale.nix
     ./photos.nix
     ./github
+    ./backup
   ];
   virtualisation.docker.autoPrune.enable = true;
 
@@ -125,6 +126,8 @@
           "/mnt/Zeno/media/photos/video_clips"
         ];
       };
+
+      autoBackup.enable = true;
     };
 
   networking = {
