@@ -5,7 +5,10 @@ let
   name = config.networking.hostName;
   shareFolder = folder: builtins.hasAttr name folder.devices;
   menabled = with builtins; any shareFolder (attrValues cfg.folders);
-  defaultIgnorePatterns = ["(?d)**/.DS_Store" "(?d)**/._*"];
+  defaultIgnorePatterns = [
+    "(?d)**/.DS_Store"
+    "(?d)**/._*"
+  ];
 in
 
 {
@@ -30,8 +33,8 @@ in
                 default = [ ];
                 type = types.listOf types.str;
               };
-              extraIgnorePatterns =  mkOption {
-                default = [];
+              extraIgnorePatterns = mkOption {
+                default = [ ];
                 type = with types; listOf str;
               };
             };
