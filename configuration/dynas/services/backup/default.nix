@@ -1,5 +1,6 @@
 { config, lib, ... }:
 {
+  imports = [ ./remote.nix ];
   options.extra.autoBackup.enable = lib.mkEnableOption "autobackup";
   config = lib.mkIf config.extra.autoBackup.enable {
     programs.ssh.knownHosts."100.64.0.5" = {
@@ -11,6 +12,28 @@
       format = "yaml";
       key = "private";
       owner = config.services.syncoid.user;
+    };
+
+    sops.secrets.backup-datase-passphrase = {
+      sopsFile = ./secrets-sops/ssh.yaml;
+      format = "yaml";
+      key = "dataset_passphrase";
+      owner = config.services.syncoid.user;
+    };
+
+    extra.autoBackup.toRemote = {
+      localBaseDataset = "Zeno";
+      remoteDevice = "root@100.64.0.5";
+      remoteBaseDataset = "Data/Backups/dynas";
+      passPhraseFile = config.sops.secrets.backup-datase-passphrase.path;
+      datasets = [
+        "paperless"
+        "administratif"
+        "containers"
+        "documents"
+        "work"
+        "media/photos/full-export"
+      ];
     };
 
     services.syncoid = {

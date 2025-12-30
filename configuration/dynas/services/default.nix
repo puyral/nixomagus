@@ -127,7 +127,10 @@
         ];
       };
 
-      autoBackup.enable = true;
+      autoBackup = {
+        enable = true;
+        toRemote.enable = true;
+      };
     };
 
   networking = {

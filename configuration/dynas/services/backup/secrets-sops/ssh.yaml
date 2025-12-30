@@ -1,5 +1,6 @@
 private: ENC[AES256_GCM,data:PpXRs4Ur0Fo80HxL0C7nO2EX9BBp0WZNH6DDjbNiBp8rx7veHcOLgS9l9eUzsRiEN6GiR98vulNx91k9ZSr1MuN6Gh2hwvhD6+RrbN41IrR2Dc2S0q41EH5cpXxqV5uWvYgoX0phc/a0GnTl/biqvUdcrM3oLpL40+lGSjKvNnquCVk3vCnEL9+LyL7vulQW3c2ERJ1X319N/KICsSEh1NBmJG1sjMVjHejTxwAfuo40kVANlZYcm+COlQ9xs2M1j9sMD9eoH9KXgYCy5Osm+Gt35n6epCjfbhB0phqb5SyJpnsVj1QhJiKAh7A7NsNRXim6s8KnT2hFH2N9GOGoaG5fOKmZhgL7sfHG2l3BwCJI/TA5C4rd6UJ3PoUH08fzihXJ1h+ieSX82TagW2mYRJlsU7hFw8gf86VkpD+rkNzmsCwk65UJgMc+obHfFhkD5rmaQgJxnlDGP3p0/FIPtnZGz6gfXnVPDalTfhJwuXMSxMF2mGgfGQCFJgARAg5T3R+Y/tQmyPb6ds//rimwT528LP9nJ8eLqSkd,iv:6FbmFvpiixfG3U9VClbxqO04F0kL0DXErNheO20hal4=,tag:fUAIFuOB0b3ZVy5X3WjgYA==,type:str]
 public: ENC[AES256_GCM,data:EGslbFIKcV4H85M4ZdqFEMQ9HHBr/H4MsH83BmOWZikdLmZBvc9G8mI/nS8oCfGjvNKjg74Nl0DhArrVHQd+Wc1mNUzQGhV7/6NO/IoqhTcDEKyoqnB0R76VRwxu+8EHS6TQK7rD,iv:IktpXdtkTXIvFAyPkyD6GZz/ETjGRN1Cvbn5EoRWpAU=,tag:M+G41KzudTxhT2IKbZw5FQ==,type:str]
+dataset_passphrase: ENC[AES256_GCM,data:ubU1LXGi/rE7X5C8sqr99+WAhdRjtW9SvernzP4zSfJb24QLBMAGygymHCUoeK/IIj0lqknhOJfEaUEr8qZ0lmJHxKwaJ72b,iv:5LfPJvLwtOvjrj1hQa9/JAkIJQQipbFCH0aNrU5FbAs=,tag:IjBY37opRWogZg5XNgD/Jg==,type:str]
 sops:
     age:
         - recipient: age16dzl2wd0c3qsr7rfs30v5f73xrshpxp9feu9zf5szv7yznma8cuqfcq9zy
@@ -20,8 +21,8 @@ sops:
             Sld3d25EbFJ6NTMrcEhpbWZOMkxhaDAK6PRoJ9Nj115f0Yb0d1WEBPCbqPxxX8Hm
             wHsiMK4vsd26ujmVmOu7THsnqyY8/kCLV9WLbExwrmqVAgecDE8ftw==
             -----END AGE ENCRYPTED FILE-----
-    lastmodified: "2025-12-29T11:09:01Z"
-    mac: ENC[AES256_GCM,data:Sn5YoHiVQlBniJyjMsG3pMPb74u0U6NU+kPP90W6ooaNCebURVX4T27xiE0wJvAI+xn3B0wesUUU9QDor+TFUwa3InA88i+/Bi7LMFAJmpTYzuMZ8MIQvRyGy2cOAwa8tnH1qfFydCGfbRJgkzSlkri6s5ojlHcejcxoWCCGlFY=,iv:mQimUAUcCU4wZuWuKTCJCYu00nQoK7/0V8QPpFm3LhU=,tag:sl/+YE901LgZMTyAM6iNpg==,type:str]
+    lastmodified: "2025-12-30T10:21:55Z"
+    mac: ENC[AES256_GCM,data:ictWlRzCyF42SBD0M/42E0LONYlEf69tSsbsS1G027LFqM/f5aKLlmlu9W9UwS/kmXVxejKlRBRIi3bCIxh1zmAXRtP3NUUnccoO5LxfXIvFyye1aSslzAuxonOwEVF+kecitss4erNLqM0FnI1qE4E/GZ/VnZ57CJvdFg4HPWY=,iv:DlLQNkPGG0Rt8yZub0tFjoMEcjXm2KfB0mlXDEvhW3o=,tag:Ob5ZdpBQxmOvuMobvKfx3A==,type:str]
     pgp:
         - created_at: "2025-12-29T10:26:29Z"
           enc: |-
