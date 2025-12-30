@@ -43,7 +43,7 @@
       onTimer.enable = false;
       locations = {
         library = "/home/simon/.config/synced-darktable-database/library.db";
-        export = "/Volumes/Zeno/media/photos/exports/complete";
+        export = "/Volumes/Zeno/media/photos/full-export/jpegs";
       };
     };
   };
