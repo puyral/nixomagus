@@ -13,6 +13,12 @@ let
 
   mkName = dataset: "push-${sanitize dataset}";
   sshKey = config.services.syncoid.sshKey;
+
+  serviceName = dataset: "syncoid-${mkName dataset}.service";
+  transferServices = map serviceName cfg.datasets;
+
+  unlock-service = "syncoid-push-unlock";
+  lock-service = "syncoid-push-lock";
 in
 {
   options.extra.autoBackup.toRemote = {
@@ -69,45 +75,82 @@ in
             # -x encryption: strips local encryption so it inherits remote parent's encryption
             # -o canmount=off: prevents the remote from ever mounting this dataset
             recvOptions = "-x encryption -o canmount=off";
+
+            service = {
+              serviceConfig = {
+                Type = "oneshot";
+              };
+              requires = [ "${unlock-service}.service" ];
+              after = [ "${unlock-service}.service" ];
+              # deactivate timer
+              startAt = lib.mkForce [ ];
+            };
           };
         }) cfg.datasets
       );
     };
 
-    # 2. Define the Systemd Hooks (Unlock -> Start -> Lock)
-    # We iterate over the same list to inject preStart/postStop into the generated services
-    systemd.services = builtins.listToAttrs (
-      map (dataset: {
-        name = "syncoid-${mkName dataset}";
-        value = {
-          serviceConfig = {
-            # FIX: Prevent 200/CHDIR error by starting in the root directory
-            # WorkingDirectory = "/run/syncoid/${mkName dataset}";
-            # RuntimeDirectoryMode = lib.mkForce "0755";
-            InaccessiblePaths = lib.mkForce [ ];
-          };
-          # Hook 1: Unlock the PARENT on the remote before starting
-          preStart = ''
-            echo "Unlocking remote parent dataset: ${cfg.remoteBaseDataset}..."
+    systemd.services = {
+      # 2. The UNLOCKER (The Prerequisite)
+      # Triggered automatically because Transfer services Require it.
+      "${unlock-service}" = {
+        description = "Unlock Remote Dataset: ${cfg.remoteDevice}:${cfg.remoteBaseDataset}";
+        serviceConfig = {
+          Type = "oneshot";
+          PermissionsStartOnly = true;
+          User = "root";
+        };
+        script = ''
+          echo "Checking encryption state..."
+          STATUS=$(${pkgs.openssh}/bin/ssh -i ${sshKey} \
+            -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null \
+            ${cfg.remoteDevice} "zfs get -H -o value keystatus ${cfg.remoteBaseDataset}")
+
+          if [ "$STATUS" = "unavailable" ]; then
+            echo "Key unavailable. Unlocking..."
             cat ${cfg.passPhraseFile} | \
               ${pkgs.openssh}/bin/ssh -i ${sshKey} \
-              -o StrictHostKeyChecking=no \
-              -o UserKnownHostsFile=/dev/null \
-              ${cfg.remoteDevice} \
-              "zfs load-key -L prompt ${cfg.remoteBaseDataset}"
-          '';
+              -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null \
+              ${cfg.remoteDevice} "zfs load-key -L prompt ${cfg.remoteBaseDataset}"
+          fi
+        '';
+      };
 
-          # Hook 2: Lock the PARENT on the remote after finishing (success or failure)
-          postStop = ''
-            echo "Locking remote parent dataset: ${cfg.remoteBaseDataset}..."
-            ${pkgs.openssh}/bin/ssh -i ${sshKey} \
-              -o StrictHostKeyChecking=no \
-              -o UserKnownHostsFile=/dev/null \
-              ${cfg.remoteDevice} \
-              "zfs unload-key ${cfg.remoteBaseDataset}" || true
-          '';
+      # 3. The CONTROLLER (The Locker)
+      # This is what the Timer actually starts.
+      "${lock-service}" = {
+        description = "Lock Remote Dataset: ${cfg.remoteDevice}:${cfg.remoteBaseDataset}";
+
+        # DEPENDENCY MAGIC:
+        # "Wants": Starts these services when I start. (Wants allows them to fail without failing me)
+        # "After": I won't run my Script until they have ALL finished (exit status).
+        wants = transferServices;
+        after = transferServices;
+
+        serviceConfig = {
+          Type = "oneshot";
+          User = config.services.syncoid.user;
         };
-      }) cfg.datasets
-    );
+
+        # This runs only when all backups are done.
+        script = ''
+          echo "All transfers finished. Locking remote dataset..."
+          ${pkgs.openssh}/bin/ssh -i ${sshKey} \
+            -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null \
+            ${cfg.remoteDevice} "zfs unload-key ${cfg.remoteBaseDataset}" || true
+        '';
+      };
+    };
+
+    # 5. The TRIGGER
+    # Only triggers the Lock service (which starts the chain)
+    systemd.timers."${lock-service}" = {
+      wantedBy = [ "timers.target" ];
+      timerConfig = {
+        OnCalendar = config.services.syncoid.interval;
+        Persistent = true;
+        Unit = "${lock-service}.service";
+      };
+    };
   };
 }
