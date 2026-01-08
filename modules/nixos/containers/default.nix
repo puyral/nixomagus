@@ -7,6 +7,7 @@ eimports:
   rootDir,
   nixpkgs-unstable,
   pkgs-unstable,
+  sops-nix,
   ...
 }:
 with lib;

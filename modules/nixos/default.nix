@@ -1,7 +1,9 @@
-{ lib, ... }:
+{ lib, sops-nix, ... }:
 let
   eimports = [
     ./tailscale
+    sops-nix.nixosModules.sops
+    ./sops
     # ./isw
   ];
 in
@@ -35,12 +37,12 @@ in
     ./authentik
     ./authelia
     ./tailscale-exit-container
-    ./sops
     ./gui
     ./llm
     ./nix-ld
     ./kavita
     ./fileflows
+    ./ntfy
     # ./keyboard
   ]
   ++ eimports;

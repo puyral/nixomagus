@@ -131,6 +131,11 @@
         enable = true;
         toRemote.enable = true;
       };
+
+      ntfy = {
+        enable = true;
+        url = "ntfy.puyral.fr";
+      };
     };
 
   networking = {
