@@ -69,6 +69,7 @@ in
             extraArgs = [
               "--delete-target-snapshots"
               "--no-privilege-elevation"
+              "--source-bwlimit=10m"
             ];
 
             # STRATEGY: Inherit Encryption + Never Mount

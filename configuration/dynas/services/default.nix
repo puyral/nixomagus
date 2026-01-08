@@ -134,7 +134,7 @@
 
       ntfy = {
         enable = true;
-        url = "ntfy.puyral.fr";
+        url = "ntfy";
       };
     };
 
