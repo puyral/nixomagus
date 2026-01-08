@@ -1,4 +1,4 @@
-{ lib,config,  ... }:
+{ lib, config, ... }:
 {
   options.extra.ntfy = with lib; {
     enable = mkEnableOption "ntfy";

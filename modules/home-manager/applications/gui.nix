@@ -32,7 +32,6 @@ in
       in
       [
         # custom.rnote
-        pkgs.rapid-photo-downloader
       ]
 
       ++ (with pkgs-stable; [
@@ -66,13 +65,13 @@ in
 
         emacs
 
-        blender
         #davinci-resolve
         kdePackages.kdenlive
         inkscape-with-extensions
         geeqie
         feh
         xpano
+        rapid-photo-downloader
 
         spotify
         mpv
@@ -85,8 +84,6 @@ in
 
         # steam
         obsidian
-
-        # jellyfin-media-player
 
         discord
         wasistlos
@@ -103,6 +100,9 @@ in
       ])
       ++ (with pkgs-unstable; [
         darktable
+        blender
+
+        jellyfin-media-player
       ])
       ++ lib.optional gui.pinentry-qt pkgs.pinentry-qt;
   };

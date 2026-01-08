@@ -53,7 +53,7 @@ in
           systemd.services.ntfy-sh = {
             # serviceConfig.ReadWritePaths = dataDir;
             serviceConfig.DynamicUser = lib.mkForce false;
-          } ;
+          };
         };
     };
     extra.containers.ntfy = {
