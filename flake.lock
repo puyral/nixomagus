@@ -277,6 +277,22 @@
         "type": "github"
       }
     },
+    "nixpkgs-kernel": {
+      "locked": {
+        "lastModified": 1765186076,
+        "narHash": "sha256-hM20uyap1a0M9d344I692r+ik4gTMyj60cQWO+hAYP8=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "addf7cf5f383a3101ecfba091b98d0a1263dc9b8",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "addf7cf5f383a3101ecfba091b98d0a1263dc9b8",
+        "type": "github"
+      }
+    },
     "nixpkgs-rpd": {
       "locked": {
         "lastModified": 1760423683,
@@ -429,6 +445,7 @@
         "home-manager": "home-manager",
         "kmonad": "kmonad",
         "nixos-hardware": "nixos-hardware",
+        "nixpkgs-kernel": "nixpkgs-kernel",
         "nixpkgs-rpd": "nixpkgs-rpd",
         "nixpkgs-stable": "nixpkgs-stable",
         "nixpkgs-unstable": "nixpkgs-unstable",

@@ -1,13 +1,16 @@
 {
   config,
   pkgs,
+  pkgs-kernel,
   lib,
   ...
 }:
 {
   # 1. Ensure you are running a very recent kernel.
   # The Intel Arc B580 (Battlemage) requires Linux 6.12+ for proper power management.
-  boot.kernelPackages = pkgs.linuxPackages_latest;
+  # We use a pinned nixpkgs (pkgs-kernel) to get Linux 6.17, as it works with ZFS Stable
+  # and provides better support than 6.12, but isn't broken like 6.18+.
+  boot.kernelPackages = pkgs-kernel.linuxPackages_6_17;
 
   # 2. Kernel Parameters
   # "pcie_aspm=force": Forces ASPM even if the BIOS suggests otherwise (often needed for Arc).

@@ -5,6 +5,7 @@ attrs@{
   nixpkgs-unstable,
   nixpkgs,
   nixpkgs-rpd,
+  nixpkgs-kernel,
   custom,
   self,
   sops-nix,
@@ -137,6 +138,7 @@ rec {
       pkgs-stable = aux nixpkgs-stable;
       pkgs-unstable = aux nixpkgs-unstable;
       pkgs-rpd = aux nixpkgs-rpd;
+      pkgs-kernel = aux nixpkgs-kernel;
       extra-pkgs = base-pkgs.lib.mapAttrs (name: value: value.legacyPackages.${system}) {
         # inherit paperless-nixpkgs;
       };
