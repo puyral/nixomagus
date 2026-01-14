@@ -1,12 +1,33 @@
 {
   config,
   rootDir,
+  pkgs,
   ...
 }:
+let
+  # Logic to safely select ZFS package
+  # We want the latest kernel, which might break ZFS Stable.
+  # If so, we warn and fallback to ZFS Unstable.
+  kernelPackages = config.boot.kernelPackages;
+  stableAttr = pkgs.zfs.kernelModuleAttribute; # e.g. "zfs_2_3"
+  zfsStable = kernelPackages.${stableAttr};
+  zfsUnstable = kernelPackages.zfs_unstable;
+
+  isBroken = pkg: pkg.meta.broken or false;
+
+  zfsPackage =
+    if (isBroken zfsStable) then
+      builtins.warn
+        "ZFS Stable (${stableAttr}) is broken on kernel ${kernelPackages.kernel.version}. Fallback to ZFS Unstable."
+        zfsUnstable
+    else
+      zfsStable;
+in
 {
   boot = {
     supportedFilesystems = [ "zfs" ];
     zfs = {
+      package = zfsPackage;
       extraPools = [ "Zeno" ];
       forceImportRoot = true;
     };
