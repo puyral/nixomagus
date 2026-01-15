@@ -24,6 +24,7 @@
     ./keyring
     ./git
     ./wandarr
+    ./ntfy
   ];
 
   options.extra = {
