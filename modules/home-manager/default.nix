@@ -25,6 +25,7 @@
     ./git
     ./wandarr
     ./ntfy
+    ./sops
   ];
 
   options.extra = {
