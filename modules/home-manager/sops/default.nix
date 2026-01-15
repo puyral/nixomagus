@@ -19,7 +19,10 @@ in
     lib.mkIf cfg.enable {
       sops.defaultSopsFile = ../../../.sops.yaml;
       # This will automatically import SSH keys as age keys
-      sops.age.sshKeyPaths =  ["${config.home.homeDirectory}/.ssh/id_sops" "${config.home.homeDirectory}/.ssh/id_ed25519"];
+      sops.age.sshKeyPaths = [
+        "${config.home.homeDirectory}/.ssh/id_sops"
+        "${config.home.homeDirectory}/.ssh/id_ed25519"
+      ];
       # # This is using an age key that is expected to already be in the filesystem
       # sops.age.keyFile = "/var/lib/sops-nix/key.txt";
       # # This will generate a new key if the key specified above does not exist

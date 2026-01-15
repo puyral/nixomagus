@@ -7,23 +7,25 @@
       publicKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAICiAYMQJN/7Cl2zOxFkkAr0d79Kr06sn+svscYRQPknm";
     };
 
-    sops.secrets = let 
-      sopsFile = ./ssh.sops-secret.yaml;
-      format = "yaml";
+    sops.secrets =
+      let
+        sopsFile = ./ssh.sops-secret.yaml;
+        format = "yaml";
 
-    in{
-      syncoid-ssh-key = {
-        inherit sopsFile format;
-      key = "private";
-      owner = config.services.syncoid.user;
-    };
+      in
+      {
+        syncoid-ssh-key = {
+          inherit sopsFile format;
+          key = "private";
+          owner = config.services.syncoid.user;
+        };
 
-    backup-datase-passphrase = {
-        inherit sopsFile format;
-      key = "dataset_passphrase";
-      owner = config.services.syncoid.user;
-    };
-    };
+        backup-datase-passphrase = {
+          inherit sopsFile format;
+          key = "dataset_passphrase";
+          owner = config.services.syncoid.user;
+        };
+      };
 
     extra.autoBackup.toRemote = {
       localBaseDataset = "Zeno";
