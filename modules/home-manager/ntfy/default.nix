@@ -30,8 +30,11 @@ in
       format = "yaml";
     };
 
-    # Use the host SSH key for decryption (requires read access for the user)
-    sops.age.sshKeyPaths = [ "/etc/ssh/ssh_host_ed25519_key" ];
+    # Use the user's SSH keys for decryption (RSA or ECDSA)
+    sops.age.sshKeyPaths = [
+      "${config.home.homeDirectory}/.ssh/id_rsa"
+      "${config.home.homeDirectory}/.ssh/id_ecdsa"
+    ];
 
     sops.templates."client.yml" = {
       content = ''
