@@ -2,11 +2,15 @@ keys:
   - &gpg 1E96E80F8B44B1242EB2645A2F89AA8206299121
   - &dynas age16dzl2wd0c3qsr7rfs30v5f73xrshpxp9feu9zf5szv7yznma8cuqfcq9zy
   - &ovh-pl age1hqxy0a6je6t6xd6gldex29pjeacs47f2s683jy87kf3c9agm3q9sk4f996
+  - &simon age1smuj4pm66r9cpvlh27yld7lnrm39wlvxml6z56p9asf3r2jndcxshml0pg
 creation_rules:
-  - path_regex: .*secrets-sops/.*\.(yaml|json|env|ini)$
-    key_groups:
-    - pgp:
-      - *gpg
-      age:
-      - *dynas
-      - *ovh-pl
+  - path_regex: (users|modules/home-manager)/.*\.sops-secret\.*$
+    pgp: *gpg
+    age:
+    - *simon
+
+  - path_regex: .*\.sops-secret\.*$
+    pgp: *gpg
+    age:
+    - *dynas
+    - *ovh-pl

@@ -14,7 +14,7 @@ in
   config = lib.mkIf cfg.enable {
 
     sops.secrets.ntfy-secrets = {
-      sopsFile = ./secrets-sops/secrets.env;
+      sopsFile = ./secrets.sops-secret.env;
       format = "dotenv";
     };
 

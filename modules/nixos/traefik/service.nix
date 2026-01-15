@@ -11,7 +11,7 @@ in
 
   config = mkIf cfg.enable {
     sops.secrets.ovh = {
-      sopsFile = ./secrets-sops/ovh.env;
+      sopsFile = ./ovh.sops-secret.env;
       owner = "traefik";
       format = "dotenv";
     };

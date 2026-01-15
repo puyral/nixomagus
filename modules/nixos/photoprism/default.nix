@@ -14,7 +14,7 @@ in
   imports = [ ./options.nix ];
   config = lib.mkIf cfg.enable {
     sops.secrets.photoprism = {
-      sopsFile = ./secrets-sops/photoprism.yaml;
+      sopsFile = ./photoprism.sops-secret.yaml;
       key = "init_password";
     };
 
