@@ -38,12 +38,10 @@
         ]
       ];
     };
-    generate-jpgs = {
-      enable = true;
-      onTimer.enable = false;
-      locations = {
-        library = "/home/simon/.config/synced-darktable-database/library.db";
-        export = "/Volumes/Zeno/media/photos/full-export/jpegs";
+    darktable = {
+      library = "/home/simon/.config/synced-darktable-database/library.db";
+      export = {
+        jpgsDir = "/Volumes/Zeno/media/photos/full-export/jpegs";
       };
     };
   };

@@ -53,6 +53,12 @@
       inputs.nixpkgs.follows = "nixpkgs-stable";
     };
 
+    darktable-jpeg-sync = {
+      url = "github:puyral/darktable-jpeg-sync";
+      inputs.nixpkgs.follows = "nixpkgs-stable";
+      inputs.treefmt-nix.follows = "treefmt-nix";
+    };
+
     rust-overlay = {
       url = "github:oxalica/rust-overlay";
       inputs.nixpkgs.follows = "nixpkgs-stable";
@@ -66,6 +72,7 @@
       nixpkgs-unstable,
       nixpkgs-stable,
       sops-nix,
+      darktable-jpeg-sync,
       ...
     }@attrs:
     let
@@ -109,6 +116,7 @@
           )
           // {
             sops-nix = sops-nix.packages.${system}.default;
+            darktable-jpeg-sync = darktable-jpeg-sync.packages.${system}.default;
           };
       in
       {

@@ -19,6 +19,10 @@ in
       alacritty.enable = lib.mkDefault true;
       vscode.enable = true;
       keyring.enable = lib.mkDefault true;
+      darktable = {
+        enable = true;
+        full = true;
+      };
     };
     xdg.mimeApps.defaultApplications = lib.mkIf config.extra.alacritty.enable {
       "x-scheme-handler/terminal" = [
@@ -70,8 +74,8 @@ in
         inkscape-with-extensions
         geeqie
         feh
-        xpano
-        rapid-photo-downloader
+        # xpano
+        # rapid-photo-downloader
 
         spotify
         mpv
@@ -99,7 +103,7 @@ in
         cemu
       ])
       ++ (with pkgs-unstable; [
-        darktable
+        # darktable
         blender
 
         jellyfin-media-player

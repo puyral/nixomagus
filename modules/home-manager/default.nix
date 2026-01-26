@@ -14,7 +14,7 @@
     ./alacritty
     ./applications
     ./git-config-fetcher
-    ./generate-jpgs
+    ./darktable
     ./xkb
     ./tmux
     ./yazi
