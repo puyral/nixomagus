@@ -16,6 +16,7 @@ pkgs.mkShell {
       sops
       git-crypt
       sops-nix
+      shellcheck
     ])
     ++ (
       if pkgs.stdenv.isDarwin then

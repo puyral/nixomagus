@@ -3,12 +3,14 @@
   lib,
   pkgs,
   computer,
+  pkgs-self,
   ...
 }:
 let
   cfg = config.extra.ntfy-client;
+  ntfy-done = pkgs-self.notify-done.override { topic = cfg.topic; };
 
-  ntfy-done = pkgs.callPackage ./ntfy-done.nix {topic=cfg.topic;};
+  # ntfy-done = pkgs.callPackage ./ntfy-done.nix {topic=cfg.topic;};
 in
 {
   options.extra.ntfy-client = {
