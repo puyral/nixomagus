@@ -14,7 +14,7 @@ let
   computers = (import (rootDir + "/computers.nix")).computers;
 
   # Select a reference computer (e.g., 'amdra')
-  computer = computers.amdra // { name = "amdra"; };
+  computer = computers.dynas // { name = "dynas"; };
 
   # Evaluate the system configuration
   eval = functions.mkSystem {
@@ -43,5 +43,25 @@ let
     inherit transformOptions;
     warningsAreErrors = false;
   };
+
+  markdown = doc.optionsCommonMark;
 in
-doc.optionsCommonMark
+pkgs.runCommand "nix-configuration-doc"
+  {
+    nativeBuildInputs = [ pkgs.mdbook ];
+  } ''
+  mkdir -p src
+  cp ${markdown} src/options.md
+
+  cat > book.toml <<EOF
+  [book]
+  title = "NixOS Configuration Options"
+  EOF
+
+  cat > src/SUMMARY.md <<EOF
+  # Summary
+  [Options](./options.md)
+  EOF
+
+  mdbook build -d $out
+''
