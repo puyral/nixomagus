@@ -2,6 +2,7 @@
   pkgs,
   rootDir,
   lib,
+  machine ? "dynas",
   ...
 }@args:
 
@@ -14,15 +15,20 @@ let
   computers = (import (rootDir + "/computers.nix")).computers;
 
   # Select a reference computer (e.g., 'amdra')
-  computer = computers.dynas // { name = "dynas"; };
+  computer = computers."${machine}" // {
+    name = machine;
+  };
 
   # Evaluate the system configuration
   eval = functions.mkSystem {
     inherit computer;
     extraModules = [
-      ({ config, ... }: {
-        vars.Zeno.mountPoint = "/tmp/dummy-zeno";
-      })
+      (
+        { config, ... }:
+        {
+          vars.Zeno.mountPoint = "/tmp/dummy-zeno";
+        }
+      )
     ];
   };
 
@@ -31,9 +37,7 @@ let
   transformOptions =
     opt:
     let
-      isLocal = builtins.any (
-        decl: lib.hasPrefix (toString rootDir) (toString decl)
-      ) opt.declarations;
+      isLocal = builtins.any (decl: lib.hasPrefix (toString rootDir) (toString decl)) opt.declarations;
     in
     if isLocal then opt else opt // { visible = false; };
 
@@ -49,19 +53,20 @@ in
 pkgs.runCommand "nix-configuration-doc"
   {
     nativeBuildInputs = [ pkgs.mdbook ];
-  } ''
-  mkdir -p src
-  cp ${markdown} src/options.md
+  }
+  ''
+    mkdir -p src
+    cp ${markdown} src/nixos-options.md
 
-  cat > book.toml <<EOF
-  [book]
-  title = "NixOS Configuration Options"
-  EOF
+    cat > book.toml <<EOF
+    [book]
+    title = "NixOS Configuration Options"
+    EOF
 
-  cat > src/SUMMARY.md <<EOF
-  # Summary
-  [Options](./options.md)
-  EOF
+    cat > src/SUMMARY.md <<EOF
+    # Summary
+    [NixOS Options](./nixos-options.md)
+    EOF
 
-  mdbook build -d $out
-''
+    mdbook build -d $out
+  ''

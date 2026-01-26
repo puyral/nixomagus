@@ -72,12 +72,17 @@ rec {
     );
 
   mkHome =
-    inputs@{ computer, user }:
+    inputs@{
+      computer,
+      user,
+      extraModules ? [ ],
+    }:
     home-manager.lib.homeManagerConfiguration {
       modules = [
         ((import (rootDir + /home_manager.nix)) user)
         sops-nix.homeManagerModules.sops
-      ];
+      ]
+      ++ extraModules;
       pkgs = (mkpkgs computer.system).base-pkgs;
       extraSpecialArgs = (mkExtraArgs inputs) // {
         inherit computer;
@@ -86,7 +91,11 @@ rec {
     };
 
   mkSystem =
-    inputs@{ computer, extraModules ? [], ... }:
+    inputs@{
+      computer,
+      extraModules ? [ ],
+      ...
+    }:
     let
       usersAndModules = builtins.map (user: {
         name = user.name;
@@ -117,7 +126,8 @@ rec {
         (rootDir + /configuration + "/${computer.name}")
         home-manager.nixosModules.home-manager
         homes
-      ] ++ extraModules;
+      ]
+      ++ extraModules;
     };
 
   mkpkgs =
@@ -126,7 +136,7 @@ rec {
       aux =
         nixpkgs:
         import nixpkgs {
-          system = system;
+          inherit system;
           config = {
             allowUnfree = true;
           };
