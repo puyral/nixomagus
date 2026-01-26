@@ -86,7 +86,7 @@ rec {
     };
 
   mkSystem =
-    inputs@{ computer, ... }:
+    inputs@{ computer, extraModules ? [], ... }:
     let
       usersAndModules = builtins.map (user: {
         name = user.name;
@@ -117,7 +117,7 @@ rec {
         (rootDir + /configuration + "/${computer.name}")
         home-manager.nixosModules.home-manager
         homes
-      ];
+      ] ++ extraModules;
     };
 
   mkpkgs =
