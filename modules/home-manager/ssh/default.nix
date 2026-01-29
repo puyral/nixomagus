@@ -36,6 +36,10 @@ in
                 hostname = ips.vampire;
                 user = "root";
               };
+
+              "gitlab.secpriv.tuwien.ac.at" = {
+                proxyJump = "vampire";
+              };
             };
             enableDefaultConfig = false;
           };
