@@ -28,13 +28,17 @@ in
         };
         https = {
           address = ":443";
-          http.tls = {
-            certResolver = "ovh";
-            domains = rec {
-              main = config.networking.traefik.baseDomain;
-              sans = [ "*.${main}" ];
-            };
-          };
+          http.tls =
+            if config.extra.acme.enable then
+              { }
+            else
+              {
+                certResolver = "ovh";
+                domains = rec {
+                  main = config.networking.traefik.baseDomain;
+                  sans = [ "*.${main}" ];
+                };
+              };
         };
       };
 

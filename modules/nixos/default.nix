@@ -12,6 +12,7 @@ in
     ((import ./containers) eimports)
     ./binary-cache
     ./traefik
+    ./acme
     ./wachtower
     ./docker-traefik
     ./zigbee2mqtt
