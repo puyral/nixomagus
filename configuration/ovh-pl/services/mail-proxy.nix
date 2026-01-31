@@ -12,8 +12,8 @@ in
     # ]; # Trust Tailscale
     config = {
     inet_interfaces = config.ips.ovh-pl; # REPLACE with VPS Tailscale IP
-    mynetworks = "${config.extra.tailscale.prefix.v4} ${config.extra.tailscale.prefix.v6}"; # Trust Tailscale network
-    relay_domains = ""; 
+    mynetworks = [config.extra.tailscale.prefix.v4 config.extra.tailscale.prefix.v6]; # Trust Tailscale network
+    relay_domains = []; 
     # Standard outgoing setup
   };
     # config = {
