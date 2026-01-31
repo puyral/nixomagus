@@ -26,6 +26,7 @@ in
   config = lib.mkIf cfg.enable {
     sops.secrets.bitwarden_env = {
       sopsFile = ./secrets.sops-secret.env;
+      format = "dotenv";
     };
 
     containers.${name} = {
@@ -45,14 +46,21 @@ in
         { config, ... }:
         {
 
-          assertion = {
-            config.systemd.services.vaultwarden.StateDirectory = StateDirectory;
-          };
+          assertions = [
+            {
+              assertion = (config.systemd.services.vaultwarden.serviceConfig.StateDirectory == StateDirectory);
+              message = "bitwarden StateDirectory do not match in and out of the container";
+            }
+          ];
 
           services.vaultwarden = {
             enable = true;
             domain = "bitwarden.puyral.fr";
             environmentFile = secretEnv;
+            config = {
+              ROCKET_ADDRESS = "0.0.0.0"; # default to localhost
+              ROCKET_PORT = port;
+            };
           };
         };
     };
