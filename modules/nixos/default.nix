@@ -43,6 +43,7 @@ in
     ./kavita
     ./fileflows
     ./ntfy
+    ./mail-server
     # ./keyboard
   ]
   ++ eimports;

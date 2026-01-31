@@ -9,6 +9,7 @@ attrs@{
   custom,
   self,
   sops-nix,
+  simple-nixos-mailserver,
   ...
 }:
 rec {
@@ -120,6 +121,7 @@ rec {
       specialArgs = attrs // mkExtraArgs inputs;
       system = computer.system;
       modules = [
+        simple-nixos-mailserver.nixosModules.mailserver
         sops-nix.nixosModules.sops
         (rootDir + /modules/nixos)
         (rootDir + /configuration/commun)
