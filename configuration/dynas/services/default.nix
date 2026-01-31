@@ -147,7 +147,6 @@
     };
     traefik = {
       enable = true;
-      baseDomain = "puyral.fr";
       docker.enable = true;
       log.level = "INFO";
     };

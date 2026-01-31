@@ -12,6 +12,7 @@ in
     ((import ./containers) eimports)
     ./binary-cache
     ./traefik
+    ./acme
     ./wachtower
     ./docker-traefik
     ./zigbee2mqtt
@@ -43,6 +44,7 @@ in
     ./kavita
     ./fileflows
     ./ntfy
+    ./mail-server
     # ./keyboard
   ]
   ++ eimports;

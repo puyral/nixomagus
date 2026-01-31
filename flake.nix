@@ -17,7 +17,11 @@
       url = "github:nix-community/home-manager/release-25.11";
       inputs.nixpkgs.follows = "nixpkgs-stable";
     };
-    # nix-std.url = "github:chessai/nix-std"; # https://github.com/chessai/nix-std
+
+    simple-nixos-mailserver = {
+      url = "gitlab:simple-nixos-mailserver/nixos-mailserver/nixos-25.11";
+      inputs.nixpkgs.follows = "nixpkgs-stable";
+    };
 
     kmonad = {
       url = "github:kmonad/kmonad?dir=nix";

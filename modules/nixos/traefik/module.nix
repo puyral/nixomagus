@@ -10,6 +10,7 @@ with lib;
         baseDomain = mkOption {
           type = types.str;
           description = "the base domain";
+          default = "${config.extra.acme.domain}";
         };
 
         log.level = mkOption {
