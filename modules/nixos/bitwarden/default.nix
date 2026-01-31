@@ -7,7 +7,7 @@
 let
   cfg = config.extra.bitwarden;
   name = "bitwarden";
-  port = 80;
+  port = 8222;
   dataDir = cfg.dataDir;
   StateDirectory =
     if lib.versionOlder config.system.stateVersion "24.11" then "bitwarden_rs" else "vaultwarden";
@@ -22,6 +22,10 @@ in
       type = types.path;
       default = "${config.params.locations.containers}/${name}";
     };
+    backupDir = mkOption {
+      type = types.path;
+      default = "${dataDir}/backups";
+    };
   };
   config = lib.mkIf cfg.enable {
     sops.secrets.bitwarden_env = {
@@ -31,8 +35,13 @@ in
 
     containers.${name} = {
       bindMounts = {
+        "${cfg.backupDir}" = {
+          hostPath = "${cfg.backupDir}";
+          isReadOnly = false;
+        };
+
         "${innerDataDir}" = {
-          hostPath = dataDir;
+          hostPath = "${dataDir}/data";
           isReadOnly = false;
         };
         "${secretEnv}" = {
@@ -57,6 +66,7 @@ in
             enable = true;
             domain = "bitwarden.puyral.fr";
             environmentFile = secretEnv;
+            backupDir = cfg.backupDir;
             config = {
               ROCKET_ADDRESS = "0.0.0.0"; # default to localhost
               ROCKET_PORT = port;
