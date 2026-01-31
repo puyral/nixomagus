@@ -69,6 +69,7 @@ in
         {
           inherit port;
           enable = true;
+          providers = [ "ovh-pl" ];
         }
       ];
     };
