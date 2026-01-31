@@ -4,31 +4,31 @@ let
 in
 {
   # 1. Postfix Relay for Outbound (Dynas -> OVH -> World)
-  services.postfix = {
-    enable = true;
-    # networks = [
-    #   # "127.0.0.0/8"
-    #   "100.64.0.0/10"
-    # ]; # Trust Tailscale
-    config = {
-    inet_interfaces = config.ips.ovh-pl; # REPLACE with VPS Tailscale IP
-    mynetworks = [config.extra.tailscale.prefix.v4 config.extra.tailscale.prefix.v6]; # Trust Tailscale network
-    relay_domains = []; 
-    # Standard outgoing setup
-  };
-    # config = {
-    #   smtpd_relay_restrictions = "permit_mynetworks, reject";
-    #   inet_interfaces = "127.0.0.1";
-    # };
-    # Listen on Tailscale IP:2525 for relay
-    masterConfig = {
-      "${config.ips.ovh-pl}:2525" = {
-        type = "inet";
-        private = false;
-        command = "smtpd";
-      };
-    };
-  };
+  # services.postfix = {
+  #   enable = true;
+  #   # networks = [
+  #   #   # "127.0.0.0/8"
+  #   #   "100.64.0.0/10"
+  #   # ]; # Trust Tailscale
+  #   config = {
+  #   inet_interfaces = config.ips.ovh-pl; # REPLACE with VPS Tailscale IP
+  #   mynetworks = [config.extra.tailscale.prefix.v4 config.extra.tailscale.prefix.v6]; # Trust Tailscale network
+  #   relay_domains = []; 
+  #   # Standard outgoing setup
+  # };
+  #   # config = {
+  #   #   smtpd_relay_restrictions = "permit_mynetworks, reject";
+  #   #   inet_interfaces = "127.0.0.1";
+  #   # };
+  #   # Listen on Tailscale IP:2525 for relay
+  #   masterConfig = {
+  #     "${config.ips.ovh-pl}:2525" = {
+  #       type = "inet";
+  #       private = false;
+  #       command = "smtpd";
+  #     };
+  #   };
+  # };
 
   networking.firewall.allowedTCPPorts = [
     2525
