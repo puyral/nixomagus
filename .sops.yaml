@@ -4,12 +4,12 @@ keys:
   - &ovh-pl age1hqxy0a6je6t6xd6gldex29pjeacs47f2s683jy87kf3c9agm3q9sk4f996
   - &simon age1smuj4pm66r9cpvlh27yld7lnrm39wlvxml6z56p9asf3r2jndcxshml0pg
 creation_rules:
-  - path_regex: (users|modules/home-manager)/.*\.sops-secret\.*$
+  - path_regex: (users|modules/home-manager)/.*\.sops-secret\..*$
     pgp: *gpg
     age:
     - *simon
 
-  - path_regex: .*\.sops-secret\.*$
+  - path_regex: .*\.sops-secret\..*$
     pgp: *gpg
     age:
     - *dynas
