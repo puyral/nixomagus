@@ -18,9 +18,10 @@ in
       "simon@${domain}" = {
         hashedPasswordFile = config.sops.secrets.mail-passwd.path;
         aliases = [
-          "postmaster@${domain}"
           "security@${domain}"
           "smartd@${domain}"
+          "github@${domain}"
+          "simon.jeanteur@${domain}"
         ];
       };
     };
