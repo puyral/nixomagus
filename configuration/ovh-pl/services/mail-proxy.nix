@@ -1,22 +1,28 @@
 { config, lib, ... }:
 let
-  dynasIp = "100.64.0.15";
+  dynasIp = config.ips.dynas;
 in
 {
   # 1. Postfix Relay for Outbound (Dynas -> OVH -> World)
   services.postfix = {
     enable = true;
-    networks = [
-      "127.0.0.0/8"
-      "100.64.0.0/10"
-    ]; # Trust Tailscale
+    # networks = [
+    #   # "127.0.0.0/8"
+    #   "100.64.0.0/10"
+    # ]; # Trust Tailscale
     config = {
-      smtpd_relay_restrictions = "permit_mynetworks, reject";
-      inet_interfaces = "127.0.0.1";
-    };
+    inet_interfaces = config.ips.ovh-pl; # REPLACE with VPS Tailscale IP
+    mynetworks = "${config.extra.tailscale.prefix.v4} ${config.extra.tailscale.prefix.v6}"; # Trust Tailscale network
+    relay_domains = ""; 
+    # Standard outgoing setup
+  };
+    # config = {
+    #   smtpd_relay_restrictions = "permit_mynetworks, reject";
+    #   inet_interfaces = "127.0.0.1";
+    # };
     # Listen on Tailscale IP:2525 for relay
     masterConfig = {
-      "100.64.0.3:2525" = {
+      "${config.ips.ovh-pl}:2525" = {
         type = "inet";
         private = false;
         command = "smtpd";

@@ -1,4 +1,4 @@
 { ... }:
 {
-  imports = [ ./tailscale];
+  imports = [ ./tailscale ];
 }

@@ -24,13 +24,13 @@ in
         default = "50-tailscale";
       };
     };
-    subnet = {
-      addr = mkOption {
-        type = types.str;
-      };
-      size = mkOption {
-        type = types.str;
-      };
+    prefix.v4 = mkOption {
+      type = types.str;
+      default = "100.64.0.0/10";
+    };
+    prefix.v6 = mkOption {
+      type = types.str;
+      default = "fd7a:115c:a1e0::/48";
     };
   };
 
@@ -39,11 +39,6 @@ in
       tsinterface = config.services.tailscale.interfaceName;
     in
     {
-      extra.tailscale.subnet = {
-        addr = "100.64.0.0";
-        size = "10";
-      };
-
       services.tailscale = {
         enable = true;
         openFirewall = true;

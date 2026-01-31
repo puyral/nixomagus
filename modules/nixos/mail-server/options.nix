@@ -15,20 +15,22 @@
     };
 
     relayHost = mkOption {
-      type = types.nullOr (types.submodule (
-        { ... }:
-        {
-          options = {
-            addr = mkOption {
-              type = types.str;
+      type = types.nullOr (
+        types.submodule (
+          { ... }:
+          {
+            options = {
+              addr = mkOption {
+                type = types.str;
+              };
+              port = mkOption {
+                type = types.port;
+                default = 2525;
+              };
             };
-            port = mkOption {
-              type = types.port;
-              default = 2525;
-            };
-          };
-        }
-      ));
+          }
+        )
+      );
       default = null;
       description = "Relay host for outgoing mail";
     };

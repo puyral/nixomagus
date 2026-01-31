@@ -17,11 +17,8 @@ in
     ];
     services.dovecot2 = lib.mkIf cfg.proxyProtocol {
       extraConfig =
-        let
-          subnet = config.extra.tailscale.subnet;
-        in
         ''
-          haproxy_trusted_networks = ${subnet.addr}/${subnet.size}
+          haproxy_trusted_networks = ${config.extra.tailscale.prefix.v4} ${config.extra.tailscale.prefix.v6}
           service imap-login {
             inet_listener imap {
               haproxy = yes
