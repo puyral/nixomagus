@@ -2,16 +2,19 @@
   description = "Nix configuration";
 
   inputs = {
+    ########################
+    ####### nixpkgs ########
+    ########################
+
     nixpkgs-stable.url = "nixpkgs/nixos-25.11";
     nixpkgs-unstable.url = "nixpkgs/nixos-unstable";
-
-    # for rapid photo downloader
-    nixpkgs-rpd.url = "nixpkgs/a493e93b4a259cd9fea8073f89a7ed9b1c5a1da2";
 
     # Pinned kernel (Linux 6.17) to support ZFS Stable + Intel Arc
     nixpkgs-kernel.url = "github:NixOS/nixpkgs/addf7cf5f383a3101ecfba091b98d0a1263dc9b8";
 
-    nixos-hardware.url = "github:NixOS/nixos-hardware/master";
+    #######################
+    ####### modules #######
+    #######################
 
     home-manager = {
       url = "github:nix-community/home-manager/release-25.11";
@@ -20,25 +23,6 @@
 
     simple-nixos-mailserver = {
       url = "gitlab:simple-nixos-mailserver/nixos-mailserver/nixos-25.11";
-      inputs.nixpkgs.follows = "nixpkgs-stable";
-    };
-
-    kmonad = {
-      url = "github:kmonad/kmonad?dir=nix";
-      inputs.nixpkgs.follows = "nixpkgs-stable";
-    };
-
-    custom = {
-      url = "github:puyral/custom-nix";
-      inputs.nixpkgs.follows = "nixpkgs-stable";
-      inputs.cryptovampire-src.follows = "nixpkgs-stable";
-    };
-    flake-utils = {
-      url = "github:numtide/flake-utils";
-    };
-
-    treefmt-nix = {
-      url = "github:numtide/treefmt-nix";
       inputs.nixpkgs.follows = "nixpkgs-stable";
     };
 
@@ -52,10 +36,11 @@
       };
     };
 
-    sops-nix = {
-      url = "github:Mic92/sops-nix";
-      inputs.nixpkgs.follows = "nixpkgs-stable";
-    };
+    nixos-hardware.url = "github:NixOS/nixos-hardware/master";
+
+    ######################
+    ###### packages ######
+    ######################
 
     darktable-jpeg-sync = {
       url = "github:puyral/darktable-jpeg-sync";
@@ -63,9 +48,33 @@
       inputs.treefmt-nix.follows = "treefmt-nix";
     };
 
+    custom = {
+      url = "github:puyral/custom-nix";
+      inputs.nixpkgs.follows = "nixpkgs-stable";
+      inputs.cryptovampire-src.follows = "nixpkgs-stable";
+    };
+
+    #######################
+    ######## utils ########
+    #######################
+
+    sops-nix = {
+      url = "github:Mic92/sops-nix";
+      inputs.nixpkgs.follows = "nixpkgs-stable";
+    };
+
+    treefmt-nix = {
+      url = "github:numtide/treefmt-nix";
+      inputs.nixpkgs.follows = "nixpkgs-stable";
+    };
+
     rust-overlay = {
       url = "github:oxalica/rust-overlay";
       inputs.nixpkgs.follows = "nixpkgs-stable";
+    };
+
+    flake-utils = {
+      url = "github:numtide/flake-utils";
     };
   };
 

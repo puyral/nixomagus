@@ -1,7 +1,5 @@
 {
-  kmonad,
   pkgs,
-  config,
   ...
 }:
 {

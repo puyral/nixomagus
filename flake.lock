@@ -345,28 +345,6 @@
         "type": "github"
       }
     },
-    "kmonad": {
-      "inputs": {
-        "nixpkgs": [
-          "nixpkgs-stable"
-        ]
-      },
-      "locked": {
-        "dir": "nix",
-        "lastModified": 1769122383,
-        "narHash": "sha256-m7AmsMYn8V3oZea3uI4T25y19yYt4eGBspuynbiu8Cw=",
-        "owner": "kmonad",
-        "repo": "kmonad",
-        "rev": "927495416a34facded92c1ea216c9b5e8f11df1d",
-        "type": "github"
-      },
-      "original": {
-        "dir": "nix",
-        "owner": "kmonad",
-        "repo": "kmonad",
-        "type": "github"
-      }
-    },
     "mirage-opam-overlays": {
       "flake": false,
       "locked": {
@@ -413,21 +391,6 @@
         "repo": "nixpkgs",
         "rev": "addf7cf5f383a3101ecfba091b98d0a1263dc9b8",
         "type": "github"
-      }
-    },
-    "nixpkgs-rpd": {
-      "locked": {
-        "lastModified": 1760423683,
-        "narHash": "sha256-Tb+NYuJhWZieDZUxN6PgglB16yuqBYQeMJyYBGCXlt8=",
-        "owner": "NixOS",
-        "repo": "nixpkgs",
-        "rev": "a493e93b4a259cd9fea8073f89a7ed9b1c5a1da2",
-        "type": "github"
-      },
-      "original": {
-        "id": "nixpkgs",
-        "rev": "a493e93b4a259cd9fea8073f89a7ed9b1c5a1da2",
-        "type": "indirect"
       }
     },
     "nixpkgs-stable": {
@@ -566,10 +529,8 @@
         "flake-utils": "flake-utils_4",
         "headplane": "headplane",
         "home-manager": "home-manager",
-        "kmonad": "kmonad",
         "nixos-hardware": "nixos-hardware",
         "nixpkgs-kernel": "nixpkgs-kernel",
-        "nixpkgs-rpd": "nixpkgs-rpd",
         "nixpkgs-stable": "nixpkgs-stable",
         "nixpkgs-unstable": "nixpkgs-unstable",
         "rust-overlay": "rust-overlay",

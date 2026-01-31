@@ -47,7 +47,6 @@ in
     ./ntfy
     ./mail-server
     ./bitwarden
-    # ./keyboard
   ]
   ++ eimports;
 
