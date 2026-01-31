@@ -6,7 +6,7 @@ in
 
 {
   config = lib.mkIf enable {
-    fileSystems."${config.local.base}" = {
+    fileSystems."${cfg.local.base}" = {
       device = "${cfg.remote.ip}:${cfg.remote.path}"; # NAS Tailscale IP : Path on NAS
       fsType = "nfs";
       # see https://doc.dovecot.org/2.3/configuration_manual/nfs/
@@ -14,15 +14,17 @@ in
         "actimeo=60"
         "rw"
         "noatime"
-        "hard" # "hard" is safer for mail: if NAS dies, the app waits (hangs) rather than corrupting data
+        #"hard" # "hard" is safer for mail: if NAS dies, the app waits (hangs) rather than corrupting data
         "nofail"
-        "noauto"
-        "nordirplus"
+        #"noauto"
+        #"nordirplus"
+        #"root_squash"
+        #"x-systemd.automount"
       ];
     };
 
     mailserver = {
-      mailDirectory = "${config.local.storage}";
+      mailDirectory = "${cfg.local.storage}";
       useFsLayout = true;
     };
 
