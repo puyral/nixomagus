@@ -1,7 +1,9 @@
-{lib,  ...}:{
-  options.ips = with lib;
+{ lib, ... }:
+{
+  options.ips =
+    with lib;
     mkOption {
       type = types.attrsOf types.str;
     };
-  config.ips = import ./sercrets/ip.nix;
+  config.ips = import ./secrets/ip.nix;
 }

@@ -5,6 +5,8 @@
   ...
 }:
 {
+  imports = [ ./mail-proxy.nix ];
+
   networking = {
     nat = {
       enable = true;
@@ -30,9 +32,6 @@
       rustdesk-signal.serviceConfig.ExecStart = lib.mkForce "${cfg.package}/bin/hbbs";
     };
   extra = {
-    mail-server = {
-      enable = true;
-    };
     headscale = {
       enable = true;
       extraDomain = "headscale";

@@ -31,9 +31,13 @@ in
       builtins.map Disk Disks ++ [ ];
 
     notifications = {
-      # test = true;
+      test = true;
       mail = {
-        sender = config.programs.msmtp.accounts.default.from;
+        sender =
+          if config.programs.msmtp.enable then
+            config.programs.msmtp.accounts.default.from
+          else
+            "smartd@puyral.fr";
         recipient = (import (rootDir + /secrets/email.nix)).gmail "smartd-${config.networking.hostName}";
       };
     };

@@ -11,7 +11,7 @@
     ./gpu
   ];
   extra = {
-    mail.enable = true;
+    # mail.enable = true;
     cache.substituter = false;
   };
   programs.gnupg.agent.pinentryPackage = pkgs.pinentry-curses;

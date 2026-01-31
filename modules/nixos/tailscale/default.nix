@@ -24,6 +24,14 @@ in
         default = "50-tailscale";
       };
     };
+    subnet = {
+      addr = mkOption {
+        type = types.str;
+      };
+      size = mkOption {
+        type = types.str;
+      };
+    };
   };
 
   config = lib.mkIf cfg.enable (
@@ -31,6 +39,11 @@ in
       tsinterface = config.services.tailscale.interfaceName;
     in
     {
+      extra.tailscale.subnet = {
+        addr = "100.64.0.0";
+        size = "10";
+      };
+
       services.tailscale = {
         enable = true;
         openFirewall = true;

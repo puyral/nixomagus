@@ -27,6 +27,13 @@
 
     in
     {
+      acme.enable = true;
+      mail-server = {
+        enable = true;
+        proxyProtocol = true;
+        relayHost.addr = config.ips.ovh-pl;
+      };
+
       zigbee2mqtt = {
         enable = true;
         dongle = "/dev/serial/by-id/usb-ITead_Sonoff_Zigbee_3.0_USB_Dongle_Plus_6c969fdb7c12ec119aa120c7bd930c07-if00-port0";
