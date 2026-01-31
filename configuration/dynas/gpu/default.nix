@@ -18,6 +18,7 @@
 
   # GPU notifier in case of crash
 
+  extra.mail.enable = true;
   systemd.services.gpu-crash-monitor = {
     description = "Monitor Intel Xe GPU for crashes and notify";
     after = [ "network-online.target" ];

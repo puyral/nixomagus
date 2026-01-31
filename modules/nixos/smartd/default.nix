@@ -33,11 +33,7 @@ in
     notifications = {
       test = true;
       mail = {
-        sender =
-          if config.programs.msmtp.enable then
-            config.programs.msmtp.accounts.default.from
-          else
-            "smartd@puyral.fr";
+        sender = config.programs.msmtp.accounts.default.from;
         recipient = (import (rootDir + /secrets/email.nix)).gmail "smartd-${config.networking.hostName}";
       };
     };

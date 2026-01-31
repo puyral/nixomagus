@@ -28,11 +28,7 @@
     in
     {
       acme.enable = true;
-      mail-server = {
-        enable = true;
-        proxyProtocol = true;
-        relayHost.addr = config.ips.ovh-pl;
-      };
+      mail.enable = true;
 
       zigbee2mqtt = {
         enable = true;

@@ -5,7 +5,7 @@
   ...
 }:
 {
-  imports = [ ./mail-proxy.nix ];
+  imports = [ ];
 
   networking = {
     nat = {
@@ -39,5 +39,6 @@
     authelia = {
       enable = true;
     };
+    mail-server.enable = true;
   };
 }
