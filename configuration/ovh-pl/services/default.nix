@@ -36,9 +36,8 @@
       enable = true;
       extraDomain = "headscale";
     };
-    authelia = {
-      enable = true;
-    };
+    authelia.enable = true;
+    bitwarden.enable = true;
     mail-server = {
       enable = true;
       remoteStorage = {
