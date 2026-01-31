@@ -27,7 +27,7 @@ in
 
         programs.ssh =
           let
-            ips = import ./secrets/ip.nix;
+            ips = config.ips;
           in
           {
             enable = true;

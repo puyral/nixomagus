@@ -1,6 +1,7 @@
 { lib, ... }:
 {
   imports = [
+    ../commun
     ./zsh
     ./wallpaper
     ./systemd-services

@@ -10,6 +10,7 @@ in
 {
   imports = [
     ((import ./containers) eimports)
+    ../commun
     ./binary-cache
     ./traefik
     ./acme
