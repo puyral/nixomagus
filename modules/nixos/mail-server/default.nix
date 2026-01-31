@@ -7,6 +7,7 @@ in
   imports = [
     ./options.nix
     ./accounts.nix
+    ./relay.nix
   ];
 
   # mostly pulled straight out of https://nixos-mailserver.readthedocs.io/en/latest/setup-guide.html

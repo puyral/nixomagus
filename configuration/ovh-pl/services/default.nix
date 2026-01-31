@@ -39,6 +39,19 @@
     authelia = {
       enable = true;
     };
-    mail-server.enable = true;
+    mail-server = {
+      enable = true;
+      remoteStorage = {
+        enable = true;
+        remote = {
+          ip = config.ips.dynas;
+          path = "/mnt/Zeno/containers/emails";
+        };
+        local = {
+          base = "/containers/emails";
+          storage = "/containers/emails/dir";
+        };
+      };
+    };
   };
 }
