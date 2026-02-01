@@ -38,18 +38,13 @@
     };
     authelia.enable = true;
     bitwarden.enable = true;
+    mount-containers.enable = true;
     mail-server = {
       enable = true;
+      sopsKey = "/etc/ssh/ssh_host_ed25519_key";
       remoteStorage = {
         enable = true;
-        remote = {
-          ip = config.ips.dynas;
-          path = "/mnt/Zeno/containers/emails";
-        };
-        local = {
-          base = "/containers/emails";
-          storage = "/containers/emails/dir";
-        };
+        local = "${config.extra.mount-containers.localPath}/mail-server/mails";
       };
     };
   };
