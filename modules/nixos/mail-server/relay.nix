@@ -1,40 +1,30 @@
 { config, lib, ... }:
 let
-  cfg = config.extra.mail-server.remoteStorage;
-  enable = config.extra.mail-server.enable && cfg.enable;
-in
+  cfg = config.extra.mail-server;
+  cfgCM = config.extra.mount-containers;
 
+in
 {
-  config = lib.mkIf enable {
-    fileSystems."${cfg.local.base}" = {
-      device = "${cfg.remote.ip}:${cfg.remote.path}"; # NAS Tailscale IP : Path on NAS
-      fsType = "nfs";
-      # see https://doc.dovecot.org/2.3/configuration_manual/nfs/
+  config = lib.mkIf (cfg.enable && cfg.remoteStorage.enable) {
+    assertions = [
+      {
+        assertion = cfgCM.enable;
+        message = "`extra.mount-containers` needs to be enabled";
+      }
+      {
+        assertion = lib.hasPrefix cfgCM.localPath cfg.remoteStorage.local;
+        message = "`extra.mount-containers.localPath` must be a prefix for `extra.mail-server.remoteStorage.local`";
+      }
+    ];
+
+    fileSystems."${cfg.dirs.data}/${cfg.dirs.mails}" = {
+      device = "${cfg.remoteStorage.local}";
+      fsType = "none";
       options = [
-        "actimeo=60"
-        "rw"
-        "noatime"
-        #"hard" # "hard" is safer for mail: if NAS dies, the app waits (hangs) rather than corrupting data
+        "bind"
+        "x-systemd.requires-mounts-for=${cfgCM.localPath}"
         "nofail"
-        #"noauto"
-        #"nordirplus"
-        #"root_squash"
-        #"x-systemd.automount"
       ];
     };
-
-    mailserver = {
-      mailDirectory = "${cfg.local.storage}";
-      useFsLayout = true;
-    };
-
-    services.dovecot2.extraConfig = ''
-      mmap_disable = yes
-      mail_fsync = always
-    '';
   };
-
-  # # CRITICAL: Do not start the mailserver until the mount is ready
-  # systemd.services.postfix.after = [ "var-vmail.mount" ];
-  # systemd.services.dovecot2.after = [ "var-vmail.mount" ];
 }

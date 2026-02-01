@@ -47,6 +47,7 @@ in
     ./ntfy
     ./mail-server
     ./bitwarden
+    ./mount-containers
   ]
   ++ eimports;
 
