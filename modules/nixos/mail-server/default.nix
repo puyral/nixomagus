@@ -115,7 +115,7 @@ in
             indexDir = "/var/lib/dovecot/indices";
             mailDirectory = mail;
             sieveDirectory = "/var/lib/sieve";
-            dkimKeyDirectory = "/var/lib/dkmi";
+            dkimKeyDirectory = "/var/lib/dkim";
           };
 
           services.dovecot2.extraConfig = ''
