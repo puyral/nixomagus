@@ -58,11 +58,13 @@ in
           };
         }
         // (mkAll [
-          "dhparams"
+          # "dhparams"
           "dkim"
           "postfix"
           "dovecot"
           "sieve"
+          "redis-rspamd"
+          "rspamd"
         ]);
 
       forwardPorts =
