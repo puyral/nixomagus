@@ -18,13 +18,6 @@ in
 
   config = lib.mkIf cfg.enable {
 
-    # Ensure state dirs exist on host
-    # systemd.tmpfiles.rules = [
-    #   "d /var/lib/mail-server/acme 0755 root root -"
-    #   "d /var/lib/mail-server/dhparams 0755 root root -"
-    #   "d /var/lib/mail-server/dkim 0755 root root -"
-    # ];
-
     extra.containers.mailserver = { };
 
     # Define the container
@@ -108,6 +101,8 @@ in
 
             certificateScheme = "acme";
             acmeCertificateName = cfg.mainDomain;
+
+            dmarcReporting.enable = true;
 
             # From relay.nix
             useFsLayout = true;
