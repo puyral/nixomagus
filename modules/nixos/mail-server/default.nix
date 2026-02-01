@@ -38,7 +38,7 @@ in
             name = "/var/lib/${p}";
             value = {
               hostPath = "${cfg.dirs.data}/${p}";
-              isReadOnly = true;
+              isReadOnly = false;
             };
           };
           mkAll = with builtins; list: listToAttrs (map mkVarLib list);
@@ -50,7 +50,7 @@ in
           };
           "${cfg.dirs.acme}" = {
             hostPath = cfg.dirs.acme;
-            isReadOnly = true;
+            isReadOnly = false;
           };
           "${mail}" = {
             hostPath = "${cfg.dirs.data}/${cfg.dirs.mails}";
