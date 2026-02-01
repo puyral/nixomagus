@@ -1,7 +1,7 @@
 { config, ... }:
 let
   cfg = config.extra.mail-server;
-  domain = cfg.domain;
+  domain = cfg.mainDomain;
 in
 {
   sops.secrets.mail-passwd = {
