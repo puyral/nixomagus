@@ -21,10 +21,14 @@
     containers = "${config.vars.Zeno.mountPoint}/containers";
   };
 
+  sops.secrets."paperless/ai_token" = {
+    sopsFile = ../ai_token.sops-secret.env;
+    format = "dotenv";
+  };
+
   extra =
     let
       bookLocation = "${config.vars.Zeno.mountPoint}/media/books";
-
     in
     {
       acme.enable = true;
@@ -36,6 +40,11 @@
       };
       paperless = {
         enable = true;
+        ai = {
+          enable = true;
+          tokenFile = config.sops.secrets."paperless/ai_token".path;
+          ollamaModel = "mistral";
+        };
         # backedupDir = "/mnt/Zeno/administratif/paperless";
       };
 

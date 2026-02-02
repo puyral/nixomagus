@@ -48,6 +48,11 @@
       inputs.treefmt-nix.follows = "treefmt-nix";
     };
 
+    paperless-ai-src = {
+      url = "github:clusterzx/paperless-ai";
+      flake = false;
+    };
+
     custom = {
       url = "github:puyral/custom-nix";
       inputs.nixpkgs.follows = "nixpkgs-stable";

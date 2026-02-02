@@ -505,6 +505,22 @@
         "type": "github"
       }
     },
+    "paperless-ai-src": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1762241188,
+        "narHash": "sha256-MlHoL8a0Vnd+slrLd/2ie4Y998n7JRagEqs3Yxnsuns=",
+        "owner": "clusterzx",
+        "repo": "paperless-ai",
+        "rev": "0eee0c69d5da3b2a4d2fb4e0fdcd71242567e3ba",
+        "type": "github"
+      },
+      "original": {
+        "owner": "clusterzx",
+        "repo": "paperless-ai",
+        "type": "github"
+      }
+    },
     "rnote-src": {
       "flake": false,
       "locked": {
@@ -533,6 +549,7 @@
         "nixpkgs-kernel": "nixpkgs-kernel",
         "nixpkgs-stable": "nixpkgs-stable",
         "nixpkgs-unstable": "nixpkgs-unstable",
+        "paperless-ai-src": "paperless-ai-src",
         "rust-overlay": "rust-overlay",
         "simple-nixos-mailserver": "simple-nixos-mailserver",
         "sops-nix": "sops-nix",
