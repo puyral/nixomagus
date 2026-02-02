@@ -1,26 +1,29 @@
-{ lib
-, buildNpmPackage
-, python3
-, paperless-ai-src
-, makeWrapper
-, ...
+{
+  lib,
+  buildNpmPackage,
+  python3,
+  paperless-ai-src,
+  makeWrapper,
+  ...
 }:
 
 let
-  pythonEnv = python3.withPackages (ps: with ps; [
-    fastapi
-    uvicorn
-    python-dotenv
-    requests
-    numpy
-    torch
-    sentence-transformers
-    chromadb
-    rank-bm25
-    nltk
-    tqdm
-    pydantic
-  ]);
+  pythonEnv = python3.withPackages (
+    ps: with ps; [
+      fastapi
+      uvicorn
+      python-dotenv
+      requests
+      numpy
+      torch
+      sentence-transformers
+      chromadb
+      rank-bm25
+      nltk
+      tqdm
+      pydantic
+    ]
+  );
 in
 buildNpmPackage {
   pname = "paperless-ai";
@@ -40,7 +43,7 @@ buildNpmPackage {
     # Create the RAG service bin
     makeWrapper ${pythonEnv}/bin/python $out/bin/paperless-ai-rag \
       --add-flags "$out/lib/node_modules/paperless-ai/main.py"
-    
+
     # Wrap the main node service to ensure it can find its assets if run from anywhere
     # buildNpmPackage usually creates a bin that calls node on the server.js
   '';

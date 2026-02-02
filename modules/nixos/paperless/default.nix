@@ -97,13 +97,19 @@ in
           paperless-ai-pkg = pkgs-self.paperless-ai;
         in
         {
-          environment.systemPackages = with pkgs; [
-            paperless
-          ] ++ lib.optional cfg.ai.enable paperless-ai-pkg;
-          
+          environment.systemPackages =
+            with pkgs;
+            [
+              paperless
+            ]
+            ++ lib.optional cfg.ai.enable paperless-ai-pkg;
+
           systemd.services.paperless-ai-rag = lib.mkIf cfg.ai.enable {
             description = "Paperless-AI RAG service";
-            after = [ "network.target" "paperless.service" ];
+            after = [
+              "network.target"
+              "paperless.service"
+            ];
             wantedBy = [ "multi-user.target" ];
             environment = {
               PAPERLESS_API_URL = "http://localhost:${toString port}/api";
@@ -111,6 +117,7 @@ in
               OLLAMA_API_URL = cfg.ai.ollamaUrl;
               OLLAMA_MODEL = cfg.ai.ollamaModel;
               HOME = "/ai-data";
+              PAPERLESS_USERNAME = "simon";
             };
             serviceConfig = {
               ExecStart = "${paperless-ai-pkg}/bin/paperless-ai-rag --host 127.0.0.1 --port ${toString cfg.ai.ragPort} --initialize";
@@ -133,6 +140,7 @@ in
               PAPERLESS_API_URL = "http://localhost:${toString port}/api";
               AI_PROVIDER = "ollama";
               HOME = "/ai-data";
+              PAPERLESS_USERNAME = "simon";
             };
             serviceConfig = {
               # We run it directly with node since the package includes it.
@@ -203,7 +211,8 @@ in
           inherit port;
           enable = true;
         }
-      ] ++ lib.optional cfg.ai.enable {
+      ]
+      ++ lib.optional cfg.ai.enable {
         name = "${name}-ai";
         port = cfg.ai.port;
         enable = true;
