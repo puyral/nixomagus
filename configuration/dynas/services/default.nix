@@ -127,10 +127,7 @@
         data = "${config.params.locations.containers}/llm/ollama";
       };
 
-      n8n = {
-        enable = true;
-        providers = [ "dynas" ];
-      };
+      n8n.enable = true;
 
       fileflows = {
         enable = true;

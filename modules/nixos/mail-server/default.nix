@@ -9,6 +9,7 @@ let
   mail = "/var/vmail";
   sopsKey = "/etc/sops";
   acmeConfig = config.extra.acme;
+  hostConfig = config;
 in
 {
   imports = [
@@ -88,6 +89,7 @@ in
           ];
 
           extra.acme = acmeConfig;
+          extra.mail-server = hostConfig.extra.mail-server;
           security.acme.defaults.renewInterval = "yearly";
 
           # Configure sops inside container
