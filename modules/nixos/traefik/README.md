@@ -25,7 +25,7 @@ These options define how a specific service is exposed. They can be used inside 
 | `name` | string | container name | Subdomain name (e.g., `jellyfin` -> `jellyfin.puyral.fr`). |
 | `container` | string | `null` | Name of the target container. Auto-filled when used within `extra.containers`. |
 | `address` | string | `null` | Explicit IP address. If null, resolves to the container's `localAddress` or `localhost`. |
-| `providers` | list\<str\> | `["dynas"]` | List of hostnames where this route should be active. |
+| `providers` | list\<str\> | `["dynas"]` | List of machines that should provide this route. |
 | `extra.rule` | string | `null` | Custom Traefik rule (overrides default `Host(...)`). |
 
 ## Features
@@ -33,3 +33,4 @@ These options define how a specific service is exposed. They can be used inside 
 - **Automatic TLS**: Uses Let's Encrypt (via OVH DNS challenge) for all defined routers.
 - **Dynamic Configuration**: Generates Traefik dynamic configuration files based on active instances on the current host.
 - **Dashboard**: Available at `traefik.<host>.<domain>` (requires auth).
+- **Tunnelling**: Along with containers the `provider` options is read by multiple nixos configurations. Notably `ovh-pl` reads `dynas`'s configuration for potential routes where `ovh-pl` is a provider. This exposes the targeted container to the broaded internet via `ovh-pl`. Note that such a setup requires a vpn from withing the container to `ovh-pl` (see `extra.containers.<name>.vpn`)
