@@ -28,8 +28,8 @@ in
     # A list of all login accounts. To create the password hashes, use
     # nix-shell -p mkpasswd --run 'mkpasswd -s'
     loginAccounts = {
-      "simon" = {
-        hashedPasswordFile = hashPath "simon";
+      "simon@${domain}" = {
+        hashedPasswordFile = hashPath "simon@${domain}";
         aliases = [
           "security@${domain}"
           "smartd@${domain}"
@@ -38,11 +38,11 @@ in
           "simon@${domain}"
         ];
       };
-      "ai" = {
-        hashedPasswordFile = hashPath "ai";
+      "ai@${domain}" = {
+        hashedPasswordFile = hashPath "ai@${domain}";
       };
-      "n8n" = {
-        hashedPasswordFile = hashPath "n8n";
+      "n8n@${domain}" = {
+        hashedPasswordFile = hashPath "n8n@${domain}";
       };
     };
   };
