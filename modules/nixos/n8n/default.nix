@@ -8,6 +8,7 @@ let
   cfg = config.extra.n8n;
   hostConfig = config;
   port = 5678;
+  dataDir = "/var/lib/n8n";
 in
 {
   imports = [ ./options.nix ];
@@ -26,7 +27,7 @@ in
 
     containers.n8n = {
       bindMounts = {
-        "/var/lib/n8n" = {
+        "${dataDir}" = {
           hostPath = cfg.dataDir;
           isReadOnly = false;
         };
@@ -34,15 +35,15 @@ in
       autoStart = true;
       ephemeral = true;
       config =
-        { pkgs-unstable, ... }:
+        { ... }:
         {
           services.n8n = {
             enable = true;
             openFirewall = true;
-            package = pkgs-unstable.n8n;
           };
 
           systemd.services.n8n.environment = {
+            N8N_USER_FOLDER = dataDir; 
             N8N_HOST = "0.0.0.0";
             N8N_PORT = toString port;
             WEBHOOK_URL = "https://${cfg.subdomain}.${hostConfig.extra.acme.domain}/";

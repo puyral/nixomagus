@@ -14,7 +14,6 @@ with lib;
     providers = mkOption {
       type = with types; listOf str;
       default = [ "dynas" ];
-      example = [ "dynas" ];
     };
   };
 }

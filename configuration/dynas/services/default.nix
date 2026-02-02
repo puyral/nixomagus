@@ -2,15 +2,12 @@
 {
   imports = [
     ./filesharing.nix
-    # ./cockpit.nix
     ./syncthing.nix
     ./jellyfin.nix
     ./homeassistant.nix
     ./portainer.nix
     ./mosquitto.nix
-    # ./tailscale.nix
     ./photos.nix
-    ./n8n.nix
     ./github
     ./backup
   ];
@@ -128,6 +125,11 @@
         enable = true;
         acceleration = "vulkan";
         data = "${config.params.locations.containers}/llm/ollama";
+      };
+
+      n8n = {
+        enable = true;
+        providers = [ "dynas" ];
       };
 
       fileflows = {
