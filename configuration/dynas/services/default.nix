@@ -10,6 +10,7 @@
     ./mosquitto.nix
     # ./tailscale.nix
     ./photos.nix
+    ./n8n.nix
     ./github
     ./backup
   ];
