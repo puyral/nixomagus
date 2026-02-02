@@ -219,6 +219,7 @@ in
       };
     };
     systemd.tmpfiles.rules = [
+      "d ${cfg.dataDir} 0755 root root -"
       "d ${cfg.dataDir}/ai 0755 root root -"
     ];
   };

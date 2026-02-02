@@ -11,9 +11,5 @@ with lib;
       type = types.str;
       default = "n8n";
     };
-    providers = mkOption {
-      type = with types; listOf str;
-      default = [ "dynas" ];
-    };
   };
 }
