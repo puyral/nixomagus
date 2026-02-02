@@ -36,7 +36,17 @@
       };
       paperless = {
         enable = true;
+        ai = {
+          enable = true;
+          tokenFile = config.sops.secrets."paperless/ai_token".path;
+        };
         # backedupDir = "/mnt/Zeno/administratif/paperless";
+      };
+
+      sops.secrets."paperless/ai_token" = {
+        sopsFile = ../ai_token.sops-secrets.yaml;
+        format = "dotenv";
+        owner = "paperless";
       };
 
       torrent = {
