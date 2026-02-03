@@ -11,11 +11,13 @@ in
   options.extra.btop = with lib; {
     enable = mkEnableOption "btop";
     gpuSupport = mkOption {
-      type = types.nullOr (types.enum [
-        "cuda"
-        "rocm"
-        "intel"
-      ]);
+      type = types.nullOr (
+        types.enum [
+          "cuda"
+          "rocm"
+          "intel"
+        ]
+      );
       default = null;
       description = "Enable GPU support for specific vendor";
     };

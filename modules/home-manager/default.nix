@@ -14,6 +14,7 @@
     ./firefox
     ./alacritty
     ./applications
+    ./btop
     ./git-config-fetcher
     ./darktable
     ./xkb
