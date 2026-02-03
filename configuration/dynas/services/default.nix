@@ -1,4 +1,9 @@
-{ pkgs, config, ... }:
+{
+  pkgs,
+  config,
+  pkgs-unstable,
+  ...
+}:
 {
   imports = [
     ./filesharing.nix
@@ -125,6 +130,7 @@
         enable = true;
         acceleration = "vulkan";
         data = "${config.params.locations.containers}/llm/ollama";
+        defaultLLM = "ministral-3:14b";
       };
 
       n8n.enable = true;
@@ -149,6 +155,7 @@
         url = "ntfy";
       };
     };
+  services.ollama.package = pkgs-unstable.ollama-vulkan;
 
   networking = {
     nat = {

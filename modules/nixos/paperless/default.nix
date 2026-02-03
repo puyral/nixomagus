@@ -50,7 +50,7 @@ in
       };
       ollamaModel = mkOption {
         type = types.str;
-        default = "llama3.2";
+        default = "${config.extra.llm.defaultLLM}";
         description = "Ollama model to use";
       };
       tokenFile = mkOption {

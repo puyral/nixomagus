@@ -35,7 +35,6 @@ in
           "smartd@${domain}"
           "github@${domain}"
           "simon.jeanteur@${domain}"
-          "simon@${domain}"
         ];
       };
       "ai@${domain}" = {

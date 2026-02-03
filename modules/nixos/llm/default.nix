@@ -30,6 +30,10 @@ in
       default = "/var/lib/ollama";
       type = types.str;
     };
+    defaultLLM = mkOption {
+      type = types.str;
+      default = "llama3.2";
+    };
   };
 
   config = lib.mkIf cfg.enable {
