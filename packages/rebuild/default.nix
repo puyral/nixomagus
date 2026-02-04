@@ -15,7 +15,9 @@ writeShellApplication {
     coreutils
     inetutils
   ];
-  text = builtins.readFile (replaceVars ./script.sh {
-    inherit rebuildCmd flakePath;
-  });
+  text = builtins.readFile (
+    replaceVars ./script.sh {
+      inherit rebuildCmd flakePath;
+    }
+  );
 }
