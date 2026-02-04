@@ -18,7 +18,10 @@ in
     enable = mkEnableOption "custom shell";
     rebuild = {
       type = mkOption {
-        type = types.enum [ "nixos" "home-manager" ];
+        type = types.enum [
+          "nixos"
+          "home-manager"
+        ];
         default = "nixos";
         description = "Type of system to rebuild (nixos or home-manager).";
       };
