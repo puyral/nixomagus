@@ -37,9 +37,9 @@ in
                 user = "root";
               };
 
-              "gitlab.secpriv.tuwien.ac.at" = {
-                proxyJump = "vampire";
-              };
+             # "gitlab.secpriv.tuwien.ac.at" = {
+             #   proxyJump = "vampire";
+             # };
             };
             enableDefaultConfig = false;
           };

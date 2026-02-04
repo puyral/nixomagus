@@ -8,18 +8,24 @@ with lib;
 let
   cfg = config.extra.shell;
   rebuildPackage = pkgs.callPackage ../../../packages/rebuild {
-    rebuildCmd = cfg.rebuild.command;
     flakePath = cfg.rebuild.flakePath;
+    type = cfg.rebuild.type;
+    name = cfg.rebuild.name;
   };
 in
 {
   options.extra.shell = {
     enable = mkEnableOption "custom shell";
     rebuild = {
-      command = mkOption {
+      type = mkOption {
+        type = types.enum [ "nixos" "home-manager" ];
+        default = "nixos";
+        description = "Type of system to rebuild (nixos or home-manager).";
+      };
+      name = mkOption {
         type = types.str;
-        default = "sudo nixos-rebuild switch --flake '${config.extra.nix.configDir}'";
-        description = "Command to execute for rebuilding the system.";
+        default = "simon";
+        description = "Username for remote builds.";
       };
       flakePath = mkOption {
         type = types.str;

@@ -5,7 +5,8 @@
   inetutils,
   replaceVars,
   flakePath ? "/config",
-  rebuildCmd ? "sudo nixos-rebuild switch --flake '${flakePath}'",
+  type ? "nixos",
+  name ? "simon",
   ...
 }:
 writeShellApplication {
@@ -17,7 +18,7 @@ writeShellApplication {
   ];
   text = builtins.readFile (
     replaceVars ./script.sh {
-      inherit rebuildCmd flakePath;
+      inherit flakePath type name;
     }
   );
 }
