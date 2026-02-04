@@ -7,7 +7,7 @@ BOLD="\033[1m"
 RESET="\033[0m"
 
 # Git Backup Logic
-CONFIG_DIR="/config"
+CONFIG_DIR="@flakePath@"
 HOST_BRANCH=$(hostname)
 
 echo -e "${YELLOW}${BOLD}==> Creating backup on branch $HOST_BRANCH...${RESET}"
@@ -54,6 +54,6 @@ else
     echo -e "${YELLOW}Warning: $CONFIG_DIR is not a git repository. Skipping backup.${RESET}"
 fi
 
-echo -e "${YELLOW}${BOLD}==> Running: nixos-rebuild switch${RESET}"
-sudo nixos-rebuild switch --flake '/config'
-echo -e "${GREEN}✅ Success: nixos-rebuild switch completed${RESET}"
+echo -e "${YELLOW}${BOLD}==> Running rebuild...${RESET}"
+@rebuildCmd@
+echo -e "${GREEN}✅ Success: Rebuild completed${RESET}"
