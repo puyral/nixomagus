@@ -48,7 +48,7 @@ in
   };
   extra.nix.configDir = "/home/simon/.config/home-manager";
   extra.shell.rebuild = {
-    command = "home-manager switch --flake '${config.extra.nix.configDir}'";
+    type = "home-manager";
   };
 
   programs.git.settings = {
