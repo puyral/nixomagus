@@ -1,4 +1,5 @@
 {
+  config,
   custom,
   pkgs-unstable,
   pkgs,
