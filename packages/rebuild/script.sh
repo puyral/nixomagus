@@ -20,6 +20,25 @@ ONLY_SNAPSHOT=false
 TARGET=""
 EXTRA_ARGS=()
 
+show_help() {
+    echo "Usage: rebuild [OPTIONS] [TARGET]"
+    echo ""
+    echo "Options:"
+    echo "  --dry-run      Perform a dry run (build instead of switch)."
+    echo "  --no-sign      Disable GPG signing for the backup commit."
+    echo "  --snapshot     Only create a git snapshot, do not rebuild."
+    echo "  --hm           Force Home Manager mode."
+    echo "  -h, --help     Show this help message."
+    echo ""
+    echo "Arguments:"
+    echo "  TARGET         Hostname for remote build (implies NixOS build)."
+    echo ""
+    echo "Examples:"
+    echo "  rebuild --dry-run"
+    echo "  rebuild ovh-pl"
+    echo "  rebuild --snapshot"
+}
+
 # Argument Parsing
 while [[ $# -gt 0 ]]; do
     case "$1" in
@@ -39,6 +58,10 @@ while [[ $# -gt 0 ]]; do
             TYPE="home-manager"
             shift
             ;;
+        -h|--help)
+            show_help
+            exit 0
+            ;;
         --)
             shift
             EXTRA_ARGS+=("$@")
@@ -46,6 +69,7 @@ while [[ $# -gt 0 ]]; do
             ;;
         -*)
             echo "Unknown option: $1"
+            show_help
             exit 1
             ;;
         *)
@@ -65,7 +89,11 @@ while [[ $# -gt 0 ]]; do
 done
 
 # --- Snapshot Logic ---
-HOST_BRANCH=$(hostname)
+if [ -n "$TARGET" ]; then
+    HOST_BRANCH="$TARGET"
+else
+    HOST_BRANCH=$(hostname)
+fi
 NEW_COMMIT=""
 MSG_PREFIX="rebuild"
 if [ "$ONLY_SNAPSHOT" = true ]; then
@@ -100,15 +128,20 @@ if git -C "$CONFIG_DIR" rev-parse --is-inside-work-tree >/dev/null 2>&1; then
     fi
 
     # Handle Signing
+    GIT_FLAGS=""
+    COMMIT_FLAGS=""
+    
     if [ "$DO_SIGN" = true ]; then
-        GPG_FLAG="-S"
+        # -S belongs to commit-tree, not the git wrapper
+        COMMIT_FLAGS="-S"
     else
-        GPG_FLAG="-c commit.gpgsign=false"
+        # -c belongs to the git wrapper
+        GIT_FLAGS="-c commit.gpgsign=false"
     fi
 
     # Create the commit
     # shellcheck disable=SC2086
-    NEW_COMMIT=$(git -C "$CONFIG_DIR" $GPG_FLAG commit-tree "${COMMIT_ARGS[@]}" -m "$MSG_PREFIX $(date)")
+    NEW_COMMIT=$(git -C "$CONFIG_DIR" $GIT_FLAGS commit-tree "${COMMIT_ARGS[@]}" $COMMIT_FLAGS -m "$MSG_PREFIX $(date)")
 
     echo -e "${YELLOW}Snapshot created: $NEW_COMMIT${RESET}"
 else
