@@ -1,3 +1,4 @@
+#!/bin/bash
 set -e  # Exit on any error
 
 # Define color codes
@@ -44,7 +45,7 @@ if git -C "$CONFIG_DIR" rev-parse --is-inside-work-tree >/dev/null 2>&1; then
 
     # 3. Create the new commit object (snapshot)
     # Disable GPG signing
-    NEW_COMMIT=$(git -C "$CONFIG_DIR" -c commit.gpgsign=false commit-tree "$TREE_HASH" $PARENT_FLAG -m "rebuild $(date)")
+    NEW_COMMIT=$(git -C "$CONFIG_DIR" -c commit.gpgsign=false commit-tree "$TREE_HASH" "$PARENT_FLAG" -m "rebuild $(date)")
 
     # 4. Update the host branch to point to the new commit
     git -C "$CONFIG_DIR" update-ref "refs/heads/$HOST_BRANCH" "$NEW_COMMIT"
