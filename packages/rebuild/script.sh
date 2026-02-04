@@ -10,6 +10,7 @@ RESET="\033[0m"
 # Git Backup Logic
 CONFIG_DIR="@flakePath@"
 HOST_BRANCH=$(hostname)
+NEW_COMMIT=""
 
 echo -e "${YELLOW}${BOLD}==> Creating backup on branch $HOST_BRANCH...${RESET}"
 
@@ -38,23 +39,30 @@ if git -C "$CONFIG_DIR" rev-parse --is-inside-work-tree >/dev/null 2>&1; then
         fi
     fi
 
-    PARENT_FLAG=""
+    # Build arguments array for commit-tree
+    COMMIT_ARGS=("$TREE_HASH")
     if [ -n "$PARENT_COMMIT" ]; then
-        PARENT_FLAG="-p $PARENT_COMMIT"
+        COMMIT_ARGS+=("-p" "$PARENT_COMMIT")
     fi
 
     # 3. Create the new commit object (snapshot)
     # Disable GPG signing
-    NEW_COMMIT=$(git -C "$CONFIG_DIR" -c commit.gpgsign=false commit-tree "$TREE_HASH" "$PARENT_FLAG" -m "rebuild $(date)")
+    # We store the commit hash but DO NOT update the ref yet
+    NEW_COMMIT=$(git -C "$CONFIG_DIR" -c commit.gpgsign=false commit-tree "${COMMIT_ARGS[@]}" -m "rebuild $(date)")
 
-    # 4. Update the host branch to point to the new commit
-    git -C "$CONFIG_DIR" update-ref "refs/heads/$HOST_BRANCH" "$NEW_COMMIT"
-
-    echo -e "${GREEN}Backup created: $NEW_COMMIT (branch: $HOST_BRANCH)${RESET}"
+    echo -e "${YELLOW}Snapshot created: $NEW_COMMIT (pending success)${RESET}"
 else
     echo -e "${YELLOW}Warning: $CONFIG_DIR is not a git repository. Skipping backup.${RESET}"
 fi
 
 echo -e "${YELLOW}${BOLD}==> Running rebuild...${RESET}"
 @rebuildCmd@
+
+# Only update the branch reference if the rebuild command succeeded
+if [ -n "$NEW_COMMIT" ]; then
+    echo -e "${YELLOW}${BOLD}==> Rebuild successful. Updating $HOST_BRANCH...${RESET}"
+    git -C "$CONFIG_DIR" update-ref "refs/heads/$HOST_BRANCH" "$NEW_COMMIT"
+    echo -e "${GREEN}Backup confirmed: $NEW_COMMIT (branch: $HOST_BRANCH)${RESET}"
+fi
+
 echo -e "${GREEN}✅ Success: Rebuild completed${RESET}"
