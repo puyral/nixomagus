@@ -22,7 +22,7 @@ if git -C "$CONFIG_DIR" rev-parse --is-inside-work-tree >/dev/null 2>&1; then
     
     # If no changes (clean worktree), use HEAD tree
     if [ -z "$STASH_HASH" ]; then
-        TREE_HASH=$(git -C "$CONFIG_DIR" rev-parse HEAD^{tree})
+        TREE_HASH=$(git -C "$CONFIG_DIR" rev-parse "HEAD^{tree}")
     else
         # Extract the tree hash from the stash commit
         TREE_HASH=$(git -C "$CONFIG_DIR" show -s --format=%T "$STASH_HASH")
