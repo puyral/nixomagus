@@ -45,7 +45,10 @@ in
     enable = true;
     pinentry.package = pkgs.pinentry-tty;
   };
-  extra.shell.rebuildScript = ./rebuild.sh;
+  extra.nix.configDir = "/home/simon/.config/home-manager";
+  extra.shell.rebuild = {
+    command = "home-manager switch --flake '${config.extra.nix.configDir}'";
+  };
 
   programs.git.settings = {
     user.name = lib.mkForce "Simon Jeanteur";

@@ -7,21 +7,34 @@
 with lib;
 let
   cfg = config.extra.shell;
+  rebuildPackage = pkgs.callPackage ../../../packages/rebuild {
+    rebuildCmd = cfg.rebuild.command;
+    flakePath = cfg.rebuild.flakePath;
+  };
 in
 {
   options.extra.shell = {
     enable = mkEnableOption "custom shell";
-    rebuildScript = mkOption {
-      type = types.path;
-      default = ./scripts/rebuild.sh;
+    rebuild = {
+      command = mkOption {
+        type = types.str;
+        default = "sudo nixos-rebuild switch --flake '${config.extra.nix.configDir}'";
+        description = "Command to execute for rebuilding the system.";
+      };
+      flakePath = mkOption {
+        type = types.str;
+        default = config.extra.nix.configDir;
+        description = "Path to the configuration flake.";
+      };
     };
   };
   config = mkIf cfg.enable {
     # extra.zsh.enable = true;
     extra.starship.enable = true;
 
+    home.packages = [ rebuildPackage ];
+
     home.shellAliases = {
-      "rebuild" = "bash ${cfg.rebuildScript}"; # "time sudo nixos-rebuild switch --flake '/config'"; # ?submodules=1#'";
       # "update" = "nix flake update /config#";
       # "start-camera" = "" + ./scripts/start-camera.sh;
       # "uro" = "bash ${./scripts/update-upgrade-optimize.sh}";
