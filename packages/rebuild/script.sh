@@ -42,7 +42,7 @@ show_help() {
 # Argument Parsing
 while [[ $# -gt 0 ]]; do
     case "$1" in
-        --dry-run)
+        -d|--dry-run)
             ACTION="build"
             shift
             ;;
@@ -78,7 +78,7 @@ while [[ $# -gt 0 ]]; do
                 TYPE="nixos"
                 # If explicitly targeting another host, default to build unless specified otherwise?
                 # The user request said: "rebuild ovh-pl would trigger ... build"
-                ACTION="build" 
+                # ACTION="build" 
             else
                 echo "Unknown argument: $1"
                 exit 1
@@ -167,7 +167,7 @@ if [ "$TYPE" = "home-manager" ]; then
 elif [ "$TYPE" = "nixos" ]; then
     if [ -n "$TARGET" ]; then
         # Remote build
-        CMD=("nixos-rebuild" "--target-host" "${USER_NAME}@${TARGET}" "--use-remote-sudo" "$ACTION" "--flake" "${CONFIG_DIR}#${TARGET}")
+        CMD=("nixos-rebuild" "--target-host" "${USER_NAME}@${TARGET}" "--sudo" "$ACTION" "--ask-sudo-password" "--flake" "${CONFIG_DIR}#${TARGET}")
     else
         # Local build
         CMD=("sudo" "nixos-rebuild" "$ACTION" "--flake" "${CONFIG_DIR}")
