@@ -1,5 +1,5 @@
 eimports:
-{
+inputs@{
   mlib,
   config,
   mconfig,
@@ -91,6 +91,7 @@ in
                 nixpkgs-unstable
                 pkgs-unstable
                 rootDir
+                inputs
                 ;
             };
           }

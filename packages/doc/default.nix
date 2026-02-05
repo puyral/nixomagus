@@ -21,7 +21,7 @@ let
 
   # Evaluate the system configuration
   eval = functions.mkSystem {
-    inherit computer;
+    inherit computer computers;
     extraModules = [
       (
         { config, ... }:
