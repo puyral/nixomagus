@@ -10,8 +10,9 @@ in
   ];
 
   config = mkIf cfg.enable {
-    sops.secrets.ovh = {
-      sopsFile = ./secrets-sops/ovh.env;
+    extra.acme.enable = lib.mkDefault true;
+    sops.secrets.ovh-acme = lib.mkDefault {
+      sopsFile = ../acme/ovh.sops-secret.env;
       owner = "traefik";
       format = "dotenv";
     };
@@ -22,13 +23,14 @@ in
       extraGroups = [
         "traefik"
         "docker"
+        "acme"
       ];
     };
     services.traefik = {
       enable = true;
       dataDir = "${config.params.locations.containers}/traefik";
       group = "traefik";
-      environmentFiles = [ config.sops.secrets.ovh.path ];
+      environmentFiles = [ config.sops.secrets.ovh-acme.path ];
     };
 
   };

@@ -1,15 +1,19 @@
-{ lib, ... }:
+{ lib, sops-nix, ... }:
 let
   eimports = [
     ./tailscale
+    sops-nix.nixosModules.sops
+    ./sops
     # ./isw
   ];
 in
 {
   imports = [
     ((import ./containers) eimports)
+    ../commun
     ./binary-cache
     ./traefik
+    ./acme
     ./wachtower
     ./docker-traefik
     ./zigbee2mqtt
@@ -35,9 +39,18 @@ in
     ./authentik
     ./authelia
     ./tailscale-exit-container
-    ./sops
-    # ./keyboard
-  ] ++ eimports;
+    ./gui
+    ./llm
+    ./nix-ld
+    ./kavita
+    ./fileflows
+    ./ntfy
+    ./mail-server
+    ./bitwarden
+    ./n8n
+    ./mount-containers
+  ]
+  ++ eimports;
 
   options = with lib; {
     params = {

@@ -1,4 +1,4 @@
-{ lib, ... }:
+{ lib, config, ... }:
 {
   imports = [
     ./grafana.nix
@@ -31,7 +31,7 @@
       };
       dataDir = mkOption {
         default = "${config.params.locations.containers}/loki";
-        type = type.path;
+        type = types.path;
       };
     };
     promtail = {

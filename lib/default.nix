@@ -4,11 +4,11 @@ attrs@{
   nixpkgs-stable,
   nixpkgs-unstable,
   nixpkgs,
+  nixpkgs-kernel,
   custom,
   self,
   sops-nix,
-  # paperless-nixpkgs,
-  nixpkgs-rapid-photo-downloader,
+  simple-nixos-mailserver,
   ...
 }:
 rec {
@@ -27,7 +27,7 @@ rec {
         builtins.map (user: {
           name = "${user.name}@${name}";
           value = {
-            inherit user;
+            inherit user computers;
             computer = c // {
               inherit name;
             };
@@ -63,21 +63,29 @@ rec {
       builtins.mapAttrs (
         name: value:
         mkSystem {
+          inherit computers;
           computer = {
             inherit name;
-          } // value;
+          }
+          // value;
         }
       ) nixosComputers
     );
 
   mkHome =
-    inputs@{ computer, user }:
+    inputs@{
+      computer,
+      computers,
+      user,
+      extraModules ? [ ],
+    }:
     home-manager.lib.homeManagerConfiguration {
       modules = [
         ((import (rootDir + /home_manager.nix)) user)
         sops-nix.homeManagerModules.sops
-      ];
-      pkgs = (mkpkgs computer.system).pkgs;
+      ]
+      ++ extraModules;
+      pkgs = (mkpkgs computer.system).base-pkgs;
       extraSpecialArgs = (mkExtraArgs inputs) // {
         inherit computer;
         is_nixos = false;
@@ -85,7 +93,12 @@ rec {
     };
 
   mkSystem =
-    inputs@{ computer, ... }:
+    inputs@{
+      computer,
+      computers,
+      extraModules ? [ ],
+      ...
+    }:
     let
       usersAndModules = builtins.map (user: {
         name = user.name;
@@ -110,13 +123,15 @@ rec {
       specialArgs = attrs // mkExtraArgs inputs;
       system = computer.system;
       modules = [
+        simple-nixos-mailserver.nixosModules.mailserver
         sops-nix.nixosModules.sops
         (rootDir + /modules/nixos)
         (rootDir + /configuration/commun)
         (rootDir + /configuration + "/${computer.name}")
         home-manager.nixosModules.home-manager
         homes
-      ];
+      ]
+      ++ extraModules;
     };
 
   mkpkgs =
@@ -125,26 +140,19 @@ rec {
       aux =
         nixpkgs:
         import nixpkgs {
-          system = system;
+          inherit system;
           config = {
             allowUnfree = true;
           };
         };
+      base-pkgs = aux nixpkgs;
     in
-    rec {
-      # pkgs = nixpkgs.legacyPackages.${system};
-      # # pkgs-unstable = (nixpkgs-unstable // {config.allowUnfree = true;}).legacyPackages.${system};
-      # pkgs-unstable = import nixpkgs-unstable {
-      #   system = system;
-      #   config = {
-      #     allowUnfree = true;
-      #   };
-      # }; # https://www.reddit.com/r/NixOS/comments/17p39u6/how_to_allow_unfree_packages_from_stable_and/
-      pkgs = aux nixpkgs;
+    {
+      inherit base-pkgs;
       pkgs-stable = aux nixpkgs-stable;
       pkgs-unstable = aux nixpkgs-unstable;
-      pkgs-rapid-photo-downloader = aux nixpkgs-rapid-photo-downloader;
-      extra-pkgs = pkgs.lib.mapAttrs (name: value: value.legacyPackages.${system}) {
+      pkgs-kernel = aux nixpkgs-kernel;
+      extra-pkgs = base-pkgs.lib.mapAttrs (name: value: value.legacyPackages.${system}) {
         # inherit paperless-nixpkgs;
       };
       pkgs-self = self.packages.${system};
@@ -152,34 +160,22 @@ rec {
 
   mkExtraArgs' =
     system:
-    let
-      pkgs-attr = (mkpkgs system);
-      pkgs = pkgs-attr.pkgs;
-      pkgs-stable = pkgs-attr.pkgs-stable;
-      pkgs-unstable = pkgs-attr.pkgs-unstable;
-      pkgs-rapid-photo-downloader = pkgs-attr.pkgs-rapid-photo-downloader;
-      extra-pkgs = pkgs-attr.extra-pkgs;
-      pkgs-self = pkgs-attr.pkgs-self;
-    in
     attrs
+    // (mkpkgs system)
     // {
       custom = custom.packages.${system};
       inherit
         system
-        pkgs-unstable
-        pkgs-stable
         rootDir
         mlib
-        extra-pkgs
-        pkgs-self
-        pkgs-rapid-photo-downloader
         ;
     };
 
   mkExtraArgs =
-    { computer, ... }:
+    { computer, computers, ... }:
     (mkExtraArgs' computer.system)
     // {
+      inherit computers;
       computer_name = computer.name;
       mconfig = computer;
       overlays = (import (rootDir + /overlays)) computer;

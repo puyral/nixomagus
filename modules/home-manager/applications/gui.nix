@@ -4,9 +4,8 @@
   pkgs,
   pkgs-unstable,
   pkgs-stable,
+  pkgs-rpd,
   custom,
-  pkgs-rapid-photo-downloader,
-  xp-pen-pentablet,
   ...
 }:
 let
@@ -18,6 +17,12 @@ in
     extra = {
       firefox.enable = true;
       alacritty.enable = lib.mkDefault true;
+      vscode.enable = true;
+      keyring.enable = lib.mkDefault true;
+      darktable = {
+        enable = true;
+        full = true;
+      };
     };
     xdg.mimeApps.defaultApplications = lib.mkIf config.extra.alacritty.enable {
       "x-scheme-handler/terminal" = [
@@ -26,12 +31,11 @@ in
     };
     home.packages =
       let
-        darktable = pkgs-unstable.darktable.override { stdenv = pkgs-unstable.clangStdenv; };
+        # darktable = pkgs-unstable.darktable.override { stdenv = pkgs-unstable.clangStdenv; };
 
       in
       [
-        custom.rnote
-        darktable
+        # custom.rnote
       ]
 
       ++ (with pkgs-stable; [
@@ -46,9 +50,6 @@ in
 
         #logseq
 
-        # pkgs-rapid-photo-downloader.rapid-photo-downloader
-        rapid-photo-downloader
-
         youtube-music
 
         obs-studio
@@ -59,25 +60,22 @@ in
       ])
       ++ (with pkgs; [
         thunderbird
-        vscode
-        # pavucontrol
         pwvucontrol
 
         kdePackages.okular
 
-        libsForQt5.xp-pen-g430-driver
+        xp-pen-g430-driver
         zotero
 
         emacs
 
-        blender
         #davinci-resolve
-        libsForQt5.kdenlive
+        kdePackages.kdenlive
         inkscape-with-extensions
-        # hugin # -> custom
         geeqie
         feh
-        xpano
+        # xpano
+        # rapid-photo-downloader
 
         spotify
         mpv
@@ -91,21 +89,24 @@ in
         # steam
         obsidian
 
-        #zoom-us
-
-        jellyfin-media-player # see https://github.com/jellyfin/jellyfin-media-player/issues/165
-
         discord
-        whatsapp-for-linux
+        wasistlos
         signal-desktop
         mattermost-desktop
+        fluffychat
 
         nautilus
         nautilus-open-any-terminal
         sushi
         code-nautilus
+
+        cemu
       ])
       ++ (with pkgs-unstable; [
+        # darktable
+        blender
+
+        jellyfin-media-player
       ])
       ++ lib.optional gui.pinentry-qt pkgs.pinentry-qt;
   };

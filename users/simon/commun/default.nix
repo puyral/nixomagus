@@ -17,6 +17,10 @@
     ssh.enable = lib.mkDefault true;
     tmux.enable = lib.mkDefault true;
     yazi.enable = lib.mkDefault true;
+    lazygit.enable = lib.mkDefault true;
+    git.enable = lib.mkDefault true;
+    ntfy-client.enable = lib.mkDefault true;
+    btop.enable = lib.mkDefault true;
   };
 
   # This value determines the Home Manager release that your configuration is

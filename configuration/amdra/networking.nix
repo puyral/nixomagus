@@ -1,9 +1,13 @@
 { ... }:
 {
   services.cloudflare-warp.enable = true;
+  networking.networkmanager.unmanaged = [ "interface-name:enp10s0" ];
   networking.interfaces = {
     enp10s0 = {
       wakeOnLan.enable = true;
+      useDHCP = false;
+      ipv4.addresses = [ ];
+      ipv6.addresses = [ ];
     };
     enp15s0 = {
       wakeOnLan.enable = true;

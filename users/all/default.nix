@@ -4,6 +4,7 @@
   is_nixos,
   home-manager,
   pkgs,
+  pkgs-pinned-darktable,
   ...
 }:
 {
@@ -13,8 +14,10 @@
     default = { };
   };
   config = {
-    nixpkgs.config = lib.mkIf (!is_nixos) {
-      allowUnfree = _: true;
+    nixpkgs = lib.mkIf (!is_nixos) {
+      config = {
+        allowUnfree = _: true;
+      };
     };
     home = lib.mkIf (!is_nixos) {
       packages = [

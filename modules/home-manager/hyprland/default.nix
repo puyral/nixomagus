@@ -30,7 +30,8 @@ in
 
       plugins = with pkgs.hyprlandPlugins; [
         # hy3
-        hypr-dynamic-cursors
+        # see https://github.com/NixOS/nixpkgs/issues/366182
+        # hypr-dynamic-cursors
         # hyprtrails
       ];
 

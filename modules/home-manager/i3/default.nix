@@ -21,7 +21,6 @@ in
   ];
 
   xsession.windowManager.i3 = mkIf cfg.enable {
-    package = pkgs.i3-gaps;
     enable = true;
 
     # config = { startup = [
@@ -29,13 +28,12 @@ in
     # ];};
     config = null;
 
-    extraConfig =
-      ''
-        set $scripts ${./scripts}
-        exec ${screen}
-        exec --no-startup-id ${./scripts/wallpaper.sh} ${wallpaper.path} ${builtins.toString wallpaper.duration}
-      ''
-      + (builtins.readFile ./config);
+    extraConfig = ''
+      set $scripts ${./scripts}
+      exec ${screen}
+      exec --no-startup-id ${./scripts/wallpaper.sh} ${wallpaper.path} ${builtins.toString wallpaper.duration}
+    ''
+    + (builtins.readFile ./config);
   };
 
   home.packages = mkIf cfg.enable (

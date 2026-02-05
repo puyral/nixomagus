@@ -4,14 +4,12 @@
 {
   config,
   lib,
-  pkgs,
   modulesPath,
   ...
 }:
 
 {
   imports = [
-    # ./amdgpu.nix
     (modulesPath + "/installer/scan/not-detected.nix")
   ];
 
@@ -26,7 +24,6 @@
     ];
     initrd.kernelModules = [ ];
     initrd.systemd.tpm2.enable = false;
-    kernelModules = [ "kvm-amd" ];
     extraModulePackages = [ ];
 
     # based on https://github.com/NixOS/nixpkgs/issues/361006#issuecomment-2598059564

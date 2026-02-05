@@ -33,6 +33,11 @@ in
       type = types.bool;
       default = false;
     };
+    extraPaths = mkOption {
+      description = "things to mount as well";
+      type = types.attrsOf types.path;
+      default = { };
+    };
     rtorrent = mkEnableOption "rtorrent";
     transmission = mkEnableOption "transmission";
   };

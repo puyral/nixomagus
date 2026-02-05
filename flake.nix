@@ -2,57 +2,84 @@
   description = "Nix configuration";
 
   inputs = {
-    nixpkgs-stable.url = "nixpkgs/nixos-25.05";
+    ########################
+    ####### nixpkgs ########
+    ########################
+
+    nixpkgs-stable.url = "nixpkgs/nixos-25.11";
     nixpkgs-unstable.url = "nixpkgs/nixos-unstable";
 
-    nixpkgs-rapid-photo-downloader.url = "nixpkgs/b000159bba69b0106a42f65e52dbf27f77aca9d3";
+    # Pinned kernel (Linux 6.17) to support ZFS Stable + Intel Arc
+    nixpkgs-kernel.url = "github:NixOS/nixpkgs/addf7cf5f383a3101ecfba091b98d0a1263dc9b8";
+
+    #######################
+    ####### modules #######
+    #######################
+
+    home-manager = {
+      url = "github:nix-community/home-manager/release-25.11";
+      inputs.nixpkgs.follows = "nixpkgs-stable";
+    };
+
+    simple-nixos-mailserver = {
+      url = "gitlab:simple-nixos-mailserver/nixos-mailserver/nixos-25.11";
+      inputs.nixpkgs.follows = "nixpkgs-stable";
+    };
+
+    # see https://github.com/tale/headplane/pull/282
+    headplane = {
+      url = "github:tale/headplane/v0.6.1";
+      # url = "github:tale/headplane"; # master
+      # url = "github:tale/headplane/bd8a7a56d4021edf58511c6ab333af864d91304c";
+      inputs = {
+        nixpkgs.follows = "nixpkgs-stable";
+      };
+    };
 
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";
 
-    home-manager = {
-      url = "github:nix-community/home-manager"; # /release-25.05";
-      inputs.nixpkgs.follows = "nixpkgs-unstable";
-    };
-    # nix-std.url = "github:chessai/nix-std"; # https://github.com/chessai/nix-std
+    ######################
+    ###### packages ######
+    ######################
 
-    kmonad = {
-      url = "github:kmonad/kmonad?dir=nix";
-      inputs.nixpkgs.follows = "nixpkgs-unstable";
+    darktable-jpeg-sync = {
+      url = "github:puyral/darktable-jpeg-sync";
+      inputs.nixpkgs.follows = "nixpkgs-stable";
+      inputs.treefmt-nix.follows = "treefmt-nix";
+    };
+
+    paperless-ai-src = {
+      url = "github:clusterzx/paperless-ai";
+      flake = false;
     };
 
     custom = {
       url = "github:puyral/custom-nix";
-      inputs.nixpkgs.follows = "nixpkgs-unstable";
-      inputs.cryptovampire-src.follows = "nixpkgs-unstable";
+      inputs.nixpkgs.follows = "nixpkgs-stable";
+      inputs.cryptovampire-src.follows = "nixpkgs-stable";
     };
-    flake-utils = {
-      url = "github:numtide/flake-utils";
+
+    #######################
+    ######## utils ########
+    #######################
+
+    sops-nix = {
+      url = "github:Mic92/sops-nix";
+      inputs.nixpkgs.follows = "nixpkgs-stable";
     };
 
     treefmt-nix = {
       url = "github:numtide/treefmt-nix";
-      inputs.nixpkgs.follows = "nixpkgs-unstable";
+      inputs.nixpkgs.follows = "nixpkgs-stable";
     };
 
-    turboprint-nix = {
-      url = "github:puyral/turboprint-nix";
-      inputs = {
-        nixpkgs.follows = "nixpkgs-unstable";
-        treefmt-nix.follows = "treefmt-nix";
-        flake-utils.follows = "flake-utils";
-      };
+    rust-overlay = {
+      url = "github:oxalica/rust-overlay";
+      inputs.nixpkgs.follows = "nixpkgs-stable";
     };
 
-    headplane = {
-      url = "github:tale/headplane/v0.6.0";
-      inputs = {
-        nixpkgs.follows = "nixpkgs-unstable";
-      };
-    };
-
-    sops-nix = {
-      url = "github:Mic92/sops-nix";
-      inputs.nixpkgs.follows = "nixpkgs-unstable";
+    flake-utils = {
+      url = "github:numtide/flake-utils";
     };
   };
 
@@ -62,19 +89,19 @@
       treefmt-nix,
       nixpkgs-unstable,
       nixpkgs-stable,
-      turboprint-nix,
       sops-nix,
+      darktable-jpeg-sync,
       ...
     }@attrs:
     let
-      functions = (import ./lib) ./. (attrs // { nixpkgs = nixpkgs-unstable; });
+      functions = (import ./lib) ./. (attrs // { nixpkgs = nixpkgs-stable; });
     in
     flake-utils.lib.eachDefaultSystem (
       system:
       let
         pkgs-stable = (functions.mkpkgs system).pkgs-stable;
         pkgs-unstable = (functions.mkpkgs system).pkgs-unstable;
-        pkgs = pkgs-unstable;
+        pkgs = pkgs-stable;
         l = pkgs.lib;
 
         # Eval the treefmt modules from ./treefmt.nix
@@ -95,8 +122,7 @@
           }) files;
 
         packages =
-          turboprint-nix.packages.${system}
-          // (
+          (
             let
               dir = "packages";
               files = builtins.readDir ./${dir};
@@ -108,6 +134,7 @@
           )
           // {
             sops-nix = sops-nix.packages.${system}.default;
+            darktable-jpeg-sync = darktable-jpeg-sync.packages.${system}.default;
           };
       in
       {

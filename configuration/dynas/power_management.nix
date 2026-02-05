@@ -1,12 +1,103 @@
-{ ... }:
 {
-  # powerManagement.powertop.enable = true;
+  config,
+  pkgs,
+  pkgs-kernel,
+  lib,
+  ...
+}:
+{
+  # 1. Ensure you are running a very recent kernel.
+  # The Intel Arc B580 (Battlemage) requires Linux 6.12+ for proper power management.
+  # We use a pinned nixpkgs (pkgs-kernel) to get Linux 6.17, as it works with ZFS Stable
+  # and provides better support than 6.12, but isn't broken like 6.18+.
+  boot.kernelPackages = pkgs-kernel.linuxPackages_6_17;
 
+  # 2. Kernel Parameters
+  # "pcie_aspm=force": Forces ASPM even if the BIOS suggests otherwise (often needed for Arc).
+  # "consoleblank=120": Turns off the screen output after 2 mins (good for NanoKVM/burn-in).
+  # "amd_pstate=active": 'active' mode allows the CPU to manage its own power states internally (EPP).
+  boot.kernelParams = [
+    "consoleblank=120"
+    # "pcie_aspm=force"
+    "amd_pstate=active"
+  ];
+
+  # 3. Disable Wifi drivers completely at the kernel level
+  # This is cleaner than TLP blacklist for device 08:00.0
+  boot.blacklistedKernelModules = [
+    "iwlwifi"
+    "iwlmvm"
+    "btusb"
+  ];
+
+  # 4. Power Management Services
+  services.tlp = {
+    enable = true;
+    settings = {
+      # --- PCIe ASPM (Critical for Arc B580) ---
+      # "powersupersave" allows the deepest sleep states (L1).
+      # Without this, the B580 will likely stay hot.
+      "PCIE_ASPM_ON_AC" = "powersupersave";
+
+      # --- Runtime Power Management ---
+      # "auto" is good for the GPU and general chipset, BUT we must whitelist specific devices below.
+      "RUNTIME_PM_ON_AC" = "auto";
+
+      # This targets those "Runtime PM for port ataX" lines.
+      # "med_power_with_dipm" is the sweet spot for ZFS.
+      # "min_power" saves more but can cause drive timeouts.
+      "SATA_LINKPWR_ON_AC" = "med_power_with_dipm";
+
+      # --- THE DENYLIST (The Fix for SSH & Stability) ---
+      # Prevents TLP from suspending these specific devices.
+      # 08:00.0 : Intel Wifi (Just in case module blacklist fails)
+      # 0d:00.0 : Aquantia 10GbE (Fixes unstable connection)
+      # 0a:00.0 : Intel I211 1GbE (Fixes SSH stability if connected here)
+      # 0c:00.0 : LSI SAS2008 (Enterprise storage controllers crash if suspended)
+      # 02:00.0 : AMD USB Controller (Keep USB active for NanoKVM input)
+      # 10:00.0 : DO NOT ADD THE GPU HERE. The GPU *needs* to suspend to save power.
+      "RUNTIME_PM_DENYLIST" = "10:00.0 08:00.0 0d:00.0 0a:00.0 0c:00.0 02:00.0";
+
+      # --- CPU Power Saving ---
+      # For a NAS, we want efficiency.
+      "CPU_SCALING_GOVERNOR_ON_AC" = "powersave";
+      "CPU_ENERGY_PERF_POLICY_ON_AC" = "balance_power"; # 'power' can be too slow for 10GbE interrupt handling
+
+      # --- Disk Spindown ---
+      # Only spin down rotating rust (SATA). Don't touch NVMe here.
+      # Identify your HDDs via `lsblk` first. Assuming sda/sdb here.
+      # "DISK_DEVICES" = "sda sdb";
+      # "DISK_SPINDOWN_TIMEOUT_ON_AC" = "240"; # 20 minutes
+
+      # --- USB ---
+      # Disable USB autosuspend to ensure NanoKVM keyboard/mouse emulation never sleeps
+      "USB_AUTOSUSPEND" = "0";
+    };
+  };
+
+  powerManagement = {
+    enable = true;
+    # 'powersave' with amd-pstate is NOT slow. It just biases towards lower clocks when idle.
+    cpuFreqGovernor = "powersave";
+  };
+
+  # ## Limit CPU Frequency (Soft Cap)
+  # # This prevents the CPU from boosting to 4GHz+ for tiny background tasks.
+  # # Adjust 'max' to something reasonable for a NAS (e.g., 2.2GHz or 3.0GHz).
+  # systemd.services.cpupower-limits = {
+  #   description = "Limit CPU frequency for power saving";
+  #   wantedBy = [ "multi-user.target" ];
+  #   serviceConfig = {
+  #     Type = "oneshot";
+  #     ExecStart = "${pkgs.linuxPackages.cpupower}/bin/cpupower frequency-set -u 2200MHz";
+  #   };
+  # };
+
+  # Disable system sleep targets to prevent accidental hibernation
   systemd.targets = {
     sleep.enable = false;
     suspend.enable = false;
     hibernate.enable = false;
     hybrid-sleep.enable = false;
   };
-
 }

@@ -5,9 +5,9 @@
     "photos" = {
       id = "p6awe-zndxp";
       devices = {
-        nixomagus = {
-          path = "/Volumes/Zeno/media/photos";
-        };
+        #nixomagus = {
+        #  path = "/Volumes/Zeno/media/photos";
+        #};
         dynas = {
           path = "/mnt/Zeno/media/photos";
         };
@@ -41,10 +41,11 @@
           path = "/home/simon/Documents/codage";
         };
         dynas = {
-          path = "/mnt/Zeno/work/other/codage";
+          path = "/mnt/Zeno/documents/codage";
         };
       };
       extraDevices = [ "MacPro" ];
+      extraIgnorePatterns = [ "**/target" ];
     };
 
     "TU-Wien" = {
@@ -79,7 +80,7 @@
           path = "/home/simon/Documents/Logseq";
         };
         dynas = {
-          path = "/mnt/Zeno/work/Logseq";
+          path = "/mnt/Zeno/documents/Logseq";
         };
       };
       extraDevices = [
@@ -104,7 +105,7 @@
           path = "/home/simon/Documents/Obsidian";
         };
         dynas = {
-          path = "/mnt/Zeno/work/Obsidian";
+          path = "/mnt/Zeno/documents/Obsidian";
         };
       };
       extraDevices = [
@@ -127,7 +128,7 @@
           path = "/home/simon/Documents/Hand Notes";
         };
         dynas = {
-          path = "/mnt/Zeno/work/Hand Notes";
+          path = "/mnt/Zeno/documents/Hand Notes";
         };
       };
       extraDevices = [ "MacPro" ];

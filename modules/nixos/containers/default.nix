@@ -1,5 +1,5 @@
 eimports:
-{
+inputs@{
   mlib,
   config,
   mconfig,
@@ -7,17 +7,37 @@ eimports:
   rootDir,
   nixpkgs-unstable,
   pkgs-unstable,
+  sops-nix,
   ...
 }:
 with lib;
 with builtins;
 let
 
+  journalPort = 19532;
+
+  mkInterfaceName =
+    { name, ... }:
+    let
+      net = "ve-${name}";
+    in
+    if (builtins.stringLength net) < 16 then
+      net
+    else
+      throw "${net} is too long for a network name, please change the name of container ${names}";
+
+  mkLocalAdress = idx: "192.168.100.${toString (2 + idx)}";
+
   c_config =
-    name:
+    {
+      name,
+      hostAddress,
+      ...
+    }:
     { lib, ... }:
     let
       c_config = config.extra.containers.${name};
+      overlays = config.nixpkgs.overlays;
     in
     {
       imports = eimports ++ [
@@ -28,6 +48,9 @@ let
             pkgs-unstable
             lib
             c_config
+            overlays
+            hostAddress
+            journalPort
             ;
         })
       ];
@@ -55,9 +78,12 @@ in
           value,
           name,
         }:
+        let
+          hostAddress = if value.privateNetwork then "192.168.${toString (2 + idx)}.2" else "127.0.0.1";
+        in
         (
           {
-            config = c_config name;
+            config = c_config { inherit name hostAddress; };
             specialArgs = {
               # extra arguments given to the containers
               inherit
@@ -65,16 +91,36 @@ in
                 nixpkgs-unstable
                 pkgs-unstable
                 rootDir
+                inputs
                 ;
             };
           }
           // (if value.vpn then { enableTun = true; } else { })
           // (
+            if value.gpu then
+              {
+                bindMounts = {
+                  "/dev/dri/renderD128" = {
+                    hostPath = "/dev/dri/renderD128";
+                    isReadOnly = false;
+                  };
+                };
+                allowedDevices = [
+                  {
+                    node = "/dev/dri/renderD128";
+                    modifier = "rw";
+                  }
+                ];
+              }
+            else
+              { }
+          )
+          // (
             if value.privateNetwork then
               {
                 privateNetwork = true;
-                hostAddress = "192.168.${toString (2 + idx)}.2";
-                localAddress = "192.168.100.${toString (2 + idx)}";
+                inherit hostAddress;
+                localAddress = mkLocalAdress idx; # "192.168.100.${toString (2 + idx)}";
               }
             else
               { }
@@ -115,15 +161,33 @@ in
       )
     );
 
-    nat.internalInterfaces = map (
-      { name, ... }:
-      let
-        net = "ve-${name}";
-      in
-      if (builtins.stringLength net) < 16 then
-        net
-      else
-        throw "${net} is too long for a network name, please change the name of container ${names}"
-    ) (filter ({ value, ... }: value.privateNetwork) containers);
+    nat.internalInterfaces = map mkInterfaceName (
+      filter ({ value, ... }: value.privateNetwork) containers
+    );
+    firewall.interfaces = listToAttrs (
+      map (
+        attrs@{ ... }:
+        {
+          name = mkInterfaceName attrs;
+          value = {
+            allowedTCPPorts = [ journalPort ];
+          };
+        }
+      ) (filter ({ value, ... }: value.privateNetwork) containers)
+    );
+    hosts = listToAttrs (
+      map (
+        { idx, name, ... }:
+        {
+          name = mkLocalAdress idx;
+          value = [ name ];
+        }
+      ) (filter ({ value, ... }: value.privateNetwork) containers)
+    );
+  };
+  services.journald.remote = {
+    listen = "http";
+    enable = true;
+    port = journalPort;
   };
 }

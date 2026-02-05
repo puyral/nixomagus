@@ -10,12 +10,13 @@ pkgs.mkShell {
   buildInputs =
     (with pkgs; [
       vim
-      git
+      gitFull
       gh
       gnupg
       sops
       git-crypt
       sops-nix
+      shellcheck
     ])
     ++ (
       if pkgs.stdenv.isDarwin then

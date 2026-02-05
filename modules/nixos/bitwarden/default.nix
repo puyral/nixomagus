@@ -1,0 +1,87 @@
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
+let
+  cfg = config.extra.bitwarden;
+  name = "bitwarden";
+  port = 8222;
+  dataDir = cfg.dataDir;
+  StateDirectory =
+    if lib.versionOlder config.system.stateVersion "24.11" then "bitwarden_rs" else "vaultwarden";
+  innerDataDir = "/var/lib/${StateDirectory}";
+
+  secretEnv = config.sops.secrets.bitwarden_env.path;
+in
+{
+  options.extra.bitwarden = with lib; {
+    enable = mkEnableOption name;
+    dataDir = mkOption {
+      type = types.path;
+      default = "${config.params.locations.containers}/${name}";
+    };
+    backupDir = mkOption {
+      type = types.path;
+      default = "${dataDir}/backups";
+    };
+  };
+  config = lib.mkIf cfg.enable {
+    sops.secrets.bitwarden_env = {
+      sopsFile = ./secrets.sops-secret.env;
+      format = "dotenv";
+    };
+
+    containers.${name} = {
+      bindMounts = {
+        "${cfg.backupDir}" = {
+          hostPath = "${cfg.backupDir}";
+          isReadOnly = false;
+        };
+
+        "${innerDataDir}" = {
+          hostPath = "${dataDir}/data";
+          isReadOnly = false;
+        };
+        "${secretEnv}" = {
+          hostPath = secretEnv;
+          isReadOnly = true;
+        };
+      };
+      autoStart = true;
+      ephemeral = true;
+      config =
+        { config, ... }:
+        {
+
+          assertions = [
+            {
+              assertion = (config.systemd.services.vaultwarden.serviceConfig.StateDirectory == StateDirectory);
+              message = "bitwarden StateDirectory do not match in and out of the container";
+            }
+          ];
+
+          services.vaultwarden = {
+            enable = true;
+            domain = "bitwarden.puyral.fr";
+            environmentFile = secretEnv;
+            backupDir = cfg.backupDir;
+            config = {
+              ROCKET_ADDRESS = "0.0.0.0"; # default to localhost
+              ROCKET_PORT = port;
+            };
+          };
+        };
+    };
+    extra.containers.${name} = {
+      traefik = [
+        {
+          inherit port;
+          enable = true;
+          providers = [ "ovh-pl" ];
+        }
+      ];
+    };
+  };
+}

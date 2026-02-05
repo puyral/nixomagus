@@ -1,6 +1,7 @@
-{ ... }:
+{ lib, ... }:
 {
   imports = [
+    ../commun
     ./zsh
     ./wallpaper
     ./systemd-services
@@ -13,10 +14,28 @@
     ./firefox
     ./alacritty
     ./applications
+    ./btop
     ./git-config-fetcher
-    ./generate-jpgs
+    ./darktable
     ./xkb
     ./tmux
     ./yazi
+    ./lazygit
+    ./sway
+    ./vscode
+    ./keyring
+    ./git
+    ./wandarr
+    ./ntfy
+    ./sops
   ];
+
+  options.extra = {
+    nix.configDir =
+      with lib;
+      mkOption {
+        type = types.path;
+        default = "/config";
+      };
+  };
 }

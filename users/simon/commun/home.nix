@@ -19,16 +19,13 @@
       [ ]
       # (with custom; [ clocktui ])
       ++ (with pkgs; [
-
-        git
+        gitFull
         git-crypt
         gh
         gnupg
         vim
         htop
 
-        # gitui
-        lazygit
         lazysql
         # nbstripout # for jupyter notebooks. This way I can support all of them
 
@@ -56,6 +53,6 @@
       #      CONFIG_LOCATION = if is_nixos then "/config" else "$HOME/.config/home-manager/";
     };
   };
-  extra.gitConfigFetcher.location =
+  extra.nix.configDir =
     if is_nixos then "/config" else "${config.home.homeDirectory}/.config/home-manager";
 }

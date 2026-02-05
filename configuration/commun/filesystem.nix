@@ -21,7 +21,8 @@
           options = [
             "subvol=${subvol}"
             "compress=${compress}"
-          ] ++ extraOptions;
+          ]
+          ++ extraOptions;
         };
 
     in

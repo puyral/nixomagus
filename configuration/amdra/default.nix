@@ -42,6 +42,11 @@
     [
       # nerdfonts
       fira-code
+      jetbrains-mono
+      roboto # The font you specifically wanted
+      noto-fonts # The default font used in the template
+      # noto-fonts-cjk # Good to have for fallback characters
+      # noto-fonts-emoji
     ]
     ++ builtins.filter lib.attrsets.isDerivation (builtins.attrValues pkgs.nerd-fonts);
 

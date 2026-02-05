@@ -1,36 +1,43 @@
 {
+  config,
   custom,
   pkgs-unstable,
   pkgs,
+  lib,
+  rust-overlay,
   ...
 }:
+let
+  rustPkgs = pkgs-unstable.extend rust-overlay.overlays.default;
+in
 {
   imports = [ ];
   home = {
+
     packages =
       let
         rust = (
-          with pkgs-unstable;
+          with rustPkgs;
           [
-            cargo
-            clippy
             cargo-expand
-            rust-analyzer
-            rustc
-            rustfmt
-            vampire
-            z3
-            clang
+            cargo-limit
+            rust-bin.stable.latest.complete
           ]
         );
       in
-      (with pkgs-unstable; [ elan ]) ++ rust;
+      (with pkgs-unstable; [ elan ])
+      ++ (with pkgs; [
+        vampire
+        z3
+        clang
+      ])
+      ++ rust;
 
   };
   programs.zsh.sessionVariables = (
-    with pkgs-unstable;
+    with rustPkgs;
     {
-      RUST_SRC_PATH = "${pkgs-unstable.rustPlatform.rustLibSrc}";
+      #RUST_SRC_PATH = "${pkgs-unstable.rustPlatform.rustLibSrc}";
       LIBCLANG_PATH = "${clang.cc.lib}/lib";
       BINDGEN_EXTRA_CLANG_ARGS = "\$(< ${clang}/nix-support/cc-cflags) \$(< ${clang}/nix-support/libc-cflags) \$(< ${clang}/nix-support/libcxx-cxxflags)";
     }
@@ -38,8 +45,15 @@
   services.gpg-agent = {
     enable = true;
     pinentry.package = pkgs.pinentry-tty;
-
   };
-  extra.shell.rebuildScript = ./rebuild.sh;
+  extra.nix.configDir = "/home/simon/.config/home-manager";
+  extra.shell.rebuild = {
+    type = "home-manager";
+  };
+
+  programs.git.settings = {
+    user.name = lib.mkForce "Simon Jeanteur";
+    user.email = lib.mkForce "simon.jeanteur@tuwien.ac.at";
+  };
   # programs.gnupg.agent.pinentryPackage =  pkgs.pinentry-curses;
 }

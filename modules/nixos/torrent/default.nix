@@ -4,6 +4,11 @@ let
   name = "torrent";
   port = "80";
   cfg = config.extra.torrent;
+
+  extraMounts = lib.mapAttrs (n: v: {
+    hostPath = v;
+    isReadOnly = false;
+  }) cfg.extraPaths;
 in
 
 {
@@ -11,7 +16,7 @@ in
   imports = [ ./commun.nix ];
   config = mkIf (cfg.containered && cfg.containered) {
     containers.torrent = {
-      bindMounts = {
+      bindMounts = extraMounts // {
         "/data" = {
           hostPath = cfg.dataDir;
           isReadOnly = false;
@@ -20,10 +25,10 @@ in
           hostPath = cfg.downloadDir;
           isReadOnly = false;
         };
-        "/videos" = {
-          hostPath = "${config.vars.Zeno.mountPoint}/media/videos";
-          isReadOnly = false;
-        };
+        # "/videos" = {
+        #   hostPath = "${config.vars.Zeno.mountPoint}/media/videos";
+        #   isReadOnly = false;
+        # };
         "/var/lib/transmission" = {
           hostPath = "${cfg.dataDir}/transmission";
           isReadOnly = false;
@@ -57,7 +62,8 @@ in
                 };
             groups = {
               rtorrent = { };
-            } // (if cfg.group == null then { } else { "${cfg.group}".gid = users.groups."${cfg.group}".gid; });
+            }
+            // (if cfg.group == null then { } else { "${cfg.group}".gid = users.groups."${cfg.group}".gid; });
           };
 
           extra.torrent = with cfg; {
@@ -73,7 +79,7 @@ in
     extra.containers.torrent = {
       traefik = [
         {
-          port = 3000;
+          port = 80;
           enable = true;
           name = "rutorrent";
         }

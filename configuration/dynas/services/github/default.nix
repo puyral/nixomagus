@@ -1,7 +1,7 @@
 { pkgs, config, ... }:
 {
   sops.secrets.github-token = {
-    sopsFile = ./secrets-sops/token.yaml;
+    sopsFile = ./token.sops-secret.yaml;
   };
   extra.github-runners = {
     enable = true;

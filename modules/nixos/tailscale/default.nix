@@ -24,6 +24,14 @@ in
         default = "50-tailscale";
       };
     };
+    prefix.v4 = mkOption {
+      type = types.str;
+      default = "100.64.0.0/10";
+    };
+    prefix.v6 = mkOption {
+      type = types.str;
+      default = "fd7a:115c:a1e0::/48";
+    };
   };
 
   config = lib.mkIf cfg.enable (

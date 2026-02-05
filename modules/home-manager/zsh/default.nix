@@ -22,6 +22,8 @@ in
         path = "$HOME/.cache/zsh/history";
         share = true;
       };
+
+      autocd = true;
       syntaxHighlighting = {
         enable = true;
       };
@@ -29,11 +31,6 @@ in
         enable = true;
       };
       enableCompletion = true;
-
-      # oh-my-zsh = {
-      #   enable = true;
-      #   plugins = [ "git" ];
-      # };
 
       plugins = [
         {
@@ -73,15 +70,14 @@ in
       enableZshIntegration = true;
     };
 
-    # programs.pay-respects = {
-    #   enable = true;
-    #   enableZshIntegration = true;
-    # };
+    programs.nix-index = {
+      enable = true;
+    };
 
     extra.gitConfigFetcher.enable = true;
 
     home.sessionVariables = {
-      CONFIG_LOCATION = config.extra.gitConfigFetcher.location;
+      CONFIG_LOCATION = config.extra.nix.configDir;
     };
   };
 }

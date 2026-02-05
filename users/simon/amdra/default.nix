@@ -18,6 +18,7 @@
     };
     logseq.enable = true;
     wallpaper.enable = true;
+    sway.enable = true;
     hyprland = {
       enable = true;
       monitors = [
@@ -37,12 +38,10 @@
         ]
       ];
     };
-    generate-jpgs = {
-      enable = true;
-      onTimer.enable = false;
-      locations = {
-        library = "/home/simon/.config/synced-darktable-database/library.db";
-        export = "/Volumes/Zeno/media/photos/exports/complete";
+    darktable = {
+      library = "/home/simon/.config/synced-darktable-database/library.db";
+      export = {
+        jpgsDir = "/Volumes/Zeno/media/photos/full-export/jpegs";
       };
     };
   };
@@ -54,11 +53,9 @@
       ++ (with pkgs; [
         nvtopPackages.amd
         kitty
-        gparted
         vampire
         hugin
       ])
       ++ (with pkgs-unstable; [ fastfetch ]);
-
   };
 }

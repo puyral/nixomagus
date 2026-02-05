@@ -18,7 +18,11 @@ in
       bindMounts = {
         "/photos" = {
           hostPath = cfg.photos;
-          isReadOnly = true;
+          isReadOnly = false;
+        };
+        "/videos" = {
+          hostPath = cfg.videos;
+          isReadOnly = false;
         };
         "/var/lib/tailscale" = {
           hostPath = "${cfg.dataDir}/tailscale";
@@ -46,15 +50,14 @@ in
           user = "immich";
         in
         {
-          environment.systemPackages =
-            (with pkgs-unstable; [
-              darktable
-              #{ inherit darktable gen-config; })
-            ])
-            ++ (with pkgs; [
+          environment.systemPackages = (
+            with pkgs;
+            [
               ffmpeg
               exiftool
-            ]);
+              darktable
+            ]
+          );
 
           services.immich = {
             inherit port;
@@ -68,14 +71,21 @@ in
           users.users.${user} = {
             group = user;
             isSystemUser = true;
+            extraGroups = [
+              "render"
+              "video"
+            ];
           };
           users.groups.${user}.gid = gconfig.users.groups.photos.gid;
+          users.groups."render".gid = gconfig.users.groups."render".gid;
+          users.groups."video".gid = gconfig.users.groups."video".gid;
 
           services.tailscale.enable = true;
         };
     };
     extra.containers.immich = {
       vpn = true;
+      gpu = true;
 
       traefik = [
         {

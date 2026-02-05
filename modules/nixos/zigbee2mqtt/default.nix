@@ -45,10 +45,11 @@ in
             enable = true;
             dataDir = "/data";
             settings = {
-              homeassistant = true;
-              permit_join = true;
+              homeassistant.enabled = true;
+              permit_join = false;
               serial = {
                 port = "/dev/ttyUSB1";
+                adapter = "zstack";
               };
               frontend.port = port;
               advanced = {
