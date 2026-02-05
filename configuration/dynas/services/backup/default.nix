@@ -58,7 +58,10 @@
 
             # IMPORTANT: "sys" is usually required for TrueNAS/FreeBSD targets
             # to properly handle ZFS permission checks over SSH without sudo.
-            extraArgs = [ "--no-privilege-elevation" ];
+            extraArgs = [
+              "--no-privilege-elevation"
+              "--delete-target-snapshots"
+            ];
 
             # recvOptions = " -o canmount=off ";
 

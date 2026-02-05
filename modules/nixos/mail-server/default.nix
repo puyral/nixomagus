@@ -10,6 +10,33 @@ let
   sopsKey = "/etc/sops";
   acmeConfig = config.extra.acme;
   hostConfig = config;
+  mkVarLib = p: {
+    name = "/var/lib/${p}";
+    value = {
+      hostPath = "${cfg.dirs.data}/${p}";
+      isReadOnly = false;
+    };
+  };
+
+  extraVarLibDir = [
+    # "dhparams"
+    "dkim"
+    "postfix"
+    "dovecot"
+    "sieve"
+    "redis-rspamd"
+    "rspamd"
+  ];
+
+  ports = [
+    25
+    143
+    465
+    587
+    993
+    4190
+  ];
+
 in
 {
   imports = [
@@ -19,7 +46,14 @@ in
 
   config = lib.mkIf cfg.enable {
 
+    systemd.tmpfiles.rules = [
+      "d ${cfg.dirs.data}/${cfg.dirs.mails} 0755 root root -"
+    ]
+    ++ (builtins.map (p: "d ${(mkVarLib p).value.hostPath} 0755 root root -") extraVarLibDir);
+
     extra.containers.mailserver = { };
+
+    networking.firewall.allowedTCPPorts = ports;
 
     # Define the container
     containers.mailserver = {
@@ -28,13 +62,6 @@ in
 
       bindMounts =
         let
-          mkVarLib = p: {
-            name = "/var/lib/${p}";
-            value = {
-              hostPath = "${cfg.dirs.data}/${p}";
-              isReadOnly = false;
-            };
-          };
           mkAll = with builtins; list: listToAttrs (map mkVarLib list);
         in
         {
@@ -51,32 +78,15 @@ in
             isReadOnly = false;
           };
         }
-        // (mkAll [
-          # "dhparams"
-          "dkim"
-          "postfix"
-          "dovecot"
-          "sieve"
-          "redis-rspamd"
-          "rspamd"
-        ]);
+        // mkAll extraVarLibDir;
 
       forwardPorts =
         with builtins;
-        map
-          (port: {
-            protocol = "tcp";
-            hostPort = port;
-            containerPort = port;
-          })
-          [
-            25
-            143
-            465
-            587
-            993
-            4190
-          ];
+        map (port: {
+          protocol = "tcp";
+          hostPort = port;
+          containerPort = port;
+        }) ports;
 
       config =
         { ... }:
@@ -96,6 +106,10 @@ in
           sops.age.sshKeyPaths = [ sopsKey ];
 
           mailserver = {
+            debug = {
+              all = true;
+              rspamd = false;
+            };
             enable = true;
             stateVersion = 3;
             fqdn = cfg.fqdn;

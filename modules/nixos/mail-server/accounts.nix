@@ -1,4 +1,9 @@
-{ config, lib, ... }:
+{
+  config,
+  lib,
+  inputs,
+  ...
+}:
 let
   cfg = config.extra.mail-server;
   domain = cfg.mainDomain;
@@ -17,12 +22,6 @@ in
     };
   }) accounts;
 
-  # sops.secrets.mail-passwd = {
-  #   sopsFile = ./passwords.sops-secret.json;
-  #   format = "json";
-  #   key = "simon";
-  # };
-
   mailserver = {
 
     # A list of all login accounts. To create the password hashes, use
@@ -32,7 +31,7 @@ in
         hashedPasswordFile = hashPath "simon@${domain}";
         aliases = [
           "security@${domain}"
-          "smartd@${domain}"
+          "admin@${domain}"
           "github@${domain}"
           "simon.jeanteur@${domain}"
         ];
@@ -42,6 +41,10 @@ in
       };
       "n8n@${domain}" = {
         hashedPasswordFile = hashPath "n8n@${domain}";
+      };
+      "root@${domain}" = {
+        hashedPasswordFile = hashPath "root@${domain}";
+        aliases = with builtins; map (n: "${n}@${domain}") (attrNames inputs.computers);
       };
     };
   };
