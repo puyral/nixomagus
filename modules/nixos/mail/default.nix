@@ -32,7 +32,6 @@ with lib;
         host = "mail.puyral.fr";
         port = 465;
         from = "${name}@puyral.fr";
-        # from = "root@puyral.fr";
         passwordeval = "${pkgs.coreutils}/bin/cat ${passwdFile}";
         user = "root@puyral.fr";
       };

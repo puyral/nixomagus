@@ -31,7 +31,7 @@ in
         hashedPasswordFile = hashPath "simon@${domain}";
         aliases = [
           "security@${domain}"
-          "smartd@${domain}"
+          "admin@${domain}"
           "github@${domain}"
           "simon.jeanteur@${domain}"
         ];

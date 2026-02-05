@@ -29,13 +29,13 @@ let
   ];
 
   ports = [
-            25
-            143
-            465
-            587
-            993
-            4190
-          ];
+    25
+    143
+    465
+    587
+    993
+    4190
+  ];
 
 in
 {
@@ -46,19 +46,10 @@ in
 
   config = lib.mkIf cfg.enable {
 
-    systemd.tmpfiles.rules =
-      let
-        autoMkDir =
-          p:
-          let
-            hostPath = (mkVarLib p).value.hostPath;
-          in
-          "d ${hostPath} 0755 root root -";
-      in
-      [
-        "d ${cfg.dirs.data}/${cfg.dirs.mails} 0755 root root -"
-      ]
-      ++ (builtins.map autoMkDir extraVarLibDir);
+    systemd.tmpfiles.rules = [
+      "d ${cfg.dirs.data}/${cfg.dirs.mails} 0755 root root -"
+    ]
+    ++ (builtins.map (p: "d ${(mkVarLib p).value.hostPath} 0755 root root -") extraVarLibDir);
 
     extra.containers.mailserver = { };
 
@@ -91,13 +82,11 @@ in
 
       forwardPorts =
         with builtins;
-        map
-          (port: {
-            protocol = "tcp";
-            hostPort = port;
-            containerPort = port;
-          })
-          ports;
+        map (port: {
+          protocol = "tcp";
+          hostPort = port;
+          containerPort = port;
+        }) ports;
 
       config =
         { ... }:

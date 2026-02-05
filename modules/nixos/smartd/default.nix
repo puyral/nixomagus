@@ -34,7 +34,7 @@ in
       test = true;
       mail = {
         sender = config.programs.msmtp.accounts.default.from;
-        recipient = (import (rootDir + /secrets/email.nix)).gmail "smartd-${config.networking.hostName}";
+        recipient = "admin@puyral.fr";
       };
     };
   };
