@@ -31,7 +31,7 @@ in
       builtins.map Disk Disks ++ [ ];
 
     notifications = {
-      test = true;
+      # test = true;
       mail = {
         sender = config.programs.msmtp.accounts.default.from;
         recipient = "admin@puyral.fr";
