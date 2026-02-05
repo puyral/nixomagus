@@ -27,7 +27,7 @@ rec {
         builtins.map (user: {
           name = "${user.name}@${name}";
           value = {
-            inherit user;
+            inherit user computers;
             computer = c // {
               inherit name;
             };
@@ -63,6 +63,7 @@ rec {
       builtins.mapAttrs (
         name: value:
         mkSystem {
+          inherit computers;
           computer = {
             inherit name;
           }
@@ -74,6 +75,7 @@ rec {
   mkHome =
     inputs@{
       computer,
+      computers,
       user,
       extraModules ? [ ],
     }:
@@ -93,6 +95,7 @@ rec {
   mkSystem =
     inputs@{
       computer,
+      computers,
       extraModules ? [ ],
       ...
     }:
@@ -169,9 +172,10 @@ rec {
     };
 
   mkExtraArgs =
-    { computer, ... }:
+    { computer, computers, ... }:
     (mkExtraArgs' computer.system)
     // {
+      inherit computers;
       computer_name = computer.name;
       mconfig = computer;
       overlays = (import (rootDir + /overlays)) computer;

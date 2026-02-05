@@ -4,20 +4,38 @@
   config,
   ...
 }:
+let
+
+  name = config.networking.hostName;
+  cfg = config.extra.mail;
+  passwdFile = config.sops.secrets."mail-passwd-plain/root".path;
+in
 with lib;
 {
   options.extra.mail.enable = mkEnableOption "sendmail";
 
-  config.programs.msmtp = mkIf (config.extra.mail.enable) {
-    enable = true;
-    accounts.default = (
-      {
+  config = mkIf cfg.enable {
+
+    sops.secrets."mail-passwd-plain/root" = {
+      sopsFile = ../mail-server/passwords.sops-secret.json;
+      format = "json";
+      key = "root-plain";
+      mode = "0444";
+    };
+
+    programs.msmtp = {
+      enable = true;
+      accounts.default = {
         tls = true;
+        tls_starttls = false;
         auth = true;
-        host = "smtp.gmail.com";
-        port = 587;
-      }
-      // (import ./secrets/credentials.nix) pkgs config.networking.hostName
-    );
+        host = "mail.puyral.fr";
+        port = 465;
+        from = "${name}@puyral.fr";
+        # from = "root@puyral.fr";
+        passwordeval = "${pkgs.coreutils}/bin/cat ${passwdFile}";
+        user = "root@puyral.fr";
+      };
+    };
   };
 }

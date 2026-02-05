@@ -35,7 +35,6 @@
     in
     {
       acme.enable = true;
-      mail.enable = true;
 
       zigbee2mqtt = {
         enable = true;
