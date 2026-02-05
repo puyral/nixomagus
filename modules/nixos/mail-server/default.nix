@@ -28,6 +28,15 @@ let
     "rspamd"
   ];
 
+  ports = [
+    25
+    143
+    465
+    587
+    993
+    4190
+  ];
+
 in
 {
   imports = [
@@ -37,21 +46,14 @@ in
 
   config = lib.mkIf cfg.enable {
 
-    systemd.tmpfiles.rules =
-      let
-        autoMkDir =
-          p:
-          let
-            hostPath = (mkVarLib p).value.hostPath;
-          in
-          "d ${hostPath} 0755 root root -";
-      in
-      [
-        "d ${cfg.dirs.data}/${cfg.dirs.mails} 0755 root root -"
-      ]
-      ++ (builtins.map autoMkDir extraVarLibDir);
+    systemd.tmpfiles.rules = [
+      "d ${cfg.dirs.data}/${cfg.dirs.mails} 0755 root root -"
+    ]
+    ++ (builtins.map (p: "d ${(mkVarLib p).value.hostPath} 0755 root root -") extraVarLibDir);
 
     extra.containers.mailserver = { };
+
+    networking.firewall.allowedTCPPorts = ports;
 
     # Define the container
     containers.mailserver = {
@@ -80,20 +82,11 @@ in
 
       forwardPorts =
         with builtins;
-        map
-          (port: {
-            protocol = "tcp";
-            hostPort = port;
-            containerPort = port;
-          })
-          [
-            25
-            143
-            465
-            587
-            993
-            4190
-          ];
+        map (port: {
+          protocol = "tcp";
+          hostPort = port;
+          containerPort = port;
+        }) ports;
 
       config =
         { ... }:
