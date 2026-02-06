@@ -12,6 +12,3 @@ r() {
   nix run gnixpkgs#$pkg -- $@
 }
 
-sss() {
-  nix run /config#nixosConfigurations.shell.config.system.build.nixos-shell -- --container --mount "$PWD":/cwd "$@"
-}

@@ -3,6 +3,7 @@
   pkgs,
   home,
   lib,
+  pkgs-self,
   ...
 }:
 with lib;
@@ -15,6 +16,8 @@ in
     enable = mkEnableOption "zsh";
   };
   config = mkIf cfg.enable {
+    home.packages = [ pkgs-self.sss ];
+
     programs.zsh = {
       enable = true;
       history = {
