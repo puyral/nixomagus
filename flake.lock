@@ -377,6 +377,26 @@
         "type": "github"
       }
     },
+    "nixos-shell": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs-stable"
+        ]
+      },
+      "locked": {
+        "lastModified": 1769920503,
+        "narHash": "sha256-F0mGVlhaR279t9+0jzM4hfS+1WJ3DlULJ84KOLU4fdM=",
+        "owner": "Mic92",
+        "repo": "nixos-shell",
+        "rev": "457f387569bda26355b008001d0ced6858471d89",
+        "type": "github"
+      },
+      "original": {
+        "owner": "Mic92",
+        "repo": "nixos-shell",
+        "type": "github"
+      }
+    },
     "nixpkgs-kernel": {
       "locked": {
         "lastModified": 1765186076,
@@ -546,6 +566,7 @@
         "headplane": "headplane",
         "home-manager": "home-manager",
         "nixos-hardware": "nixos-hardware",
+        "nixos-shell": "nixos-shell",
         "nixpkgs-kernel": "nixpkgs-kernel",
         "nixpkgs-stable": "nixpkgs-stable",
         "nixpkgs-unstable": "nixpkgs-unstable",

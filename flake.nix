@@ -38,6 +38,11 @@
 
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";
 
+    nixos-shell = {
+      url = "github:Mic92/nixos-shell";
+      inputs.nixpkgs.follows = "nixpkgs-stable";
+    };
+
     ######################
     ###### packages ######
     ######################
