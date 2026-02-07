@@ -8,6 +8,13 @@ creation_rules:
     pgp: *gpg
     age:
     - *simon
+  
+  - path_regex: modules/nixos/mail-server/passwords.sops-secret.json
+    pgp: *gpg
+    age:
+    - *simon
+    - *dynas
+    - *ovh-pl
 
   - path_regex: .*\.sops-secret\..*$
     pgp: *gpg
