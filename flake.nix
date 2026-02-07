@@ -55,8 +55,11 @@
 
     custom = {
       url = "github:puyral/custom-nix";
-      inputs.nixpkgs.follows = "nixpkgs-stable";
-      inputs.cryptovampire-src.follows = "nixpkgs-stable";
+      inputs = {
+        nixpkgs.follows = "nixpkgs-stable";
+        cryptovampire-src.follows = "nixpkgs-stable";
+        treefmt-nix.follows = "treefmt-nix";
+      };
     };
 
     #######################
