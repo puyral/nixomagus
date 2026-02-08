@@ -38,11 +38,6 @@
 
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";
 
-    nixos-shell = {
-      url = "github:Mic92/nixos-shell";
-      inputs.nixpkgs.follows = "nixpkgs-stable";
-    };
-
     ######################
     ###### packages ######
     ######################
@@ -60,8 +55,11 @@
 
     custom = {
       url = "github:puyral/custom-nix";
-      inputs.nixpkgs.follows = "nixpkgs-stable";
-      inputs.cryptovampire-src.follows = "nixpkgs-stable";
+      inputs = {
+        nixpkgs.follows = "nixpkgs-stable";
+        cryptovampire-src.follows = "nixpkgs-stable";
+        treefmt-nix.follows = "treefmt-nix";
+      };
     };
 
     #######################

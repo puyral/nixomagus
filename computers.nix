@@ -47,12 +47,6 @@ rec {
       nixos = "24.05";
       headless = false;
     };
-    shell = {
-      system = "x86_64-linux";
-      users = [ users.simon ];
-      nixos = "24.05";
-      headless = true;
-    };
   };
 
   users = {
