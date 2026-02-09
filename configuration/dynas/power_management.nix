@@ -20,7 +20,7 @@
   # "amd_pstate=active": 'active' mode allows the CPU to manage its own power states internally (EPP).
   boot.kernelParams = [
     "consoleblank=120"
-    # "pcie_aspm=force"
+    "pcie_aspm=force"
     "amd_pstate=active"
   ];
 
