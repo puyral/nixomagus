@@ -11,7 +11,7 @@
   # The Intel Arc B580 (Battlemage) requires Linux 6.12+ for proper power management.
   # We use a pinned nixpkgs (pkgs-kernel) to get Linux 6.17, as it works with ZFS Stable
   # and provides better support than 6.12, but isn't broken like 6.18+.
-  boot.kernelPackages = pkgs-unstable.linuxPackages_6_19;
+  boot.kernelPackages = pkgs-unstable.linuxPackages_6_18;
   boot.zfs.package = pkgs-unstable.zfs_unstable;
 
   # 2. Kernel Parameters
@@ -20,7 +20,7 @@
   # "amd_pstate=active": 'active' mode allows the CPU to manage its own power states internally (EPP).
   boot.kernelParams = [
     "consoleblank=120"
-    # "pcie_aspm=force"
+    "pcie_aspm=force"
     "amd_pstate=active"
   ];
 
