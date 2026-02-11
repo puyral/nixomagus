@@ -1,6 +1,7 @@
 { ... }:
 {
   networking = {
+	nameservers = ["1.1.1.1"];
     defaultGateway6 = "2001:41d0:601:1100::1";
     enableIPv6 = true;
     interfaces = {
