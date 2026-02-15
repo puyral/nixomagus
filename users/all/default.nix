@@ -19,10 +19,15 @@
         allowUnfree = _: true;
       };
     };
-    home = lib.mkIf (!is_nixos) {
+    home = {
       packages = [
         home-manager.packages.${pkgs.system}.default
       ];
+    };
+    nix.gc = {
+      automatic = true;
+      frequency = "weekly";
+      options = "--delete-older-than 30d";
     };
   };
 }
