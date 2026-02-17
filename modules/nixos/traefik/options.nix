@@ -27,6 +27,11 @@ with builtins;
     description = "the ip address";
     default = null;
   };
+  forceHttps = mkOption {
+    type = types.bool;
+    description = "force https redirection";
+    default = true;
+  };
   extra = {
     rule = mkOption {
       type = with types; nullOr str;
