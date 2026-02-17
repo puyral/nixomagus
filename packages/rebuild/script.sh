@@ -103,15 +103,29 @@ fi
 echo -e "${YELLOW}${BOLD}==> Creating backup on branch $HOST_BRANCH...${RESET}"
 
 if git -C "$CONFIG_DIR" rev-parse --is-inside-work-tree >/dev/null 2>&1; then
-    # Create stash (index + worktree + untracked)
-    # We always disable GPG for the stash creation itself to avoid interactive prompt loop there
-    STASH_HASH=$(git -C "$CONFIG_DIR" -c commit.gpgsign=false stash create --include-untracked)
+    # Create a snapshot of the current working tree, including untracked files.
+    # This is done via a temporary index to ensure git filters (like git-crypt) are applied.
+    TMP_INDEX=$(mktemp)
+    # Ensure the temporary index is cleaned up on exit
+    trap 'rm -f "$TMP_INDEX"' EXIT HUP INT QUIT PIPE TERM
 
-    if [ -z "$STASH_HASH" ]; then
-        TREE_HASH=$(git -C "$CONFIG_DIR" rev-parse "HEAD^{tree}")
-    else
-        TREE_HASH=$(git -C "$CONFIG_DIR" show -s --format=%T "$STASH_HASH")
-    fi
+    # All git operations affecting the index are done in a subshell with GIT_INDEX_FILE set.
+    # The final tree hash is echoed to stdout and captured in TREE_HASH.
+    TREE_HASH=$(
+        export GIT_INDEX_FILE="$TMP_INDEX"
+        # Seed the index with the current HEAD, or an empty tree if it's a new repo
+        if ! git -C "$CONFIG_DIR" read-tree HEAD >/dev/null 2>&1; then
+            git -C "$CONFIG_DIR" read-tree "$(git -C "$CONFIG_DIR" hash-object -t tree /dev/null)" >/dev/null 2>&1
+        fi
+        # Add all changes from the working tree, which applies git-crypt filter
+        git -C "$CONFIG_DIR" add -A >/dev/null 2>&1
+        # Write the tree object from our temporary index to stdout
+        git -C "$CONFIG_DIR" write-tree
+    )
+
+    # Clean up the trap and the file immediately
+    rm -f "$TMP_INDEX"
+    trap - EXIT HUP INT QUIT PIPE TERM
 
     PARENT_COMMIT=$(git -C "$CONFIG_DIR" rev-parse --verify "$HOST_BRANCH" 2>/dev/null || true)
     
