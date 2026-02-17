@@ -111,7 +111,6 @@ if git -C "$CONFIG_DIR" rev-parse --is-inside-work-tree >/dev/null 2>&1; then
 
     # All git operations affecting the index are done in a subshell with GIT_INDEX_FILE set.
     # The final tree hash is echoed to stdout and captured in TREE_HASH.
-    
     TREE_HASH=$(
         export GIT_INDEX_FILE="$TMP_INDEX"
         # Seed the index with the current HEAD, or an empty tree if it's a new repo
