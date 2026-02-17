@@ -74,6 +74,7 @@ in
             enable = true;
             providers = [ "ovh-pl" ];
             extra.rule = "Host(`${domain}`) && PathPrefix(`/`)";
+            forceHttps = false;
           }
           {
             port = cfg.headplane.port;

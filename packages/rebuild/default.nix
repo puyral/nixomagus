@@ -1,6 +1,7 @@
 {
   writeShellApplication,
   git,
+  git-crypt,
   coreutils,
   inetutils,
   replaceVars,
@@ -13,6 +14,7 @@ writeShellApplication {
   name = "rebuild";
   runtimeInputs = [
     git
+    git-crypt
     coreutils
     inetutils
   ];

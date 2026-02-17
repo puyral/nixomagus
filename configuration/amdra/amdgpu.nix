@@ -10,7 +10,7 @@ let
 in
 {
   # need the latest kernel
-  #boot.kernelPackages = kernel;
+  boot.kernelPackages = kernel;
   # boot.zfs.package = pkgs-unstable.zfs; # and zfs
   boot.initrd.kernelModules = [ "amdgpu" ];
   services.xserver.videoDrivers = [ "amdgpu" ];

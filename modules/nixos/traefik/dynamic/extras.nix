@@ -21,20 +21,38 @@ in
       { }
     else
       {
-        routers = mapAttrs (
-          host: attrs:
+        routers =
           let
-            enable = attrs.enable;
-            domain = if attrs.domain == null then cfg.baseDomain else attrs.domain;
-            rule = if attrs.extra.rule == null then "Host(`${host}.${domain}`)" else attrs.extra.rule;
+            mkRouter =
+              host: attrs:
+              let
+                domain = if attrs.domain == null then cfg.baseDomain else attrs.domain;
+                rule = if attrs.extra.rule == null then "Host(`${host}.${domain}`)" else attrs.extra.rule;
+              in
+              {
+                "${host}" = {
+                  inherit rule tls;
+                  entryPoints = [ "https" ];
+                  service = host;
+                };
+                "${host}-insecure" =
+                  if attrs.forceHttps then
+                    {
+                      inherit rule;
+                      entryPoints = [ "http" ];
+                      middlewares = [ "redirect-to-https" ];
+                      service = host;
+                    }
+                  else
+                    {
+                      inherit rule;
+                      entryPoints = [ "http" ];
+                      service = host;
+                    };
+              };
           in
-          {
-            inherit rule entrypoints tls;
-            # entrypoints = "https";
-            # tls.certResolver = "ovh";
-            service = host;
-          }
-        ) instances;
+          foldl' (acc: x: acc // x) { } (mapAttrsToList mkRouter instances);
+
         services = mapAttrs (
           host:
           attrs@{

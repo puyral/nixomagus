@@ -52,21 +52,24 @@ let
 in
 pkgs.runCommand "nix-configuration-doc"
   {
-    nativeBuildInputs = [ pkgs.mdbook ];
+    # nativeBuildInputs = [ pkgs.mdbook ];
   }
-  ''
-    mkdir -p src
-    cp ${markdown} src/nixos-options.md
+  # ''
+  #   mkdir -p src
+  #   cp ${markdown} src/nixos-options.md
 
-    cat > book.toml <<EOF
-    [book]
-    title = "NixOS Configuration Options"
-    EOF
+  #   cat > book.toml <<EOF
+  #   [book]
+  #   title = "NixOS Configuration Options"
+  #   EOF
 
-    cat > src/SUMMARY.md <<EOF
-    # Summary
-    [NixOS Options](./nixos-options.md)
-    EOF
+  #   cat > src/SUMMARY.md <<EOF
+  #   # Summary
+  #   [NixOS Options](./nixos-options.md)
+  #   EOF
 
-    mdbook build -d $out
-  ''
+  #   mdbook build -d $out
+  # ''
+    ''
+      echo hello
+    ''

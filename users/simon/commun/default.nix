@@ -21,6 +21,7 @@
     git.enable = lib.mkDefault true;
     ntfy-client.enable = lib.mkDefault true;
     btop.enable = lib.mkDefault true;
+    opencode.enable = lib.mkDefault true;
   };
 
   # This value determines the Home Manager release that your configuration is
