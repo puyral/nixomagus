@@ -106,25 +106,29 @@ if git -C "$CONFIG_DIR" rev-parse --is-inside-work-tree >/dev/null 2>&1; then
     # Create a snapshot of the current working tree, including untracked files.
     # This is done via a temporary index to ensure git filters (like git-crypt) are applied.
     TMP_INDEX=$(mktemp)
-    # Ensure the temporary index is cleaned up on exit
-    trap 'rm -f "$TMP_INDEX"' EXIT HUP INT QUIT PIPE TERM
+    TMP_HASH_FILE=$(mktemp)
+    # Ensure the temporary files are cleaned up on exit
+    trap 'rm -f "$TMP_INDEX" "$TMP_HASH_FILE"' EXIT HUP INT QUIT PIPE TERM
 
-    # All git operations affecting the index are done in a subshell with GIT_INDEX_FILE set.
-    # The final tree hash is echoed to stdout and captured in TREE_HASH.
-    TREE_HASH=$(
+    # All git operations affecting the index are done in a subshell.
+    # stderr is inherited, so any errors from git or git-crypt will be visible.
+    # The final tree hash is written to a temporary file.
+    (
         export GIT_INDEX_FILE="$TMP_INDEX"
         # Seed the index with the current HEAD, or an empty tree if it's a new repo
-        if ! git -C "$CONFIG_DIR" read-tree HEAD >/dev/null 2>&1; then
-            git -C "$CONFIG_DIR" read-tree "$(git -C "$CONFIG_DIR" hash-object -t tree /dev/null)" >/dev/null 2>&1
+        if ! git -C "$CONFIG_DIR" read-tree HEAD; then
+            git -C "$CONFIG_DIR" read-tree "$(git -C "$CONFIG_DIR" hash-object -t tree /dev/null)"
         fi
-        # Add all changes from the working tree, which applies git-crypt filter
-        git -C "$CONFIG_DIR" add -A >/dev/null 2>&1
-        # Write the tree object from our temporary index to stdout
-        git -C "$CONFIG_DIR" write-tree
+        # Add all changes from the working tree, which applies the git-crypt filter
+        git -C "$CONFIG_DIR" add -A
+        # Write the tree object from our temporary index to the hash file
+        git -C "$CONFIG_DIR" write-tree > "$TMP_HASH_FILE"
     )
 
-    # Clean up the trap and the file immediately
-    rm -f "$TMP_INDEX"
+    TREE_HASH=$(cat "$TMP_HASH_FILE")
+
+    # Clean up the trap and the files immediately
+    rm -f "$TMP_INDEX" "$TMP_HASH_FILE"
     trap - EXIT HUP INT QUIT PIPE TERM
 
     PARENT_COMMIT=$(git -C "$CONFIG_DIR" rev-parse --verify "$HOST_BRANCH" 2>/dev/null || true)
