@@ -29,7 +29,7 @@ in
               "glm-4.7-355b" = {
                 name = "glm-4.7-355b";
                 options = {
-                  temperature = 0.2;
+                  temperature = 0.8;
                 };
                 # limit = {
                 #   context = 160000;
