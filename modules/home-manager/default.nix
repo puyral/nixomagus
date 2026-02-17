@@ -28,6 +28,7 @@
     ./wandarr
     ./ntfy
     ./sops
+    ./opencode
   ];
 
   options.extra = {
