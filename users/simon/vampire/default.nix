@@ -55,5 +55,7 @@ in
     user.name = lib.mkForce "Simon Jeanteur";
     user.email = lib.mkForce "simon.jeanteur@tuwien.ac.at";
   };
+
+  programs.ssh.matchBlocks."gitlab.secpriv.tuwien.ac.at" = lib.mkForce { };
   # programs.gnupg.agent.pinentryPackage =  pkgs.pinentry-curses;
 }
