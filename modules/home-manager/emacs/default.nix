@@ -29,6 +29,9 @@ buildCommand = ''
           echo "(defvar squirrel-toolbar-toggle-list nil)" >> $out/share/emacs/site-lisp/squirrel.el
           echo "(defvar squirrel-menu-logic nil)" >> $out/share/emacs/site-lisp/squirrel.el
           echo "(defvar squirrel-menu-commands nil)" >> $out/share/emacs/site-lisp/squirrel.el
+          echo "(defvar squirrel-help-menu-entries nil)" >> $out/share/emacs/site-lisp/squirrel.el
+          echo "(defvar squirrel-toolbar-buttons nil)" >> $out/share/emacs/site-lisp/squirrel.el
+          echo "(defvar squirrel-menu-automation nil)" >> $out/share/emacs/site-lisp/squirrel.el
         '';
   };
 in
