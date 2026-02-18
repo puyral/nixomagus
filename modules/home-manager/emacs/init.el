@@ -2,6 +2,6 @@
 (require 'proof-site)
 
 ;; Squirrel prover integration
-(add-to-list 'load-path (expand-file-name "~/.emacs.d/lisp/PG/squirrel"))
-(require 'squirrel-syntax)
-(require 'squirrel)
+(with-eval-after-load 'proof-general
+  (require 'ansi-color)
+  (require 'squirrel))
