@@ -8,15 +8,16 @@
 }:
 let
   cfg = config.extra.emacs;
-  squirrel-mode-epkgs = pkgs.emacsPackages.trivialBuild {
+  squirrel-mode-epkgs = pkgs.emacsPackages.trivialBuild rec {
     pname = "squirrel-mode";
     version = "unstable";
     src = squirrel-prover-src;
     packageRequires = [ pkgs.emacsPackages.proof-general ];
+    allowCompilation = false;
     buildCommand = ''
       mkdir -p $out/share/emacs/site-lisp/squirrel
-      cp ${squirrel-prover-src}/utils/squirrel.el $out/share/emacs/site-lisp/squirrel/
-      cp ${squirrel-prover-src}/utils/squirrel-syntax.el $out/share/emacs/site-lisp/squirrel/
+      cp ${src}/utils/squirrel.el $out/share/emacs/site-lisp/squirrel/
+      cp ${src}/utils/squirrel-syntax.el $out/share/emacs/site-lisp/squirrel/
     '';
   };
 in
