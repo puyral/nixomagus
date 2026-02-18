@@ -129,6 +129,7 @@
             name = mkName file;
             value = pkgs.callPackage ./${dir}/${file} (pkgsArgs // packages);
           }) files;
+                    squirrel = pkgs.ocamlPackages.callPackage ./packages/squirrel { inherit squirrel-prover-src; };
 
 packages =
             (
@@ -142,10 +143,10 @@ packages =
               }) files
           )
           // {
+            inherit squirrel;
             sops-nix = sops-nix.packages.${system}.default;
             darktable-jpeg-sync = darktable-jpeg-sync.packages.${system}.default;
-            squirrel = pkgs.ocamlPackages.callPackage ./packages/squirrel { inherit squirrel-prover-src; };
-            proof-general-with-squirrel = pkgs.callPackage ./packages/proof-general-with-squirrel { inherit squirrel-prover-src; };
+            proof-general-with-squirrel = pkgs.callPackage ./packages/proof-general-with-squirrel { inherit squirrel-prover-src squirrel; };
           };
       in
       {
