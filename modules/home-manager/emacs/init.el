@@ -10,6 +10,8 @@
 ;; Load ProofGeneral
 ;; (require 'proof-site)
 
+(setq debug-on-error t)
+
 ;; Squirrel prover integration
 (with-eval-after-load 'proof-site
   (message "========== LOADING SQUIRREL MODE ==========")
