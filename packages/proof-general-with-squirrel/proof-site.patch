@@ -1,0 +1,9 @@
+--- a/proof-site.el
++++ b/proof-site.el
+@@ -54,6 +54,7 @@
+       (pgshell	 "PG-Shell" "pgsh")
+       (pgocaml	 "PG-OCaml" "pgml")
+       (pghaskell "PG-Haskell" "pghci")
++      (squirrel "Squirrel" "sp")
+ 
+       ;; Incomplete/obsolete:
