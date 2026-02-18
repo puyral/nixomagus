@@ -9,6 +9,6 @@
       (cons '(squirrel "Squirrel" "sp")
             proof-assistant-table))
 
-(require 'proof-easy-config)
-(require 'squirrel-syntax)
-(require 'squirrel)
+;; (require 'proof-easy-config)
+;; (require 'squirrel-syntax)
+;; (require 'squirrel)
