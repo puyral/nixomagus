@@ -21,10 +21,6 @@ in
       entryPoints = {
         http = {
           address = ":80";
-          http.redirections.entrypoint = {
-            to = "https";
-            scheme = "https";
-          };
         };
         https = {
           address = ":443";
