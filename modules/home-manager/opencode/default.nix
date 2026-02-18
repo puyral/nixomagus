@@ -1,4 +1,9 @@
-{ lib, config, ... }:
+{
+  lib,
+  pkgs,
+  config,
+  ...
+}:
 
 with lib;
 let
@@ -8,26 +13,37 @@ in
   options.extra.opencode.enable = mkEnableOption "opencode";
 
   config = mkIf cfg.enable {
+    home.packages = with pkgs; [ jq ];
 
     programs.opencode = {
       enable = true;
       settings = {
-        permission = {
-          "*" = "ask";
-          read = "allow";
-          webSearch = "allow";
-          bash = {
-            "nix build*" = "allow";
-            "nix search*" = "allow";
-            "cargo check*" = "allow";
-            "cargo build*" = "allow";
-            "lake build*" = "allow";
-            "ls*" = "allow";
-            "grep*" = "allow";
-            "head*" = "allow";
-            "tail*" = "allow";
+        permission =
+          let
+            mkAllow = patt: {
+              name = patt;
+              value = "allow";
+            };
+            mkAllows = with builtins; patts: listToAttrs (map mkAllow patts);
+
+          in
+          {
+            "*" = "ask";
+            read = "allow";
+            webSearch = "allow";
+            bash = mkAllows [
+              "nix build*"
+              "nix search*"
+              "cargo check*"
+              "cargo build*"
+              "lake build*"
+              "ls*"
+              "grep*"
+              "head*"
+              "tail*"
+              "jq*"
+            ];
           };
-        };
         share = "disabled";
         disabled_providers = [
           "opencode"
