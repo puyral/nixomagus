@@ -1,6 +1,6 @@
 **/.DS_Store
 .git-crypt.key
-result
+result*
 SteamLibrary
 syncthing
 .direnv

@@ -53,6 +53,11 @@
       flake = false;
     };
 
+    squirrel-prover-src = {
+      url = "github:squirrel-prover/squirrel-prover";
+      flake = false;
+    };
+
     custom = {
       url = "github:puyral/custom-nix";
       inputs = {
@@ -94,6 +99,7 @@
       nixpkgs-stable,
       sops-nix,
       darktable-jpeg-sync,
+      squirrel-prover-src,
       ...
     }@attrs:
     let
@@ -138,6 +144,8 @@
           // {
             sops-nix = sops-nix.packages.${system}.default;
             darktable-jpeg-sync = darktable-jpeg-sync.packages.${system}.default;
+            squirrel = pkgs.ocamlPackages.callPackage ./packages/squirrel { inherit squirrel-prover-src; };
+            squirrel-mode = pkgs.callPackage ./packages/squirrel-mode { inherit squirrel-prover-src; };
           };
       in
       {
