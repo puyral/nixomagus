@@ -16,7 +16,7 @@ let
     packageRequires = [ pkgs.emacsPackages.proof-general ];
     allowCompilation = false;
     buildCommand = ''
-      mkdir -p $out/share/emacs/site-lisp
+      mkdir  -p $out/share/emacs/site-lisp
       cp ${src}/utils/squirrel.el $out/share/emacs/site-lisp/
       cp ${src}/utils/squirrel-syntax.el $out/share/emacs/site-lisp/
     '';
