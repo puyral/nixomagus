@@ -17,9 +17,14 @@ let
     allowCompilation = false;
 buildCommand = ''
        mkdir  -p $out/share/emacs/site-lisp
-        { echo '(message "========== SQUIRREL.EL LOADED FROM NIX STORE ==========")'; cat ${src}/utils/squirrel.el; } > $out/share/emacs/site-lisp/squirrel.el
-        cp ${src}/utils/squirrel-syntax.el $out/share/emacs/site-lisp/
-      '';
+         echo "(message \"========== SQUIRREL.EL LOADED FROM NIX STORE ==========\")" > $out/share/emacs/site-lisp/squirrel.el
+         cat ${src}/utils/squirrel.el >> $out/share/emacs/site-lisp/squirrel.el
+         cp ${src}/utils/squirrel-syntax.el $out/share/emacs/site-lisp/
+         echo "" >> $out/share/emacs/site-lisp/squirrel.el
+         echo "(defvar squirrel-toolbar-entries nil)" >> $out/share/emacs/site-lisp/squirrel.el
+         echo "(defvar squirrel-menu-entries nil)" >> $out/share/emacs/site-lisp/squirrel.el
+         echo "(defvar squirrel-prog-args nil)" >> $out/share/emacs/site-lisp/squirrel.el
+       '';
   };
 in
 {
