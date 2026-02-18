@@ -14,8 +14,11 @@ in
       settings = {
         permission = {
           "*" = "ask";
+          read = "allow";
+          webSearch = "allow";
           bash = {
             "nix build*" = "allow";
+            "nix search*" = "allow";
             "cargo check*" = "allow";
             "cargo build*" = "allow";
             "lake build*" = "allow";
