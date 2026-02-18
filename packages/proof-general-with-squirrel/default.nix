@@ -39,8 +39,8 @@ pkgs.emacsPackages.trivialBuild {
     # (squirrel "Squirrel" "sp")' $out/share/emacs/site-lisp/elpa/$PG_DIR/generic/proof-site.el 2>/dev/null || true
 
     #   # Remove compiled version so it gets recompiled
-    #   # rm -f $out/share/emacs/site-lisp/elpa/$PG_DIR/generic/proof-site.elc
+      rm -f $out/share/emacs/site-lisp/elpa/$PG_DIR/generic/proof-site.elc
     # fi
-    find . -name "*.elc" -exec rm {} \;
+    # find . -name "*.elc" -exec rm {} \;
   '';
 }
