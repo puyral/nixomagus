@@ -3,7 +3,6 @@
   config,
   pkgs,
   pkgs-self,
-  squirrel-prover-src,
   ...
 }:
 let
@@ -12,9 +11,9 @@ let
   squirrel-mode-epkgs = pkgs.emacsPackages.trivialBuild rec {
     pname = "squirrel-mode";
     version = pkgs-self.squirrel.version;
-    src = squirrel-prover-src;
+    src = pkgs-self.squirrel.src;
     packageRequires = [ pkgs.emacsPackages.proof-general ];
-    allowCompilation = false;
+    # allowCompilation = false;
     buildCommand = ''
        mkdir  -p $out/share/emacs/site-lisp
           echo "(message \"========== SQUIRREL.EL LOADED FROM NIX STORE ==========\")" > $out/share/emacs/site-lisp/squirrel.el
@@ -37,9 +36,9 @@ let
           echo "(defvar squirrel-main-menu-entries nil)" >> $out/share/emacs/site-lisp/squirrel.el
           echo "(defvar squirrel-goal-custom nil)" >> $out/share/emacs/site-lisp/squirrel.el
           echo "(defvar squirrel-response-start-regexp nil)" >> $out/share/emacs/site-lisp/squirrel.el
-echo "(defvar squirrel-response-end-regexp nil)" >> $out/share/emacs/site-lisp/squirrel.el
+          echo "(defvar squirrel-response-end-regexp nil)" >> $out/share/emacs/site-lisp/squirrel.el
           echo "(defvar squirrel-one-command-per-line t)" >> $out/share/emacs/site-lisp/squirrel.el
-          echo "(defvar squirrel-version \"custom\")" >> $out/share/emacs/site-lisp/squirrel.el
+          echo "(defvar squirrel-version ${version})" >> $out/share/emacs/site-lisp/squirrel.el
           echo "(defvar squirrel-marker-regexp nil)" >> $out/share/emacs/site-lisp/squirrel.el
           echo "(defvar squirrel-prog-contents-list nil)" >> $out/share/emacs/site-lisp/squirrel.el
           echo "(defvar squirrel-newline-command nil)" >> $out/share/emacs/site-lisp/squirrel.el
