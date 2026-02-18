@@ -1,0 +1,36 @@
+--- a/squirrel.el
++++ b/squirrel.el
+@@ -6,6 +6,30 @@
+ ;; PG doesn't support using several backends at the same time.
+ ;; FIXME: We really should set proof-assistant just because this file is
+ ;; loaded (e.g. we should set it within squirrel-pg-setup instead), but
+-;; defpacustom and various others fail if executed before proof-assistant
++;; defpacustom and various others fail if executed before proof-assistant
++(defvar squirrel-toolbar-entries nil)
++(defvar squirrel-menu-entries nil)
++(defvar squirrel-prog-args nil)
++(defvar squirrel-favourites nil)
++(defvar squirrel-toolbar-palettes nil)
++(defvar squirrel-toolbar-toggle-list nil)
++(defvar squirrel-menu-logic nil)
++(defvar squirrel-menu-commands nil)
++(defvar squirrel-help-menu-entries nil)
++(defvar squirrel-toolbar-buttons nil)
++(defvar squirrel-menu-automation nil)
++(defvar squirrel-prog-env nil)
++(defvar squirrel-process-regexp nil)
++(defvar squirrel-prog-args-quiet nil)
++(defvar squirrel-main-menu-entries nil)
++(defvar squirrel-goal-custom nil)
++(defvar squirrel-response-start-regexp nil)
++(defvar squirrel-response-end-regexp nil)
++(defvar squirrel-one-command-per-line t)
++(defvar squirrel-version "unstable")
++(defvar squirrel-marker-regexp nil)
++(defvar squirrel-prog-contents-list nil)
++(defvar squirrel-newline-command nil)
++(defvar proof-marker-regexp nil)
++;; is set.
+ (if (and (boundp 'proof-assistant)
+          (member proof-assistant '(nil "" "Squirrel" "squirrel")))
+     (proof-ready-for-assistant 'squirrel)
