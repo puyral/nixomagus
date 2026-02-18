@@ -11,6 +11,12 @@ nix build .#nixosConfigurations."$HOST".config.system.build.toplevel
 
 # Build home-manager configuration
 nix build .#homeConfigurations."$USER@$HOST".activationPackage
+
+# also to test the current machine's configuration, you can
+rebuild --dry-run --no-sign
+
+# to switch configuration, with the user's consent, you can
+rebuild --no-sign
 ```
 
 ### Validation
