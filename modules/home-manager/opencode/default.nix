@@ -12,6 +12,19 @@ in
     programs.opencode = {
       enable = true;
       settings = {
+        permission = {
+          "*" = "ask";
+          bash = {
+            "nix build*" = "allow";
+            "cargo check*" = "allow";
+            "cargo build*" = "allow";
+            "lake build*" = "allow";
+            "ls*" = "allow";
+            "grep*" = "allow";
+            "head*" = "allow";
+            "tail*" = "allow";
+          };
+        };
         share = "disabled";
         disabled_providers = [
           "opencode"
