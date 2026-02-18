@@ -2,12 +2,23 @@
   lib,
   config,
   pkgs,
-  squirrel-prover-src,
   pkgs-self,
+  squirrel-prover-src,
   ...
 }:
 let
   cfg = config.extra.emacs;
+  squirrel-mode-epkgs = pkgs.emacsPackages.trivialBuild {
+    pname = "squirrel-mode";
+    version = "unstable";
+    src = squirrel-prover-src;
+    packageRequires = [ pkgs.emacsPackages.proof-general ];
+    buildCommand = ''
+      mkdir -p $out/share/emacs/site-lisp/squirrel
+      cp ${squirrel-prover-src}/utils/squirrel.el $out/share/emacs/site-lisp/squirrel/
+      cp ${squirrel-prover-src}/utils/squirrel-syntax.el $out/share/emacs/site-lisp/squirrel/
+    '';
+  };
 in
 {
   imports = [ ./options.nix ];
@@ -19,14 +30,10 @@ in
         epkgs:
         [
           epkgs.proof-general
+          squirrel-mode-epkgs
         ]
         ++ cfg.extensions;
     };
-
-    home.file.".emacs.d/lisp/PG/squirrel/squirrel.el".source =
-      "${squirrel-prover-src}/utils/squirrel.el";
-    home.file.".emacs.d/lisp/PG/squirrel/squirrel-syntax.el".source =
-      "${squirrel-prover-src}/utils/squirrel-syntax.el";
 
     home.file.".emacs.d/init.el" = lib.mkIf cfg.squirrel.enable {
       text = builtins.readFile ./init.el;

@@ -145,6 +145,7 @@
             sops-nix = sops-nix.packages.${system}.default;
             darktable-jpeg-sync = darktable-jpeg-sync.packages.${system}.default;
             squirrel = pkgs.ocamlPackages.callPackage ./packages/squirrel { inherit squirrel-prover-src; };
+            squirrel-mode = pkgs.callPackage ./packages/squirrel-mode { inherit squirrel-prover-src; };
           };
       in
       {
