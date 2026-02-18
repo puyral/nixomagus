@@ -49,6 +49,7 @@ in
               "cat*"
               "git status*"
               "git diff*"
+              "rebuild --dry-run --no-sign"
             ];
           };
         share = "disabled";
