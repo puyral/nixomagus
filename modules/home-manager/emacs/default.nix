@@ -11,7 +11,7 @@ let
 
   squirrel-mode-epkgs = pkgs.emacsPackages.trivialBuild rec {
     pname = "squirrel-mode";
-    version = "unstable";
+    version = pkgs-self.squirrel.version;
     src = squirrel-prover-src;
     packageRequires = [ pkgs.emacsPackages.proof-general ];
     allowCompilation = false;
