@@ -32,7 +32,14 @@ buildCommand = ''
           echo "(defvar squirrel-help-menu-entries nil)" >> $out/share/emacs/site-lisp/squirrel.el
           echo "(defvar squirrel-toolbar-buttons nil)" >> $out/share/emacs/site-lisp/squirrel.el
           echo "(defvar squirrel-menu-automation nil)" >> $out/share/emacs/site-lisp/squirrel.el
-        '';
+echo "(defvar squirrel-prog-env nil)" >> $out/share/emacs/site-lisp/squirrel.el
+          echo "(defvar squirrel-process-regexp nil)" >> $out/share/emacs/site-lisp/squirrel.el
+          echo "(defvar squirrel-prog-args-quiet nil)" >> $out/share/emacs/site-lisp/squirrel.el
+          echo "(defvar squirrel-main-menu-entries nil)" >> $out/share/emacs/site-lisp/squirrel.el
+          echo "(defvar squirrel-goal-custom nil)" >> $out/share/emacs/site-lisp/squirrel.el
+          echo "(defvar squirrel-response-start-regexp nil)" >> $out/share/emacs/site-lisp/squirrel.el
+          echo "(defvar squirrel-response-end-regexp nil)" >> $out/share/emacs/site-lisp/squirrel.el
+         '';
   };
 in
 {
