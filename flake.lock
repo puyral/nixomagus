@@ -19,14 +19,14 @@
     "custom": {
       "inputs": {
         "cryptovampire-src": [
-          "nixpkgs-stable"
+          "nixpkgs"
         ],
         "fenix": "fenix",
         "flake-utils": "flake-utils",
         "isw-src": "isw-src",
         "kodi-nfo-generator-src": "kodi-nfo-generator-src",
         "nixpkgs": [
-          "nixpkgs-stable"
+          "nixpkgs"
         ],
         "opam-nix": "opam-nix",
         "rnote-src": "rnote-src",
@@ -56,7 +56,7 @@
       "inputs": {
         "flake-utils": "flake-utils_3",
         "nixpkgs": [
-          "nixpkgs-stable"
+          "nixpkgs"
         ],
         "treefmt-nix": [
           "treefmt-nix"
@@ -294,7 +294,7 @@
         "devshell": "devshell",
         "flake-utils": "flake-utils_4",
         "nixpkgs": [
-          "nixpkgs-stable"
+          "nixpkgs"
         ]
       },
       "locked": {
@@ -315,7 +315,7 @@
     "home-manager": {
       "inputs": {
         "nixpkgs": [
-          "nixpkgs-stable"
+          "nixpkgs"
         ]
       },
       "locked": {
@@ -638,7 +638,7 @@
         "flake-compat": "flake-compat_2",
         "git-hooks": "git-hooks",
         "nixpkgs": [
-          "nixpkgs-stable"
+          "nixpkgs"
         ]
       },
       "locked": {
