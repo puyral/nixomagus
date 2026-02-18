@@ -27,9 +27,6 @@
       ];
 
       mainPkgs = with builtins; listToAttrs (map mkPkgs packages);
-      # squirrel = pkgs.ocamlPackages.callPackage ./squirrel {
-      #   squirrel-prover-src = inputs'.squirrel-prover-src;
-      # };
 
       re-exports = with inputs'; {
         sops-nix = sops-nix.packages.default;
