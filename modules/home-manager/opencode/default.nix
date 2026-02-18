@@ -30,7 +30,10 @@ in
           {
             "*" = "ask";
             read = "allow";
-            webSearch = "allow";
+            webfetch = "allow";
+            glob = "allow";
+            explore = "allow";
+            grep = "allow";
             bash = mkAllows [
               "nix build*"
               "nix search*"
@@ -42,6 +45,10 @@ in
               "head*"
               "tail*"
               "jq*"
+              "find*"
+              "cat*"
+              "git status*"
+              "git diff*"
             ];
           };
         share = "disabled";
