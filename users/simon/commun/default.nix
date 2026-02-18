@@ -24,7 +24,7 @@
     opencode.enable = lib.mkDefault true;
     emacs = {
       enable = lib.mkDefault true;
-      squirrel.enable = lib.mkDefault false;
+      squirrel.enable = lib.mkDefault true;
     };
   };
 
