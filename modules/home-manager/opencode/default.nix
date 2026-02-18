@@ -60,13 +60,13 @@ in
             models = {
               "glm-4.7-355b" = {
                 name = "glm-4.7-355b";
-                options = {
-                  temperature = 0.2;
-                };
-                limit = {
-                  context = 160000;
-                  output = 160000;
-                };
+                # options = {
+                #   temperature = 0.2;
+                # };
+                # limit = {
+                #   context = 160000;
+                #   output = 160000;
+                # };
               };
             };
           };
