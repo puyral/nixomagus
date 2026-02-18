@@ -1,11 +1,10 @@
 {
-  rustPlatform,
-  mkShell,
   pkgs,
   ...
 }:
-mkShell {
-  name = "rnote";
+{devShells.rust =
+pkgs.mkShell {
+  name = "rust";
   buildInputs = with pkgs; [
     rustPlatform.bindgenHook
     rustPlatform.cargoSetupHook
@@ -15,4 +14,4 @@ mkShell {
     rust-analyzer
     clippy
   ];
-}
+};}

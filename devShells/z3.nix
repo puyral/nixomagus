@@ -1,12 +1,11 @@
 {
   pkgs,
-  mkShell,
-  z3,
   ...
 }:
-mkShell {
+{devShells.z3 =
+pkgs.mkShell {
   name = "z3";
-  inputsFrom = [ z3 ];
+  inputsFrom = [ pkgs.z3 ];
   buildInputs = (
     with pkgs;
     [
@@ -22,4 +21,4 @@ mkShell {
   shellHook = ''
     export CMAKE_GENERATOR="Ninja"
   '';
-}
+}; }

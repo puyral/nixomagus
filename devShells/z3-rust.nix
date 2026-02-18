@@ -1,17 +1,14 @@
 {
-  mkShell,
-  rustPlatform,
-  cargo,
-  clippy,
-  cargo-expand,
-  rust-analyzer,
-  z3,
+  pkgs,
   ...
 }:
-mkShell {
+{
+  devShells.z3-rust =
+
+pkgs.mkShell {
   name = "config";
-  RUST_SRC_PATH = "${rustPlatform.rustLibSrc}";
-  buildInputs = [
+  RUST_SRC_PATH = "${pkgs.rustPlatform.rustLibSrc}";
+  buildInputs = with pkgs; [
     cargo
     clippy
     cargo-expand
@@ -19,4 +16,4 @@ mkShell {
     rustPlatform.bindgenHook
     z3
   ];
-}
+};}

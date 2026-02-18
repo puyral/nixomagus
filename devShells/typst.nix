@@ -1,13 +1,11 @@
 {
   pkgs,
-  mkShell,
-  typst,
-  tinymist,
   ...
 }:
-mkShell {
+{devShells.typst = 
+pkgs.mkShell {
   name = "typst";
-  buildInputs = [
+  buildInputs = with pkgs; [
     typst
     tinymist
   ];
@@ -17,3 +15,4 @@ mkShell {
     unset SOURCE_DATE_EPOCH
   '';
 }
+;}
