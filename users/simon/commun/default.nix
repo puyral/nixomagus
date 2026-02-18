@@ -24,6 +24,11 @@
     opencode.enable = lib.mkDefault true;
   };
 
+  extra.emacs = {
+    enable = lib.mkDefault true;
+    squirrel.enable = lib.mkDefault false;
+  };
+
   # This value determines the Home Manager release that your configuration is
   # compatible with. This helps avoid breakage when a new Home Manager release
   # introduces backwards incompatible changes.

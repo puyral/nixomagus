@@ -41,11 +41,19 @@ buildDunePackage {
     mv src/commit.ml.in src/commit.ml
   '';
 
-  # postInstall = ''
-  #     ls -l _build/default
-  #     exit 1
-  #     cp -r theories $out/bin/
-  # '';
+  buildPhase = ''
+    runHook preBuild
+    dune build squirrel.exe ''${enableParallelBuilding:+-j $NIX_BUILD_CORES}
+    runHook postBuild
+  '';
+
+  installPhase = ''
+    runHook preInstall
+    mkdir -p $out/bin
+    cp -f _build/default/squirrel.exe $out/bin/squirrel
+    cp -r theories $out/bin/
+    runHook postInstall
+  '';
 
   meta = with lib; {
     description = "The Squirrel Prover is a proof assistant for protocols, based on first-order logic and provides guarantees in the computational model";

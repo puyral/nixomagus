@@ -29,6 +29,7 @@
     ./ntfy
     ./sops
     ./opencode
+    ./emacs
   ];
 
   options.extra = {
