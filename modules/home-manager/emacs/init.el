@@ -1,7 +1,7 @@
 ;; Load ProofGeneral
 (require 'proof-site)
 
-;; Squirrel prover integration
-(with-eval-after-load 'proof-general
-  (require 'ansi-color)
-  (require 'squirrel))
+;; Squirrel prover integration (defered until after proof-general is loaded)
+(with-eval-after-load 'proof-site
+  (require 'squirrel nil t)
+  (require 'ansi-color))

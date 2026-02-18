@@ -8,6 +8,7 @@
 }:
 let
   cfg = config.extra.emacs;
+  
   squirrel-mode-epkgs = pkgs.emacsPackages.trivialBuild rec {
     pname = "squirrel-mode";
     version = "unstable";
@@ -27,13 +28,10 @@ in
   config = lib.mkIf cfg.enable {
     programs.emacs = {
       enable = true;
-      extraPackages =
-        epkgs:
-        [
-          epkgs.proof-general
-          squirrel-mode-epkgs
-        ]
-        ++ cfg.extensions;
+      extraPackages = epkgs: [
+        epkgs.proof-general
+        squirrel-mode-epkgs
+      ] ++ cfg.extensions;
       extraConfig = builtins.readFile ./init.el;
     };
 
