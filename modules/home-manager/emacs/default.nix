@@ -14,9 +14,12 @@ in
   config = lib.mkIf cfg.enable {
     programs.emacs = {
       enable = true;
-      extraPackages = epkgs: [
-        pkgs-self.proof-general-with-squirrel
-      ] ++ cfg.extensions;
+      extraPackages =
+        epkgs:
+        [
+          pkgs-self.proof-general-with-squirrel
+        ]
+        ++ cfg.extensions;
       extraConfig = builtins.readFile ./init.el;
     };
 
