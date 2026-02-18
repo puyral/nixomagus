@@ -38,3 +38,4 @@ in
     home.packages = [ ] ++ lib.optional cfg.squirrel.enable pkgs-self.squirrel;
   };
 }
+ 
