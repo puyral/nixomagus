@@ -33,10 +33,7 @@ in
           squirrel-mode-epkgs
         ]
         ++ cfg.extensions;
-    };
-
-    home.file.".emacs.d/init.el" = lib.mkIf cfg.squirrel.enable {
-      text = builtins.readFile ./init.el;
+      extraConfig = builtins.readFile ./init.el;
     };
 
     home.packages = [ ] ++ lib.optional cfg.squirrel.enable pkgs-self.squirrel;

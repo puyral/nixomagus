@@ -2,5 +2,6 @@
 (require 'proof-site)
 
 ;; Squirrel prover integration
-(require 'ansi-color)
-(require 'squirrel)
+(with-eval-after-load 'proof-general
+  (require 'ansi-color)
+  (require 'squirrel))
