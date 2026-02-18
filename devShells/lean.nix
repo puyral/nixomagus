@@ -1,8 +1,10 @@
-{ pkgs, mkShell, ... }:
-mkShell {
-  name = "leanspi";
-  buildInputs = with pkgs; [
-    elan
-    nixd
-  ];
+{ pkgs, ... }:
+{
+  devShells.lean = pkgs.mkShell {
+    name = "lean";
+    buildInputs = with pkgs; [
+      elan
+      nixd
+    ];
+  };
 }
