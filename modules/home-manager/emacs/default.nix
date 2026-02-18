@@ -39,6 +39,12 @@ echo "(defvar squirrel-prog-env nil)" >> $out/share/emacs/site-lisp/squirrel.el
           echo "(defvar squirrel-goal-custom nil)" >> $out/share/emacs/site-lisp/squirrel.el
           echo "(defvar squirrel-response-start-regexp nil)" >> $out/share/emacs/site-lisp/squirrel.el
           echo "(defvar squirrel-response-end-regexp nil)" >> $out/share/emacs/site-lisp/squirrel.el
+          echo "(defvar squirrel-one-command-per-line nil)" >> $out/share/emacs/site-lisp/squirrel.el
+          echo "(defvar squirrel-version nil)" >> $out/share/emacs/site-lisp/squirrel.el
+          echo "(defvar squirrel-marker-regexp nil)" >> $out/share/emacs/site-lisp/squirrel.el
+          echo "(defvar squirrel-prog-contents-list nil)" >> $out/share/emacs/site-lisp/squirrel.el
+          echo "(defvar squirrel-newline-command nil)" >> $out/share/emacs/site-lisp/squirrel.el
+          echo "(defvar proof-marker-regexp nil)" >> $out/share/emacs/site-lisp/squirrel.el
          '';
   };
 in
