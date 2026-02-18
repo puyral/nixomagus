@@ -7,7 +7,7 @@
 pkgs.emacsPackages.trivialBuild {
   pname = "proof-general-with-squirrel";
   version = "unstable";
-  packageRequires = [];
+  packageRequires = pkgs.emacsPackages.proof-general.packageRequires;
   buildCommand = ''
     # Find the proof-general elpa directory name dynamically
     PG_DIR=$(find ${pkgs.emacsPackages.proof-general}/share/emacs/site-lisp/elpa -type d -name "proof-general-*" -printf "%f\n" 2>/dev/null | head -1)
