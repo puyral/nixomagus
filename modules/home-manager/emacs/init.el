@@ -8,7 +8,7 @@
 (add-to-list 'proof-assistant-table-default '(squirrel "Squirrel" "sp"))
 
 ;; Load ProofGeneral
-(require 'proof-site)
+;; (require 'proof-site)
 
 ;; Squirrel prover integration
 (with-eval-after-load 'proof-site
