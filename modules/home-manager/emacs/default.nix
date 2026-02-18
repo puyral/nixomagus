@@ -31,7 +31,7 @@ in
     home.file.".emacs.d/init.el" = lib.mkIf cfg.squirrel.enable {
       text = ''
         ;; Load ProofGeneral
-        (load "~/.emacs.d/lisp/PG/generic/proof-site")
+        (require 'proof-site)
 
         ;; Configure Squirrel prover
         (load "~/.emacs.d/lisp/PG/squirrel/squirrel")
