@@ -22,6 +22,9 @@
     ntfy-client.enable = lib.mkDefault true;
     btop.enable = lib.mkDefault true;
     opencode.enable = lib.mkDefault true;
+    emacs = {
+      squirrel.enable = lib.mkDefault true;
+    };
   };
 
   # This value determines the Home Manager release that your configuration is

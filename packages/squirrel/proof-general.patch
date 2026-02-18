@@ -1,0 +1,11 @@
+--- a/proof-general.el
++++ b/proof-general.el
+@@ -78,7 +78,7 @@
+   ;; the corresponding file.
+   (let ((byte-compile-directories
+          '("generic" "lib"
+-           "coq" "easycrypt" "pghaskell" "pgocaml" "pgshell" "phox" "qrhl"
++           "coq" "easycrypt" "pghaskell" "pgocaml" "pgshell" "phox" "qrhl" "squirrel"
+            )))
+     (dolist (dir byte-compile-directories)
+       (add-to-list 'load-path (expand-file-name dir pg-init--pg-root)))))

@@ -1,4 +1,9 @@
-{ lib, config, ... }:
+{
+  lib,
+  pkgs,
+  config,
+  ...
+}:
 
 with lib;
 let
@@ -8,10 +13,45 @@ in
   options.extra.opencode.enable = mkEnableOption "opencode";
 
   config = mkIf cfg.enable {
+    home.packages = with pkgs; [ jq ];
 
     programs.opencode = {
       enable = true;
       settings = {
+        permission =
+          let
+            mkAllow = patt: {
+              name = patt;
+              value = "allow";
+            };
+            mkAllows = with builtins; patts: listToAttrs (map mkAllow patts);
+
+          in
+          {
+            "*" = "ask";
+            read = "allow";
+            webfetch = "allow";
+            glob = "allow";
+            explore = "allow";
+            grep = "allow";
+            bash = mkAllows [
+              "nix build*"
+              "nix search*"
+              "cargo check*"
+              "cargo build*"
+              "lake build*"
+              "ls*"
+              "grep*"
+              "head*"
+              "tail*"
+              "jq*"
+              "find*"
+              "cat*"
+              "git status*"
+              "git diff*"
+              "rebuild --dry-run --no-sign"
+            ];
+          };
         share = "disabled";
         disabled_providers = [
           "opencode"
@@ -28,13 +68,13 @@ in
             models = {
               "glm-4.7-355b" = {
                 name = "glm-4.7-355b";
-                options = {
-                  temperature = 0.2;
-                };
-                limit = {
-                  context = 160000;
-                  output = 160000;
-                };
+                # options = {
+                #   temperature = 0.2;
+                # };
+                # limit = {
+                #   context = 160000;
+                #   output = 160000;
+                # };
               };
             };
           };

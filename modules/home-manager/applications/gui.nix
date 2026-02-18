@@ -67,8 +67,6 @@ in
         xp-pen-g430-driver
         zotero
 
-        emacs
-
         #davinci-resolve
         kdePackages.kdenlive
         inkscape-with-extensions

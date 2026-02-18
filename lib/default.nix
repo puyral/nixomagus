@@ -1,16 +1,21 @@
 rootDir:
-attrs@{
-  home-manager,
-  nixpkgs-stable,
-  nixpkgs-unstable,
-  nixpkgs,
-  nixpkgs-kernel,
-  custom,
-  self,
-  sops-nix,
-  simple-nixos-mailserver,
-  ...
-}:
+_attrs@{ inputs, self, ... }:
+
+let
+  inherit (inputs)
+    home-manager
+    nixpkgs-stable
+    nixpkgs-unstable
+    nixpkgs
+    nixpkgs-kernel
+    custom
+    sops-nix
+    simple-nixos-mailserver
+    ;
+
+  attrs = inputs;
+
+in
 rec {
   mlib = with (import ./utils.nix); {
     inherit enumerate;
