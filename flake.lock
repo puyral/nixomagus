@@ -573,6 +573,7 @@
         "rust-overlay": "rust-overlay",
         "simple-nixos-mailserver": "simple-nixos-mailserver",
         "sops-nix": "sops-nix",
+        "squirrel-prover-src": "squirrel-prover-src_2",
         "treefmt-nix": "treefmt-nix"
       }
     },
@@ -686,6 +687,22 @@
       "original": {
         "owner": "puyral",
         "ref": "cryptovampire",
+        "repo": "squirrel-prover",
+        "type": "github"
+      }
+    },
+    "squirrel-prover-src_2": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1760089888,
+        "narHash": "sha256-octGvNHNyD6XLvnqL4qwKhXURGik4THAsF2FNTHtMl4=",
+        "owner": "squirrel-prover",
+        "repo": "squirrel-prover",
+        "rev": "58ea3d1c2db38ce9639dd1c17c9885c483c56472",
+        "type": "github"
+      },
+      "original": {
+        "owner": "squirrel-prover",
         "repo": "squirrel-prover",
         "type": "github"
       }
