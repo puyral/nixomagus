@@ -45,8 +45,9 @@ let
           # echo "(defvar proof-marker-regexp nil)" >> $out/share/emacs/site-lisp/squirrel.el
           # echo "" >> $out/share/emacs/site-lisp/squirrel.el
           # echo "; Copy original squirrel.el content" >> $out/share/emacs/site-lisp/squirrel.el
-          cat ${src}/utils/squirrel.el >> $out/share/emacs/site-lisp/squirrel.el
-          cp ${src}/utils/squirrel-syntax.el $out/share/emacs/site-lisp/
+          # cat ${src}/utils/squirrel.el >> $out/share/emacs/site-lisp/squirrel.el
+          cp ${src}/utils/*  $out/share/emacs/site-lisp/ 
+          # cp ${src}/utils/squirrel-syntax.el $out/share/emacs/site-lisp/
         '';
   };
 in

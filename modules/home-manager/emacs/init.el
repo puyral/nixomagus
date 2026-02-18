@@ -1,8 +1,8 @@
 (message "========== LOADING CUSTOM INIT.EL ==========")
 
 ;; Define required variables for squirrel mode before loading proof-site
-(defvar squirrel-prog-args nil "Arguments for squirrel prover")
-(defvar squirrel-toolbar-entries nil "Toolbar entries for squirrel mode")
+;; (defvar squirrel-prog-args nil "Arguments for squirrel prover")
+;; (defvar squirrel-toolbar-entries nil "Toolbar entries for squirrel mode")
 
 ;; Register Squirrel with Proof General before loading proof-site
 (add-to-list 'proof-assistant-table-default '(squirrel "Squirrel" "sp"))
