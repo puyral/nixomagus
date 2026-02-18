@@ -130,21 +130,22 @@
             value = pkgs.callPackage ./${dir}/${file} (pkgsArgs // packages);
           }) files;
 
-        packages =
-          (
-            let
-              dir = "packages";
-              files = builtins.readDir ./${dir};
-            in
-            l.mapAttrs' (file: _: {
-              name = mkName file;
-              value = pkgs.callPackage ./${dir}/${file} pkgsArgs;
-            }) files
+packages =
+            (
+              let
+                dir = "packages";
+                files = builtins.readDir ./${dir};
+              in
+              l.mapAttrs' (file: _: {
+                name = mkName file;
+                value = pkgs.callPackage ./${dir}/${file} pkgsArgs;
+              }) files
           )
           // {
             sops-nix = sops-nix.packages.${system}.default;
             darktable-jpeg-sync = darktable-jpeg-sync.packages.${system}.default;
             squirrel = pkgs.ocamlPackages.callPackage ./packages/squirrel { inherit squirrel-prover-src; };
+            proof-general-with-squirrel = pkgs.callPackage ./packages/proof-general-with-squirrel { inherit squirrel-prover-src; };
           };
       in
       {
