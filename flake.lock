@@ -581,6 +581,9 @@
         "headplane": "headplane",
         "home-manager": "home-manager",
         "nixos-hardware": "nixos-hardware",
+        "nixpkgs": [
+          "nixpkgs-stable"
+        ],
         "nixpkgs-kernel": "nixpkgs-kernel",
         "nixpkgs-stable": "nixpkgs-stable",
         "nixpkgs-unstable": "nixpkgs-unstable",

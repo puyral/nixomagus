@@ -1,5 +1,8 @@
-{pkgs,...}:
-{devShells.new-nix = with pkgs;
-mkShell {
-  packages = [ nixVersions.latest ];
-};}
+{ pkgs, ... }:
+{
+  devShells.new-nix =
+    with pkgs;
+    mkShell {
+      packages = [ nixVersions.latest ];
+    };
+}

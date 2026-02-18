@@ -9,6 +9,9 @@
     nixpkgs-stable.url = "nixpkgs/nixos-25.11";
     nixpkgs-unstable.url = "nixpkgs/nixos-unstable";
 
+    # For flake-parts perSystem
+    nixpkgs.follows = "nixpkgs-stable";
+
     # Pinned kernel (Linux 6.17) to support ZFS Stable + Intel Arc
     nixpkgs-kernel.url = "github:NixOS/nixpkgs/addf7cf5f383a3101ecfba091b98d0a1263dc9b8";
 
@@ -91,94 +94,115 @@
     };
   };
 
-  outputs = inputs@{ flake-parts, ... }:
-    flake-parts.lib.mkFlake { inherit inputs; } (
-{
+  outputs =
+    inputs@{
       flake-parts,
-      treefmt-nix,
-      nixpkgs-unstable,
+      nixpkgs,
       nixpkgs-stable,
-      sops-nix,
-      darktable-jpeg-sync,
-      squirrel-prover-src,
       ...
-    }@attrs: 
-    
-    let
-      functions = (import ./lib) ./. (attrs // { nixpkgs = nixpkgs-stable; });
-      computers = (import ./computers.nix);
-    in {
-        imports = [ ./fmt.nix ./packages ./devShells   ];
+    }:
+    flake-parts.lib.mkFlake { inherit inputs; } (
+      {
+        flake-parts,
+        treefmt-nix,
+        nixpkgs,
+        nixpkgs-unstable,
+        nixpkgs-stable,
+        nixpkgs-kernel,
+        custom,
+        home-manager,
+        simple-nixos-mailserver,
+        sops-nix,
+        darktable-jpeg-sync,
+        squirrel-prover-src,
+        ...
+      }@attrs:
 
-        homeConfigurations =functions.mkHomes computers;
-        nixosConfigurations = functions.mkSystems computers;
-    }
+      let
+        functions = (import ./lib) ./. (attrs // { nixpkgs = nixpkgs; });
+        computers = (import ./computers.nix);
+      in
+      {
+        imports = [
+          ./fmt.nix
+          ./packages
+          ./devShells
+        ];
+
+        systems = [ "x86_64-linux" ];
+
+        flake = {
+          inherit inputs;
+
+          homeConfigurations = functions.mkHomes computers;
+          nixosConfigurations = functions.mkSystems computers;
+        };
+      }
 
     );
 
+  # flake-utils.lib.eachDefaultSystem (
+  #   system:
+  #   let
+  #     pkgs-stable = (functions.mkpkgs system).pkgs-stable;
+  #     pkgs-unstable = (functions.mkpkgs system).pkgs-unstable;
+  #     pkgs = pkgs-stable;
+  #     l = pkgs.lib;
 
-    # flake-utils.lib.eachDefaultSystem (
-    #   system:
-    #   let
-    #     pkgs-stable = (functions.mkpkgs system).pkgs-stable;
-    #     pkgs-unstable = (functions.mkpkgs system).pkgs-unstable;
-    #     pkgs = pkgs-stable;
-    #     l = pkgs.lib;
+  #     # Eval the treefmt modules from ./treefmt.nix
+  #     treefmtEval = treefmt-nix.lib.evalModule pkgs ./fmt.nix;
 
-    #     # Eval the treefmt modules from ./treefmt.nix
-    #     treefmtEval = treefmt-nix.lib.evalModule pkgs ./fmt.nix;
+  #     pkgsArgs = functions.mkExtraArgs' system;
 
-    #     pkgsArgs = functions.mkExtraArgs' system;
+  #     mkName = file: l.removeSuffix ".nix" file;
 
-    #     mkName = file: l.removeSuffix ".nix" file;
+  #     devShells =
+  #       let
+  #         dir = "devShells";
+  #         files = builtins.readDir ./${dir};
+  #       in
+  #       l.mapAttrs' (file: _: {
+  #         name = mkName file;
+  #         value = pkgs.callPackage ./${dir}/${file} (pkgsArgs // packages);
+  #       }) files;
+  #     squirrel = pkgs.ocamlPackages.callPackage ./packages/squirrel { inherit squirrel-prover-src; };
 
-    #     devShells =
-    #       let
-    #         dir = "devShells";
-    #         files = builtins.readDir ./${dir};
-    #       in
-    #       l.mapAttrs' (file: _: {
-    #         name = mkName file;
-    #         value = pkgs.callPackage ./${dir}/${file} (pkgsArgs // packages);
-    #       }) files;
-    #     squirrel = pkgs.ocamlPackages.callPackage ./packages/squirrel { inherit squirrel-prover-src; };
+  #     packages =
+  #       (
+  #         let
+  #           dir = "packages";
+  #           files = builtins.readDir ./${dir};
+  #         in
+  #         l.mapAttrs' (file: _: {
+  #           name = mkName file;
+  #           value = pkgs.callPackage ./${dir}/${file} pkgsArgs;
+  #         }) files
+  #       )
+  #       // {
+  #         inherit squirrel;
+  #         sops-nix = sops-nix.packages.${system}.default;
+  #         darktable-jpeg-sync = darktable-jpeg-sync.packages.${system}.default;
+  #         proof-general-with-squirrel = pkgs.callPackage ./packages/proof-general-with-squirrel {
+  #           inherit squirrel-prover-src squirrel;
+  #         };
+  #       };
+  #   in
+  #   {
+  #     inherit devShells packages;
 
-    #     packages =
-    #       (
-    #         let
-    #           dir = "packages";
-    #           files = builtins.readDir ./${dir};
-    #         in
-    #         l.mapAttrs' (file: _: {
-    #           name = mkName file;
-    #           value = pkgs.callPackage ./${dir}/${file} pkgsArgs;
-    #         }) files
-    #       )
-    #       // {
-    #         inherit squirrel;
-    #         sops-nix = sops-nix.packages.${system}.default;
-    #         darktable-jpeg-sync = darktable-jpeg-sync.packages.${system}.default;
-    #         proof-general-with-squirrel = pkgs.callPackage ./packages/proof-general-with-squirrel {
-    #           inherit squirrel-prover-src squirrel;
-    #         };
-    #       };
-    #   in
-    #   {
-    #     inherit devShells packages;
-
-    #     formatter = treefmtEval.config.build.wrapper;
-    #     checks = {
-    #       # formatting = treefmtEval.config.build.check self;
-    #     };
-    #   }
-    # )
-    # // (
-    #   let
-    #   in
-    #   with functions;
-    #   {
-    #     homeConfigurations = mkHomes computers;
-    #     nixosConfigurations = mkSystems computers;
-    #   }
-    # );
+  #     formatter = treefmtEval.config.build.wrapper;
+  #     checks = {
+  #       # formatting = treefmtEval.config.build.check self;
+  #     };
+  #   }
+  # )
+  # // (
+  #   let
+  #   in
+  #   with functions;
+  #   {
+  #     homeConfigurations = mkHomes computers;
+  #     nixosConfigurations = mkSystems computers;
+  #   }
+  # );
 }
