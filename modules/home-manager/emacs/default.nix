@@ -29,14 +29,7 @@ in
       "${squirrel-prover-src}/utils/squirrel-syntax.el";
 
     home.file.".emacs.d/init.el" = lib.mkIf cfg.squirrel.enable {
-      text = ''
-        ;; Load ProofGeneral
-        (require 'proof-site)
-
-        ;; Configure Squirrel prover
-        (load "~/.emacs.d/lisp/PG/squirrel/squirrel")
-        (load "~/.emacs.d/lisp/PG/squirrel/squirrel-syntax")
-      '';
+      text = builtins.readFile ./init.el;
     };
 
     home.packages = [ ] ++ lib.optional cfg.squirrel.enable pkgs-self.squirrel;
