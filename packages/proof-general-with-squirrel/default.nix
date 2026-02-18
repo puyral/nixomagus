@@ -1,18 +1,18 @@
 {
   lib,
   pkgs,
-  squirrel-prover-src,
   squirrel,
   ...
 }:
-pkgs.emacsPackages.trivialBuild {
+pkgs.emacsPackages.trivialBuild rec {
+  src = squirrel.src;
   pname = "proof-general-with-squirrel";
   version = "unstable";
   packageRequires = [ squirrel ] ++ pkgs.emacsPackages.proof-general.packageRequires;
   buildCommand = ''
     # Find the proof-general elpa directory name dynamically
     PG_DIR=$(find ${pkgs.emacsPackages.proof-general}/share/emacs/site-lisp/elpa -type d -name "proof-general-*" -printf "%f\n" 2>/dev/null | head -1)
-    echo $out
+    echo $PG_DIR
 
     # Create output directory structure
     mkdir -p $out/share/emacs/site-lisp/elpa
@@ -25,22 +25,11 @@ pkgs.emacsPackages.trivialBuild {
 
     # Add squirrel directory
     mkdir -p $out/share/emacs/site-lisp/elpa/$PG_DIR/squirrel
-    if [ -d ${squirrel-prover-src}/utils ]; then
-      cp ${squirrel-prover-src}/utils/squirrel.el $out/share/emacs/site-lisp/elpa/$PG_DIR/squirrel/
-      cp ${squirrel-prover-src}/utils/squirrel-syntax.el $out/share/emacs/site-lisp/elpa/$PG_DIR/squirrel/
-    fi
+    cp ${src}/utils/* $out/share/emacs/site-lisp/elpa/$PG_DIR/squirrel/
 
     patch $out/share/emacs/site-lisp/elpa/$PG_DIR/generic/proof-site.el < ${./proof-site.patch}
     patch $out/share/emacs/site-lisp/elpa/$PG_DIR/proof-general.el < ${./proof-general.patch}
 
-    # # Update proof-site.el to register squirrel
-    # if [ -f $out/share/emacs/site-lisp/elpa/$PG_DIR/generic/proof-site.el ]; then
-    #   sed -i '/^;; Entries in proof-assistant-table-default are lists of the form$/i \
-    # (squirrel "Squirrel" "sp")' $out/share/emacs/site-lisp/elpa/$PG_DIR/generic/proof-site.el 2>/dev/null || true
-
-    #   # Remove compiled version so it gets recompiled
-      rm -f $out/share/emacs/site-lisp/elpa/$PG_DIR/generic/proof-site.elc
-    # fi
-    # find . -name "*.elc" -exec rm {} \;
+    rm -f $out/share/emacs/site-lisp/elpa/$PG_DIR/generic/proof-site.elc
   '';
 }
