@@ -15,9 +15,10 @@ in
     programs.emacs = {
       enable = true;
       extraPackages =
-        epkgs:
+        epkgs: with epkgs;
         [
           pkgs-self.proof-general-with-squirrel
+          evil
         ]
         ++ cfg.extensions;
       extraConfig = builtins.readFile ./init.el;

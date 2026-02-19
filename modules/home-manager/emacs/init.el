@@ -1,4 +1,5 @@
 (message "========== LOADING CUSTOM INIT.EL ==========")
 (provide 'squirrel)
 (require 'ansi-color)
+(xterm-mouse-mode 1)
 (message "========== CUSTOM INIT.EL DONE ==========")
