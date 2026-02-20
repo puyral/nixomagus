@@ -1,6 +1,7 @@
 {
   lib,
   pkgs,
+  pkgs-self,
   config,
   ...
 }:
@@ -79,14 +80,20 @@ in
             };
           };
         };
-        lsp = {
-          lean = {
-            command = [
-              "lake"
-              "serve"
-            ];
-            extensions = [ ".lean" ];
+        mcp = {
+          lean-mcp = {
+            type = "local";
+            command = [ "${pkgs-self.lean-lsp-mcp}/bin/lean-lsp-mcp" ];
           };
+        };
+        lsp = {
+          # lean = {
+          #   command = [
+          #     "lake"
+          #     "serve"
+          #   ];
+          #   extensions = [ ".lean" ];
+          # };
         };
       };
 
