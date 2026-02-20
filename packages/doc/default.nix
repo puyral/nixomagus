@@ -70,6 +70,6 @@ pkgs.runCommand "nix-configuration-doc"
 
   #   mdbook build -d $out
   # ''
-    ''
-      echo hello
-    ''
+  ''
+    echo hello
+  ''
