@@ -23,7 +23,6 @@
     btop.enable = lib.mkDefault true;
     opencode.enable = lib.mkDefault true;
     emacs = {
-      enable = lib.mkDefault true;
       squirrel.enable = lib.mkDefault true;
     };
   };

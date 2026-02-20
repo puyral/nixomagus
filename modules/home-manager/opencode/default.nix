@@ -49,6 +49,7 @@ in
               "cat*"
               "git status*"
               "git diff*"
+              "rebuild --dry-run --no-sign"
             ];
           };
         share = "disabled";
@@ -76,6 +77,15 @@ in
                 # };
               };
             };
+          };
+        };
+        lsp = {
+          lean = {
+            command = [
+              "lake"
+              "serve"
+            ];
+            extensions = [ ".lean" ];
           };
         };
       };

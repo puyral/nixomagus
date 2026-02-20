@@ -1,7 +1,3 @@
-;; Load ProofGeneral
-(require 'proof-site)
-
-;; Squirrel prover integration
-(with-eval-after-load 'proof-general
-  (require 'ansi-color)
-  (require 'squirrel))
+(message "========== LOADING CUSTOM INIT.EL ==========")
+(provide 'squirrel)
+(message "========== CUSTOM INIT.EL DONE ==========")

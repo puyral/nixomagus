@@ -1,19 +1,17 @@
 {
-  mkShell,
-  custom,
-  cargo-expand,
-  rust-analyzer,
-  cargo,
-  cargo-nextest,
+  pkgs,
+  inputs',
   ...
 }:
-mkShell {
-  name = "rnote";
-  inputsFrom = [ custom.rnote ];
-  buildInputs = [
-    cargo
-    cargo-expand
-    rust-analyzer
-    cargo-nextest
-  ];
+{
+  devShells.rnote = pkgs.mkShell {
+    name = "rnote";
+    inputsFrom = [ inputs'.custom.packages.rnote ];
+    buildInputs = with pkgs; [
+      cargo
+      cargo-expand
+      rust-analyzer
+      cargo-nextest
+    ];
+  };
 }
