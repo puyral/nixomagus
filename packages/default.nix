@@ -35,6 +35,6 @@
     in
     {
 
-      packages = mainPkgs // re-exports;
+      packages = inputs'.lean-lsp-mcp.packages // mainPkgs // re-exports;
     };
 }

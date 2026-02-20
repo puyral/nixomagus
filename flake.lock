@@ -365,6 +365,32 @@
         "type": "github"
       }
     },
+    "lean-lsp-mcp": {
+      "inputs": {
+        "flake-parts": [
+          "flake-parts"
+        ],
+        "nixpkgs": [
+          "nixpkgs"
+        ],
+        "treefmt-nix": [
+          "treefmt-nix"
+        ]
+      },
+      "locked": {
+        "lastModified": 1771598467,
+        "narHash": "sha256-U2Su8h7p/EGvGlA4hGytuT2scSvTzCGafUa2CA5UYTE=",
+        "owner": "puyral",
+        "repo": "lean-lsp-mcp",
+        "rev": "738f4584fd0cfca2c649c8340d927eb082aec243",
+        "type": "github"
+      },
+      "original": {
+        "owner": "puyral",
+        "repo": "lean-lsp-mcp",
+        "type": "github"
+      }
+    },
     "mirage-opam-overlays": {
       "flake": false,
       "locked": {
@@ -580,6 +606,7 @@
         "flake-parts": "flake-parts",
         "headplane": "headplane",
         "home-manager": "home-manager",
+        "lean-lsp-mcp": "lean-lsp-mcp",
         "nixos-hardware": "nixos-hardware",
         "nixpkgs": [
           "nixpkgs-stable"

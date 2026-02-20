@@ -67,6 +67,14 @@
         treefmt-nix.follows = "treefmt-nix";
       };
     };
+    lean-lsp-mcp = {
+      url = "github:puyral/lean-lsp-mcp";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        treefmt-nix.follows = "treefmt-nix";
+        flake-parts.follows = "flake-parts";
+      };
+    };
 
     #######################
     ######## utils ########
