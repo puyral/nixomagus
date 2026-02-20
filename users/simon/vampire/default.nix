@@ -50,6 +50,7 @@ in
   extra.shell.rebuild = {
     type = "home-manager";
   };
+  extra.emacs.enable = true;
 
   programs.git.settings = {
     user.name = lib.mkForce "Simon Jeanteur";
