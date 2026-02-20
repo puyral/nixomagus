@@ -97,7 +97,7 @@ in
           };
         lsp =
           { }
-          // lib.optionnalAttrs cfg.leanSupport.lsp {
+          // lib.optionalAttrs cfg.leanSupport.lsp {
             lean = {
               command = [
                 "lake"
