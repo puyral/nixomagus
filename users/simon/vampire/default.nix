@@ -46,9 +46,15 @@ in
     enable = true;
     pinentry.package = pkgs.pinentry-tty;
   };
-  extra.nix.configDir = "/home/simon/.config/home-manager";
-  extra.shell.rebuild = {
-    type = "home-manager";
+  extra = {
+    nix.configDir = "/home/simon/.config/home-manager";
+    shell.rebuild = {
+      type = "home-manager";
+    };
+    opencode = {
+      enable = true;
+      leanSupport.mcp = true;
+    };
   };
 
   programs.git.settings = {
