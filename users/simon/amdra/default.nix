@@ -48,6 +48,10 @@
         jpgsDir = "/Volumes/Zeno/media/photos/full-export/jpegs";
       };
     };
+    opencode = {
+      enable = true;
+      leanSupport.mcp = true;
+    };
   };
 
   home = {
