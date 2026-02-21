@@ -25,8 +25,10 @@ in
           "layer" = "top";
           "position" = "top";
           modules-left = [
-            "hyprland/workspaces"
-            "hyprland/window"
+            # "hyprland/workspaces"
+            # "hyprland/window"
+              "ext/workspaces"
+    "dwl/window"
             # "custom/launcher"
             # "temperature"
             # "mpd"
@@ -114,12 +116,23 @@ in
             "icon-size" = 15;
             "spacing" = 5;
           };
-          "hyprland/workspaces" = {
-            "all-outputs" = true;
-          };
-          "hyprland/window" = {
-            "separate-outputs" = true;
-          };
+          # "hyprland/workspaces" = {
+          #   "all-outputs" = true;
+          # };
+          # "hyprland/window" = {
+          #   "separate-outputs" = true;
+          # };
+
+            "ext/workspaces" = {
+    "format" = "{icon}";
+    "ignore-hidden"= true;
+    "on-click"= "activate";
+    "on-click-right"= "deactivate";
+    "sort-by-id"= true;
+  };
+  "dwl/window"= {
+    "format"= "[{layout}] {title}";
+  };
         }
       ];
     };
