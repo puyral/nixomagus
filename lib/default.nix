@@ -130,7 +130,7 @@ rec {
       modules = [
         simple-nixos-mailserver.nixosModules.mailserver
         sops-nix.nixosModules.sops
-        (rootDir + /modules/nixos)
+        self.nixosModules.default
         (rootDir + /configuration/commun)
         (rootDir + /configuration + "/${computer.name}")
         home-manager.nixosModules.home-manager

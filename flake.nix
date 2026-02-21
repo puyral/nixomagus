@@ -118,10 +118,11 @@
         systems = [ "x86_64-linux" ];
 
         flake = {
-          # inherit inputs;
           homeConfigurations = functions.mkHomes computers;
           nixosConfigurations = functions.mkSystems computers;
-        };
+        }
+        // (import ./modules/nixos/nixos-modules.nix)
+        // (import ./modules/home-manager/home-manager-modules.nix);
       }
     );
 }
