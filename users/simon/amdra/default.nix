@@ -23,6 +23,7 @@
     logseq.enable = true;
     wallpaper.enable = true;
     sway.enable = true;
+    mangowc.enable = true;
     hyprland = {
       enable = true;
       monitors = [

@@ -1,8 +1,8 @@
 {config, lib, mangowc, pkgs,  ...}:
-let cfg = config.extra.mango; in {
+let cfg = config.extra.mangowc; in {
   imports = [mangowc.hmModules.mango];
 
-  options.extra.mango.enable = lib.mkEnableOption "mangowc";
+  options.extra.mangowc.enable = lib.mkEnableOption "mangowc";
 
   config = lib.mkIf cfg.enable  {
     wayland.windowManager.mango = {

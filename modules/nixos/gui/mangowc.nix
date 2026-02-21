@@ -7,9 +7,9 @@ in
   imports = [mangowc.nixosModules.mango];
 
 
-  config = lib.mkIf (cfg.enable && cfg.mangowm) {
+  config = lib.mkIf (cfg.enable && cfg.mangowc) {
 
-    programs.mango.enable = {
+    programs.mango = {
       enable = true;
     };
   };
