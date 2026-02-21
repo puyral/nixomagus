@@ -5,7 +5,7 @@
 }:
 {
   imports = [
-    (import (./. + "/${user.name}/commun"))
+    (import (./. + "/${user.name}"))
     ./all
   ];
 
