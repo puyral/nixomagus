@@ -1,5 +1,10 @@
 rootDir:
-_attrs@{ inputs, self, ... }:
+_attrs@{
+  inputs,
+  self,
+  flake-parts-lib,
+  ...
+}:
 
 let
   inherit (inputs)
@@ -86,7 +91,7 @@ rec {
     }:
     home-manager.lib.homeManagerConfiguration {
       modules = [
-        ((import (rootDir + /home_manager.nix)) user)
+        (flake-parts-lib.importApply (rootDir + /home_manager.nix) { inherit user self; })
         sops-nix.homeManagerModules.sops
       ]
       ++ extraModules;
@@ -107,7 +112,7 @@ rec {
     let
       usersAndModules = builtins.map (user: {
         name = user.name;
-        value = (import (rootDir + /home_manager.nix)) user;
+        value = (flake-parts-lib.importApply (rootDir + /home_manager.nix) { inherit user self; });
       }) computer.users;
       homes = {
         home-manager = {
@@ -130,7 +135,7 @@ rec {
       modules = [
         simple-nixos-mailserver.nixosModules.mailserver
         sops-nix.nixosModules.sops
-        (rootDir + /modules/nixos)
+        self.nixosModules.default
         (rootDir + /configuration/commun)
         (rootDir + /configuration + "/${computer.name}")
         home-manager.nixosModules.home-manager
