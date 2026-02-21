@@ -40,7 +40,6 @@ in
 
       ++ (with pkgs-stable; [
 
-        btop
         # nvtopPackages.full
         # intel-gpu-tools
 
