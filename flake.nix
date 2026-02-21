@@ -110,9 +110,11 @@
       in
       {
         imports = [
+          inputs.home-manager.flakeModules.home-manager
           ./fmt.nix
           ./packages
           ./devShells
+          ./modules
         ];
 
         systems = [ "x86_64-linux" ];
@@ -120,9 +122,9 @@
         flake = {
           homeConfigurations = functions.mkHomes computers;
           nixosConfigurations = functions.mkSystems computers;
-        }
-        // (import ./modules/nixos/nixos-modules.nix)
-        // (import ./modules/home-manager/home-manager-modules.nix);
+        };
+        # // (import ./modules/nixos)
+        # // (import ./modules/home-manager/home-manager-modules.nix);
       }
     );
 }
