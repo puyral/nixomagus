@@ -4,5 +4,6 @@
     ./commun
     ./nixos
     ./home-manager
+    ./flakeParts
   ];
 }

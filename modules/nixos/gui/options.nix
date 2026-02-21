@@ -12,5 +12,9 @@ with lib;
       default = true;
       type = types.bool;
     };
+    is_docked = mkOption {
+      type = types.bool;
+      default = false;
+    };
   };
 }
