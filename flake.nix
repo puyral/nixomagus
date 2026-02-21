@@ -102,29 +102,27 @@
 
   outputs =
     inputs@{ flake-parts, ... }:
-    flake-parts.lib.mkFlake { inherit inputs; } (
-      attrs:
-      let
-        functions = (import ./lib) ./. (attrs);
-        computers = (import ./computers.nix);
-      in
-      {
-        imports = [
-          inputs.home-manager.flakeModules.home-manager
-          ./fmt.nix
-          ./packages
-          ./devShells
-          ./modules
-        ];
+    flake-parts.lib.mkFlake { inherit inputs; } (attrs:
+    # let
+    #   functions = (import ./lib) ./. (attrs);
+    #   computers = (import ./computers.nix);
+    # in
+    {
+      imports = [
+        inputs.home-manager.flakeModules.home-manager
+        ./computers.nix
+        ./fmt.nix
+        ./packages
+        ./devShells
+        ./modules
+      ];
 
-        systems = [ "x86_64-linux" ];
+      systems = [ "x86_64-linux" ];
 
-        flake = {
-          homeConfigurations = functions.mkHomes computers;
-          nixosConfigurations = functions.mkSystems computers;
-        };
-        # // (import ./modules/nixos)
-        # // (import ./modules/home-manager/home-manager-modules.nix);
-      }
-    );
+      flake = {
+        # homeConfigurations = mkHomes computers;
+        # nixosConfigurations = mkSystems computers;
+        rootDir = ./.;
+      };
+    });
 }

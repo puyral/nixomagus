@@ -9,7 +9,7 @@ in
     (import (./users + "/${user.name}/${computer.name}"))
     # ./modules/home-manager
     ./users/all
-    self.homeModules.default
+    # self.homeModules.default
   ];
 
   options.extra.user.name = lib.mkOption {

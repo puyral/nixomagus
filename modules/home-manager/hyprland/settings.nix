@@ -4,7 +4,6 @@ attrs@{
   mconfig,
   config,
   pkgs,
-  mlib,
   ...
 }:
 let
