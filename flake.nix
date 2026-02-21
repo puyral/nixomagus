@@ -119,12 +119,10 @@
 
         systems = [ "x86_64-linux" ];
 
-        flake = {
-          homeConfigurations = functions.mkHomes computers;
-          nixosConfigurations = functions.mkSystems computers;
+        flake = with functions; {
+          homeConfigurations = mkHomes computers;
+          nixosConfigurations = mkSystems computers;
         };
-        # // (import ./modules/nixos)
-        # // (import ./modules/home-manager/home-manager-modules.nix);
       }
     );
 }
