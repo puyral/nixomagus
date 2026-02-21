@@ -1,58 +1,52 @@
-rec {
+{ ... }:
+let
+  users = {
+    simon.fullName = "Simon Jeanteur";
+  };
+  system = "x86_64-linux";
+
+in
+{
   computers = {
     nixomagus = {
-      system = "x86_64-linux";
-      is_docked = false;
-      cpu = "skylake";
-      users = [ users.simon ];
-      nixos = "23.11";
+      inherit users system;
+      # is_docked = false;
+      cpuArchitecture = "skylake";
+      stateVersion = "23.11";
       headless = false;
     };
     dynas = {
-      system = "x86_64-linux";
-      # cpu = "skylake";
-      users = [ users.simon ];
-      nixos = "24.05";
+      inherit users system;
+      stateVersion = "24.05";
       headless = true;
     };
     ovh-pl = {
-      system = "x86_64-linux";
-      # cpu = "skylake";
-      users = [ users.simon ];
-      nixos = "23.05";
+      inherit users system;
+      stateVersion = "23.05";
       headless = true;
       ovh = true;
     };
     vampire = {
-      system = "x86_64-linux";
-      users = [ users.simon ];
+      inherit users system;
       headless = true;
+      nixos.enable = false;
+      stateVersion = "23.11";
     };
     i7 = {
-      system = "x86_64-linux";
-      users = [ users.simon ];
-      nixos = "24.05";
+      inherit users system;
+      stateVersion = "24.05";
       headless = false;
     };
     mydos = {
-      system = "x86_64-linux";
-      users = [ users.simon ];
-      nixos = "24.05";
+      inherit users system;
+      stateVersion = "24.05";
       headless = false;
     };
     amdra = {
-      is_docked = true;
-      system = "x86_64-linux";
-      users = [ users.simon ];
-      nixos = "24.05";
+      inherit users system;
+      stateVersion = "24.05";
       headless = false;
     };
   };
 
-  users = {
-    simon = {
-      name = "simon";
-      description = "Simon Jeanteur";
-    };
-  };
 }

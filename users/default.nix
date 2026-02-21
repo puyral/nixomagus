@@ -1,14 +1,12 @@
-user:
-{ mconfig, lib, ... }@attrs:
-let
-  computer = mconfig;
-in
+{ user, ... }:
+{
+  lib,
+  ...
+}:
 {
   imports = [
-    (import (./users + "/${user.name}/commun"))
-    (import (./users + "/${user.name}/${computer.name}"))
-    ./modules/home-manager
-    ./users/all
+    (import (./. + "/${user.name}"))
+    ./all
   ];
 
   options.extra.user.name = lib.mkOption {
