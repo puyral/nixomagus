@@ -55,6 +55,7 @@ in
       enable = true;
       leanSupport.mcp = true;
     };
+    emacs.enable = true;
   };
   extra.emacs.enable = true;
 
