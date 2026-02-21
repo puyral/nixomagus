@@ -57,7 +57,6 @@ in
     };
     emacs.enable = true;
   };
-  extra.emacs.enable = true;
 
   programs.git.settings = {
     user.name = lib.mkForce "Simon Jeanteur";
