@@ -26,7 +26,7 @@ let
       modules = with inputs; [
         self.homeModules.default
         sops-nix.homeManagerModules.sops
-        (flake-parts-lib.importApply (rootDir + /home_manager.nix) { inherit user self; })
+        (flake-parts-lib.importApply (rootDir + /users) { inherit user self; })
       ];
     };
 

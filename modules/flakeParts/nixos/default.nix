@@ -23,7 +23,7 @@ let
             inputs.sops-nix.homeManagerModules.sops
           ];
           users = lib.mapAttrs (
-            _: user: (flake-parts-lib.importApply (rootDir + /home_manager.nix) { inherit user self; })
+            _: user: (flake-parts-lib.importApply (rootDir + /users) { inherit user self; })
           ) users;
         };
       };
