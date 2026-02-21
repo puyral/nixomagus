@@ -15,7 +15,8 @@ in
     programs.emacs = {
       enable = true;
       extraPackages =
-        epkgs: with epkgs;
+        epkgs:
+        with epkgs;
         [
           pkgs-self.proof-general-with-squirrel
           evil
