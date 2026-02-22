@@ -30,9 +30,6 @@ in
     extra.wallpaper.enable = true;
     wayland.windowManager.mango = {
       enable = true;
-      autostart_sh = ''
-        ${config.extra.waybar.configs.mangowc.run} &
-      '';
     };
     home.packages = with pkgs; [
       foot

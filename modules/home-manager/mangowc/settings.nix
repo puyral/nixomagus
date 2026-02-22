@@ -90,6 +90,7 @@ let
   ]));
 
   wallpaper = "exec=systemctl --user start ${config.vars.wallpaperTarget}";
+  waybar = "exec_once=${config.extra.waybar.configs.mangowc.run}";
 
   monitors = map (attrs: "monitorrule=${pseudoJson attrs}") cfg.monitors;
 
@@ -98,6 +99,7 @@ let
     ++ [
       (builtins.readFile ./config.conf)
       wallpaper
+      waybar
     ]
     ++ viewtag
     ++ movetotag
