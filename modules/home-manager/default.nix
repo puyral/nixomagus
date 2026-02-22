@@ -50,6 +50,7 @@ let
     zsh = ./zsh;
     mango = ./mangowc;
     waybar = ./waybar;
+    anyrun = ./anyrun;
   };
 
 in

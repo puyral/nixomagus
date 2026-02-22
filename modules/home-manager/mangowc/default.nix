@@ -26,8 +26,11 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-    extra.waybar.enable = true;
-    extra.wallpaper.enable = true;
+    extra = {
+      waybar.enable = true;
+      wallpaper.enable = true;
+      anyrun.enable = true;
+    };
     wayland.windowManager.mango = {
       enable = true;
     };

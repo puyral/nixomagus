@@ -24,7 +24,7 @@ let
 
   pseudoJson = strings.concatMapAttrsStringSep "," (n: v: "${n}:${v}");
 
-  mkModKey = strings.concatStringsSep "+";
+  mkModKey = arg: if isList arg then strings.concatStringsSep "+" arg else arg;
   mkArgs = strings.concatStringsSep ",";
   mkBind =
     mod: key: args:
@@ -79,12 +79,12 @@ let
 
   # switch window focus
   switchfocus = [
-    (mkBind [ M ] "Tab" [
+    (mkBind M "Tab" [
       "focusstack"
       "next"
     ])
   ]
-  ++ (mkMotion' [ M ] id (d: [
+  ++ (mkMotion' M id (d: [
     "focusdir"
     d
   ]));
@@ -94,6 +94,27 @@ let
 
   monitors = map (attrs: "monitorrule=${pseudoJson attrs}") cfg.monitors;
 
+  anyrun = [
+    (mkBind M "Space" [
+      "spawn"
+      "anyrun"
+    ])
+    # layer rule
+    "layerrule=animation_type_open:zoom,layer_name:anyrun"
+    "layerrule=animation_type_close:zoom,layer_name:anyrun"
+  ];
+
+  alacritty = [
+    (mkBind M "T" [
+      "spawn"
+      "alacritty"
+    ])
+    (mkBind [ M S ] "T" [
+      "spawn"
+      "alacritty"
+    ])
+  ];
+
   settings =
     monitors
     ++ [
@@ -101,6 +122,8 @@ let
       wallpaper
       waybar
     ]
+    ++ anyrun
+    ++ alacritty
     ++ viewtag
     ++ movetotag
     ++ stacktags
