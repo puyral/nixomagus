@@ -39,8 +39,11 @@
   (mkMotion' [M] id (d: ["focusdir" d]));
 
 
+  wallpaper = "exec=systemctl --user start ${config.vars.wallpaperTarget}";
 
-  settings = [(builtins.readFile ./config.conf)]
+
+
+  settings = [(builtins.readFile ./config.conf) wallpaper]
   ++ viewtag
   ++ movetotag
    ++stacktags
