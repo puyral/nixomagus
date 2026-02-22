@@ -14,13 +14,13 @@
   mkArgs = strings.concatStringsSep ",";
   mkBind = mod: key: args: "bind=${mkArgs [(mkModKey mod) key (mkArgs args)]}";
   mkMotion = f: (f "Up" "Down" "Left" "Right") ++ (f "k" "j" "l" "h");
-  # mkMotion' = m: k: a: mkMotion (u: d: l: r:  [
-  #     mkBind m (k u) (a "up")
-  #     # mkBind m (k d) (a "down")
-  #     # mkBind m (k l) (a "left")
-  #     # mkBind m (k r) (a "right")
-  #   ]);
-  mkMotion' = m: k: a: ["a"];
+  mkMotion' = m: k: a: mkMotion (u: d: l: r:  [
+      (mkBind m (k u) (a "up"))
+      (mkBind m (k d) (a "down"))
+      (mkBind m (k l) (a "left"))
+      (mkBind m (k r) (a "right"))
+    ]);
+  # mkMotion' = m: k: a: [mkBind [M] "Tab" ["focusstack" "next"]];
   mkBindTag = mod: key: args: map (t: mkBind mod (key t) (args t)) tags;
 
   viewtag = mkBindTag [M] id (t: ["view" t "0"]);
@@ -35,8 +35,8 @@
   swapwin = mkMotion' [M S] id (d: ["exchange_client" d]);
 
   # switch window focus
-  switchfocus = [mkBind [M] "Tab" ["focusstack" "next"]] 
-  ++ (mkMotion' [M] id (d: ["focusdir" d]));
+  switchfocus = # [mkBind [M] "Tab" ["focusstack" "next"]]  ++ 
+  (mkMotion' [M] id (d: ["focusdir" d]));
 
 
 
@@ -45,7 +45,7 @@
   ++ movetotag
    ++stacktags
     ++swapwin 
-  #  ++switchfocus
+   ++switchfocus
    ;
  in
    {
