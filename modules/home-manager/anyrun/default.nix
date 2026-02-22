@@ -25,6 +25,7 @@ in
           fraction = 0.3;
         };
         hideIcons = false;
+        layer = "overlay";
 
         plugins = (
           mkPlugins [
