@@ -36,6 +36,7 @@ in
           ]
         );
       };
+      extraCss = builtins.readFile ./style.css;
       extraConfigFiles = {
         "nix-run.ron".text = ''
           '
