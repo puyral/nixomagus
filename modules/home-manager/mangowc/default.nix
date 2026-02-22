@@ -19,6 +19,7 @@ in
 
   config = lib.mkIf cfg.enable {
     extra.waybar.enable = true;
+    extra.wallpaper.enable = true;
     wayland.windowManager.mango = {
       enable = true;
       autostart_sh = ''
