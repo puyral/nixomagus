@@ -402,11 +402,11 @@
         "scenefx": "scenefx"
       },
       "locked": {
-        "lastModified": 1771690897,
-        "narHash": "sha256-pePimwZouS+Zq4MmqK8BGKl9W6PqfyR+I42Ew6ocR5I=",
+        "lastModified": 1771392384,
+        "narHash": "sha256-cuOOgfufbGv0QIrRD6bAzaHiYXt32wxwt2Tzi+jAmwg=",
         "owner": "puyral",
         "repo": "mangowc",
-        "rev": "aa5c7797a0af652fea14e41cbcffd92feb1f4ebf",
+        "rev": "259fdb3a875e4c5842f75579c3e0dc85d897a4f9",
         "type": "github"
       },
       "original": {
