@@ -12,6 +12,7 @@ in
   imports = [
     mangowc.hmModules.mango
     ./waybar.nix
+    ./settings.nix
   ];
 
   options.extra.mangowc.enable = lib.mkEnableOption "mangowc";
