@@ -21,7 +21,7 @@ in
   options.extra.mangowc = with lib; {
     enable = mkEnableOption "mangowc";
     monitors = mkOption {
-      type = with types; coeListOf (attrsOf str);
+      type = with types; coeListOf (attrsOf coestr);
     };
   };
 
