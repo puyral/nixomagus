@@ -39,8 +39,12 @@
 
 
 
-  settings = [(builtins.readFile ./config.conf)]++ viewtag++ movetotag
-  #  ++stacktags ++swapwin ++switchfocus
+  settings = [(builtins.readFile ./config.conf)]
+  ++ viewtag
+  ++ movetotag
+   ++stacktags
+    # ++swapwin 
+  #  ++switchfocus
    ;
  in
    {
