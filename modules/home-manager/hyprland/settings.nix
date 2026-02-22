@@ -20,7 +20,7 @@ in
 {
   exec-once = [
     "args -b hypr"
-    "waybar"
+    config.extra.waybar.configs.hyprland.run
     "[workspace 1 silent] firefox"
     "[workspace 17 silent] thunderbird"
     "hyprctl dispatch workspace 1"

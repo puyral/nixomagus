@@ -10,10 +10,15 @@ in
 {
   imports = [
     ./options.nix
-    ./waybar
+    ./waybar.nix
   ];
   config = lib.mkIf cfg.enable {
     # imports = [ ./wallpapers.nix ];
+
+    extra.waybar = {
+      enable = true;
+      # settings.hyprland = config.extra.waybar.settings.default;
+    };
 
     home.packages = with pkgs; [
       wofi

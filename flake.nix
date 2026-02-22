@@ -76,6 +76,14 @@
       };
     };
 
+    mangowc = {
+      url = "github:puyral/mangowc/simon";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        flake-parts.follows = "flake-parts";
+      };
+    };
+
     #######################
     ######## utils ########
     #######################

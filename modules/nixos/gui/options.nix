@@ -7,6 +7,7 @@ with lib;
     hyprland = mkEnableOption "hyprland";
     i3 = mkEnableOption "i3";
     sway = mkEnableOption "sway";
+    mangowc = mkEnableOption "mangowm";
     gnome = mkOption {
       description = "enable gnome";
       default = true;

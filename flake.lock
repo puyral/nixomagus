@@ -391,6 +391,31 @@
         "type": "github"
       }
     },
+    "mangowc": {
+      "inputs": {
+        "flake-parts": [
+          "flake-parts"
+        ],
+        "nixpkgs": [
+          "nixpkgs"
+        ],
+        "scenefx": "scenefx"
+      },
+      "locked": {
+        "lastModified": 1771392384,
+        "narHash": "sha256-cuOOgfufbGv0QIrRD6bAzaHiYXt32wxwt2Tzi+jAmwg=",
+        "owner": "puyral",
+        "repo": "mangowc",
+        "rev": "259fdb3a875e4c5842f75579c3e0dc85d897a4f9",
+        "type": "github"
+      },
+      "original": {
+        "owner": "puyral",
+        "ref": "simon",
+        "repo": "mangowc",
+        "type": "github"
+      }
+    },
     "mirage-opam-overlays": {
       "flake": false,
       "locked": {
@@ -607,6 +632,7 @@
         "headplane": "headplane",
         "home-manager": "home-manager",
         "lean-lsp-mcp": "lean-lsp-mcp",
+        "mangowc": "mangowc",
         "nixos-hardware": "nixos-hardware",
         "nixpkgs": [
           "nixpkgs-stable"
@@ -656,6 +682,27 @@
       "original": {
         "owner": "oxalica",
         "repo": "rust-overlay",
+        "type": "github"
+      }
+    },
+    "scenefx": {
+      "inputs": {
+        "nixpkgs": [
+          "mangowc",
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1750785057,
+        "narHash": "sha256-tGX6j4W91rcb+glXJo43sjPI9zQvPotonknG1BdihR4=",
+        "owner": "wlrfx",
+        "repo": "scenefx",
+        "rev": "3a6cfb12e4ba97b43326357d14f7b3e40897adfc",
+        "type": "github"
+      },
+      "original": {
+        "owner": "wlrfx",
+        "repo": "scenefx",
         "type": "github"
       }
     },

@@ -16,6 +16,7 @@ in
     ./apps.nix
     ./gnome.nix
     ./sway.nix
+    ./mangowc.nix
   ];
 
   config = lib.mkIf cfg.enable {

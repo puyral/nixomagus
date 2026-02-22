@@ -48,6 +48,8 @@ let
     xkb = ./xkb;
     yazi = ./yazi;
     zsh = ./zsh;
+    mango = ./mangowc;
+    waybar = ./waybar;
   };
 
 in
