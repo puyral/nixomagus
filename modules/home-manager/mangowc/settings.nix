@@ -35,7 +35,7 @@
   swapwin = mkMotion' [M S] id (d: ["exchange_client" d]);
 
   # switch window focus
-  switchfocus = # [mkBind [M] "Tab" ["focusstack" "next"]]  ++ 
+  switchfocus =  [(mkBind [M] "Tab" ["focusstack" "next"])]  ++ 
   (mkMotion' [M] id (d: ["focusdir" d]));
 
 
