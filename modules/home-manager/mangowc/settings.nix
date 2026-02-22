@@ -14,12 +14,13 @@
   mkArgs = strings.concatStringsSep ",";
   mkBind = mod: key: args: "bind=${mkArgs [(mkModKey mod) key (mkArgs args)]}";
   mkMotion = f: (f "Up" "Down" "Left" "Right") ++ (f "k" "j" "l" "h");
-  mkMotion' = m: k: a: mkMotion (u: d: l: r:  [
-      mkBind m (k u) (a "up")
-      mkBind m (k d) (a "down")
-      mkBind m (k l) (a "left")
-      mkBind m (k r) (a "right")
-    ]);
+  # mkMotion' = m: k: a: mkMotion (u: d: l: r:  [
+  #     mkBind m (k u) (a "up")
+  #     # mkBind m (k d) (a "down")
+  #     # mkBind m (k l) (a "left")
+  #     # mkBind m (k r) (a "right")
+  #   ]);
+  mkMotion' = m: k: a: ["a"];
   mkBindTag = mod: key: args: map (t: mkBind mod (key t) (args t)) tags;
 
   viewtag = mkBindTag [M] id (t: ["view" t "0"]);
@@ -43,7 +44,7 @@
   ++ viewtag
   ++ movetotag
    ++stacktags
-    # ++swapwin 
+    ++swapwin 
   #  ++switchfocus
    ;
  in
