@@ -7,12 +7,12 @@
 }:
 let
   cfg = config.extra.mangowc;
-
 in
 {
   imports = [
     mangowc.hmModules.mango
     ./waybar.nix
+    ./settings.nix
   ];
 
   options.extra.mangowc.enable = lib.mkEnableOption "mangowc";
@@ -21,7 +21,6 @@ in
     extra.waybar.enable = true;
     wayland.windowManager.mango = {
       enable = true;
-      settings = builtins.readFile ./config.conf;
       autostart_sh = ''
         ${config.extra.waybar.configs.mangowc.run}
       '';

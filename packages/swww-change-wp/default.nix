@@ -4,6 +4,8 @@
   gnugrep,
   findutils,
   coreutils,
+  gawk,
+  gnused,
   ...
 }:
 writeShellApplication {
@@ -13,6 +15,8 @@ writeShellApplication {
     coreutils
     gnugrep
     findutils
+    gawk
+    gnused
   ];
   text = builtins.readFile ./script.sh;
 }
