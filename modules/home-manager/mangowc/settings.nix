@@ -100,8 +100,8 @@ let
       "anyrun"
     ])
     # layer rule
-    "layerrule=animation_type_open:zoom,layer_name:anyrun"
-    "layerrule=animation_type_close:zoom,layer_name:anyrun"
+    # "layerrule=animation_type_open:zoom,layer_name:anyrun"
+    # "layerrule=animation_type_close:zoom,layer_name:anyrun"
   ];
 
   alacritty = [
