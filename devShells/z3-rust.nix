@@ -23,11 +23,12 @@
         cargo-expand
         rust-analyzer
         z3
+        gdb
       ];
 
       # Force the cmake crate to use Ninja for a much faster Z3 build
-      shellHook = ''
-        export CMAKE_GENERATOR="Ninja"
-      '';
+      #      shellHook = ''
+      #        export CMAKE_GENERATOR="Ninja"
+      #      '';
     };
 }
