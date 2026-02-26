@@ -46,7 +46,7 @@ in
         ];
       };
       autostart_sh = ''
-        ${config.extra.waybar.configs.mangowc.run}
+        ${config.extra.waybar.configs.mangowc.run} &
       '';
     };
 
