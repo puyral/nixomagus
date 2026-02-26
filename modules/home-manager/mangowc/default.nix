@@ -10,6 +10,7 @@ let
 
   coestr = with lib; types.coercedTo types.int toString types.str;
   coeListOf = with lib; t: types.coercedTo t (x: [ x ]) (types.listOf t);
+    variables = lib.concatStringsSep " " config.wayland.windowManager.mango.systemd.variables;
 in
 {
   imports = [
@@ -33,10 +34,20 @@ in
     };
     wayland.windowManager.mango = {
       enable = true;
+      systemd = {
+        enable = true;
+        xdgAutostart = true;
+        extraCommands = [
+            "systemctl --user reset-failed"
+            "systemctl --user start mango-session.target"
+            "systemctl --user import-environment ${variables}"
+            "systemctl --user restart xdg-desktop-portal xdg-desktop-portal-wlr xdg-desktop-portal-gtk"
+            "systemctl --user start ${config.vars.wallpaperTarget}"
+        ];
+      };
+      autostart_sh = ''
+        ${config.extra.waybar.configs.mangowc.run} &
+      '';
     };
-    home.packages = with pkgs; [
-      foot
-      rofi
-    ];
   };
 }

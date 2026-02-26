@@ -89,9 +89,6 @@ let
     d
   ]));
 
-  wallpaper = "exec=systemctl --user start ${config.vars.wallpaperTarget}";
-  waybar = "exec-once=${config.extra.waybar.configs.mangowc.run}";
-
   monitors = map (attrs: "monitorrule=${pseudoJson attrs}") cfg.monitors;
 
   anyrun = [
@@ -115,18 +112,13 @@ let
     ])
   ];
 
-  screen_sharing = ''
-    exec-once="dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP=wlroots"
-    exec-once="${pkgs.xdg-desktop-portal-wlr}/bin/xdg-desktop-portal-wlr"
-  '';
-
   settings =
     monitors
     ++ [
       (builtins.readFile ./config.conf)
-      wallpaper
-      waybar
-      screen_sharing
+      ''
+        exec-once=bash ~/.config/mango/autostart.sh
+      ''
     ]
     ++ anyrun
     ++ alacritty
