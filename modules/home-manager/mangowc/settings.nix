@@ -116,8 +116,12 @@ let
   ];
 
   screen_sharing = ''
-    exec-once="dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP=wlroots"
-    exec-once="${pkgs.xdg-desktop-portal-wlr}/bin/xdg-desktop-portal-wlr"
+    # synchronize environment variables with dbus and systemd
+    exec-once=dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP=mango XDG_SESSION_TYPE=wayland
+    # restart portals to ensure they pick up the updated environment
+    exec-once=systemctl --user restart xdg-desktop-portal xdg-desktop-portal-wlr xdg-desktop-portal-gtk
+    # if you have an autorun.sh, you can enable it here:
+    # exec-once=sh ~/.config/mango/autorun.sh
   '';
 
   settings =
