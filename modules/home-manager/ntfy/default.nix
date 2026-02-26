@@ -76,7 +76,7 @@ in
       Install = {
         WantedBy = [ "default.target" ];
       };
-Service = {
+      Service = {
         Type = "oneshot";
         Restart = "on-failure";
         RestartSec = "10s";
@@ -103,7 +103,7 @@ Service = {
         Type = "simple";
         Restart = "always";
         RestartSec = "5s";
-        ExecStart = "${pkgs.ntfy-sh}/bin/ntfy sub --poll --from-config -j '${computer.name}' | ${ntfy-forward}/bin/ntfy-forward";
+        ExecStart = "${pkgs.ntfy-sh}/bin/ntfy sub '${computer.name}' | ${pkgs-self.ntfy-forward}/bin/ntfy-forward";
       };
     };
   };
