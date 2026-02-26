@@ -1,7 +1,9 @@
 { pkgs, ... }:
 {
   services.gpg-agent.enable = true;
-  # extra.shell.rebuildScript = ./rebuild.sh;
+  extra = {
+    opencode.enable = true;
+  };
 
   home.packages = (
     with pkgs;

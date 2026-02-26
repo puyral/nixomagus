@@ -67,6 +67,22 @@
         treefmt-nix.follows = "treefmt-nix";
       };
     };
+    lean-lsp-mcp = {
+      url = "github:puyral/lean-lsp-mcp";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        treefmt-nix.follows = "treefmt-nix";
+        flake-parts.follows = "flake-parts";
+      };
+    };
+
+    mangowc = {
+      url = "github:puyral/mangowc/simon";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        flake-parts.follows = "flake-parts";
+      };
+    };
 
     #######################
     ######## utils ########
@@ -94,26 +110,27 @@
 
   outputs =
     inputs@{ flake-parts, ... }:
-    flake-parts.lib.mkFlake { inherit inputs; } (
-      attrs:
-      let
-        functions = (import ./lib) ./. (attrs);
-        computers = (import ./computers.nix);
-      in
-      {
-        imports = [
-          ./fmt.nix
-          ./packages
-          ./devShells
-        ];
+    flake-parts.lib.mkFlake { inherit inputs; } (attrs:
+    # let
+    #   functions = (import ./lib) ./. (attrs);
+    #   computers = (import ./computers.nix);
+    # in
+    {
+      imports = [
+        inputs.home-manager.flakeModules.home-manager
+        ./computers.nix
+        ./fmt.nix
+        ./packages
+        ./devShells
+        ./modules
+      ];
 
-        systems = [ "x86_64-linux" ];
+      systems = [ "x86_64-linux" ];
 
-        flake = {
-          # inherit inputs;
-          homeConfigurations = functions.mkHomes computers;
-          nixosConfigurations = functions.mkSystems computers;
-        };
-      }
-    );
+      flake = {
+        # homeConfigurations = mkHomes computers;
+        # nixosConfigurations = mkSystems computers;
+        rootDir = ./.;
+      };
+    });
 }

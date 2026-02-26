@@ -23,6 +23,27 @@
     logseq.enable = true;
     wallpaper.enable = true;
     sway.enable = true;
+    mangowc = {
+      enable = true;
+      monitors = [
+        {
+          name = "DP-3";
+          width = 3840;
+          height = 2160;
+          x = 1280;
+          y = 0;
+          refresh = 60;
+        }
+        {
+          name = "HDMI-A-1";
+          width = 1280;
+          height = 1024;
+          x = 0;
+          y = 0;
+          refresh = 60;
+        }
+      ];
+    };
     hyprland = {
       enable = true;
       monitors = [
@@ -47,6 +68,10 @@
       export = {
         jpgsDir = "/Volumes/Zeno/media/photos/full-export/jpegs";
       };
+    };
+    opencode = {
+      enable = true;
+      leanSupport.mcp = true;
     };
   };
 

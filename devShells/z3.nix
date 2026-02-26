@@ -14,6 +14,7 @@
         ninja
         ccache
         python3 # Z3 builds often need python for scripts
+        clang-tools
       ]
     );
 

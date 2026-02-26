@@ -5,6 +5,7 @@
     hyprland = true;
     i3 = true;
     sway = true;
+    mangowc = true;
   };
 
   hardware.opentabletdriver.enable = true;

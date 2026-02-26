@@ -1,6 +1,7 @@
 {
   lib,
   pkgs,
+  pkgs-self,
   config,
   ...
 }:
@@ -10,7 +11,13 @@ let
   cfg = config.extra.opencode;
 in
 {
-  options.extra.opencode.enable = mkEnableOption "opencode";
+  options.extra.opencode = {
+    enable = mkEnableOption "opencode";
+    leanSupport = {
+      mcp = mkEnableOption "lean mcp server";
+      lsp = mkEnableOption "lean lsp server";
+    };
+  };
 
   config = mkIf cfg.enable {
     home.packages = with pkgs; [ jq ];
@@ -51,6 +58,7 @@ in
               "git diff*"
               "rebuild --dry-run --no-sign"
             ];
+            lean-lsp-mcp = "allow";
           };
         share = "disabled";
         disabled_providers = [
@@ -79,6 +87,25 @@ in
             };
           };
         };
+        mcp =
+          { }
+          // lib.optionalAttrs cfg.leanSupport.mcp {
+            lean-mcp = {
+              type = "local";
+              command = [ "${pkgs-self.lean-lsp-mcp}/bin/lean-lsp-mcp" ];
+            };
+          };
+        lsp =
+          { }
+          // lib.optionalAttrs cfg.leanSupport.lsp {
+            lean = {
+              command = [
+                "lake"
+                "serve"
+              ];
+              extensions = [ ".lean" ];
+            };
+          };
       };
 
     };

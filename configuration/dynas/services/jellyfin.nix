@@ -1,4 +1,4 @@
-{ mconfig, config, ... }:
+{ computer, config, ... }:
 let
   name = "jellyfin";
   base_dir = "${config.params.locations.containers}/${name}";
@@ -53,7 +53,7 @@ in
         };
         services.jellyseerr.enable = true;
 
-        system.stateVersion = mconfig.nixos;
+        system.stateVersion = computer.stateVersion;
         networking = {
           firewall.enable = true;
           # Use systemd-resolved inside the container

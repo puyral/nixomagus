@@ -1,16 +1,13 @@
 {
-  config,
   lib,
   pkgs,
-  pkgs-unstable,
-  nixpkgs,
-  nixpkgs-unstable,
-  computer_name,
   computer,
-  mconfig,
   rootDir,
   ...
 }:
+let
+  computer_name = computer.name;
+in
 
 {
   imports = [
@@ -30,7 +27,7 @@
   };
   # Use the systemd-boot EFI boot loader.
   boot.loader.systemd-boot = {
-    enable = if computer_name == "ovh-pl" then false else true;
+    enable = if computer.ovh then false else true;
     memtest86.enable = true;
   };
   boot.loader.efi.canTouchEfiVariables = true;
@@ -239,5 +236,5 @@
   # and migrated your data accordingly.
   #
   # For more information, see `man configuration.nix` or https://nixos.org/manual/nixos/stable/options#opt-system.stateVersion .
-  system.stateVersion = mconfig.nixos; # Did you read the comment?
+  system.stateVersion = computer.stateVersion; # Did you read the comment?
 }

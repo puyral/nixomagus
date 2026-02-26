@@ -1,13 +1,12 @@
 eimports:
 inputs@{
-  mlib,
   config,
-  mconfig,
+  computer,
   lib,
   rootDir,
   nixpkgs-unstable,
   pkgs-unstable,
-  sops-nix,
+  mlib,
   ...
 }:
 with lib;
@@ -54,7 +53,7 @@ let
             ;
         })
       ];
-      system.stateVersion = mconfig.nixos;
+      system.stateVersion = computer.stateVersion;
     };
   names = builtins.attrNames config.extra.containers;
   enames = mlib.enumerate names;

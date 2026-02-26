@@ -16,8 +16,10 @@ in
       enable = true;
       extraPackages =
         epkgs:
+        with epkgs;
         [
           pkgs-self.proof-general-with-squirrel
+          evil
         ]
         ++ cfg.extensions;
       extraConfig = builtins.readFile ./init.el;
