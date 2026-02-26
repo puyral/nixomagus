@@ -18,8 +18,8 @@ in
     };
 
     xdg.portal.config = {
-      mango = {
-        default = lib.mkForce "gtk;wlr";
+      mango = lib.mkForce {
+        default = "gtk;hyprland";
       };
     };
   };
