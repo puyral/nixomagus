@@ -1,7 +1,5 @@
 #!/usr/bin/env bash
 set -euo pipefail
-set -x
-
 
 # Forward ntfy notifications to desktop notifications
 # Reads JSON from stdin, sends to notify-send

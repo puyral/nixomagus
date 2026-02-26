@@ -20,16 +20,16 @@ in
     ./mangowc.nix
   ];
 
-
   config = lib.mkIf cfg.enable {
-      nixpkgs.overlays = lib.mkIf (cfg.extraWlrInUse != [])  [(final: prev: {
+    nixpkgs.overlays = lib.mkIf (cfg.extraWlrInUse != [ ]) [
+      (final: prev: {
         xdg-desktop-portal-wlr = prev.xdg-desktop-portal-wlr.overrideAttrs (oldAttrs: {
           postInstall = (oldAttrs.postInstall or "") + ''
             sed -i 's/UseIn=wlroots;/UseIn=${newWlrInUse};wlroots;/' $out/share/xdg-desktop-portal/portals/wlr.portal
           '';
         });
-      })];
-
+      })
+    ];
 
     services.xserver.enable = true;
     security.polkit.enable = true;
