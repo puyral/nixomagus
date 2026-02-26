@@ -30,14 +30,14 @@ in
     xdg.portal = {
       enable = true;
       xdgOpenUsePortal = true;
-      extraPortals = with pkgs; [
-        xdg-desktop-portal-gtk
-        xdg-desktop-portal-wlr
-      ];
-      configPackages = with pkgs; [
-        xdg-desktop-portal-gtk
-        xdg-desktop-portal-wlr
-      ];
+      # extraPortals = with pkgs; [
+      #   xdg-desktop-portal-gtk
+      #   xdg-desktop-portal-wlr
+      # ];
+      # configPackages = with pkgs; [
+      #   xdg-desktop-portal-gtk
+      #   xdg-desktop-portal-wlr
+      # ];
       config = {
         # common.default = [ "gtk"];
       };
