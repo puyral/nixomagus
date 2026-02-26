@@ -116,7 +116,7 @@ let
   ];
 
   screen_sharing = ''
-    exec-once=sh -c "dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP=mango XDG_SESSION_TYPE=wayland; systemctl --user import-environment WAYLAND_DISPLAY XDG_CURRENT_DESKTOP XDG_SESSION_TYPE; systemctl --user restart xdg-desktop-portal xdg-desktop-portal-wlr xdg-desktop-portal-gtk"
+    exec-once=sh -c "dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP=mango XDG_SESSION_TYPE=wayland XDG_DATA_DIRS XDG_CONFIG_DIRS; systemctl --user import-environment WAYLAND_DISPLAY XDG_CURRENT_DESKTOP XDG_SESSION_TYPE XDG_DATA_DIRS XDG_CONFIG_DIRS; systemctl --user restart xdg-desktop-portal xdg-desktop-portal-wlr xdg-desktop-portal-gtk"
   '';
 
   settings =
