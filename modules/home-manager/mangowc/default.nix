@@ -41,7 +41,7 @@ in
             "systemctl --user reset-failed"
             "systemctl --user start mango-session.target"
             "systemctl --user import-environment ${variables}"
-            "systemctl --user restart xdg-desktop-portal xdg-desktop-portal-wlr xdg-desktop-portal-gtk  xdg-desktop-portal-luminous"
+            "systemctl --user restart xdg-desktop-portal xdg-desktop-portal-wlr xdg-desktop-portal-gtk"
             "systemctl --user start ${config.vars.wallpaperTarget}"
         ];
       };

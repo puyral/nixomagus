@@ -19,19 +19,19 @@ in
     };
     extra.gui.extraWlrInUse = ["mango"];
 
-    xdg.portal = {
-      config.mango = lib.mkForce {
-        default = [ "gtk" "luminous" "wlr" ];
-        "org.freedesktop.impl.portal.Settings" = [ "luminous" "wlr" ];
-        "org.freedesktop.impl.portal.ScreenCast" = ["luminous"];
-      };
-      extraPortals = with pkgs; [
-        xdg-desktop-portal-luminous
-      ];
-      configPackages = with pkgs; [
-        xdg-desktop-portal-luminous
-      ];
-    };
+    # xdg.portal = {
+    #   config.mango = lib.mkForce {
+    #     default = [ "gtk" "luminous" "wlr" ];
+    #     "org.freedesktop.impl.portal.Settings" = [ "luminous" "wlr" ];
+    #     "org.freedesktop.impl.portal.ScreenCast" = ["luminous"];
+    #   };
+    #   extraPortals = with pkgs; [
+    #     xdg-desktop-portal-luminous
+    #   ];
+    #   configPackages = with pkgs; [
+    #     xdg-desktop-portal-luminous
+    #   ];
+    # };
   };
 
 }
