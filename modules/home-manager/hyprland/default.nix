@@ -22,7 +22,7 @@ in
 
     home.packages = with pkgs; [
       wofi
-      # xdg-desktop-portal-hyprland
+      xdg-desktop-portal-hyprland
     ];
 
     home.file.".config/wofi.css".source = ./wofi.css;
