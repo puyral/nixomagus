@@ -11,6 +11,24 @@ let
   ntfy-done = pkgs-self.ntfy-done.override { topic = cfg.topic; };
 
   # ntfy-done = pkgs.callPackage ./ntfy-done.nix {topic=cfg.topic;};
+
+  ntfy-forward = pkgs.writeShellApplication {
+    name = "ntfy-forward";
+    runtimeInputs = with pkgs; [ ntfy-sh jq libnotify ];
+    text = ''
+      # Forward ntfy notifications to desktop notifications
+      # Reads JSON from stdin, sends to notify-send
+      
+      while read -r line; do
+        title=$(echo "$line" | jq -r '.title // ""')
+        message=$(echo "$line" | jq -r '.message // ""')
+        
+        if [ -n "$message" ] && [ "$message" != "null" ]; then
+          notify-send -i dialog-information -a ntfy -c "$title" -u normal "$message"
+        fi
+      done
+    '';
+  };
 in
 {
   options.extra.ntfy-client = {
@@ -58,7 +76,7 @@ in
       Install = {
         WantedBy = [ "default.target" ];
       };
-      Service = {
+Service = {
         Type = "oneshot";
         Restart = "on-failure";
         RestartSec = "10s";
@@ -69,6 +87,23 @@ in
             "${computer.name}" \
             "User session started on ${computer.name}"
         '';
+      };
+    };
+
+    systemd.user.services.ntfy-to-desktop = {
+      Unit = {
+        Description = "Forward ntfy notifications to desktop";
+        After = [ "graphical-session.target" ];
+        Wants = [ "graphical-session.target" ];
+      };
+      Install = {
+        WantedBy = [ "graphical-session.target" ];
+      };
+      Service = {
+        Type = "simple";
+        Restart = "always";
+        RestartSec = "5s";
+        ExecStart = "${pkgs.ntfy-sh}/bin/ntfy sub --poll --from-config -j '${computer.name}' | ${ntfy-forward}/bin/ntfy-forward";
       };
     };
   };
