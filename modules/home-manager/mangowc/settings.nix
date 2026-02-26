@@ -1,4 +1,4 @@
-{ lib, config, ... }:
+{ lib, config, pkgs, ... }:
 with lib;
 let
   cfg = config.extra.mangowc;
@@ -115,12 +115,18 @@ let
     ])
   ];
 
+  screen_sharing = ''
+    exec-once="dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP=wlroots"
+    exec-once="${pkgs.xdg-desktop-portal-wlr}/bin/xdg-desktop-portal-wlr"
+  '';
+
   settings =
     monitors
     ++ [
       (builtins.readFile ./config.conf)
       wallpaper
       waybar
+      screen_sharing
     ]
     ++ anyrun
     ++ alacritty
