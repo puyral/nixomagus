@@ -69,25 +69,28 @@ in
     #   };
     # };
 
-#     home.packages = with pkgs; [
-#       foot
-#       rofi
-#       (writeShellScriptBin "test-screencast" ''
-#         ${python3}/bin/python3 -c '
-# import sys
-# try:
-#     from gi.repository import Gio
-#     bus = Gio.bus_get_sync(Gio.BusType.SESSION, None)
-#     proxy = Gio.DBusProxy.new_sync(bus, Gio.DBusProxyFlags.NONE, None, "org.freedesktop.portal.Desktop", "/org/freedesktop/portal/desktop", "org.freedesktop.portal.ScreenCast", None)
-#     if "ScreenCast" in proxy.get_interface_name():
-#         print("SUCCESS: ScreenCast interface found!")
-#     else:
-#         print("FAILURE: ScreenCast interface NOT found in proxy")
-# except Exception as e:
-#     print(f"FAILURE: {e}")
-# '
-#       '')
-#     ];
+    home.packages = with pkgs; [
+      foot
+      rofi
+      (writeShellScriptBin "test-screencast" ''
+        ${python3.withPackages (ps: [ ps.pygobject3 ])}/bin/python3 -c '
+import sys
+try:
+    from gi.repository import Gio
+    bus = Gio.bus_get_sync(Gio.BusType.SESSION, None)
+    proxy = Gio.DBusProxy.new_sync(bus, Gio.DBusProxyFlags.NONE, None, "org.freedesktop.portal.Desktop", "/org/freedesktop/portal/desktop", "org.freedesktop.portal.ScreenCast", None)
+    # Check if the interface is available on the proxy
+    if "org.freedesktop.portal.ScreenCast" in [iface for iface in proxy.get_interface_names()]:
+        print("SUCCESS: ScreenCast interface found!")
+    else:
+        print("FAILURE: ScreenCast interface NOT found in proxy. Available interfaces:")
+        for iface in proxy.get_interface_names():
+            print(f" - {iface}")
+except Exception as e:
+    print(f"FAILURE: {e}")
+'
+      '')
+    ];
     # home.xdg.portal = {
     #   enable = true;
     #   # xdgOpenUsePortal = true;
