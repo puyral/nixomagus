@@ -34,8 +34,9 @@ in
         xdg-desktop-portal-gtk
         xdg-desktop-portal-wlr
       ];
-      configPackages = [
-        pkgs.xdg-desktop-portal-gtk
+      configPackages = with pkgs; [
+        xdg-desktop-portal-gtk
+        xdg-desktop-portal-wlr
       ];
       config = {
         # common.default = [ "gtk"];
