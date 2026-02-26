@@ -44,6 +44,15 @@ in
             "systemctl --user restart xdg-desktop-portal xdg-desktop-portal-wlr xdg-desktop-portal-gtk"
             "systemctl --user start ${config.vars.wallpaperTarget}"
         ];
+        variables =[
+            "DISPLAY"
+            "WAYLAND_DISPLAY"
+            "XDG_CURRENT_DESKTOP=mango:wlroots"
+            "XDG_SESSION_TYPE"
+            "NIXOS_OZONE_WL"
+            "XCURSOR_THEME"
+            "XCURSOR_SIZE"
+          ];
       };
       autostart_sh = ''
         ${config.extra.waybar.configs.mangowc.run} &
