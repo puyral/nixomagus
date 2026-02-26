@@ -51,6 +51,7 @@ let
     mango = ./mangowc;
     waybar = ./waybar;
     anyrun = ./anyrun;
+    notifications = ./notifications;
   };
 
 in
