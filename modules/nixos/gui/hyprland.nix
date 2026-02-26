@@ -16,16 +16,16 @@ in
       withUWSM = true;
     };
 
-    xdg.portal = {
-      config = {
-        hyprland.default = [
-          "gtk"
-          "hyprland"
-        ];
-      };
-      extraPortals = [
-        pkgs.xdg-desktop-portal-hyprland
-      ];
-    };
+    # xdg.portal = {
+    #   config = {
+    #     hyprland.default = [
+    #       "gtk"
+    #       "hyprland"
+    #     ];
+    #   };
+    #   extraPortals = [
+    #     pkgs.xdg-desktop-portal-hyprland
+    #   ];
+    # };
   };
 }
