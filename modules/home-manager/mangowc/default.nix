@@ -38,9 +38,44 @@ in
         xdgAutostart = true;
       };
     };
+
+    systemd.user.services.mango-portal-init = {
+      Unit = {
+        Description = "Initialize portals for mango";
+        After = [ "mango-session.target" ];
+        PartOf = [ "mango-session.target" ];
+      };
+      Service = {
+        Type = "oneshot";
+        ExecStart = "${pkgs.writeShellScript "mango-portal-init" ''
+          ${pkgs.dbus}/bin/dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP=mango:wlroots XDG_SESSION_TYPE=wayland XDG_DATA_DIRS XDG_CONFIG_DIRS
+          ${pkgs.systemd}/bin/systemctl --user import-environment WAYLAND_DISPLAY XDG_CURRENT_DESKTOP XDG_SESSION_TYPE XDG_DATA_DIRS XDG_CONFIG_DIRS
+          ${pkgs.systemd}/bin/systemctl --user restart xdg-desktop-portal xdg-desktop-portal-wlr xdg-desktop-portal-gtk
+        ''}";
+      };
+      Install = {
+        WantedBy = [ "mango-session.target" ];
+      };
+    };
+
     home.packages = with pkgs; [
       foot
       rofi
+      (writeShellScriptBin "test-screencast" ''
+        ${python3}/bin/python3 -c '
+import sys
+try:
+    from gi.repository import Gio
+    bus = Gio.bus_get_sync(Gio.BusType.SESSION, None)
+    proxy = Gio.DBusProxy.new_sync(bus, Gio.DBusProxyFlags.NONE, None, "org.freedesktop.portal.Desktop", "/org/freedesktop/portal/desktop", "org.freedesktop.portal.ScreenCast", None)
+    if "ScreenCast" in proxy.get_interface_name():
+        print("SUCCESS: ScreenCast interface found!")
+    else:
+        print("FAILURE: ScreenCast interface NOT found in proxy")
+except Exception as e:
+    print(f"FAILURE: {e}")
+'
+      '')
     ];
     # home.xdg.portal = {
     #   enable = true;
