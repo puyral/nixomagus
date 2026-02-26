@@ -31,11 +31,12 @@ in
       enable = true;
       xdgOpenUsePortal = true;
       config = {
-        # common.default = [ "gtk"];
+        mango = {
+          default = [ "gtk" ];
+          "org.freedesktop.impl.portal.ScreenCast" = [ "wlr" ];
+          "org.freedesktop.impl.portal.ScreenShot" = [ "wlr" ];
+        };
       };
-      # extraPortals = with pkgs; [
-      #   xdg-desktop-portal-gtk
-      # ];
     };
   };
 }
