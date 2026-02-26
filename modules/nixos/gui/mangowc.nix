@@ -16,6 +16,12 @@ in
     programs.mango = {
       enable = true;
     };
+
+    xdg.portal.config = {
+      mango = {
+        default = lib.mkForce "gtk;wlr";
+      };
+    };
   };
 
 }
