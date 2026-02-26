@@ -9,26 +9,7 @@
 let
   cfg = config.extra.ntfy-client;
   ntfy-done = pkgs-self.ntfy-done.override { topic = cfg.topic; };
-
-  # ntfy-done = pkgs.callPackage ./ntfy-done.nix {topic=cfg.topic;};
-
-  ntfy-forward = pkgs.writeShellApplication {
-    name = "ntfy-forward";
-    runtimeInputs = with pkgs; [ ntfy-sh jq libnotify ];
-    text = ''
-      # Forward ntfy notifications to desktop notifications
-      # Reads JSON from stdin, sends to notify-send
-      
-      while read -r line; do
-        title=$(echo "$line" | jq -r '.title // ""')
-        message=$(echo "$line" | jq -r '.message // ""')
-        
-        if [ -n "$message" ] && [ "$message" != "null" ]; then
-          notify-send -i dialog-information -a ntfy -c "$title" -u normal "$message"
-        fi
-      done
-    '';
-  };
+  ntfy-forward = pkgs-self.ntfy-forward.override { topic = computer.name; };
 in
 {
   options.extra.ntfy-client = {
@@ -84,7 +65,7 @@ in
           ${pkgs.ntfy-sh}/bin/ntfy publish \
             --title "System Ready" \
             --tags "rocket" \
-            "${computer.name}" \
+            sysadmin \
             "User session started on ${computer.name}"
         '';
       };
@@ -103,7 +84,7 @@ in
         Type = "simple";
         Restart = "always";
         RestartSec = "5s";
-        ExecStart = "${pkgs.ntfy-sh}/bin/ntfy sub '${computer.name}' | ${pkgs-self.ntfy-forward}/bin/ntfy-forward";
+        ExecStart = "${ntfy-forward}/bin/ntfy-forward";
       };
     };
   };

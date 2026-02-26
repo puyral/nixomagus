@@ -6,7 +6,7 @@ set -x
 # Forward ntfy notifications to desktop notifications
 # Reads JSON from stdin, sends to notify-send
 
-while read -r line; do
+ntfy sub "$TOPIC" | while IFS= read -r line; do
   title=$(echo "$line" | jq -r '.title // ""')
   message=$(echo "$line" | jq -r '.message // ""')
   
