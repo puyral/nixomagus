@@ -2,6 +2,7 @@
   config,
   lib,
   mangowc,
+  pkgs,
   ...
 }:
 
@@ -18,12 +19,17 @@ in
     };
     extra.gui.extraWlrInUse = ["mango"];
 
-    xdg.portal.config = {
-      # mango = lib.mkForce {
-      #   default = [ "gtk" ];
-      #   "org.freedesktop.impl.portal.ScreenCast" = [ "wlr" ];
-      #   "org.freedesktop.impl.portal.ScreenShot" = [ "wlr" ];
-      # };
+    xdg.portal = {
+      config.mango = lib.mkForce {
+        default = [ "gtk" "luminous" "wlr" ];
+        "org.freedesktop.impl.portal.Settings" = [ "luminous" "wlr" ];
+      };
+      extraPortals = with pkgs; [
+        xdg-desktop-portal-luminous
+      ];
+      configPackages = with pkgs; [
+        xdg-desktop-portal-luminous
+      ];
     };
   };
 
