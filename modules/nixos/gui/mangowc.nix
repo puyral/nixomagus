@@ -2,6 +2,7 @@
   config,
   lib,
   mangowc,
+  pkgs,
   ...
 }:
 
@@ -16,22 +17,32 @@ in
     programs.mango = {
       enable = true;
     };
+    extra.gui.extraWlrInUse = ["mango"];
 
-    xdg.portal.config = {
-      mango = lib.mkForce {
-        default = [ "gtk" ];
-        "org.freedesktop.impl.portal.ScreenCast" = [ "wlr" ];
-        "org.freedesktop.impl.portal.ScreenShot" = [ "wlr" ];
-      };
+    xdg.portal = {
+      config.mango = lib.mkForce {
+          default = [
+            "gtk"
+          ];
+          # except those
+          "org.freedesktop.impl.portal.Secret" = ["gnome-keyring"];
+          "org.freedesktop.impl.portal.ScreenCast" = ["luminous"];
+          "org.freedesktop.impl.portal.ScreenShot" = ["luminous"];
+
+          "org.freedesktop.impl.portal.RemoteDesktop" = ["luminous"];
+          "org.freedesktop.impl.portal.InputCapture" = ["luminous"];
+          "org.freedesktop.impl.portal.Settings" = ["luminous"];
+
+          # wlr does not have this interface
+          "org.freedesktop.impl.portal.Inhibit" = [];
+        };
+      extraPortals = with pkgs; [
+        xdg-desktop-portal-luminous
+      ];
+      configPackages = with pkgs; [
+        xdg-desktop-portal-luminous
+      ];
     };
-
-    # Force the portals to think they are in a wlroots session so they load the wlr backend
-    # systemd.user.services.xdg-desktop-portal = {
-    #   serviceConfig.Environment = [ "XDG_CURRENT_DESKTOP=wlroots" ];
-    # };
-    # systemd.user.services.xdg-desktop-portal-wlr = {
-    #   serviceConfig.Environment = [ "XDG_CURRENT_DESKTOP=wlroots" ];
-    # };
   };
 
 }
