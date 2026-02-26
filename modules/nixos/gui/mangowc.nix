@@ -19,22 +19,10 @@ in
 
     xdg.portal.config = {
       mango = lib.mkForce {
-        default = "gtk;hyprland";
+        default = [ "gtk" ];
+        "org.freedesktop.impl.portal.ScreenCast" = [ "wlr" ];
+        "org.freedesktop.impl.portal.ScreenShot" = [ "wlr" ];
       };
-
-      # default from the mango module
-      # mango = {
-      #     default = [
-      #       "gtk"
-      #     ];
-      #     # except those
-      #     "org.freedesktop.impl.portal.Secret" = ["gnome-keyring"];
-      #     "org.freedesktop.impl.portal.ScreenCast" = ["wlr"];
-      #     "org.freedesktop.impl.portal.ScreenShot" = ["wlr"];
-
-      #     # wlr does not have this interface
-      #     "org.freedesktop.impl.portal.Inhibit" = [];
-      #   };
     };
   };
 
