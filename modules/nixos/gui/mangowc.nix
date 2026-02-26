@@ -19,11 +19,11 @@ in
     extra.gui.extraWlrInUse = ["mango"];
 
     xdg.portal.config = {
-      mango = lib.mkForce {
-        default = [ "gtk" ];
-        "org.freedesktop.impl.portal.ScreenCast" = [ "wlr" ];
-        "org.freedesktop.impl.portal.ScreenShot" = [ "wlr" ];
-      };
+      # mango = lib.mkForce {
+      #   default = [ "gtk" ];
+      #   "org.freedesktop.impl.portal.ScreenCast" = [ "wlr" ];
+      #   "org.freedesktop.impl.portal.ScreenShot" = [ "wlr" ];
+      # };
     };
   };
 
