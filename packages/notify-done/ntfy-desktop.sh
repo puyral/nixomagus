@@ -9,6 +9,6 @@ ntfy sub "$TOPIC" | while IFS= read -r line; do
   message=$(echo "$line" | jq -r '.message // ""')
   
   if [ -n "$message" ] && [ "$message" != "null" ]; then
-    notify-send -i dialog-information -a ntfy -c "$title" -u normal "$message"
+    notify-send -i dialog-information -a ntfy -u normal "$title" "$message"
   fi
 done

@@ -19,6 +19,7 @@ in
       alacritty.enable = lib.mkDefault true;
       vscode.enable = true;
       keyring.enable = lib.mkDefault true;
+      notifications.enable = true;
       darktable = {
         enable = true;
         full = true;
