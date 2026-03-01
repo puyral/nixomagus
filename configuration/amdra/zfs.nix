@@ -5,10 +5,9 @@
   ...
 }:
 let
-  zfsAttribute = config.boot.zfs.package.kernelModuleAttribute;
-  zfgsmodule = config.vars.kernel.${zfsAttribute};
-  enabled = !zfgsmodule.meta.broken;
-
+  # zfsAttribute = config.boot.zfs.package.kernelModuleAttribute;
+  # zfgsmodule = config.vars.kernel.${zfsAttribute};
+  enabled = !config.boot.zfs.package.meta.broken;
 in
 {
   boot = lib.mkIf enabled {
