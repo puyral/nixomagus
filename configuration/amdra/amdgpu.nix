@@ -5,15 +5,10 @@
   pkgs-unstable,
   ...
 }:
-let
-  kernel = pkgs-unstable.linuxPackages_zen;
-in
 {
   nixpkgs.config.rocmSupport = true;
 
   # need the latest kernel
-  boot.kernelPackages = kernel;
-  # boot.zfs.package = pkgs-unstable.zfs; # and zfs
   boot.initrd.kernelModules = [ "amdgpu" ];
   services.xserver.videoDrivers = [ "amdgpu" ];
   hardware = {
@@ -27,6 +22,4 @@ in
   };
 
   extra.llm.acceleration = "rocm";
-
-  vars = { inherit kernel; };
 }
