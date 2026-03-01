@@ -15,6 +15,8 @@
     nixos-hardware.nixosModules.microsoft-surface-common
   ];
 
+  hardware.microsoft-surface.kernelVersion = "stable";
+
   # microsoft-surface-surface-pro-intel
 
   # microsoft-surface.ipts.enable = true;
