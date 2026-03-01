@@ -20,7 +20,7 @@ in
       settings = {
         user = {
           name = "puyral";
-          email = "7871851+puyral@users.noreply.github.com";
+          email = "github@puyral.fr";
           signingkey = "1E96E80F8B44B1242EB2645A2F89AA8206299121";
         };
         safe.directory = location;
