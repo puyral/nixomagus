@@ -19,22 +19,27 @@
 
       packages = [
         ./generate-jpgs
-        ./notify-done
+        # ./notify-done
         ./paperless-ai
         ./rebuild
         ./swww-change-wp
         ./wandarr
       ];
 
-      mainPkgs = with builtins; listToAttrs (map mkPkgs packages);
+      mainPkgs =
+        with builtins;
+        (pkgs.callPackages ./notify-done inputs) // listToAttrs (map mkPkgs packages);
 
-      re-exports = with inputs'; {
-        sops-nix = sops-nix.packages.default;
-        darktable-jpeg-sync = darktable-jpeg-sync.packages.default;
-      };
+      re-exports =
+        with inputs';
+        {
+          sops-nix = sops-nix.packages.default;
+          darktable-jpeg-sync = darktable-jpeg-sync.packages.default;
+        }
+        // lean-lsp-mcp.packages;
     in
     {
 
-      packages = inputs'.lean-lsp-mcp.packages // mainPkgs // re-exports;
+      packages = mainPkgs // re-exports;
     };
 }

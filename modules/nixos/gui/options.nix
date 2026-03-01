@@ -6,7 +6,7 @@ with lib;
     enable = mkEnableOption "gui";
     extraWlrInUse = mkOption {
       type = types.listOf types.str;
-      default = [];
+      default = [ ];
     };
     hyprland = mkEnableOption "hyprland";
     i3 = mkEnableOption "i3";

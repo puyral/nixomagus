@@ -9,8 +9,7 @@
 let
   cfg = config.extra.ntfy-client;
   ntfy-done = pkgs-self.ntfy-done.override { topic = cfg.topic; };
-
-  # ntfy-done = pkgs.callPackage ./ntfy-done.nix {topic=cfg.topic;};
+  ntfy-forward = pkgs-self.ntfy-forward.override { topic = computer.name; };
 in
 {
   options.extra.ntfy-client = {
@@ -66,9 +65,26 @@ in
           ${pkgs.ntfy-sh}/bin/ntfy publish \
             --title "System Ready" \
             --tags "rocket" \
-            "${computer.name}" \
+            sysadmin \
             "User session started on ${computer.name}"
         '';
+      };
+    };
+
+    systemd.user.services.ntfy-to-desktop = {
+      Unit = {
+        Description = "Forward ntfy notifications to desktop";
+        After = [ "graphical-session.target" ];
+        Wants = [ "graphical-session.target" ];
+      };
+      Install = {
+        WantedBy = [ "graphical-session.target" ];
+      };
+      Service = {
+        Type = "simple";
+        Restart = "always";
+        RestartSec = "5s";
+        ExecStart = "${ntfy-forward}/bin/ntfy-forward";
       };
     };
   };
