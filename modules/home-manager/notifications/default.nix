@@ -1,5 +1,12 @@
-{lib, config, pkgs, ...}:
-let cfg = config.extra.notifications; in 
+{
+  lib,
+  config,
+  pkgs,
+  ...
+}:
+let
+  cfg = config.extra.notifications;
+in
 {
   options.extra.notifications = {
     enable = lib.mkEnableOption "notifications";
