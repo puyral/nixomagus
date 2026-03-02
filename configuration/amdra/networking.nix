@@ -1,5 +1,16 @@
 { config, ... }:
 {
+  # TODO: figure out what happend to the wifi...
+
+  # prevent cross interface arp
+  boot.kernel.sysctl = {
+    "net.ipv4.conf.all.arp_ignore" = 1;
+    "net.ipv4.conf.all.arp_announce" = 2;
+    "net.ipv4.conf.enp10s0.arp_ignore" = 1;
+    "net.ipv4.conf.enp10s0.arp_announce" = 2;
+    "net.ipv4.conf.enp15s0.arp_ignore" = 1;
+    "net.ipv4.conf.enp15s0.arp_announce" = 2;
+  };
   services.cloudflare-warp.enable = true;
   networking.networkmanager.unmanaged = [ "interface-name:enp15s0" ];
   networking.interfaces = {
@@ -13,10 +24,11 @@
       mtu = 9000;
       ipv4.addresses = [
         {
-          address = "192.168.1.3";
-          prefixLength = 24;
+          address = "192.168.128.2";
+          prefixLength = 29;
         }
       ];
+      ipv6.addresses = [];
     };
   };
   systemd.services.NetworkManager-wait-online.enable = false;
@@ -30,6 +42,6 @@
 
   vars = {
     mainNetworkInterface = "enp10s0";
-    fastIp = "192.168.1.3";
+    fastIp = "192.168.128.2";
   };
 }
