@@ -17,6 +17,7 @@
           prefixLength = 29;
         }
       ];
+      ipv6.addresses = [];
     };
   };
   systemd.services.NetworkManager-wait-online.enable = false;
