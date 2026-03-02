@@ -17,6 +17,14 @@
         default = "graphana.puyral.fr";
         type = types.str;
       };
+      lokiDatasourceName = mkOption {
+        default = "Loki";
+        type = types.str;
+      };
+      prometheusDatasourceName = mkOption {
+        default = "Prometheus";
+        type = types.str;
+      };
     };
     prometheus = {
       port = mkOption {
@@ -37,7 +45,7 @@
     promtail = {
       enable = mkEnableOption "promtail";
       lokiPort = mkOption {
-        default = 3001;
+        default = config.extra.monitoring.loki.port;
         type = types.port;
       };
       lokiHost = mkOption {
