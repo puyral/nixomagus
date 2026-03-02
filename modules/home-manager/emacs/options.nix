@@ -5,7 +5,7 @@
 
     nox = mkOption {
       type = types.bool;
-      default = config.extra.gui.enable;
+      default = !config.extra.applications.gui.enable;
       description = "wethere to add X support for emacs.";
     };
 

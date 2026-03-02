@@ -6,7 +6,7 @@ let
 in
 lib.mkIf enable {
   services.loki = {
-    enable = false;
+    enable = true;
     configuration = {
       server.http_listen_port = cfg.port;
       auth_enabled = false;
@@ -34,7 +34,7 @@ lib.mkIf enable {
             from = "2022-06-06";
             store = "boltdb-shipper";
             object_store = "filesystem";
-            schema = "v11";
+            schema = "v12";
             index = {
               prefix = "index_";
               period = "24h";
@@ -48,17 +48,17 @@ lib.mkIf enable {
           active_index_directory = "${dataDir}/boltdb-shipper-active";
           cache_location = "${dataDir}/boltdb-shipper-cache";
           cache_ttl = "24h";
-          # shared_store = "filesystem";
         };
 
         filesystem = {
-          directory = "${dataDir}/loki/chunks";
+          directory = "${dataDir}/chunks";
         };
       };
 
       limits_config = {
         reject_old_samples = true;
         reject_old_samples_max_age = "168h";
+        allow_structured_metadata = false;
       };
 
       # chunk_store_config = {

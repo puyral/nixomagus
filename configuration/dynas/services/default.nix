@@ -79,10 +79,9 @@
       monitoring = {
         enable = true;
         promtail = {
-          enable = false;
+          enable = true;
           name = "dynas";
           lokiHost = "localhost";
-          lokiPort = config.extra.monitoring.loki.port;
         };
       };
 
