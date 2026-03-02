@@ -10,9 +10,11 @@ lib.mkIf cfg.enable {
         http_listen_port = cfg.port;
         grpc_listen_port = 0;
       };
-      clients = [{
-        url = "http://${cfg.lokiHost}:${builtins.toString cfg.lokiPort}/loki/api/v1/push";
-      }];
+      clients = [
+        {
+          url = "http://${cfg.lokiHost}:${builtins.toString cfg.lokiPort}/loki/api/v1/push";
+        }
+      ];
       scrape_configs = [
         {
           job_name = "journal";
