@@ -1,5 +1,16 @@
 { config, ... }:
 {
+  # TODO: figure out what happend to the wifi...
+
+  # prevent cross interface arp
+  boot.kernel.sysctl = {
+    "net.ipv4.conf.all.arp_ignore" = 1;
+    "net.ipv4.conf.all.arp_announce" = 2;
+    "net.ipv4.conf.enp10s0.arp_ignore" = 1;
+    "net.ipv4.conf.enp10s0.arp_announce" = 2;
+    "net.ipv4.conf.enp15s0.arp_ignore" = 1;
+    "net.ipv4.conf.enp15s0.arp_announce" = 2;
+  };
   services.cloudflare-warp.enable = true;
   networking.networkmanager.unmanaged = [ "interface-name:enp15s0" ];
   networking.interfaces = {

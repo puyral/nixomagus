@@ -1,5 +1,14 @@
 { config, ... }:
 {
+  # prevent cross interface arp
+  boot.kernel.sysctl = {
+    "net.ipv4.conf.all.arp_ignore" = 1;
+    "net.ipv4.conf.all.arp_announce" = 2;
+    "net.ipv4.conf.enp13s0.arp_ignore" = 1;
+    "net.ipv4.conf.enp13s0.arp_announce" = 2;
+    "net.ipv4.conf.enp10s0.arp_ignore" = 1;
+    "net.ipv4.conf.enp10s0.arp_announce" = 2;
+  };
   networking.networkmanager.unmanaged = [ "interface-name:enp13s0" ];
   networking.interfaces.enp13s0 = {
     wakeOnLan.enable = true;
