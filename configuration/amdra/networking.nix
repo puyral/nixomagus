@@ -13,8 +13,8 @@
       mtu = 9000;
       ipv4.addresses = [
         {
-          address = "192.168.1.3";
-          prefixLength = 24;
+          address = "192.168.128.2";
+          prefixLength = 29;
         }
       ];
     };
@@ -30,6 +30,6 @@
 
   vars = {
     mainNetworkInterface = "enp10s0";
-    fastIp = "192.168.1.3";
+    fastIp = "192.168.128.2";
   };
 }
