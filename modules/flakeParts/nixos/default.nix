@@ -16,7 +16,9 @@ let
 
       homes = {
         home-manager = {
+          backupFileExtension = "bak";
           useGlobalPkgs = true;
+          useUserPackages = true;
           extraSpecialArgs = specialArgs;
           sharedModules = [
             self.homeModules.default
