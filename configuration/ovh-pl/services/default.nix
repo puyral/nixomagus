@@ -21,7 +21,7 @@
   };
 
   services.rustdesk-server = {
-    enable = false;
+    enable = true;
     openFirewall = true;
   };
   systemd.services =
