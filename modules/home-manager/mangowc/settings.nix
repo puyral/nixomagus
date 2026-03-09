@@ -40,7 +40,7 @@ let
         (mkArgs args)
       ]
     }";
-  mkMotion = f: (f "Up" "Down" "Left" "Right") ++ (f "k" "j" "l" "h");
+  mkMotion = f: (f "Up" "Down" "Left" "Right") ++ (f "k" "j" "h" "l");
   mkMotion' =
     m: k: a:
     mkMotion (

@@ -14,6 +14,7 @@ in
   config = lib.mkIf cfg.enable {
     programs.emacs = {
       enable = true;
+      package = if cfg.nox then pkgs.emacs-nox else pkgs.emacs;
       extraPackages =
         epkgs:
         with epkgs;

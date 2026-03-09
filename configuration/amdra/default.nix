@@ -1,6 +1,7 @@
 {
   # kmonad,
   pkgs,
+  pkgs-unstable,
   config,
   ...
 }:
@@ -18,6 +19,10 @@
     ./networking.nix
     ./rgb.nix
   ];
+
+  boot.kernelPackages = pkgs-unstable.linuxPackages_zen;
+  boot.zfs.package = pkgs-unstable.zfs_2_4; # and zfs
+  vars.kernel = config.boot.kernelPackages;
 
   extra = {
     splash_screen.enable = false;

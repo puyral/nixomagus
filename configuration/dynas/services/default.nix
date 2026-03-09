@@ -79,10 +79,9 @@
       monitoring = {
         enable = true;
         promtail = {
-          enable = false;
+          enable = true;
           name = "dynas";
           lokiHost = "localhost";
-          lokiPort = config.extra.monitoring.loki.port;
         };
       };
 
@@ -159,9 +158,6 @@
   networking = {
     nat = {
       enable = true;
-      externalInterface = "enp13s0"; # 10gb
-      # externalInterface = "enp10s0"; # 1gb
-      # externalInterface = "wlp8s0"; # wifi
     };
     traefik = {
       enable = true;
