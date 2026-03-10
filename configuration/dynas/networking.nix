@@ -20,7 +20,7 @@
         prefixLength = 29;
       }
     ];
-    ipv6.addresses = [];
+    ipv6.addresses = [ ];
   };
   networking.interfaces.enp10s0 = {
     wakeOnLan.enable = true;
