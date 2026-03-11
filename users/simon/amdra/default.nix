@@ -73,6 +73,10 @@
       enable = true;
       leanSupport.mcp = true;
     };
+    gemini = {
+      enable = true;
+      lean = true;
+    };
   };
 
   home = {

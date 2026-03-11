@@ -52,6 +52,7 @@ let
     waybar = ./waybar;
     anyrun = ./anyrun;
     notifications = ./notifications;
+    gemini = ./gemini;
   };
 
 in
