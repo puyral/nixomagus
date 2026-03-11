@@ -97,8 +97,12 @@ in
         nautilus-open-any-terminal
         sushi
         code-nautilus
-
         cemu
+
+        rustdesk
+
+        freecad
+        orca-slicer
       ])
       ++ (with pkgs-unstable; [
         # darktable

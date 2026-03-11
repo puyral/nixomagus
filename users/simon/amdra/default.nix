@@ -88,7 +88,6 @@
         kitty
         vampire
         hugin
-rustdesk
       ])
       ++ (with pkgs-unstable; [ fastfetch ]);
   };
