@@ -33,6 +33,7 @@ in
           "security@${domain}"
           "admin@${domain}"
           "github@${domain}"
+          "me@${domain}"
           "simon.jeanteur@${domain}"
         ];
       };
