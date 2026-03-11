@@ -11,11 +11,17 @@ in
       enable = true;
       package = pkgs-unstable.gemini-cli;
       settings = {
-          security = {
-    auth = {
-      selectedType = "oauth-personal";
-    };
-  };
+        general = {
+          preview = true;
+        };
+        model = {
+          name = "auto";
+        };
+        security = {
+          auth = {
+            selectedType = "oauth-personal";
+          };
+        };
         mcp = {
           allowed = ["lean"];
         };
