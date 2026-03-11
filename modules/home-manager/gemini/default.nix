@@ -1,4 +1,4 @@
-{lib, config, pkgs-self, ...}:
+{lib, config, pkgs-self, pkgs-unstable, ...}:
 let cfg = config.extra.gemini;
 in
 {
@@ -9,6 +9,7 @@ in
   config = lib.mkIf cfg.enable {
     programs.gemini-cli = {
       enable = true;
+      package = pkgs-unstable.gemini-cli;
       settings = {
         mcp = {
           allowed = ["lean"];
