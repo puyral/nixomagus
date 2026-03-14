@@ -78,7 +78,7 @@ in
           name,
         }:
         let
-          hostAddress = if value.privateNetwork then "192.168.${toString (2 + idx)}.2" else "127.0.0.1";
+          hostAddress = if value.privateNetwork then "192.168.100.1" else "127.0.0.1";
         in
         (
           {
