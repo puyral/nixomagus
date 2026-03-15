@@ -48,6 +48,23 @@
       extraIgnorePatterns = [ "**/target" ];
     };
 
+    "3d-printing" = {
+      id = "zgfh2-infrq";
+      devices = {
+        nixomagus = {
+          path = "/home/simon/Documents/3d-printing";
+        };
+        amdra = {
+          path = "/home/simon/Documents/3d-printing";
+        };
+        dynas = {
+          path = "/mnt/Zeno/documents/3d-printing";
+        };
+      };
+      extraDevices = [ "MacPro" ];
+      extraIgnorePatterns = [ "**/target" ];
+    };
+    
     "TU-Wien" = {
       id = "ntazz-iahzt";
       devices = {
