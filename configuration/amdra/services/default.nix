@@ -12,6 +12,6 @@
         "wwn-0x5000039b38d17cf2"
       ];
     };
-    llm.enable = true;
+    llm.enable = false;
   };
 }
