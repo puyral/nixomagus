@@ -64,7 +64,7 @@
       extraDevices = [ "MacPro" ];
       extraIgnorePatterns = [ "**/target" ];
     };
-    
+
     "TU-Wien" = {
       id = "ntazz-iahzt";
       devices = {
