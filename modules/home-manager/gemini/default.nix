@@ -1,5 +1,12 @@
-{lib, config, pkgs-self, pkgs-unstable, ...}:
-let cfg = config.extra.gemini;
+{
+  lib,
+  config,
+  pkgs-self,
+  pkgs-unstable,
+  ...
+}:
+let
+  cfg = config.extra.gemini;
 in
 {
   options.extra.gemini = {
@@ -23,7 +30,7 @@ in
           };
         };
         mcp = {
-          allowed = ["lean"];
+          allowed = [ "lean" ];
         };
         mcpServers = {
           lean = {
