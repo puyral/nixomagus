@@ -62,7 +62,6 @@
         };
       };
       extraDevices = [ "MacPro" ];
-      extraIgnorePatterns = [ "**/target" ];
     };
 
     "TU-Wien" = {
@@ -79,6 +78,7 @@
         };
       };
       extraDevices = [ "MacPro" ];
+      extraIgnorePatterns = [ "(.?)**/.lake" ];
     };
 
     "Logseq" = {
