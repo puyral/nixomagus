@@ -43,7 +43,7 @@
       paperless = {
         enable = true;
         ai = {
-          enable = true;
+          enable = false;
           tokenFile = config.sops.secrets."paperless/ai_token".path;
           ollamaModel = "mistral";
         };
