@@ -6,19 +6,13 @@ in
   imports = [ ./options.nix ];
   config = lib.mkIf cfg.enable {
     systemd.tmpfiles.rules = [
-      "d ${cfg.dataDir}/data 0755 root root -"
-      "d ${cfg.dataDir}/service 0755 root root -"
+      "d ${cfg.dataDir} 0755 root root -"
     ];
-
 
     containers.anki = {
       bindMounts = {
         "/data" = {
-          hostPath = "${cfg.dataDir}/data";
-          isReadOnly = false;
-        };
-        "/var/lib/anki-sync-server" = {
-          hostPath = "${cfg.dataDir}/service";
+          hostPath = "${cfg.dataDir}";
           isReadOnly = false;
         };
         "/sops" = {
