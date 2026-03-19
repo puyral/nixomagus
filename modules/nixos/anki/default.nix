@@ -1,4 +1,9 @@
-{ lib, config, ... }:
+{
+  lib,
+  config,
+  pkgs,
+  ...
+}:
 let
   cfg = config.extra.anki;
 in
@@ -38,10 +43,22 @@ in
 
           sops.age.sshKeyPaths = [ "/sops" ];
           sops.secrets = lib.genAttrs cfg.users (name: {
-              sopsFile = cfg.passwords;
-              format = "json";
-              key = name;
+            sopsFile = cfg.passwords;
+            format = "json";
+            key = name;
           });
+
+          systemd.services.anki-sync-server = {
+            serviceConfig = {
+              User = "anki-sync-server";
+
+              ReadWritePaths = [ "/data" ];
+
+              ExecStartPre = [
+                "+${pkgs.coreutils}/bin/chown -R anki-sync-server:anki-sync-server /var/lib/anki-sync-server"
+              ];
+            };
+          };
         };
     };
 
