@@ -1,4 +1,4 @@
-{ pkgs-unstable,  ... }:
+{ pkgs-unstable, ... }:
 {
   imports = [
     # ./printing.nix
@@ -14,5 +14,5 @@
     };
     llm.enable = false;
   };
-services.ollama.package = pkgs-unstable.ollama-rocm;
+  services.ollama.package = pkgs-unstable.ollama-rocm;
 }

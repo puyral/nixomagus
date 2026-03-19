@@ -152,6 +152,11 @@
         enable = true;
         url = "ntfy";
       };
+
+      anki = {
+        enable = true;
+        users = [ "simon" ];
+      };
     };
   services.ollama.package = pkgs-unstable.ollama-vulkan;
 
