@@ -155,7 +155,7 @@
 
       anki = {
         enable = true;
-        users = ["simon"];
+        users = [ "simon" ];
       };
     };
   services.ollama.package = pkgs-unstable.ollama-vulkan;

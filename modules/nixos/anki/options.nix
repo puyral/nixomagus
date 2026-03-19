@@ -1,4 +1,5 @@
-{lib, ...}:{
+{ lib, ... }:
+{
   options.extra.anki = with lib; {
     enable = mkEnableOption "anki";
     dataDir = mkOption {
