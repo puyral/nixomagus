@@ -55,7 +55,7 @@ in
               ReadWritePaths = [ "/data" ];
 
               ExecStartPre = [
-                "+${pkgs.coreutils}/bin/chown -R anki-sync-server:anki-sync-server /var/lib/anki-sync-server"
+                "+${pkgs.coreutils}/bin/chown -R anki-sync-server:anki-sync-server /data"
               ];
             };
           };
