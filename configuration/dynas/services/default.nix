@@ -154,7 +154,7 @@
       };
 
       anki = {
-        enable = true;
+        enable = false;
         users = [ "simon" ];
       };
     };

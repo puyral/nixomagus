@@ -49,13 +49,13 @@ in
           });
 
           systemd.services.anki-sync-server = {
-            serviceConfig = {
+            serviceConfig = rec {
               User = "anki-sync-server";
 
               ReadWritePaths = [ "/data" ];
 
               ExecStartPre = [
-                "+${pkgs.coreutils}/bin/chown -R anki-sync-server:anki-sync-server /data"
+                "+${pkgs.coreutils}/bin/chown -R ${User} /data"
               ];
             };
           };
