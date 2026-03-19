@@ -83,6 +83,7 @@ let
     zigbee2mqtt = ./zigbee2mqtt;
     vaultwarden = ./vaultwarden;
     usersNgroups = ./usersNgroups.nix;
+    anki = ./anki;
   };
 
 in
