@@ -56,7 +56,9 @@ in
       leanSupport.mcp = true;
     };
     gemini = {
-enable = true; lean = true; };
+      enable = true;
+      lean = true;
+    };
     emacs.enable = true;
   };
 

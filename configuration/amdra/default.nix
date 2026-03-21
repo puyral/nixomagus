@@ -42,6 +42,8 @@
     };
   };
 
+  users.users.simon.extraGroups = [ "dialout" ];
+
   fonts.packages =
     with pkgs;
     [

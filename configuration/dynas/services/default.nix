@@ -43,7 +43,7 @@
       paperless = {
         enable = true;
         ai = {
-          enable = true;
+          enable = false;
           tokenFile = config.sops.secrets."paperless/ai_token".path;
           ollamaModel = "mistral";
         };
@@ -151,6 +151,16 @@
       ntfy = {
         enable = true;
         url = "ntfy";
+      };
+
+      anki = {
+        enable = false;
+        users = [ "simon" ];
+      };
+
+      esphome = {
+        enable = true;
+        address = "192.168.0.2";
       };
     };
   services.ollama.package = pkgs-unstable.ollama-vulkan;
