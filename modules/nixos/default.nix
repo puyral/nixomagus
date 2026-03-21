@@ -84,6 +84,7 @@ let
     vaultwarden = ./vaultwarden;
     usersNgroups = ./usersNgroups.nix;
     anki = ./anki;
+    esphome = ./esphome;
   };
 
 in

@@ -157,6 +157,11 @@
         enable = false;
         users = [ "simon" ];
       };
+
+      esphome = {
+        enable = true;
+        address = "192.168.0.2";
+      };
     };
   services.ollama.package = pkgs-unstable.ollama-vulkan;
 
