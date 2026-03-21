@@ -1,4 +1,4 @@
-{ lib, ... }:
+{ lib, config, ... }:
 {
   options.extra.anki = with lib; {
     enable = mkEnableOption "anki";
