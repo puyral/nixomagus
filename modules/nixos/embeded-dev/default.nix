@@ -30,7 +30,10 @@ in
           };
         }) cfg.users
       );
+    users.groups.plugdev = {
+      members = [ "root" ];
+    };
 
-    services.udev.packages = [pkgs-self.probe-rs-udev];
+    services.udev.packages = [ pkgs-self.probe-rs-udev ];
   };
 }

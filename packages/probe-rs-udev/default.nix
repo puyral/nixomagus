@@ -1,4 +1,4 @@
-{ stdenv, fetchurl,... }:
+{ stdenv, fetchurl, ... }:
 let
   rule = fetchurl {
     url = "https://probe.rs/files/69-probe-rs.rules";
