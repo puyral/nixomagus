@@ -1,7 +1,7 @@
 {
   config,
   lib,
-  pkgs,
+  pkgs-self,
   ...
 }:
 let
@@ -31,11 +31,6 @@ in
         }) cfg.users
       );
 
-    services.udev.extraRules = builtins.readFile (
-      pkgs.fetchurl {
-        url = "https://probe.rs/files/69-probe-rs.rules";
-        hash = "sha256-yjxld5ebm2jpfyzkw+vngBfHu5Nfh2ioLUKQQDY4KYo=";
-      }
-    );
+    services.udev.packages = [pkgs-self.probe-rs-udev];
   };
 }
