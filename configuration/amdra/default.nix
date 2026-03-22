@@ -40,9 +40,8 @@
         ];
       };
     };
+    embeded-dev.enable = true;
   };
-
-  users.users.simon.extraGroups = [ "dialout" ];
 
   fonts.packages =
     with pkgs;
