@@ -40,6 +40,7 @@
         ];
       };
     };
+    embeded-dev.enable = true;
   };
 
   fonts.packages =

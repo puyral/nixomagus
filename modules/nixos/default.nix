@@ -85,6 +85,7 @@ let
     usersNgroups = ./usersNgroups.nix;
     anki = ./anki;
     esphome = ./esphome;
+    embeded-dev = ./embeded-dev;
   };
 
 in

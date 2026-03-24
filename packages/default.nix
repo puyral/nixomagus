@@ -24,6 +24,7 @@
         ./rebuild
         ./swww-change-wp
         ./wandarr
+        ./probe-rs-udev
       ];
 
       mainPkgs =
