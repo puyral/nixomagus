@@ -12,18 +12,39 @@ notify() {
   local title=$2
   local tags="white_check_mark"
   local header="Success"
+  local file_to_send="$TF"
+  local cleanup_needed=false
 
   if [ "$exit_code" -ne 0 ]; then
     tags="x"
     header="Failed ($exit_code)"
   fi
 
+  # Check if the file exists and its size
+  if [ -f "$TF" ]; then
+    local file_size
+    file_size=$(wc -c < "$TF")
+    
+    # 1MB = 1,048,576 bytes
+    if [ "$file_size" -gt 1048576 ]; then
+      file_to_send="${TF}.zst"
+      # Compress using zstd with compression level 19
+      zstd -19 -q "$TF" -o "$file_to_send"
+      cleanup_needed=true
+    fi
+  fi
+
   ntfy publish \
     --tags "$tags" \
     --title "$title" \
     --message "$header" \
-    --file "$TF" \
+    --file "$file_to_send" \
     "$TOPIC"
+    
+  # Remove the compressed file after sending to avoid clutter
+  if [ "$cleanup_needed" = true ]; then
+    rm -f "$file_to_send"
+  fi
 }
 
 if [ "$1" = "--topic" ] || [ "$1" = "-t" ]; then

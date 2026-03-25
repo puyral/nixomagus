@@ -86,6 +86,19 @@ in
               };
             };
           };
+          mistral = {
+            npm = "@ai-sdk/openai-compatible";
+            name = "mistral.ai";
+            options = {
+              baseURL = "https://api.mistral.ai/";
+              apiKey = builtins.readFile ./secrets/mistral-api-key;
+            };
+            models = {
+              "labs-leanstral-2603" = {
+                name = "labs-leanstral-2603";
+              };
+            };
+          };
         };
         mcp =
           { }
