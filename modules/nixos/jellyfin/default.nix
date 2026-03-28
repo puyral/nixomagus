@@ -12,6 +12,7 @@ in
 
   config = lib.mkIf cfg.enable ({
     containers.${name} = {
+      privateNetwork = true;
       bindMounts = {
         "/var/lib/jellyfin" = {
           hostPath = "${cfg.dataDir}/data";
@@ -51,7 +52,6 @@ in
 
     extra.containers.${name} = {
       gpu = true;
-      privateNetwork = true;
       nginx = [
         {
           enable = true;
