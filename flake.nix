@@ -29,8 +29,7 @@
 
     # see https://github.com/tale/headplane/pull/282
     headplane = {
-      url = "github:tale/headplane/v0.6.1";
-      # url = "github:tale/headplane"; # master
+      url = "github:tale/headplane/v0.6.2";
       # url = "github:tale/headplane/bd8a7a56d4021edf58511c6ab333af864d91304c";
       inputs = {
         nixpkgs.follows = "nixpkgs";
@@ -62,20 +61,6 @@
       url = "github:squirrel-prover/squirrel-prover/58ea3d1c2db38ce9639dd1c17c9885c483c56472";
       flake = false;
     };
-
-    # custom = {
-    #   url = "github:puyral/custom-nix";
-    #   inputs = {
-    #     nixpkgs.follows = "nixpkgs";
-    #     cryptovampire-src.follows = "nixpkgs";
-    #     treefmt-nix.follows = "treefmt-nix";
-    #     flake-utils.follows = "flake-utils";
-    #     opam-nix.inputs.flake-utils.follows = "flake-utils";
-    #     opam-nix.inputs.opam2json.inputs.systems.follows = "systems";
-    #     squirrel-prover-src.follows = "squirrel-prover-src";
-    #     squirrel-prover-src-cv.url = "github:puyral/squirrel-prover/674e12f7283974e17241cad4f892d4a9bb47c2f6";
-    #   };
-    # };
 
     lean-lsp-mcp = {
       url = "github:puyral/lean-lsp-mcp";
@@ -131,12 +116,7 @@
 
   outputs =
     inputs@{ flake-parts, ... }:
-    flake-parts.lib.mkFlake { inherit inputs; } (attrs:
-    # let
-    #   functions = (import ./lib) ./. (attrs);
-    #   computers = (import ./computers.nix);
-    # in
-    {
+    flake-parts.lib.mkFlake { inherit inputs; } (attrs: {
       imports = [
         inputs.home-manager.flakeModules.home-manager
         ./computers.nix
@@ -148,10 +128,6 @@
 
       systems = [ "x86_64-linux" ];
 
-      flake = {
-        # homeConfigurations = mkHomes computers;
-        # nixosConfigurations = mkSystems computers;
-        rootDir = ./.;
-      };
+      flake.rootDir = ./.;
     });
 }

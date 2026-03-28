@@ -81,7 +81,7 @@ in
             name = "headplane";
             enable = true;
             providers = [ "ovh-pl" ];
-subdomain = "headscale";
+            subdomain = "headscale";
             path = "/admin";
           }
         ];
