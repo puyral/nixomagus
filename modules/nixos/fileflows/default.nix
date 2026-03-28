@@ -19,10 +19,9 @@ in
       "d ${cfg.tempDir} 0777 root root -"
     ];
 
-    virtualisation.oci-containers.containers.fileflows = {
+    virtualisation.oci-containers.containers.fileflow = {
       image = cfg.image;
-      autoStart = false;
-      ports = [ "5000:5000" ];
+      autoStart = true;
 
       volumes = [
         "${cfg.dataDir}:/app/Data"
@@ -36,9 +35,8 @@ in
       ];
     };
 
-    networking.nginx.instances.fileflows = lib.mkIf cfg.networking.reverproxied {
+    virtualisation.oci-containers.proxy.containers.fileflow = lib.mkIf cfg.networking.reverproxied {
       port = 5000;
-      # name = cfg.networking.name; # networking.nginx.instances uses the key as the subdomain name by default.
     };
 
     # networking.firewall.allowedTCPPorts = mkIf cfg.openFirewall [ 5000 ];

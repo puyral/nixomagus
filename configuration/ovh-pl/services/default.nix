@@ -32,6 +32,7 @@
       rustdesk-signal.serviceConfig.ExecStart = lib.mkForce "${cfg.package}/bin/hbbs";
     };
   extra = {
+    acme.enable = true;
     headscale = {
       enable = true;
       extraDomain = "headscale";

@@ -79,6 +79,7 @@ let
     torrent = ./torrent;
     v4l2loopback = ./v4l2loopback;
     virtualisation = ./virtualisation;
+    oci-docker = ./virtualisation/oci-docker.nix;
     wachtower = ./wachtower;
     zigbee2mqtt = ./zigbee2mqtt;
     vaultwarden = ./vaultwarden;
