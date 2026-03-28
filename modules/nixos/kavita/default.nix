@@ -49,7 +49,7 @@ in
     extra.containers.${name} = {
       vpn = true;
 
-      traefik = [
+      nginx = [
         {
           inherit port;
           enable = true;

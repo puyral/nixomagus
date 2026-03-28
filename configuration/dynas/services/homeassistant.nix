@@ -10,7 +10,7 @@ in
     volumes = [ "${config.params.locations.containers}/homeassistant:/config:rw" ];
     autoStart = true;
   };
-  virtualisation.oci-containers.proxy.containers.${name} = {
+  networking.nginx.instances.${name} = {
     inherit port;
   };
 }

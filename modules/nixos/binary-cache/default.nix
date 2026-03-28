@@ -35,7 +35,7 @@ in
     };
 
     extra.containers.${cname} = {
-      traefik = [
+      nginx = [
         {
           inherit port;
           enable = true;

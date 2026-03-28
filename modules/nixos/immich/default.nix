@@ -87,7 +87,7 @@ in
       vpn = true;
       gpu = true;
 
-      traefik = [
+      nginx = [
         {
           inherit port;
           name = cfg.subdomain;

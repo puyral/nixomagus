@@ -61,7 +61,7 @@ in
         };
     };
     extra.containers.ntfy = {
-      traefik = [
+      nginx = [
         {
           port = 2586;
           enable = true;

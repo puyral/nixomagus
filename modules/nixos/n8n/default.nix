@@ -73,7 +73,7 @@ in
 
     extra.containers.n8n = {
       gpu = true;
-      traefik = [
+      nginx = [
         {
           inherit port;
           name = cfg.subdomain;

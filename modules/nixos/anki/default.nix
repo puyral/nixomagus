@@ -65,7 +65,7 @@ in
     extra.containers.anki = {
       # vpn = true;
 
-      traefik = [
+      nginx = [
         {
           port = cfg.port;
           name = cfg.subdomain;

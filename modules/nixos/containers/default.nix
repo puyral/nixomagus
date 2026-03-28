@@ -138,25 +138,25 @@ in
     in
     result;
   networking = {
-    traefik.instances = (
+    nginx.instances = (
       let
-        f = { traefik, name }: (builtins.removeAttrs traefik [ "name" ]) // { container = name; };
+        f = { nginx, name }: (builtins.removeAttrs nginx [ "name" ]) // { container = name; };
         mkperContainerList =
           { value, name, ... }:
           map (value: {
             inherit name;
-            traefik = value;
-          }) (value.traefik or [ ]);
-        tf_configs = builtins.concatMap mkperContainerList containers;
+            nginx = value;
+          }) (value.nginx or [ ]);
+        nginx_configs = builtins.concatMap mkperContainerList containers;
       in
       listToAttrs (
         map (
-          attrs@{ traefik, name }:
+          attrs@{ nginx, name }:
           {
-            name = traefik.name or name;
+            name = nginx.name or name;
             value = f attrs;
           }
-        ) tf_configs
+        ) nginx_configs
       )
     );
 

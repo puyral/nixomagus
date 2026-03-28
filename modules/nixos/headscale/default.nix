@@ -55,35 +55,35 @@ in
                 authcfg
                 oidc
                 ;
-              baseDomain = config.networking.traefik.baseDomain;
-            };
-            services.tailscale.enable = true;
-          };
-        };
-    };
+              baseDomain = config.networking.nginx.baseDomain;
+              };
+              services.tailscale.enable = true;
+              };
+              };
 
-    extra.containers.${name} =
-      let
-        domain = "${cfg.extraDomain}.${config.networking.traefik.baseDomain}";
-      in
-      {
-        vpn = true;
-        traefik = [
-          {
-            port = cfg.headscale.port;
-            enable = true;
-            providers = [ "ovh-pl" ];
-            extra.rule = "Host(`${domain}`) && PathPrefix(`/`)";
-            forceHttps = false;
-          }
-          {
-            port = cfg.headplane.port;
-            name = "headplane";
-            enable = true;
-            providers = [ "ovh-pl" ];
-            extra.rule = "Host(`${domain}`) && PathPrefix(`/admin`)";
-          }
-        ];
+              extra.containers.${name} =
+              let
+              domain = "${cfg.extraDomain}.${config.networking.nginx.baseDomain}";
+              in
+              {
+              vpn = true;
+              nginx = [
+              {
+              port = cfg.headscale.port;
+              enable = true;
+              providers = [ "ovh-pl" ];
+              path = "/";
+              forceHttps = false;
+              }
+              {
+              port = cfg.headplane.port;
+              name = "headplane";
+              enable = true;
+              providers = [ "ovh-pl" ];
+              path = "/admin";
+              }
+              ];
+              };
       };
     networking.firewall.allowedUDPPorts = [ cfg.derpPort ];
   };

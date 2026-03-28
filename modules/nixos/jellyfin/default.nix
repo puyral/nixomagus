@@ -1,7 +1,6 @@
 {
   config,
   lib,
-  computer,
   ...
 }:
 let
@@ -11,34 +10,24 @@ in
 {
   imports = [ ./options.nix ];
 
-  config = lib.mkIf cfg.enable (
-    {
-      containers.${name} = {
-        bindMounts = {
-          "/var/lib/jellyfin" = {
-            hostPath = "${cfg.dataDir}/data";
-            isReadOnly = false;
-          };
-          "/var/cache/jellyfin" = {
-            hostPath = "${cfg.dataDir}/cache";
-            isReadOnly = false;
-          };
-          "/videos" = {
-            hostPath = cfg.videoDir;
-            isReadOnly = false;
-          };
+  config = lib.mkIf cfg.enable ({
+    containers.${name} = {
+      bindMounts = {
+        "/var/lib/jellyfin" = {
+          hostPath = "${cfg.dataDir}/data";
+          isReadOnly = false;
+        };
+        "/var/cache/jellyfin" = {
+          hostPath = "${cfg.dataDir}/cache";
+          isReadOnly = false;
+        };
+        "/videos" = {
+          hostPath = cfg.videoDir;
+          isReadOnly = false;
         };
       };
-
-      extra.containers.${name} = {
-        gpu = true;
-        privateNetwork = false;
-        # Do NOT use traefik option here as per user request
-      };
-
-      # The container configuration itself
-      containers.${name}.config =
-        {...}:
+      config =
+        { ... }:
         {
           services.jellyfin = {
             enable = true;
@@ -46,7 +35,6 @@ in
             user = "jellyfin";
           };
           services.jellyseerr.enable = true;
-
 
           programs.nix-ld.enable = true;
           # We need to make sure these users/groups exist or are inherited
@@ -59,25 +47,31 @@ in
 
           systemd.services.jellyfin.serviceConfig.DeviceAllow = [ "/dev/dri/renderD128" ];
         };
+    };
 
-      users.users.jellyfin = {
-        isSystemUser = true;
-        uid = 1101;
-        group = "jellyfin";
-        extraGroups = [
-          "render"
-          "video"
-        ];
-      };
-      extra.extraGroups.jellyfin = {
-        gid = 1100;
-      };
+    extra.containers.${name} = {
+      gpu = true;
+      privateNetwork = false;
+      # Do NOT use nginx option here as per user request
+    };
 
-      networking.firewall.allowedTCPPorts = [
-        9999
-        8096
-        8920
+    users.users.jellyfin = {
+      isSystemUser = true;
+      uid = 1101;
+      group = "jellyfin";
+      extraGroups = [
+        "render"
+        "video"
       ];
-    }
-  );
+    };
+    extra.extraGroups.jellyfin = {
+      gid = 1100;
+    };
+
+    networking.firewall.allowedTCPPorts = [
+      9999
+      8096
+      8920
+    ];
+  });
 }

@@ -32,10 +32,15 @@ with builtins;
     description = "force https redirection";
     default = true;
   };
-  extra = {
-    rule = mkOption {
-      type = with types; nullOr str;
-      default = null;
-    };
+  path = mkOption {
+    type = types.str;
+    default = "/";
+    description = "the path prefix for this rule";
+  };
+  # Custom Nginx options if needed
+  extraConfig = mkOption {
+    type = types.lines;
+    default = "";
+    description = "extra configuration for this virtual host";
   };
 }
