@@ -12,7 +12,8 @@ in
 
   config = lib.mkIf cfg.enable ({
     containers.${name} = {
-      privateNetwork = true;
+      autoStart = true;
+      ephemeral = true;
       bindMounts = {
         "/var/lib/jellyfin" = {
           hostPath = "${cfg.dataDir}/data";
@@ -35,7 +36,7 @@ in
             openFirewall = true;
             user = "jellyfin";
           };
-          services.jellyseerr.enable = true;
+          # services.jellyseerr.enable = true;
 
           programs.nix-ld.enable = true;
           # We need to make sure these users/groups exist or are inherited
@@ -77,11 +78,11 @@ in
           subdomain = "jellyfin";
           path = "/socket";
         }
-        {
-          enable = true;
-          port = 5055;
-          name = "seerr";
-        }
+        # {
+        #   enable = true;
+        #   port = 5055;
+        #   name = "seerr";
+        # }
       ];
     };
 

@@ -9,7 +9,7 @@
     ./filesharing.nix
     ./syncthing.nix
     ./homeassistant.nix
-    ./portainer.nix
+    # ./portainer.nix
     ./mosquitto.nix
     ./photos.nix
     ./github
