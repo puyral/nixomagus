@@ -11,7 +11,7 @@ in
     autoStart = true;
     extraOptions = [ "--network=host" ];
   };
-  networking.nginx.instances.${name} = {
+  virtualisation.oci-containers.proxy.containers.${name} = {
     inherit port;
   };
 }

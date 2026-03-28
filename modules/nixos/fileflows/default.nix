@@ -36,9 +36,8 @@ in
       ];
     };
 
-    networking.nginx.instances.fileflows = lib.mkIf cfg.networking.reverproxied {
+    virtualisation.oci-containers.proxy.containers.fileflows = lib.mkIf cfg.networking.reverproxied {
       port = 5000;
-      # name = cfg.networking.name; # networking.nginx.instances uses the key as the subdomain name by default.
     };
 
     # networking.firewall.allowedTCPPorts = mkIf cfg.openFirewall [ 5000 ];
