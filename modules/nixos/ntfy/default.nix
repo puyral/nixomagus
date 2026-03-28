@@ -45,8 +45,12 @@ in
               attachment-cache-dir = "${dataDir}/attachments";
               auth-file = "${dataDir}/user.db";
               auth-default-access = "deny-all";
-              log-level = "trace";
+              log-level = "info";
               listen-http = "0.0.0.0:2586";
+
+              attachment-expiry-duration = "30d";
+              attachment-total-size-limit = "100G";
+              attachment-file-size-limit = "5G";
             };
             environmentFile = "/secrets.env";
           };
