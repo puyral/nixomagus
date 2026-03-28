@@ -12,6 +12,8 @@ in
 
   config = lib.mkIf cfg.enable ({
     containers.${name} = {
+      autoStart = true;
+      ephemeral = true;
       bindMounts = {
         "/var/lib/jellyfin" = {
           hostPath = "${cfg.dataDir}/data";
@@ -34,7 +36,7 @@ in
             openFirewall = true;
             user = "jellyfin";
           };
-          services.jellyseerr.enable = true;
+          # services.jellyseerr.enable = true;
 
           programs.nix-ld.enable = true;
           # We need to make sure these users/groups exist or are inherited
@@ -51,7 +53,6 @@ in
 
     extra.containers.${name} = {
       gpu = true;
-      privateNetwork = false;
       nginx = [
         {
           enable = true;
@@ -77,11 +78,11 @@ in
           subdomain = "jellyfin";
           path = "/socket";
         }
-        {
-          enable = true;
-          port = 5055;
-          name = "seerr";
-        }
+        # {
+        #   enable = true;
+        #   port = 5055;
+        #   name = "seerr";
+        # }
       ];
     };
 
@@ -97,11 +98,5 @@ in
     extra.extraGroups.jellyfin = {
       gid = 1100;
     };
-
-    networking.firewall.allowedTCPPorts = [
-      9999
-      8096
-      8920
-    ];
   });
 }
