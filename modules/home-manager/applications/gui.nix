@@ -4,8 +4,7 @@
   pkgs,
   pkgs-unstable,
   pkgs-stable,
-  pkgs-rpd,
-  custom,
+  pkgs-self,
   ...
 }:
 let
@@ -36,7 +35,7 @@ in
 
       in
       [
-        # custom.rnote
+        pkgs-self.rnote
       ]
 
       ++ (with pkgs-stable; [

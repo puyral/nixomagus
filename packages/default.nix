@@ -19,12 +19,13 @@
 
       packages = [
         ./generate-jpgs
-        # ./notify-done
         ./paperless-ai
         ./rebuild
         ./swww-change-wp
         ./wandarr
         ./probe-rs-udev
+        ./rnote
+        ./isw
       ];
 
       mainPkgs =

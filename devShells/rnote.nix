@@ -1,12 +1,12 @@
 {
   pkgs,
-  inputs',
+  self',
   ...
 }:
 {
   devShells.rnote = pkgs.mkShell {
     name = "rnote";
-    inputsFrom = [ inputs'.custom.packages.rnote ];
+    inputsFrom = [ self'.packages.rnote ];
     buildInputs = with pkgs; [
       cargo
       cargo-expand

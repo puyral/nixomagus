@@ -1,13 +1,8 @@
 {
   config,
   pkgs,
-  system,
-  pkgs-unstable,
-  overlays,
-  mconfig,
-  custom,
   ...
-}@attrs:
+}:
 {
   config =
     let
@@ -89,7 +84,7 @@
       home = {
 
         packages =
-          (with custom; [ clocktui ])
+          [ ]
           ++ (with pkgs; [
             intel-gpu-tools
             # nvtopPackages.full

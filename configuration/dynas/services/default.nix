@@ -8,7 +8,6 @@
   imports = [
     ./filesharing.nix
     ./syncthing.nix
-    ./jellyfin.nix
     ./homeassistant.nix
     ./portainer.nix
     ./mosquitto.nix
@@ -35,6 +34,8 @@
     in
     {
       acme.enable = true;
+
+      jellyfin.enable = true;
 
       zigbee2mqtt = {
         enable = true;

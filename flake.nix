@@ -63,19 +63,20 @@
       flake = false;
     };
 
-    custom = {
-      url = "github:puyral/custom-nix";
-      inputs = {
-        nixpkgs.follows = "nixpkgs";
-        cryptovampire-src.follows = "nixpkgs";
-        treefmt-nix.follows = "treefmt-nix";
-        flake-utils.follows = "flake-utils";
-        opam-nix.inputs.flake-utils.follows = "flake-utils";
-        opam-nix.inputs.opam2json.inputs.systems.follows = "systems";
-        squirrel-prover-src.follows = "squirrel-prover-src";
-        squirrel-prover-src-cv.url = "github:puyral/squirrel-prover/674e12f7283974e17241cad4f892d4a9bb47c2f6";
-      };
-    };
+    # custom = {
+    #   url = "github:puyral/custom-nix";
+    #   inputs = {
+    #     nixpkgs.follows = "nixpkgs";
+    #     cryptovampire-src.follows = "nixpkgs";
+    #     treefmt-nix.follows = "treefmt-nix";
+    #     flake-utils.follows = "flake-utils";
+    #     opam-nix.inputs.flake-utils.follows = "flake-utils";
+    #     opam-nix.inputs.opam2json.inputs.systems.follows = "systems";
+    #     squirrel-prover-src.follows = "squirrel-prover-src";
+    #     squirrel-prover-src-cv.url = "github:puyral/squirrel-prover/674e12f7283974e17241cad4f892d4a9bb47c2f6";
+    #   };
+    # };
+
     lean-lsp-mcp = {
       url = "github:puyral/lean-lsp-mcp";
       inputs = {
@@ -91,6 +92,11 @@
         nixpkgs.follows = "nixpkgs";
         flake-parts.follows = "flake-parts";
       };
+    };
+
+    isw-src = {
+      url = "github:YoyPa/isw";
+      flake = false;
     };
 
     #######################

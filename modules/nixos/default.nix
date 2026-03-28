@@ -58,6 +58,7 @@ let
     gui = ./gui;
     headscale = ./headscale;
     immich = ./immich;
+    jellyfin = ./jellyfin;
     kavita = ./kavita;
     llm = ./llm;
     mail = ./mail;

@@ -1,13 +1,8 @@
 {
-  config,
   pkgs,
-  system,
   pkgs-unstable,
-  overlays,
-  mconfig,
-  custom,
   ...
-}@attrs:
+}:
 {
   imports = [ ./darktheme.nix ];
   extra = {
@@ -82,8 +77,7 @@
   home = {
 
     packages =
-      (with custom; [ clocktui ])
-      ++ (with pkgs; [
+      (with pkgs; [
         nvtopPackages.amd
         kitty
         vampire
