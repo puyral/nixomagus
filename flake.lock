@@ -786,11 +786,11 @@
     "squirrel-prover-src_2": {
       "flake": false,
       "locked": {
-        "lastModified": 1774454854,
-        "narHash": "sha256-0oxIe5Kd96ouqekNTp1u1dRkW/mQ0vXHWgr/LxbhIUE=",
+        "lastModified": 1760089888,
+        "narHash": "sha256-octGvNHNyD6XLvnqL4qwKhXURGik4THAsF2FNTHtMl4=",
         "owner": "squirrel-prover",
         "repo": "squirrel-prover",
-        "rev": "31fdad07ac673e5b5ad6e7b6377a88e0136294f3",
+        "rev": "58ea3d1c2db38ce9639dd1c17c9885c483c56472",
         "type": "github"
       },
       "original": {
