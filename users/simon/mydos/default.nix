@@ -1,15 +1,8 @@
 {
-  config,
   pkgs,
-  system,
   pkgs-unstable,
-  overlays,
-  mconfig,
-  custom,
-  nixpkgs-unstable,
-  rootDir,
   ...
-}@attrs:
+}:
 {
   programs.firefox.nativeMessagingHosts = [ pkgs.gnome-browser-connector ];
 
