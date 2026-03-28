@@ -1,8 +1,20 @@
-{ config, lib, ... }:
+{ config, lib, pkgs, ... }:
 with lib;
 let
-  cfg = config.virtualisation.oci-containers.nginx;
-  nginx_cfg = config.networking.nginx;
+  cfg = config.virtualisation.oci-containers.proxy;
+  
+  # Filter enabled containers
+  activeContainers = filterAttrs (n: v: v.enable) cfg.containers;
+  sortedNames = sort (a: b: a < b) (attrNames activeContainers);
+  
+  # Assign a static IP based on alphabetical order to ensure stability
+  # Starting from 172.20.0.10
+  getIp = name: 
+    let 
+      idx = (let 
+        findIdx = n: l: if (head l) == n then 0 else 1 + (findIdx n (tail l));
+      in findIdx name sortedNames);
+    in "172.20.0.${toString (idx + 10)}";
 
   containerOptions = {
     options = {
@@ -13,7 +25,7 @@ let
       };
       port = mkOption {
         type = types.port;
-        description = "the port to forward to";
+        description = "the internal port of the container";
       };
       name = mkOption {
         type = types.nullOr types.str;
@@ -24,11 +36,6 @@ let
         type = types.nullOr types.str;
         default = null;
         description = "the domain (defaults to nginx.baseDomain)";
-      };
-      address = mkOption {
-        type = types.nullOr types.str;
-        default = "localhost";
-        description = "the address to forward to";
       };
     };
   };
@@ -42,13 +49,38 @@ in
     };
   };
 
-  config.networking.nginx.instances = listToAttrs (mapAttrsToList (n: v: {
-    name = if v.name != null then v.name else n;
-    value = {
-      enable = v.enable;
-      port = v.port;
-      domain = v.domain;
-      address = v.address;
+  config = mkIf (activeContainers != {}) {
+    # Ensure the proxy network exists
+    systemd.services.docker-network-proxy = {
+      description = "Create Docker network for proxy";
+      after = [ "network.target" "docker.service" ];
+      wantedBy = [ "multi-user.target" ];
+      serviceConfig.Type = "oneshot";
+      script = ''
+        check=$(${pkgs.docker}/bin/docker network ls -q -f name=^proxy$)
+        if [ -z "$check" ]; then
+          ${pkgs.docker}/bin/docker network create --subnet=172.20.0.0/16 proxy
+        fi
+      '';
     };
-  }) config.virtualisation.oci-containers.proxy.containers);
+
+    # Configure the actual containers to use the proxy network and a static IP
+    virtualisation.oci-containers.containers = mapAttrs (n: v: {
+      extraOptions = [
+        "--network=proxy"
+        "--ip=${getIp n}"
+      ];
+    }) activeContainers;
+
+    # Configure Nginx to point to the static IPs
+    networking.nginx.instances = listToAttrs (mapAttrsToList (n: v: {
+      name = if v.name != null then v.name else n;
+      value = {
+        enable = v.enable;
+        port = v.port;
+        domain = v.domain;
+        address = getIp n;
+      };
+    }) activeContainers);
+  };
 }

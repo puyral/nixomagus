@@ -19,10 +19,9 @@ in
       "d ${cfg.tempDir} 0777 root root -"
     ];
 
-    virtualisation.oci-containers.containers.fileflows = {
+    virtualisation.oci-containers.containers.fileflow = {
       image = cfg.image;
       autoStart = true;
-      ports = [ "5000:5000" ];
 
       volumes = [
         "${cfg.dataDir}:/app/Data"
@@ -36,7 +35,7 @@ in
       ];
     };
 
-    virtualisation.oci-containers.proxy.containers.fileflows = lib.mkIf cfg.networking.reverproxied {
+    virtualisation.oci-containers.proxy.containers.fileflow = lib.mkIf cfg.networking.reverproxied {
       port = 5000;
     };
 

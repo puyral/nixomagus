@@ -27,6 +27,11 @@ with builtins;
     description = "the ip address";
     default = null;
   };
+  subdomain = mkOption {
+    type = types.nullOr types.str;
+    description = "the subdomain part (defaults to instance name)";
+    default = null;
+  };
   forceHttps = mkOption {
     type = types.bool;
     description = "force https redirection";

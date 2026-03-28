@@ -56,34 +56,34 @@ in
                 oidc
                 ;
               baseDomain = config.networking.nginx.baseDomain;
-              };
-              services.tailscale.enable = true;
-              };
-              };
+            };
+            services.tailscale.enable = true;
+          };
+        };
+    };
 
-              extra.containers.${name} =
-              let
-              domain = "${cfg.extraDomain}.${config.networking.nginx.baseDomain}";
-              in
-              {
-              vpn = true;
-              nginx = [
-              {
-              port = cfg.headscale.port;
-              enable = true;
-              providers = [ "ovh-pl" ];
-              path = "/";
-              forceHttps = false;
-              }
-              {
-              port = cfg.headplane.port;
-              name = "headplane";
-              enable = true;
-              providers = [ "ovh-pl" ];
-              path = "/admin";
-              }
-              ];
-              };
+    extra.containers.${name} =
+      let
+        domain = "${cfg.extraDomain}.${config.networking.nginx.baseDomain}";
+      in
+      {
+        vpn = true;
+        nginx = [
+          {
+            port = cfg.headscale.port;
+            enable = true;
+            providers = [ "ovh-pl" ];
+            path = "/";
+            forceHttps = false;
+          }
+          {
+            port = cfg.headplane.port;
+            name = "headplane";
+            enable = true;
+            providers = [ "ovh-pl" ];
+            path = "/admin";
+          }
+        ];
       };
     networking.firewall.allowedUDPPorts = [ cfg.derpPort ];
   };
