@@ -51,7 +51,7 @@ in
 
     extra.containers.${name} = {
       gpu = true;
-      privateNetwork = false;
+      privateNetwork = true;
       nginx = [
         {
           enable = true;
@@ -97,11 +97,5 @@ in
     extra.extraGroups.jellyfin = {
       gid = 1100;
     };
-
-    networking.firewall.allowedTCPPorts = [
-      9999
-      8096
-      8920
-    ];
   });
 }
