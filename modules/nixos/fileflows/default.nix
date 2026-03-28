@@ -22,7 +22,6 @@ in
     virtualisation.oci-containers.containers.fileflows = {
       image = cfg.image;
       autoStart = true;
-      ports = [ "5000:5000" ];
 
       volumes = [
         "${cfg.dataDir}:/app/Data"
@@ -36,7 +35,7 @@ in
       ];
     };
 
-    virtualisation.oci-containers.proxy.containers.fileflows = lib.mkIf cfg.networking.reverproxied {
+    virtualisation.oci-containers.proxy.containers.fileflow = lib.mkIf cfg.networking.reverproxied {
       port = 5000;
     };
 
