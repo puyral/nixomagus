@@ -1,4 +1,4 @@
-{ lib, config, ... }:
+{ lib, config, pkgs, ... }:
 with lib;
 let
   cfg = config.networking.nginx;
@@ -36,7 +36,11 @@ let
     {
       "${serverName}" = {
         forceSSL = first.forceHttps;
+        quic = true;
         useACMEHost = config.extra.acme.domain;
+        extraConfig = ''
+          add_header Alt-Svc 'h3=":443"; ma=86400';
+        '';
         locations = lib.listToAttrs (map (attrs: {
           name = attrs.path;
           value = {
@@ -75,10 +79,12 @@ in
       enable = true;
       recommendedProxySettings = true;
       recommendedTlsSettings = true;
+      sslProtocols = "TLSv1.3";
       inherit virtualHosts;
     };
 
     networking.firewall.allowedTCPPorts = [ 80 443 ];
+    networking.firewall.allowedUDPPorts = [ 443 ];
 
     # Ensure nginx user can access acme certs
     users.users.nginx.extraGroups = [ "acme" ];
