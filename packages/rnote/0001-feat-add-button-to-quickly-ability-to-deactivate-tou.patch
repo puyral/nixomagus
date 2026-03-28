@@ -1,0 +1,339 @@
+From da7798694f5242b7c079ac90973310c98513eba9 Mon Sep 17 00:00:00 2001
+From: puyral <7871851+puyral@users.noreply.github.com>
+Date: Sat, 12 Jul 2025 13:13:32 +0200
+Subject: [PATCH] feat: add button to quickly ability to deactivate touch
+ inputs (#1246)
+
+---
+ .../actions/touch-disabled-symbolic.svg       |  4 +
+ crates/rnote-ui/data/resources.gresource.xml  |  1 +
+ crates/rnote-ui/data/ui/mainheader.ui         |  7 ++
+ crates/rnote-ui/src/appwindow/actions.rs      |  2 +
+ crates/rnote-ui/src/appwindow/imp.rs          | 10 +++
+ crates/rnote-ui/src/appwindow/mod.rs          | 10 +++
+ crates/rnote-ui/src/canvaswrapper.rs          | 78 ++++++++++++++++++-
+ 7 files changed, 110 insertions(+), 2 deletions(-)
+ create mode 100644 crates/rnote-ui/data/icons/scalable/actions/touch-disabled-symbolic.svg
+
+diff --git a/crates/rnote-ui/data/icons/scalable/actions/touch-disabled-symbolic.svg b/crates/rnote-ui/data/icons/scalable/actions/touch-disabled-symbolic.svg
+new file mode 100644
+index 00000000..542d8131
+--- /dev/null
++++ b/crates/rnote-ui/data/icons/scalable/actions/touch-disabled-symbolic.svg
+@@ -0,0 +1,4 @@
++<?xml version="1.0" encoding="UTF-8"?>
++<svg height="16px" viewBox="0 0 16 16" width="16px" xmlns="http://www.w3.org/2000/svg">
++    <path d="m 3 0 c -1.175781 0 -2.199219 0.695312 -2.6875 1.6875 l 0.15625 -0.15625 l 14 14 l 1.0625 -1.0625 l -1.292969 -1.292969 l 1.46875 -1.46875 c 0.449219 -0.449219 0.386719 -1.632812 -0.695312 -1.71875 c -0.273438 0.003907 -0.53125 0.109375 -0.71875 0.304688 l -1.503907 1.433593 l -0.789062 -0.789062 v -4.9375 h -2 v 2.9375 l -2.9375 -2.9375 h 2.9375 v -2 c 0 -0.554688 0.445312 -1 1 -1 s 1 0.445312 1 1 v 2 h 1 c 1.644531 0 3 -1.355469 3 -3 s -1.355469 -3 -3 -3 z m -2.99609375 3.066406 c 0.03515625 1.59375 1.33593775 2.894532 2.92968775 2.929688 z m 1.99609375 4.878906 c -0.554688 0 -1 0.445313 -1 1 v 4.054688 s 0 3 3 3 h 6 c 0.726562 -0.003906 1.507812 -0.296875 2.152344 -0.785156 l -5.328125 -5.328125 c -0.070313 0.066406 -0.171875 0.113281 -0.324219 0.113281 c -0.5 0 -0.5 -0.5 -0.5 -0.5 v -0.4375 l -1.054688 -1.054688 c -0.527343 0.027344 -0.945312 0.457032 -0.945312 0.992188 v 0.5 s 0 0.5 -0.5 0.5 s -0.5 -0.5 -0.5 -0.5 v -0.554688 c 0 -0.554687 -0.445312 -1 -1 -1 z m 0 0" fill="#2e3436"/>
++</svg>
+diff --git a/crates/rnote-ui/data/resources.gresource.xml b/crates/rnote-ui/data/resources.gresource.xml
+index 5532364b..1e3c8bf6 100644
+--- a/crates/rnote-ui/data/resources.gresource.xml
++++ b/crates/rnote-ui/data/resources.gresource.xml
+@@ -78,6 +78,7 @@
+         <file compressed="true">icons/scalable/actions/emojichooser-symbolic.svg</file>
+         <file compressed="true">icons/scalable/actions/fill-color-symbolic.svg</file>
+         <file compressed="true">icons/scalable/actions/focus-mode-symbolic.svg</file>
++        <file compressed="true">icons/scalable/actions/touch-disabled-symbolic.svg</file>
+         <file compressed="true">icons/scalable/actions/keyboard-ctrl-space-shortcut-symbolic.svg</file>
+         <file compressed="true">icons/scalable/actions/minus-symbolic.svg</file>
+         <file compressed="true">icons/scalable/actions/misc-menu-symbolic.svg</file>
+diff --git a/crates/rnote-ui/data/ui/mainheader.ui b/crates/rnote-ui/data/ui/mainheader.ui
+index be5de3e5..f63f4065 100644
+--- a/crates/rnote-ui/data/ui/mainheader.ui
++++ b/crates/rnote-ui/data/ui/mainheader.ui
+@@ -61,6 +61,13 @@
+                     <property name="tooltip-text" translatable="yes">Focus Mode</property>
+                   </object>
+                 </child>
++                <child>
++                  <object class="GtkToggleButton">
++                    <property name="icon-name">touch-disabled-symbolic</property>
++                    <property name="action-name">win.block-touch</property>
++                    <property name="tooltip-text" translatable="yes">Block Touch</property>
++                  </object>
++                </child>
+               </object>
+             </child>
+           </object>
+diff --git a/crates/rnote-ui/src/appwindow/actions.rs b/crates/rnote-ui/src/appwindow/actions.rs
+index 740ca224..2edf7f28 100644
+--- a/crates/rnote-ui/src/appwindow/actions.rs
++++ b/crates/rnote-ui/src/appwindow/actions.rs
+@@ -150,6 +150,8 @@ impl RnAppWindow {
+         let action_block_pinch_zoom =
+             gio::PropertyAction::new("block-pinch-zoom", self, "block-pinch-zoom");
+         self.add_action(&action_block_pinch_zoom);
++        let action_block_touch = gio::PropertyAction::new("block-touch", self, "block-touch");
++        self.add_action(&action_block_touch);
+         let action_respect_borders =
+             gio::PropertyAction::new("respect-borders", self, "respect-borders");
+         self.add_action(&action_respect_borders);
+diff --git a/crates/rnote-ui/src/appwindow/imp.rs b/crates/rnote-ui/src/appwindow/imp.rs
+index 438b7f2c..90131ea6 100644
+--- a/crates/rnote-ui/src/appwindow/imp.rs
++++ b/crates/rnote-ui/src/appwindow/imp.rs
+@@ -26,6 +26,7 @@ pub(crate) struct RnAppWindow {
+     pub(crate) autosave_interval_secs: Cell<u32>,
+     pub(crate) righthanded: Cell<bool>,
+     pub(crate) block_pinch_zoom: Cell<bool>,
++    pub(crate) block_touch: Cell<bool>,
+     pub(crate) respect_borders: Cell<bool>,
+     pub(crate) touch_drawing: Cell<bool>,
+     pub(crate) focus_mode: Cell<bool>,
+@@ -65,6 +66,7 @@ impl Default for RnAppWindow {
+             autosave_interval_secs: Cell::new(super::RnAppWindow::AUTOSAVE_INTERVAL_DEFAULT),
+             righthanded: Cell::new(true),
+             block_pinch_zoom: Cell::new(false),
++            block_touch: Cell::new(false),
+             respect_borders: Cell::new(false),
+             touch_drawing: Cell::new(false),
+             focus_mode: Cell::new(false),
+@@ -163,6 +165,9 @@ impl ObjectImpl for RnAppWindow {
+                 glib::ParamSpecBoolean::builder("block-pinch-zoom")
+                     .default_value(false)
+                     .build(),
++                glib::ParamSpecBoolean::builder("block-touch")
++                    .default_value(false)
++                    .build(),
+                 glib::ParamSpecBoolean::builder("respect-borders")
+                     .default_value(false)
+                     .build(),
+@@ -195,6 +200,7 @@ impl ObjectImpl for RnAppWindow {
+             "autosave-interval-secs" => self.autosave_interval_secs.get().to_value(),
+             "righthanded" => self.righthanded.get().to_value(),
+             "block-pinch-zoom" => self.block_pinch_zoom.get().to_value(),
++            "block-touch" => self.block_touch.get().to_value(),
+             "respect-borders" => self.respect_borders.get().to_value(),
+             "touch-drawing" => self.touch_drawing.get().to_value(),
+             "focus-mode" => self.focus_mode.get().to_value(),
+@@ -280,6 +286,10 @@ impl ObjectImpl for RnAppWindow {
+                     value.get().expect("The value needs to be of type `bool`");
+                 self.block_pinch_zoom.replace(block_pinch_zoom);
+             }
++            "block-touch" => {
++                let block_touch: bool = value.get().expect("The value needs to be of type `bool`");
++                self.block_touch.replace(block_touch);
++            }
+             "respect-borders" => {
+                 let respect_borders: bool =
+                     value.get().expect("The value needs to be of type `bool`");
+diff --git a/crates/rnote-ui/src/appwindow/mod.rs b/crates/rnote-ui/src/appwindow/mod.rs
+index d8b7e23b..12e5a162 100644
+--- a/crates/rnote-ui/src/appwindow/mod.rs
++++ b/crates/rnote-ui/src/appwindow/mod.rs
+@@ -150,6 +150,16 @@ impl RnAppWindow {
+         self.set_property("focus-mode", focus_mode.to_value());
+     }
+ 
++    #[allow(unused)]
++    pub(crate) fn block_touch(&self) -> bool {
++        self.property::<bool>("block-touch")
++    }
++
++    #[allow(unused)]
++    pub(crate) fn set_block_touch(&self, focus_mode: bool) {
++        self.set_property("block-touch", focus_mode.to_value());
++    }
++
+     #[allow(unused)]
+     pub(crate) fn devel_mode(&self) -> bool {
+         self.property::<bool>("devel-mode")
+diff --git a/crates/rnote-ui/src/canvaswrapper.rs b/crates/rnote-ui/src/canvaswrapper.rs
+index 7b6cec51..c7b01d8c 100644
+--- a/crates/rnote-ui/src/canvaswrapper.rs
++++ b/crates/rnote-ui/src/canvaswrapper.rs
+@@ -17,6 +17,7 @@ use std::time::Instant;
+ #[derive(Debug, Default)]
+ struct Connections {
+     appwindow_block_pinch_zoom_bind: Option<glib::Binding>,
++    appwindow_block_touch_bind: Option<glib::Binding>,
+     appwindow_show_scrollbars_bind: Option<glib::Binding>,
+     appwindow_inertial_scrolling_bind: Option<glib::Binding>,
+     appwindow_righthanded_bind: Option<glib::Binding>,
+@@ -32,6 +33,7 @@ mod imp {
+         pub(crate) canvas_touch_drawing_handler: RefCell<Option<glib::SignalHandlerId>>,
+         pub(crate) show_scrollbars: Cell<bool>,
+         pub(crate) block_pinch_zoom: Cell<bool>,
++        pub(crate) block_touch: Cell<bool>,
+         pub(crate) inertial_scrolling: Cell<bool>,
+         pub(crate) pointer_pos: Cell<Option<na::Vector2<f64>>>,
+         pub(crate) last_contextmenu_pos: Cell<Option<na::Vector2<f64>>>,
+@@ -131,6 +133,7 @@ mod imp {
+                 canvas_touch_drawing_handler: RefCell::new(None),
+                 show_scrollbars: Cell::new(false),
+                 block_pinch_zoom: Cell::new(false),
++                block_touch: Cell::new(false),
+                 inertial_scrolling: Cell::new(true),
+                 pointer_pos: Cell::new(None),
+                 last_contextmenu_pos: Cell::new(None),
+@@ -244,6 +247,9 @@ mod imp {
+                     glib::ParamSpecBoolean::builder("block-pinch-zoom")
+                         .default_value(false)
+                         .build(),
++                    glib::ParamSpecBoolean::builder("block-touch")
++                        .default_value(false)
++                        .build(),
+                     glib::ParamSpecBoolean::builder("inertial-scrolling")
+                         .default_value(true)
+                         .build(),
+@@ -256,6 +262,7 @@ mod imp {
+             match pspec.name() {
+                 "show-scrollbars" => self.show_scrollbars.get().to_value(),
+                 "block-pinch-zoom" => self.block_pinch_zoom.get().to_value(),
++                "block-touch" => self.block_pinch_zoom.get().to_value(),
+                 "inertial-scrolling" => self.inertial_scrolling.get().to_value(),
+                 _ => unimplemented!(),
+             }
+@@ -279,6 +286,15 @@ mod imp {
+                     self.block_pinch_zoom.replace(block_pinch_zoom);
+                     self.canvas_zoom_gesture_update();
+                 }
++                "block-touch" => {
++                    let block_touch = value
++                        .get::<bool>()
++                        .expect("The value needs to be of type `bool`");
++                    self.block_touch.replace(block_touch);
++                    self.canvas_touch_pan_update();
++                    self.canvas_zoom_gesture_update();
++                    self.canvas_kinetic_scrolling_update();
++                }
+                 "inertial-scrolling" => {
+                     let inertial_scrolling = value
+                         .get::<bool>()
+@@ -296,7 +312,10 @@ mod imp {
+ 
+     impl RnCanvasWrapper {
+         fn canvas_zoom_gesture_update(&self) {
+-            if !self.block_pinch_zoom.get() && !self.canvas.touch_drawing() {
++            if !self.block_pinch_zoom.get()
++                && !self.block_touch.get()
++                && !self.canvas.touch_drawing()
++            {
+                 self.canvas_zoom_gesture
+                     .set_propagation_phase(PropagationPhase::Capture);
+             } else {
+@@ -305,9 +324,30 @@ mod imp {
+             }
+         }
+ 
++        fn canvas_touch_pan_update(&self) {
++            if !self.block_touch.get() && !self.canvas.touch_drawing() {
++                self.canvas_drag_gesture
++                    .set_propagation_phase(PropagationPhase::Bubble);
++                self.touch_two_finger_long_press_gesture
++                    .set_propagation_phase(PropagationPhase::Capture);
++                self.touch_long_press_gesture
++                    .set_propagation_phase(PropagationPhase::Capture);
++            } else {
++                // set everythinbg to `None`
++                self.canvas_drag_gesture
++                    .set_propagation_phase(PropagationPhase::None);
++                self.touch_two_finger_long_press_gesture
++                    .set_propagation_phase(PropagationPhase::None);
++                self.touch_long_press_gesture
++                    .set_propagation_phase(PropagationPhase::None);
++            }
++        }
++
+         fn canvas_kinetic_scrolling_update(&self) {
+             self.scroller.set_kinetic_scrolling(
+-                !self.canvas.touch_drawing() && self.inertial_scrolling.get(),
++                !self.block_touch.get()
++                    && !self.canvas.touch_drawing()
++                    && self.inertial_scrolling.get(),
+             );
+         }
+ 
+@@ -405,6 +445,9 @@ mod imp {
+                     #[weak(rename_to=canvaswrapper)]
+                     obj,
+                     move |_, _, _| {
++                        if canvaswrapper.block_touch() {
++                            return ();
++                        }
+                         // We don't claim the sequence, because we we want to allow touch zooming.
+                         // When the zoom gesture is recognized, it claims it and denies this touch drag gesture.
+ 
+@@ -420,6 +463,9 @@ mod imp {
+                     #[weak(rename_to=canvaswrapper)]
+                     obj,
+                     move |_, x, y| {
++                        if canvaswrapper.block_touch() {
++                            return ();
++                        }
+                         let canvas = canvaswrapper.canvas();
+                         let new_offset = touch_drag_start.get() - na::vector![x, y];
+                         let widget_flags = canvas.engine_mut().camera_set_offset_expand(new_offset);
+@@ -430,6 +476,9 @@ mod imp {
+                     #[weak(rename_to=canvaswrapper)]
+                     obj,
+                     move |_, _, _| {
++                        if canvaswrapper.block_touch() {
++                            return ();
++                        }
+                         let widget_flags = canvaswrapper
+                             .canvas()
+                             .engine_mut()
+@@ -832,6 +881,7 @@ impl RnCanvasWrapper {
+     pub(crate) fn set_show_scrollbars(&self, show_scrollbars: bool) {
+         self.set_property("show-scrollbars", show_scrollbars.to_value());
+     }
++
+     #[allow(unused)]
+     pub(crate) fn block_pinch_zoom(&self) -> bool {
+         self.property::<bool>("block-pinch-zoom")
+@@ -842,6 +892,16 @@ impl RnCanvasWrapper {
+         self.set_property("block-pinch-zoom", block_pinch_zoom);
+     }
+ 
++    #[allow(unused)]
++    pub(crate) fn block_touch(&self) -> bool {
++        self.property::<bool>("block-touch")
++    }
++
++    #[allow(unused)]
++    pub(crate) fn set_block_touch(&self, block_touch: bool) {
++        self.set_property("block-touch", block_touch);
++    }
++
+     #[allow(unused)]
+     pub(crate) fn inertial_scrolling(&self) -> bool {
+         self.property::<bool>("inertial-scrolling")
+@@ -885,6 +945,11 @@ impl RnCanvasWrapper {
+             .sync_create()
+             .build();
+ 
++        let appwindow_block_touch_bind = appwindow
++            .bind_property("block-touch", self, "block_touch")
++            .sync_create()
++            .build();
++
+         let appwindow_show_scrollbars_bind = appwindow
+             .sidebar()
+             .settings_panel()
+@@ -920,6 +985,12 @@ impl RnCanvasWrapper {
+         {
+             old.unbind()
+         }
++        if let Some(old) = connections
++            .appwindow_block_touch_bind
++            .replace(appwindow_block_touch_bind)
++        {
++            old.unbind()
++        }
+         if let Some(old) = connections
+             .appwindow_show_scrollbars_bind
+             .replace(appwindow_show_scrollbars_bind)
+@@ -951,6 +1022,9 @@ impl RnCanvasWrapper {
+         if let Some(old) = connections.appwindow_block_pinch_zoom_bind.take() {
+             old.unbind();
+         }
++        if let Some(old) = connections.appwindow_block_touch_bind.take() {
++            old.unbind();
++        }
+         if let Some(old) = connections.appwindow_show_scrollbars_bind.take() {
+             old.unbind();
+         }
+-- 
+2.51.2
+

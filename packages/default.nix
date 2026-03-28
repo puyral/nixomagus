@@ -25,6 +25,7 @@
         ./swww-change-wp
         ./wandarr
         ./probe-rs-udev
+        ./rnote
       ];
 
       mainPkgs =

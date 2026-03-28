@@ -76,6 +76,7 @@
         squirrel-prover-src-cv.url = "github:puyral/squirrel-prover/674e12f7283974e17241cad4f892d4a9bb47c2f6";
       };
     };
+
     lean-lsp-mcp = {
       url = "github:puyral/lean-lsp-mcp";
       inputs = {
@@ -83,7 +84,7 @@
         treefmt-nix.follows = "treefmt-nix";
         flake-parts.follows = "flake-parts";
       };
-    };
+    }; 
 
     mangowc = {
       url = "github:puyral/mangowc/simon";
