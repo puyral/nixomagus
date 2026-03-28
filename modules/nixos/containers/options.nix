@@ -9,21 +9,21 @@ with lib;
           options = {
             vpn = mkEnableOption "vpn access";
             gpu = mkEnableOption "gpu passthough";
-            traefik =
+            nginx =
               let
-                inner_tf_options = (import ../traefik/options.nix) lib // {
+                inner_nginx_options = (import ../nginx/options.nix) lib // {
                   name = mkOption {
                     type = types.str;
                     default = name;
                     description = "the subdomain name";
                   };
-                  enable = mkEnableOption "traefik redirection";
+                  enable = mkEnableOption "nginx redirection";
                 };
               in
               mkOption {
                 default = [ ];
-                description = "reverse proxy configurations";
-                type = types.listOf (types.submodule { options = inner_tf_options; });
+                description = "reverse proxy configurations (nginx)";
+                type = types.listOf (types.submodule { options = inner_nginx_options; });
               };
             privateNetwork = mkOption {
               type = types.bool;

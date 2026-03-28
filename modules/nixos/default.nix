@@ -52,12 +52,12 @@ let
     cachefilesd = ./cachefilesd;
     calibre-web = ./calibre-web;
     controllers = ./controllers;
-    docker-traefik = ./docker-traefik;
     fileflows = ./fileflows;
     github-runner = ./github-runner;
     gui = ./gui;
     headscale = ./headscale;
     immich = ./immich;
+    jellyfin = ./jellyfin;
     kavita = ./kavita;
     llm = ./llm;
     mail = ./mail;
@@ -65,6 +65,7 @@ let
     monitoring = ./monitoring;
     mount-containers = ./mount-containers;
     n8n = ./n8n;
+    nginx = ./nginx;
     nix-ld = ./nix-ld;
     ntfy = ./ntfy;
     paperless = ./paperless;
@@ -76,9 +77,9 @@ let
     syncthing-module = ./syncthing-module;
     tailscale-exit-container = ./tailscale-exit-container;
     torrent = ./torrent;
-    traefik = ./traefik;
     v4l2loopback = ./v4l2loopback;
     virtualisation = ./virtualisation;
+    oci-docker = ./virtualisation/oci-docker.nix;
     wachtower = ./wachtower;
     zigbee2mqtt = ./zigbee2mqtt;
     vaultwarden = ./vaultwarden;

@@ -8,7 +8,6 @@
   imports = [
     ./filesharing.nix
     ./syncthing.nix
-    ./jellyfin.nix
     ./homeassistant.nix
     ./portainer.nix
     ./mosquitto.nix
@@ -35,6 +34,8 @@
     in
     {
       acme.enable = true;
+
+      jellyfin.enable = true;
 
       zigbee2mqtt = {
         enable = true;
@@ -169,10 +170,10 @@
     nat = {
       enable = true;
     };
-    traefik = {
+    nginx = {
       enable = true;
-      docker.enable = true;
-      log.level = "INFO";
+      # docker.enable = true;
+      # log.level = "INFO";
     };
   };
 }

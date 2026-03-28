@@ -181,7 +181,7 @@ in
 
               # PAPERLESS_OCR_SKIP_ARCHIVE_FILE = "with_text";
               PAPERLESS_TRUSTED_PROXIES = config.containers.${name}.hostAddress;
-              PAPERLESS_URL = "https://${name}.${config.networking.traefik.baseDomain}";
+              PAPERLESS_URL = "https://${name}.${config.networking.nginx.baseDomain}";
               # PAPERLESS_CSRF_TRUSTED_ORIGINS = "${PAPERLESS_URL},${PAPERLESS_TRUSTED_PROXIES}";
             };
             address = "0.0.0.0";
@@ -206,7 +206,7 @@ in
         };
     };
     extra.containers.${name} = {
-      traefik = [
+      nginx = [
         {
           inherit port;
           enable = true;

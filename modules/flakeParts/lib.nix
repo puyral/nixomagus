@@ -27,7 +27,7 @@
         pkgs-unstable = mkPkgs nixpkgs-unstable;
         pkgs-kernel = mkPkgs nixpkgs-kernel;
         pkgs-self = self.packages.${system};
-        custom = custom.packages.${system};
+        # custom = custom.packages.${system};
       })
       // {
         inherit system rootDir computer;

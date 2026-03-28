@@ -1,15 +1,14 @@
 {
   config,
   lib,
-  pkgs,
-  custom,
+  pkgs-self,
   ...
 }:
 
 with lib;
 let
   cfg = config.services.isw;
-  defaultConf = "${custom.isw}/etc/isw.conf";
+  defaultConf = "${pkgs-self.isw}/etc/isw.conf";
 in
 {
   options = {
@@ -28,7 +27,7 @@ in
   };
 
   config = {
-    environment.systemPackages = mkIf cfg.enable [ custom.isw ];
+    environment.systemPackages = mkIf cfg.enable [ pkgs-self.isw ];
 
     environment.etc."isw.conf".source = mkIf cfg.enable (
       if cfg.configFile == null then defaultConf else cfg.configFile
@@ -38,7 +37,7 @@ in
     boot.extraModprobeConfig = mkIf cfg.enable "options ec_sys write_support=1";
 
     systemd = {
-      packages = [ custom.isw ];
+      packages = [ pkgs-self.isw ];
       services.isw = {
         wantedBy = [ "multi-user.target" ];
       };

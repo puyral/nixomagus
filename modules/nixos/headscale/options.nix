@@ -35,7 +35,7 @@
     };
     # baseDomain = mkOption {
     #   type = types.str;
-    #   default = config.networking.traefik.baseDomain;
+    #   default = config.networking.nginx.baseDomain;
     # };
   };
 }

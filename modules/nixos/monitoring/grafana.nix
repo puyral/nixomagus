@@ -41,7 +41,7 @@ lib.mkIf enable {
     };
   };
 
-  networking.traefik.instances.grafana = {
+  networking.nginx.instances.grafana = {
     enable = true;
     port = cfg.port;
   };

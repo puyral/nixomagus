@@ -21,7 +21,7 @@
     };
     home = {
       packages = [
-        home-manager.packages.${pkgs.system}.default
+        home-manager.packages.${pkgs.stdenv.hostPlatform.system}.default
       ];
     };
     nix.gc = {

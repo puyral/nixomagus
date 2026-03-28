@@ -21,7 +21,7 @@ in
 
     virtualisation.oci-containers.containers.fileflows = {
       image = cfg.image;
-      autoStart = false;
+      autoStart = true;
       ports = [ "5000:5000" ];
 
       volumes = [
@@ -36,9 +36,9 @@ in
       ];
     };
 
-    virtualisation.oci-containers.proxy.containers.fileflows = lib.mkIf cfg.networking.reverproxied {
+    networking.nginx.instances.fileflows = lib.mkIf cfg.networking.reverproxied {
       port = 5000;
-      name = cfg.networking.name;
+      # name = cfg.networking.name; # networking.nginx.instances uses the key as the subdomain name by default.
     };
 
     # networking.firewall.allowedTCPPorts = mkIf cfg.openFirewall [ 5000 ];

@@ -98,47 +98,49 @@ in
 
     extra.containers.${name} =
       let
-        domain = "${cfg.extraDomain}.${config.networking.traefik.baseDomain}";
-        regexpRule = "{subdomain:[a-z0-9]+}.${config.networking.traefik.baseDomain}";
+        domain = "${cfg.extraDomain}.${config.networking.nginx.baseDomain}";
+        regexpRule = "{subdomain:[a-z0-9]+}.${config.networking.nginx.baseDomain}";
       in
       {
-        traefik = [
+        nginx = [
           {
             port = httpPort;
             enable = true;
             providers = [ "ovh-pl" ];
-            extra.rule = "Host(`${domain}`) || HostRegexp(`${regexpRule}`) && PathPrefix(`/outpost.goauthentik.io/`)";
+            # For now just using Host, the PathPrefix and RegexpRule need more complex Nginx config if actually used.
+            # extra.rule = "Host(`${domain}`) || HostRegexp(`${regexpRule}`) && PathPrefix(`/outpost.goauthentik.io/`)";
           }
         ];
       };
-    services.traefik = {
-      dynamicConfigOptions = {
-        http = {
-          middlewares = {
-            authentik = {
-              forwardAuth = {
-                tls.insecureSkipVerify = true;
-                address = "https://${address}:${builtins.toString httpsPort}/outpost.goauthentik.io/auth/traefik";
-                trustForwardHeader = true;
-                authResponseHeaders = [
-                  "X-authentik-username"
-                  "X-authentik-groups"
-                  "X-authentik-email"
-                  "X-authentik-name"
-                  "X-authentik-uid"
-                  "X-authentik-jwt"
-                  "X-authentik-meta-jwks"
-                  "X-authentik-meta-outpost"
-                  "X-authentik-meta-provider"
-                  "X-authentik-meta-app"
-                  "X-authentik-meta-version"
-                ];
-              };
-            };
-          };
-        };
-      };
-    };
+    # networking.nginx.dynamicConfigOptions ... (middleware needs translation if used)
+    # services.traefik = {
+    #   dynamicConfigOptions = {
+    #     http = {
+    #       middlewares = {
+    #         authentik = {
+    #           forwardAuth = {
+    #             tls.insecureSkipVerify = true;
+    #             address = "https://${address}:${builtins.toString httpsPort}/outpost.goauthentik.io/auth/traefik";
+    #             trustForwardHeader = true;
+    #             authResponseHeaders = [
+    #               "X-authentik-username"
+    #               "X-authentik-groups"
+    #               "X-authentik-email"
+    #               "X-authentik-name"
+    #               "X-authentik-uid"
+    #               "X-authentik-jwt"
+    #               "X-authentik-meta-jwks"
+    #               "X-authentik-meta-outpost"
+    #               "X-authentik-meta-provider"
+    #               "X-authentik-meta-app"
+    #               "X-authentik-meta-version"
+    #             ];
+    #           };
+    #         };
+    #       };
+    #     };
+    #   };
+    # };
   };
 
 }

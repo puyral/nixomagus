@@ -97,7 +97,7 @@ in
     extra.containers.photoprism = {
       vpn = true;
 
-      traefik = [
+      nginx = [
         {
           inherit port;
           name = cfg.subdomain;
