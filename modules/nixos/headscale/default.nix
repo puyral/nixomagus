@@ -55,7 +55,7 @@ in
                 authcfg
                 oidc
                 ;
-              baseDomain = config.networking.traefik.baseDomain;
+              baseDomain = config.networking.nginx.baseDomain;
             };
             services.tailscale.enable = true;
           };
@@ -64,16 +64,16 @@ in
 
     extra.containers.${name} =
       let
-        domain = "${cfg.extraDomain}.${config.networking.traefik.baseDomain}";
+        domain = "${cfg.extraDomain}.${config.networking.nginx.baseDomain}";
       in
       {
         vpn = true;
-        traefik = [
+        nginx = [
           {
             port = cfg.headscale.port;
             enable = true;
             providers = [ "ovh-pl" ];
-            extra.rule = "Host(`${domain}`) && PathPrefix(`/`)";
+            path = "/";
             forceHttps = false;
           }
           {
@@ -81,7 +81,7 @@ in
             name = "headplane";
             enable = true;
             providers = [ "ovh-pl" ];
-            extra.rule = "Host(`${domain}`) && PathPrefix(`/admin`)";
+            path = "/admin";
           }
         ];
       };

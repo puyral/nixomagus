@@ -61,7 +61,7 @@ in
         };
     };
     extra.containers.${name} = {
-      traefik = [
+      nginx = [
         {
           inherit port;
           name = "zigbee2mqtt";

@@ -13,7 +13,8 @@ The main entry point is `extra.containers.<name>`.
 | `vpn` | boolean | `false` | Enables Tailscale inside the container for VPN access. |
 | `gpu` | boolean | `false` | Passes through `/dev/dri/renderD128` and installs Intel compute/media drivers (OpenCL, QSV) inside the container. |
 | `privateNetwork` | boolean | `true` | Creates a private network (VEPA-like) with automatic IP assignment (`192.168.100.x`). If false, uses host networking. |
-| `traefik` | list | `[]` | List of reverse proxy configurations. See [Traefik Module](../traefik/README.md). |
+| `traefik` | list | `[]` | List of reverse proxy configurations (legacy). See [Traefik Module](../traefik/README.md). |
+| `nginx` | list | `[]` | List of reverse proxy configurations. See [Nginx Module](../nginx/README.md). |
 
 ## Internal Mechanics
 
@@ -36,7 +37,7 @@ All containers inherit from `base_config.nix`, which provides:
 extra.containers.my-service = {
   gpu = true;
   vpn = false;
-  traefik = [
+  nginx = [
     {
       port = 8080;
       name = "myservice"; # becomes myservice.puyral.fr
@@ -45,7 +46,7 @@ extra.containers.my-service = {
     }
   ];
 };
-
+```
 containers.my-service = {
   bindMounts = { ... };
   config = { ... }; # Standard NixOS container config

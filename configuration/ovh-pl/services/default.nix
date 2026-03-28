@@ -12,11 +12,11 @@
       enable = true;
       externalInterface = "ens3";
     };
-    traefik = {
+    nginx = {
       enable = true;
       # docker.enable = true;
       # log.level = "DEBUG";
-      instances = self.nixosConfigurations.dynas.config.networking.traefik.instances;
+      instances = self.nixosConfigurations.dynas.config.networking.nginx.instances;
     };
   };
 
@@ -32,6 +32,7 @@
       rustdesk-signal.serviceConfig.ExecStart = lib.mkForce "${cfg.package}/bin/hbbs";
     };
   extra = {
+    acme.enable = true;
     headscale = {
       enable = true;
       extraDomain = "headscale";

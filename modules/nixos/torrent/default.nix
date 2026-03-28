@@ -77,7 +77,7 @@ in
         };
     };
     extra.containers.torrent = {
-      traefik = [
+      nginx = [
         {
           port = 80;
           enable = true;

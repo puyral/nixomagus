@@ -170,10 +170,10 @@
     nat = {
       enable = true;
     };
-    traefik = {
+    nginx = {
       enable = true;
-      docker.enable = true;
-      log.level = "INFO";
+      # docker.enable = true;
+      # log.level = "INFO";
     };
   };
 }
