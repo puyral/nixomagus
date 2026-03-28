@@ -3,7 +3,7 @@ let
   cfg = config.extra.authelia;
   name = "authelia";
   url = "${cfg.extraDomain}.${domain}";
-  domain = config.networking.traefik.baseDomain;
+  domain = config.networking.nginx.baseDomain;
   instanceName = "main";
   port = 9091;
   address = config.containers.${name}.localAddress;
@@ -75,7 +75,7 @@ in
         };
     };
     extra.containers.${name} = {
-      traefik = [
+      nginx = [
         {
           inherit port;
           enable = true;
@@ -83,27 +83,27 @@ in
         }
       ];
     };
-    services.traefik = {
-      dynamicConfigOptions = {
-        http = {
-          middlewares = {
-            authentik = {
-              forwardAuth = {
-                tls.insecureSkipVerify = true;
-                address = "http://${address}:${builtins.toString port}/api/authz/forward-auth";
-                trustForwardHeader = true;
-                authResponseHeaders = [
-                  "Remote-User"
-                  "Remote-Groups"
-                  "Remote-Email"
-                  "Remote-Name"
-                ];
-              };
-            };
-          };
-        };
-      };
-    };
+    # services.traefik = {
+    #   dynamicConfigOptions = {
+    #     http = {
+    #       middlewares = {
+    #         authentik = {
+    #           forwardAuth = {
+    #             tls.insecureSkipVerify = true;
+    #             address = "http://${address}:${builtins.toString port}/api/authz/forward-auth";
+    #             trustForwardHeader = true;
+    #             authResponseHeaders = [
+    #               "Remote-User"
+    #               "Remote-Groups"
+    #               "Remote-Email"
+    #               "Remote-Name"
+    #             ];
+    #           };
+    #         };
+    #       };
+    #     };
+    #   };
+    # };
 
   };
 }

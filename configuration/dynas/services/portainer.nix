@@ -15,7 +15,7 @@ in
   #     "${socket}:/var/run/docker.sock:rw"
   #   ];
   # };
-  # virtualisation.oci-containers.proxy.containers.${name} = {
+  # networking.nginx.instances.${name} = {
   #   port = 9000;
   #   domain = "dynas.puyral.fr";
   # };

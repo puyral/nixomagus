@@ -26,36 +26,34 @@ in
           isReadOnly = false;
         };
       };
+      config =
+        { ... }:
+        {
+          services.jellyfin = {
+            enable = true;
+            openFirewall = true;
+            user = "jellyfin";
+          };
+          services.jellyseerr.enable = true;
+
+          programs.nix-ld.enable = true;
+          # We need to make sure these users/groups exist or are inherited
+          # In the original, they were assigned from config.users.users.jellyfin
+          # which refers to the HOST users.
+          users.users.jellyfin = config.users.users.jellyfin;
+          users.groups.jellyfin.gid = config.users.groups.jellyfin.gid;
+          users.groups."render".gid = config.users.groups."render".gid;
+          users.groups."video".gid = config.users.groups."video".gid;
+
+          systemd.services.jellyfin.serviceConfig.DeviceAllow = [ "/dev/dri/renderD128" ];
+        };
     };
 
     extra.containers.${name} = {
       gpu = true;
       privateNetwork = false;
-      # Do NOT use traefik option here as per user request
+      # Do NOT use nginx option here as per user request
     };
-
-    # The container configuration itself
-    containers.${name}.config =
-      { ... }:
-      {
-        services.jellyfin = {
-          enable = true;
-          openFirewall = true;
-          user = "jellyfin";
-        };
-        services.jellyseerr.enable = true;
-
-        programs.nix-ld.enable = true;
-        # We need to make sure these users/groups exist or are inherited
-        # In the original, they were assigned from config.users.users.jellyfin
-        # which refers to the HOST users.
-        users.users.jellyfin = config.users.users.jellyfin;
-        users.groups.jellyfin.gid = config.users.groups.jellyfin.gid;
-        users.groups."render".gid = config.users.groups."render".gid;
-        users.groups."video".gid = config.users.groups."video".gid;
-
-        systemd.services.jellyfin.serviceConfig.DeviceAllow = [ "/dev/dri/renderD128" ];
-      };
 
     users.users.jellyfin = {
       isSystemUser = true;

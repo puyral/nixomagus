@@ -75,7 +75,7 @@ in
         };
     };
     extra.containers.${name} = {
-      traefik = [
+      nginx = [
         {
           inherit port;
           enable = true;
