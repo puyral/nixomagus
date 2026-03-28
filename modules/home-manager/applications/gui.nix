@@ -35,7 +35,7 @@ in
 
       in
       [
-  pkgs-self.rnote
+        pkgs-self.rnote
       ]
 
       ++ (with pkgs-stable; [

@@ -84,7 +84,7 @@
         treefmt-nix.follows = "treefmt-nix";
         flake-parts.follows = "flake-parts";
       };
-    }; 
+    };
 
     mangowc = {
       url = "github:puyral/mangowc/simon";
@@ -92,9 +92,9 @@
         nixpkgs.follows = "nixpkgs";
         flake-parts.follows = "flake-parts";
       };
-    }; 
-    
-       isw-src = {
+    };
+
+    isw-src = {
       url = "github:YoyPa/isw";
       flake = false;
     };
