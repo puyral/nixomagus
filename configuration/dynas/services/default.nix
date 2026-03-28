@@ -9,7 +9,7 @@
     ./filesharing.nix
     ./syncthing.nix
     ./homeassistant.nix
-    ./portainer.nix
+    # ./portainer.nix
     ./mosquitto.nix
     ./photos.nix
     ./github
@@ -58,7 +58,7 @@
         containered = true;
         transmission = false;
         rtorrent = true;
-        downloadDir = "/mnt/Zeno/other/downloads";
+        downloadDir = "${config.vars.Zeno.mountPoint}/other/downloads";
         extraPaths = {
           "/videos" = "${config.vars.Zeno.mountPoint}/media/videos";
           "/books" = bookLocation;

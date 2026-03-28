@@ -14,8 +14,9 @@ let
       mkServerName = name: attrs:
         let
           domain = if attrs.domain == null then cfg.baseDomain else attrs.domain;
+          sub = if (attrs ? subdomain && attrs.subdomain != null) then attrs.subdomain else name;
         in
-        "${name}.${domain}";
+        "${sub}.${domain}";
     in
     lib.foldl' (acc: name:
       let
@@ -45,7 +46,13 @@ let
                   if attrs.address != null then
                     attrs.address
                   else if (attrs ? container && attrs.container != null) then
-                    config.containers.${attrs.container}.localAddress
+                    let
+                      containerConfig = config.containers.${attrs.container};
+                    in
+                    if containerConfig ? localAddress && containerConfig.localAddress != null then
+                      containerConfig.localAddress
+                    else
+                      "localhost"
                   else
                     "localhost";
               in
