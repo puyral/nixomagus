@@ -34,6 +34,7 @@
       # url = "github:tale/headplane/bd8a7a56d4021edf58511c6ab333af864d91304c";
       inputs = {
         nixpkgs.follows = "nixpkgs";
+        flake-utils.follows = "flake-utils";
       };
     };
 
@@ -45,8 +46,11 @@
 
     darktable-jpeg-sync = {
       url = "github:puyral/darktable-jpeg-sync";
-      inputs.nixpkgs.follows = "nixpkgs";
-      inputs.treefmt-nix.follows = "treefmt-nix";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        treefmt-nix.follows = "treefmt-nix";
+        flake-utils.follows = "flake-utils";
+      };
     };
 
     paperless-ai-src = {
@@ -55,7 +59,7 @@
     };
 
     squirrel-prover-src = {
-      url = "github:squirrel-prover/squirrel-prover";
+      url = "github:squirrel-prover/squirrel-prover/58ea3d1c2db38ce9639dd1c17c9885c483c56472";
       flake = false;
     };
 
@@ -65,6 +69,11 @@
         nixpkgs.follows = "nixpkgs";
         cryptovampire-src.follows = "nixpkgs";
         treefmt-nix.follows = "treefmt-nix";
+        flake-utils.follows = "flake-utils";
+        opam-nix.inputs.flake-utils.follows = "flake-utils";
+        opam-nix.inputs.opam2json.inputs.systems.follows = "systems";
+        squirrel-prover-src.follows = "squirrel-prover-src";
+        squirrel-prover-src-cv.url = "github:puyral/squirrel-prover/674e12f7283974e17241cad4f892d4a9bb47c2f6";
       };
     };
     lean-lsp-mcp = {
@@ -87,6 +96,12 @@
     #######################
     ######## utils ########
     #######################
+
+    systems.url = "github:nix-systems/default";
+    flake-utils = {
+      url = "github:numtide/flake-utils";
+      inputs.systems.follows = "systems";
+    };
 
     sops-nix = {
       url = "github:Mic92/sops-nix";
