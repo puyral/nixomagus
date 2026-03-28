@@ -19,7 +19,7 @@ in
       "d ${cfg.tempDir} 0777 root root -"
     ];
 
-    virtualisation.oci-containers.containers.fileflows = {
+    virtualisation.oci-containers.containers.fileflow = {
       image = cfg.image;
       autoStart = true;
 
