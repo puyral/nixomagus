@@ -1,4 +1,9 @@
-{ lib, config, pkgs, ... }:
+{
+  lib,
+  config,
+  pkgs,
+  ...
+}:
 with lib;
 let
   cfg = config.networking.nginx;
@@ -11,24 +16,28 @@ let
   # Group instances by server name (host.domain)
   groupedInstances =
     let
-      mkServerName = name: attrs:
+      mkServerName =
+        name: attrs:
         let
           domain = if attrs.domain == null then cfg.baseDomain else attrs.domain;
           sub = if (attrs ? subdomain && attrs.subdomain != null) then attrs.subdomain else name;
         in
         "${sub}.${domain}";
     in
-    lib.foldl' (acc: name:
+    lib.foldl' (
+      acc: name:
       let
         attrs = activeInstances.${name};
         serverName = mkServerName name attrs;
       in
-      acc // {
-        "${serverName}" = (acc."${serverName}" or []) ++ [ (attrs // { instanceName = name; }) ];
+      acc
+      // {
+        "${serverName}" = (acc."${serverName}" or [ ]) ++ [ (attrs // { instanceName = name; }) ];
       }
-    ) {} (builtins.attrNames activeInstances);
+    ) { } (builtins.attrNames activeInstances);
 
-  mkVHost = serverName: instances:
+  mkVHost =
+    serverName: instances:
     let
       # Use the first instance's settings for the server-level options
       first = builtins.head instances;
@@ -41,36 +50,40 @@ let
         extraConfig = ''
           add_header Alt-Svc 'h3=":443"; ma=86400';
         '';
-        locations = lib.listToAttrs (map (attrs: {
-          name = attrs.path;
-          value = {
-            proxyPass =
-              let
-                targetHost =
-                  if attrs.address != null then
-                    attrs.address
-                  else if (attrs ? container && attrs.container != null) then
-                    let
-                      containerConfig = config.containers.${attrs.container};
-                    in
-                    if containerConfig ? localAddress && containerConfig.localAddress != null then
-                      containerConfig.localAddress
+        locations = lib.listToAttrs (
+          map (attrs: {
+            name = attrs.path;
+            value = {
+              proxyPass =
+                let
+                  targetHost =
+                    if attrs.address != null then
+                      attrs.address
+                    else if (attrs ? container && attrs.container != null) then
+                      let
+                        containerConfig = config.containers.${attrs.container};
+                      in
+                      if containerConfig ? localAddress && containerConfig.localAddress != null then
+                        containerConfig.localAddress
+                      else
+                        "localhost"
                     else
-                      "localhost"
-                  else
-                    "localhost";
-              in
-              "http://${targetHost}:${toString attrs.port}";
-            proxyWebsockets = true;
-            extraConfig = ''
-              ${attrs.extraConfig}
-            '';
-          };
-        }) instances);
+                      "localhost";
+                in
+                "http://${targetHost}:${toString attrs.port}";
+              proxyWebsockets = true;
+              extraConfig = ''
+                ${attrs.extraConfig}
+              '';
+            };
+          }) instances
+        );
       };
     };
 
-  virtualHosts = lib.foldl' (acc: name: acc // (mkVHost name groupedInstances.${name})) {} (builtins.attrNames groupedInstances);
+  virtualHosts = lib.foldl' (acc: name: acc // (mkVHost name groupedInstances.${name})) { } (
+    builtins.attrNames groupedInstances
+  );
 
 in
 {
@@ -83,7 +96,10 @@ in
       inherit virtualHosts;
     };
 
-    networking.firewall.allowedTCPPorts = [ 80 443 ];
+    networking.firewall.allowedTCPPorts = [
+      80
+      443
+    ];
     networking.firewall.allowedUDPPorts = [ 443 ];
 
     # Ensure nginx user can access acme certs

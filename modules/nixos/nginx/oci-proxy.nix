@@ -1,20 +1,30 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 with lib;
 let
   cfg = config.virtualisation.oci-containers.proxy;
-  
+
   # Filter enabled containers
   activeContainers = filterAttrs (n: v: v.enable) cfg.containers;
   sortedNames = sort (a: b: a < b) (attrNames activeContainers);
-  
+
   # Assign a static IP based on alphabetical order to ensure stability
   # Starting from 172.20.0.10
-  getIp = name: 
-    let 
-      idx = (let 
-        findIdx = n: l: if (head l) == n then 0 else 1 + (findIdx n (tail l));
-      in findIdx name sortedNames);
-    in "172.20.0.${toString (idx + 10)}";
+  getIp =
+    name:
+    let
+      idx = (
+        let
+          findIdx = n: l: if (head l) == n then 0 else 1 + (findIdx n (tail l));
+        in
+        findIdx name sortedNames
+      );
+    in
+    "172.20.0.${toString (idx + 10)}";
 
   containerOptions = {
     options = {
@@ -49,11 +59,14 @@ in
     };
   };
 
-  config = mkIf (activeContainers != {}) {
+  config = mkIf (activeContainers != { }) {
     # Ensure the proxy network exists
     systemd.services.docker-network-proxy = {
       description = "Create Docker network for proxy";
-      after = [ "network.target" "docker.service" ];
+      after = [
+        "network.target"
+        "docker.service"
+      ];
       wantedBy = [ "multi-user.target" ];
       serviceConfig.Type = "oneshot";
       script = ''
@@ -73,14 +86,16 @@ in
     }) activeContainers;
 
     # Configure Nginx to point to the static IPs
-    networking.nginx.instances = listToAttrs (mapAttrsToList (n: v: {
-      name = if v.name != null then v.name else n;
-      value = {
-        enable = v.enable;
-        port = v.port;
-        domain = v.domain;
-        address = getIp n;
-      };
-    }) activeContainers);
+    networking.nginx.instances = listToAttrs (
+      mapAttrsToList (n: v: {
+        name = if v.name != null then v.name else n;
+        value = {
+          enable = v.enable;
+          port = v.port;
+          domain = v.domain;
+          address = getIp n;
+        };
+      }) activeContainers
+    );
   };
 }

@@ -15,7 +15,7 @@ in
 
     security.acme = {
       acceptTerms = true;
-      defaults.email = (import (../../.. + "/secrets/email.nix")).gmail "acme";
+      defaults.email = (import (../../.. + "/secrets/email.nix")).default;
 
       certs."${domain}" = {
         domain = domain;
