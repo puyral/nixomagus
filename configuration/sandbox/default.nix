@@ -44,11 +44,20 @@
         mac = "02:00:00:00:00:01";
       }
     ];
+
+    forwardPorts = [
+      {
+        from = "host";
+        host.port = 2222;
+        guest.port = 22;
+      }
+    ];
   };
 
   # Network configuration for the user-mode interface
   networking.useNetworkd = true;
   networking.networkmanager.enable = lib.mkForce false;
+  networking.firewall.allowedTCPPorts = [ 22 ];
   # systemd.network.networks."10-eth0" = {
   #   matchConfig.Name = "eth0";
   #   networkConfig.DHCP = "yes";
@@ -67,6 +76,9 @@
     enable = true;
     settings.PermitRootLogin = "yes";
   };
+
+  # Autologin into it as "simon"
+  services.getty.autologinUser = "simon";
 
   # We want a minimal system
   environment.systemPackages = with pkgs; [

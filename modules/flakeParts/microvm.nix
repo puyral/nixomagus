@@ -1,11 +1,11 @@
-{ config, self, ... }:
+{  ... }:
 {
   perSystem =
-    { pkgs, ... }:
+    { self', ... }:
     {
       apps.sandbox = {
         type = "app";
-        program = "${self.nixosConfigurations.sandbox.config.microvm.runner.qemu}/bin/microvm-run";
+        program = "${self'.packages.sandbox}/bin/sandbox";
       };
     };
 }
