@@ -112,6 +112,11 @@
     flake-parts = {
       url = "github:hercules-ci/flake-parts";
     };
+
+    microvm = {
+      url = "github:astro/microvm.nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =

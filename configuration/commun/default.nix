@@ -118,7 +118,7 @@ in
   services.udisks2.enable = true;
 
   # garbage collection
-  extra.cache.substituter = lib.mkDefault true; # dynas is down
+  extra.cache.substituter = lib.mkDefault false; # dynas is down
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
@@ -146,9 +146,9 @@ in
       dates = [ "03:45" ];
     };
 
-    extraOptions = ''
-      builders-use-substitutes = true
-    '';
+    # extraOptions = ''
+    #   builders-use-substitutes = true
+    # '';
     settings.trusted-users = [
       "root"
       "simon"
@@ -186,11 +186,7 @@ in
 
     settings = {
       substituters = [
-        "https://nix-community.cachix.org"
         "https://cache.nixos.org/"
-      ];
-      trusted-public-keys = [
-        "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
       ];
     };
 
