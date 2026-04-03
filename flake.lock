@@ -50,11 +50,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1741473158,
-        "narHash": "sha256-kWNaq6wQUbUMlPgw8Y+9/9wP0F8SHkjy24/mN3UAppg=",
+        "lastModified": 1768818222,
+        "narHash": "sha256-460jc0+CZfyaO8+w8JNtlClB2n4ui1RbHfPTLkpwhU8=",
         "owner": "numtide",
         "repo": "devshell",
-        "rev": "7c9e793ebe66bcba8292989a68c0419b737a22a0",
+        "rev": "255a2b1725a20d060f566e4755dbf571bbbb5f76",
         "type": "github"
       },
       "original": {
@@ -176,16 +176,16 @@
         ]
       },
       "locked": {
-        "lastModified": 1760294873,
-        "narHash": "sha256-hsrnmEwKXJlPjV4aIfmS6GAE414ArVRGoPPpZGmV0x4=",
+        "lastModified": 1772148132,
+        "narHash": "sha256-2C/Pn2M2aHADtoljSFg9hz6xOaZp6IRI77jjy+LDAgw=",
         "owner": "tale",
         "repo": "headplane",
-        "rev": "7a222c47ee4a593acd1f0f4093b99a825111e463",
+        "rev": "0cff3890510dfb33e09b2ed3ad78319a2d59b276",
         "type": "github"
       },
       "original": {
         "owner": "tale",
-        "ref": "v0.6.1",
+        "ref": "v0.6.2",
         "repo": "headplane",
         "type": "github"
       }
@@ -275,6 +275,27 @@
         "owner": "puyral",
         "ref": "simon",
         "repo": "mangowc",
+        "type": "github"
+      }
+    },
+    "microvm": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ],
+        "spectrum": "spectrum"
+      },
+      "locked": {
+        "lastModified": 1775175752,
+        "narHash": "sha256-aDPc0o0r8/Wc7cvipkswmYrR7vHnC4EUwp4T4M9DTIs=",
+        "owner": "astro",
+        "repo": "microvm.nix",
+        "rev": "8a470b7b96c1780d59d7bc800ab755b57db7e819",
+        "type": "github"
+      },
+      "original": {
+        "owner": "astro",
+        "repo": "microvm.nix",
         "type": "github"
       }
     },
@@ -381,6 +402,7 @@
         "isw-src": "isw-src",
         "lean-lsp-mcp": "lean-lsp-mcp",
         "mangowc": "mangowc",
+        "microvm": "microvm",
         "nixos-hardware": "nixos-hardware",
         "nixpkgs": [
           "nixpkgs-stable"
@@ -480,6 +502,22 @@
         "owner": "Mic92",
         "repo": "sops-nix",
         "type": "github"
+      }
+    },
+    "spectrum": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1772189877,
+        "narHash": "sha256-i1p90Rgssb//aNiTDFq46ZG/fk3LmyRLChtp/9lddyA=",
+        "ref": "refs/heads/main",
+        "rev": "fe39e122d898f66e89ffa17d4f4209989ccb5358",
+        "revCount": 1255,
+        "type": "git",
+        "url": "https://spectrum-os.org/git/spectrum"
+      },
+      "original": {
+        "type": "git",
+        "url": "https://spectrum-os.org/git/spectrum"
       }
     },
     "squirrel-prover-src": {

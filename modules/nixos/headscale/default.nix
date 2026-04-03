@@ -73,14 +73,15 @@ in
             port = cfg.headscale.port;
             enable = true;
             providers = [ "ovh-pl" ];
-            path = "/";
-            forceHttps = false;
+            #path = "/";
+            #forceHttps = false;
           }
           {
             port = cfg.headplane.port;
             name = "headplane";
             enable = true;
             providers = [ "ovh-pl" ];
+            subdomain = "headscale";
             path = "/admin";
           }
         ];

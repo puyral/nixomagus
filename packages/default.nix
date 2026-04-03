@@ -1,5 +1,6 @@
 {
   inputs,
+  self,
   ...
 }:
 {
@@ -28,9 +29,19 @@
         ./isw
       ];
 
+      sandbox = pkgs.callPackage ./sandbox {
+        inherit (pkgs) replaceVars;
+        microvmRunner = self.nixosConfigurations.sandbox.config.microvm.runner.qemu;
+      };
+
+      csandbox = pkgs.callPackage ./csandbox {
+        inherit (pkgs) replaceVars systemd;
+        csandboxSystem = self.nixosConfigurations.csandbox.config.system.build.toplevel;
+      };
+
       mainPkgs =
         with builtins;
-        (pkgs.callPackages ./notify-done inputs) // listToAttrs (map mkPkgs packages);
+        (pkgs.callPackages ./notify-done inputs) // listToAttrs (map mkPkgs packages) // { inherit sandbox csandbox; };
 
       re-exports =
         with inputs';

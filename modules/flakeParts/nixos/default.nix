@@ -34,13 +34,13 @@ let
 
     inputs.nixpkgs.lib.nixosSystem {
       inherit system specialArgs;
-      modules = with inputs; [
-        simple-nixos-mailserver.nixosModules.mailserver
-        sops-nix.nixosModules.sops
+      modules = [
+        inputs.simple-nixos-mailserver.nixosModules.mailserver
+        inputs.sops-nix.nixosModules.sops
         self.nixosModules.default
         (rootDir + /configuration/commun)
         (rootDir + /configuration + "/${computer.name}")
-        home-manager.nixosModules.home-manager
+        inputs.home-manager.nixosModules.home-manager
         homes
       ];
     };

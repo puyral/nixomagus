@@ -3,6 +3,10 @@ let
   cfg = config.extra.monitoring.promtail;
 in
 lib.mkIf cfg.enable {
+  users.users.promtail.extraGroups = [
+    "systemd-journal-remote"
+    "systemd-journal"
+  ];
   services.promtail = {
     enable = true;
     configuration = {
@@ -22,9 +26,30 @@ lib.mkIf cfg.enable {
             max_age = "12h";
             labels = {
               job = "systemd-journal";
+              host = cfg.name;
             };
           };
           relabel_configs = [
+            {
+              source_labels = [ "__journal__systemd_unit" ];
+              target_label = "unit";
+            }
+          ];
+        }
+        {
+          job_name = "remote-journal";
+          journal = {
+            path = "/var/log/journal/remote";
+            max_age = "12h";
+            labels = {
+              job = "remote-journal";
+            };
+          };
+          relabel_configs = [
+            {
+              source_labels = [ "__journal__hostname" ];
+              target_label = "container";
+            }
             {
               source_labels = [ "__journal__systemd_unit" ];
               target_label = "unit";

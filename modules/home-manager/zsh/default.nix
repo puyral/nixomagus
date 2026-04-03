@@ -8,6 +8,7 @@
 with lib;
 let
   cfg = config.extra.zsh;
+  jailed = config.extra.jail.enable;
 in
 {
   # imports = [ ../starship.nix ];
@@ -47,7 +48,7 @@ in
 
       initContent = ''
         ${builtins.readFile ./initExtra.zsh}
-        ${builtins.readFile ./checkConfigStatus.zsh}
+        ${lib.optionalString (!jailed) (builtins.readFile ./checkConfigStatus.zsh)}
       '';
     };
 
@@ -74,7 +75,7 @@ in
       enable = true;
     };
 
-    extra.gitConfigFetcher.enable = true;
+    extra.gitConfigFetcher.enable = !jailed;
 
     home.sessionVariables = {
       CONFIG_LOCATION = config.extra.nix.configDir;

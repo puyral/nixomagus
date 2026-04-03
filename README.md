@@ -30,3 +30,18 @@ contains packages usefull for the configuration but that only make sense there. 
 
 # Secrets
 Secrets are hidden using [`git-crypt`](https://github.com/AGWA/git-crypt) and [`sops-nix`](https://github.com/Mic92/sops-nix) depending on when I need access to the secret and if I only hidding them form github.
+
+# MicroVM
+A sandbox computer is available for isolated testing. It uses a read-only share of the host's nix store and a writable overlay on a `tmpfs` root. This means the VM is ephemeral and starts almost instantly.
+
+To run the sandbox:
+```bash
+nix run .#sandbox
+```
+**Note:** To exit the VM console, press `Ctrl-a` then `x`.
+
+The VM is configured with:
+- `root` user: no password, permits SSH.
+- `simon` user: same environment as other machines (zsh, tmux, etc.).
+- Network: uses `systemd-networkd`.
+- Ephemeral root on `tmpfs`.

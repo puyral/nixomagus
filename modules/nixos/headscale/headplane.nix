@@ -70,7 +70,7 @@ in
           token_endpoint_auth_method = "client_secret_basic";
           headscale_api_key_path = pkgs.writeText "smth_else" secrets.headscale_api_key;
           # headscale_api_key = secrets.headscale_api_key;
-          redirect_uri = "https://${cfg.extraDomain}.${config.vars.baseDomain}/admin/oidc/callback";
+          # redirect_uri = "https://${cfg.extraDomain}.${config.vars.baseDomain}/admin/oidc/callback";
         }
       );
     };

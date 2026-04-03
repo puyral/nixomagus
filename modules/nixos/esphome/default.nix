@@ -24,5 +24,19 @@ in
       address = cfg.address;
       openFirewall = true;
     };
+
+    # see https://github.com/NixOS/nixpkgs/issues/339557#issuecomment-3361954390
+    systemd.services.esphome.serviceConfig = {
+      ProtectSystem = lib.mkForce "off";
+      DynamicUser = lib.mkForce "false";
+      User = "esphome";
+      Group = "esphome";
+    };
+    users.users.esphome = {
+      isSystemUser = true;
+      home = "/var/lib/esphome";
+      group = "esphome";
+    };
+    users.groups.esphome = { };
   };
 }

@@ -6,9 +6,13 @@
 with lib;
 let
   cfg = config.extra.starship;
+  jailed = config.extra.jail.enable;
+  vmjail = if jailed then "⛓️ " else "";
 in
 {
-  options.extra.starship.enable = mkEnableOption "starship";
+  options.extra.starship = {
+    enable = mkEnableOption "starship";
+  };
   config.programs.starship = mkIf cfg.enable {
     enable = true;
     enableZshIntegration = config.programs.zsh.enable;
@@ -80,7 +84,7 @@ in
         + "$lua"
         + "$jobs"
         + "$battery"
-        + "$sudo"
+        + "${vmjail}$sudo"
         + "$status"
         + "$character";
       git_status = {
