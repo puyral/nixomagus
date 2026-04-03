@@ -1,5 +1,6 @@
 {
   writeShellApplication,
+  replaceVars,
   microvmRunner,
   openssh,
   netcat-openbsd,
@@ -9,7 +10,10 @@ writeShellApplication {
   runtimeInputs = [
     openssh
     netcat-openbsd
-    microvmRunner
   ];
-  text = builtins.readFile ./sandbox.sh;
+  text = builtins.readFile (
+    replaceVars ./script.sh {
+      inherit microvmRunner;
+    }
+  );
 }
