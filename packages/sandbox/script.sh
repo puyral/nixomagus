@@ -26,20 +26,18 @@ done
 # Prepare host-side variables
 HOST_PWD=$(pwd)
 VM_MOUNT_TAG="host-pwd"
-VM_MOUNT_PATH="/mnt/host"
 
 # Prepare MicroVM arguments
 RUN_ARGS=("-display" "none")
 if [ "$PWD_MOUNT" = true ]; then
-  echo "Mounting $HOST_PWD into $VM_MOUNT_PATH..."
+  echo "Mounting $HOST_PWD into /share..."
   RUN_ARGS+=(
-    "-fsdev" "local,id=fs-pwd,path=$HOST_PWD,security_model=none,readonly=false"
+    "-fsdev" "local,id=fs-pwd,path=$HOST_PWD,security_model=none"
     "-device" "virtio-9p-pci,fsdev=fs-pwd,mount_tag=$VM_MOUNT_TAG"
   )
 fi
 
 # Generate a modified runner script to inject our arguments
-# This bypasses the limitation of microvm-run not supporting CLI arguments.
 ARG_STRING=$(printf ' %q' "${RUN_ARGS[@]}")
 TEMP_RUN=$(mktemp --suffix=.sh)
 VM_LOG=$(mktemp --suffix=.log)
@@ -49,7 +47,7 @@ VM_LOG=$(mktemp --suffix=.log)
 sed "s|\${runtime_args:-}|$ARG_STRING|" "$MICROVM_RUNNER/bin/microvm-run" > "$TEMP_RUN"
 chmod +x "$TEMP_RUN"
 
-# Cleanup on exit: kill the VM and remove temp files
+# Cleanup on exit
 cleanup() {
   echo "Shutting down sandbox..."
   if [ -n "${VM_PID:-}" ]; then
@@ -61,7 +59,6 @@ cleanup() {
 trap cleanup EXIT
 
 echo "Starting MicroVM..."
-# Run the modified script. Since it uses 'exec', VM_PID will be the QEMU process.
 "$TEMP_RUN" > "$VM_LOG" 2>&1 &
 VM_PID=$!
 
@@ -96,35 +93,29 @@ if [ $ATTEMPT -gt $MAX_ATTEMPTS ]; then
 fi
 
 # Determine the command to run inside the VM
-VM_CMD=""
 if [ "$PWD_MOUNT" = true ]; then
-  # Mount and cd sequence
-  VM_CMD="sudo mkdir -p $VM_MOUNT_PATH && sudo mount -t 9p -o trans=virtio,version=9p2000.L $VM_MOUNT_TAG $VM_MOUNT_PATH && cd $VM_MOUNT_PATH"
+  # 1. Mount the 9p share to /.share (host-pwd tag)
+  # 2. Mount the bindfs from /.share to /share (remapping root to simon)
+  # 3. Enter /share
+  # We use '&&' to ensure each step succeeds.
+  SETUP_CMD="sudo mkdir -p /.share && sudo mount /.share && (mountpoint -q /share || sudo mount /share) && cd /share"
+else
+  SETUP_CMD="cd ~"
 fi
 
 if [ ${#EXTRA_ARGS[@]} -gt 0 ]; then
-  if [ -n "$VM_CMD" ]; then
-    VM_CMD="$VM_CMD && ${EXTRA_ARGS[*]}"
-  else
-    VM_CMD="${EXTRA_ARGS[*]}"
-  fi
+    # Escape each argument for the remote shell
+    REMOTE_CMD=$(printf " %q" "${EXTRA_ARGS[@]}")
+    FULL_CMD="$SETUP_CMD && $REMOTE_CMD"
 else
-  if [ -n "$VM_CMD" ]; then
     # Default to interactive shell if no command provided
-    VM_CMD="$VM_CMD; exec \$SHELL"
-  fi
+    FULL_CMD="$SETUP_CMD; exec \$SHELL"
 fi
 
 # SSH into the sandbox
-# Using -t for interactive TTY
-if [ -n "$VM_CMD" ]; then
-  ssh -p 2222 -t \
-      -o StrictHostKeyChecking=no \
-      -o UserKnownHostsFile=/dev/null \
-      simon@localhost "bash -l -c '$VM_CMD'"
-else
-  ssh -p 2222 -t \
-      -o StrictHostKeyChecking=no \
-      -o UserKnownHostsFile=/dev/null \
-      simon@localhost
-fi
+# We wrap the FULL_CMD in a single string for bash -l -c.
+# We only escape the FULL_CMD itself.
+# This ensures that an argument like "a b" stays as a single argument in the VM.
+ssh -p 2222 -t \
+    -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null \
+    simon@localhost "bash -l -c $(printf "%q" "$FULL_CMD")"

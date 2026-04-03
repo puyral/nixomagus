@@ -54,6 +54,19 @@
     ];
   };
 
+  fileSystems = {
+    "/.share" = {
+      device = "host-pwd";
+      fsType = "9p";
+      options = [ "trans=virtio" "version=9p2000.L" "access=any" "noauto" ];
+    };
+    "/share" = {
+      device = "/.share";
+      fsType = "fuse.bindfs";
+      options = [ "map=0/1000:@0/@1000" "noauto" "x-systemd.automount" ];
+    };
+  };
+
   # Network configuration for the user-mode interface
   networking.useNetworkd = true;
   networking.networkmanager.enable = lib.mkForce false;
@@ -85,6 +98,7 @@
     # gitMinimal
     vim
     htop
+    bindfs
   ];
 
   # Ensure simon has the right groups
