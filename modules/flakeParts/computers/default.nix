@@ -41,7 +41,6 @@ let
 
         nixos.enable = mkPreEnabledOption "nixos";
         homeManager.enable = mkPreEnabledOption "home manager";
-        microvm.enable = mkEnableOption "microvm support";
 
         cpuArchitecture = mkOption {
           type = types.nullOr types.str;

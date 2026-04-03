@@ -42,12 +42,7 @@ let
         (rootDir + /configuration + "/${computer.name}")
         inputs.home-manager.nixosModules.home-manager
         homes
-      ] ++ lib.optional computer.microvm.enable (
-        if inputs.microvm ? nixosModules.microvm then
-          inputs.microvm.nixosModules.microvm
-        else
-          inputs.microvm.nixosModules.default
-      );
+      ];
     };
 in
 

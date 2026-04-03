@@ -51,7 +51,6 @@ in
       inherit users system;
       stateVersion = "25.11";
       headless = true;
-      microvm.enable = true;
     };
   };
 
