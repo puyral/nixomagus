@@ -81,7 +81,6 @@
 
     optimise.automatic = lib.mkForce false;
     gc.automatic = lib.mkForce false;
-    settings.auto-optimise-store = lib.mkForce false;
   };
 
   # SSH for easy access
