@@ -58,7 +58,7 @@
       # 0c:00.0 : LSI SAS2008 (Enterprise storage controllers crash if suspended)
       # 02:00.0 : AMD USB Controller (Keep USB active for NanoKVM input)
       # 10:00.0 : DO NOT ADD THE GPU HERE. The GPU *needs* to suspend to save power.
-      "RUNTIME_PM_DENYLIST" = "10:00.0 08:00.0 0d:00.0 0a:00.0 0c:00.0 02:00.0";
+      "RUNTIME_PM_DENYLIST" = "08:00.0 0a:00.0 0c:00.0 02:00.0";
 
       # --- CPU Power Saving ---
       # For a NAS, we want efficiency.
