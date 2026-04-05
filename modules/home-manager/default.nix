@@ -53,6 +53,7 @@ let
     anyrun = ./anyrun;
     notifications = ./notifications;
     gemini = ./gemini;
+    grafanactl = ./grafanactl;
   };
 
 in
