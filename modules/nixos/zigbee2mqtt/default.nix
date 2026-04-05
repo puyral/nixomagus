@@ -54,6 +54,7 @@ in
               frontend.port = port;
               advanced = {
                 pan_id = 4564;
+                metrics = true;
               };
               mqtt.server = mqtt;
             };
