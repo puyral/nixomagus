@@ -32,6 +32,7 @@ in
               message = "mismatch between inside and outside container!";
             }
           ];
+	environment.systemPackages= with pkgs; [n8n];
           services.n8n = {
             enable = true;
             openFirewall = true;
