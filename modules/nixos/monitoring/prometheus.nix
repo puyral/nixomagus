@@ -39,6 +39,13 @@ lib.mkIf enable {
           { targets = [ "127.0.0.1:${toString config.services.prometheus.exporters.zfs.port}" ]; }
         ];
       }
+      {
+        job_name = "zigbee2mqtt";
+        static_configs = [
+          # Scraping the z2m container directly
+          { targets = [ "${config.containers.z2m.localAddress}:8080" ]; }
+        ];
+      }
     ];
 
   };
