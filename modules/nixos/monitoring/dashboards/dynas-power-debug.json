@@ -17,7 +17,7 @@
         "datasource": { "type": "prometheus", "uid": "Prometheus" },
         "targets": [
           {
-            "expr": "mqtt_consumer_power{topic=\"zigbee2mqtt/server\"}",
+            "expr": "mqtt_consumer_power{topic=\"zigbee2mqtt/servers\"}",
             "legendFormat": "Total Power (W)"
           }
         ],
