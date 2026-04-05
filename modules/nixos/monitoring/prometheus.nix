@@ -46,8 +46,36 @@ lib.mkIf enable {
           { targets = [ "${config.containers.z2m.localAddress}:8080" ]; }
         ];
       }
+      {
+        job_name = "telegraf";
+        static_configs = [
+          { targets = [ "127.0.0.1:9273" ]; }
+        ];
+      }
     ];
 
+  };
+
+  services.telegraf = {
+    enable = true;
+    extraConfig = {
+      agent = {
+        interval = "10s";
+        flush_interval = "10s";
+      };
+      inputs = {
+        mqtt_consumer = {
+          servers = [ "tcp://127.0.0.1:1883" ];
+          topics = [ "zigbee2mqtt/+" ];
+          data_format = "json";
+        };
+      };
+      outputs = {
+        prometheus_client = {
+          listen = ":9273";
+        };
+      };
+    };
   };
 
   systemd.services.prometheus-gpu-exporter = {
