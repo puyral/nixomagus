@@ -1,0 +1,77 @@
+{
+  "apiVersion": "dashboard.grafana.app/v0alpha1",
+  "kind": "Dashboard",
+  "metadata": {
+    "name": "dynas-power-debug",
+    "namespace": "default"
+  },
+  "spec": {
+    "title": "Dynas Power Consumption Debug",
+    "description": "Dashboard to identify why power consumption stays high",
+    "editable": true,
+    "panels": [
+      {
+        "title": "NAS Total Power (Zigbee Plug)",
+        "type": "timeseries",
+        "gridPos": { "h": 8, "w": 12, "x": 0, "y": 0 },
+        "datasource": { "type": "prometheus", "uid": "Prometheus" },
+        "targets": [
+          {
+            "expr": "mqtt_consumer_power{topic=\"zigbee2mqtt/server\"}",
+            "legendFormat": "Total Power (W)"
+          }
+        ],
+        "fieldConfig": {
+          "defaults": {
+            "unit": "watt",
+            "min": 0
+          }
+        }
+      },
+      {
+        "title": "GPU & NIC Runtime Status (1=Active, 0=Suspended)",
+        "type": "timeseries",
+        "gridPos": { "h": 8, "w": 12, "x": 12, "y": 0 },
+        "datasource": { "type": "prometheus", "uid": "Prometheus" },
+        "targets": [
+          { "expr": "gpu_runtime_active", "legendFormat": "GPU Status" },
+          { "expr": "nic_10g_runtime_active", "legendFormat": "10GbE NIC Status" }
+        ],
+        "fieldConfig": {
+          "defaults": {
+            "min": 0,
+            "max": 1
+          }
+        }
+      },
+      {
+        "title": "GPU Current Frequency",
+        "type": "timeseries",
+        "gridPos": { "h": 8, "w": 12, "x": 0, "y": 8 },
+        "datasource": { "type": "prometheus", "uid": "Prometheus" },
+        "targets": [
+          { "expr": "gpu_cur_freq_mhz", "legendFormat": "GPU Frequency (MHz)" }
+        ],
+        "fieldConfig": {
+          "defaults": {
+            "unit": "mhz",
+            "min": 0
+          }
+        }
+      },
+      {
+        "title": "Container Logs (Activity Correlation)",
+        "type": "logs",
+        "gridPos": { "h": 12, "w": 24, "x": 0, "y": 16 },
+        "datasource": { "type": "loki", "uid": "Loki" },
+        "targets": [
+          { "expr": "{job=~\"immich.*|photoprism.*|fileflows.*\"}" }
+        ]
+      }
+    ],
+    "time": {
+      "from": "now-6h",
+      "to": "now"
+    }
+  }
+}
