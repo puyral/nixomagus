@@ -33,10 +33,6 @@ in
           hostPath = cfg.dataDir;
           isReadOnly = false;
         };
-        "/var/lib/tailscale" = {
-          hostPath = "${cfg.dataDir}/tailscale";
-          isReadOnly = false;
-        };
         "${gconfig.sops.secrets.photoprism.path}" = {
           hostPath = gconfig.sops.secrets.photoprism.path;
           isReadOnly = true;
@@ -91,11 +87,10 @@ in
           };
           users.groups.photoprism.gid = gconfig.users.groups.photoprism.gid;
 
-          services.tailscale.enable = true;
         };
     };
     extra.containers.photoprism = {
-      vpn = true;
+      vpn = false;
 
       nginx = [
         {
@@ -103,7 +98,6 @@ in
           name = cfg.subdomain;
           enable = true;
           providers = cfg.providers;
-          address = "100.64.0.10";
         }
       ];
     };

@@ -41,6 +41,23 @@ let
     let
       # Use the first instance's settings for the server-level options
       first = builtins.head instances;
+      isHosting = hostName == first.hostedBy;
+      chainingPort = if cfg.chainingPort != null then cfg.chainingPort else 8080;
+
+      # Collect all provider IPs that are not the current host
+      allProviders = unique (concatMap (attrs: attrs.providers) instances);
+      otherProviders = filter (p: p != hostName) allProviders;
+      proxyIps = map (p: config.ips.${p} or null) otherProviders;
+      validProxyIps = filter (ip: ip != null) proxyIps;
+
+      hostingConfig = optionalString (isHosting && cfg.chainingPort != null) ''
+        listen ${toString chainingPort};
+        ${concatMapStrings (ip: "set_real_ip_from ${ip};\n") validProxyIps}
+        ${optionalString (validProxyIps != [ ]) ''
+          real_ip_header X-Forwarded-For;
+          real_ip_recursive on;
+        ''}
+      '';
     in
     {
       "${serverName}" = {
@@ -50,6 +67,7 @@ let
         # prefer http3
         extraConfig = ''
           add_header Alt-Svc 'h3=":443"; ma=86400';
+          ${hostingConfig}
         '';
         locations = lib.listToAttrs (
           map (attrs: {
@@ -58,22 +76,33 @@ let
               proxyPass =
                 let
                   targetHost =
-                    if attrs.address != null then
-                      attrs.address
-                    else if (attrs ? container && attrs.container != null) then
-                      let
-                        containerConfig = config.containers.${attrs.container};
-                      in
-                      if containerConfig ? localAddress && containerConfig.localAddress != null then
-                        containerConfig.localAddress
-                      else
-                        "localhost"
+                    if isHosting then
+                      (
+                        if attrs.address != null then
+                          attrs.address
+                        else if (attrs ? container && attrs.container != null) then
+                          let
+                            containerConfig = config.containers.${attrs.container};
+                          in
+                          if containerConfig ? localAddress && containerConfig.localAddress != null then
+                            containerConfig.localAddress
+                          else
+                            "localhost"
+                        else
+                          "localhost"
+                      )
                     else
-                      "localhost";
+                      # We are a proxy to the host
+                      (config.ips.${attrs.hostedBy} or "localhost");
+
+                  targetPort = if isHosting then attrs.port else chainingPort;
                 in
-                "http://${targetHost}:${toString attrs.port}";
+                "http://${targetHost}:${toString targetPort}";
               proxyWebsockets = true;
               extraConfig = ''
+                ${optionalString (!isHosting) ''
+                  proxy_set_header Connection "";
+                ''}
                 ${attrs.extraConfig}
               '';
             };
@@ -108,7 +137,8 @@ in
     networking.firewall.allowedTCPPorts = [
       80
       443
-    ];
+    ]
+    ++ (optional (cfg.chainingPort != null) cfg.chainingPort);
     networking.firewall.allowedUDPPorts = [ 443 ];
 
     # Ensure nginx user can access acme certs

@@ -37,9 +37,9 @@ in
 
     virtualisation.oci-containers.proxy.containers.fileflow = lib.mkIf cfg.networking.reverproxied {
       port = 5000;
-          extraConfig = ''
-            client_max_body_size 200M;
-          '';
+      extraConfig = ''
+        client_max_body_size 200M;
+      '';
     };
 
     # networking.firewall.allowedTCPPorts = mkIf cfg.openFirewall [ 5000 ];

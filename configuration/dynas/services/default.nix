@@ -172,6 +172,7 @@
     };
     nginx = {
       enable = true;
+      chainingPort = 8080;
       # docker.enable = true;
       # log.level = "INFO";
     };
