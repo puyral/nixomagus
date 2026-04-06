@@ -29,8 +29,8 @@ in
     users.users.acme = {
       isSystemUser = true;
       group = "acme";
-      uid = 998;
+      uid = 946;
     };
-    users.groups.acme.gid = 998;
+    users.groups.acme.gid = 964;
   };
 }
