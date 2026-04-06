@@ -25,6 +25,7 @@
     emacs = {
       squirrel.enable = lib.mkDefault true;
     };
+    grafanactl.enable = lib.mkDefault true;
   };
 
   # This value determines the Home Manager release that your configuration is

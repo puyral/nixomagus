@@ -58,6 +58,7 @@ in
       lean = true;
     };
     emacs.enable = true;
+    grafanactl.enable = false;
   };
 
   programs.git.settings = {

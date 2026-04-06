@@ -1,4 +1,4 @@
-lib:
+{ lib, config, ... }:
 with lib;
 with builtins;
 {
@@ -21,6 +21,10 @@ with builtins;
     type = types.listOf types.str;
     description = "the machines that should do the redirect";
     default = [ "dynas" ];
+  };
+  hostedBy = mkOption {
+    type = types.str;
+    default = "${config.networking.hostName}";
   };
   address = mkOption {
     type = types.nullOr types.str;

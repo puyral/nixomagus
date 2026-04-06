@@ -31,7 +31,6 @@ in
     memtest86.enable = true;
   };
   boot.loader.efi.canTouchEfiVariables = true;
-  boot.enableContainers = true;
   networking = {
 
     hostName = computer_name; # Define your hostname.

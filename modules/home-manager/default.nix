@@ -54,6 +54,7 @@ let
     notifications = ./notifications;
     gemini = ./gemini;
     jail = ./jail;
+    grafanactl = ./grafanactl;
   };
 
 in

@@ -1,0 +1,127 @@
+{
+  "apiVersion": "dashboard.grafana.app/v0alpha1",
+  "kind": "Dashboard",
+  "metadata": {
+    "name": "dynas-power-debug",
+    "namespace": "default"
+  },
+  "spec": {
+    "title": "Dynas Power Consumption Debug",
+    "description": "Dashboard to identify why power consumption stays high",
+    "editable": true,
+    "panels": [
+      {
+        "title": "NAS Total Power (Zigbee Plug)",
+        "type": "timeseries",
+        "gridPos": { "h": 8, "w": 8, "x": 0, "y": 0 },
+        "datasource": { "type": "prometheus", "uid": "Prometheus" },
+        "targets": [
+          {
+            "expr": "mqtt_consumer_power{topic=\"zigbee2mqtt/server\"}",
+            "legendFormat": "Total Power (W)"
+          }
+        ],
+        "fieldConfig": {
+          "defaults": {
+            "unit": "watt",
+            "min": 0
+          }
+        }
+      },
+      {
+        "title": "GPU & NIC Runtime Status (1=Active, 0=Suspended)",
+        "type": "timeseries",
+        "gridPos": { "h": 8, "w": 8, "x": 8, "y": 0 },
+        "datasource": { "type": "prometheus", "uid": "Prometheus" },
+        "targets": [
+          { "expr": "gpu_runtime_active", "legendFormat": "GPU Status" },
+          { "expr": "nic_10g_runtime_active", "legendFormat": "10GbE NIC Status" }
+        ],
+        "fieldConfig": {
+          "defaults": {
+            "min": 0,
+            "max": 1
+          }
+        }
+      },
+      {
+        "title": "CPU Load (1m/5m/15m)",
+        "type": "timeseries",
+        "gridPos": { "h": 8, "w": 8, "x": 16, "y": 0 },
+        "datasource": { "type": "prometheus", "uid": "Prometheus" },
+        "targets": [
+          { "expr": "node_load1", "legendFormat": "1m" },
+          { "expr": "node_load5", "legendFormat": "5m" },
+          { "expr": "node_load15", "legendFormat": "15m" }
+        ],
+        "fieldConfig": {
+          "defaults": {
+            "min": 0
+          }
+        }
+      },
+      {
+        "title": "Temperatures (CPU, GPU, NIC)",
+        "type": "timeseries",
+        "gridPos": { "h": 8, "w": 12, "x": 0, "y": 8 },
+        "datasource": { "type": "prometheus", "uid": "Prometheus" },
+        "targets": [
+          {
+            "expr": "node_hwmon_temp_celsius{chip=\"pci0000:00_0000:00:18_3\",sensor=\"temp1\"}",
+            "legendFormat": "CPU Tctl"
+          },
+          {
+            "expr": "node_hwmon_temp_celsius{chip=\"0000:0f:01_0_0000:10:00_0\",sensor=\"temp2\"}",
+            "legendFormat": "GPU Pkg"
+          },
+          {
+            "expr": "node_hwmon_temp_celsius{chip=\"0000:03:09_0_0000:0d:00_0\",sensor=\"temp2\"}",
+            "legendFormat": "NIC MAC"
+          }
+        ],
+        "fieldConfig": {
+          "defaults": {
+            "unit": "celsius"
+          }
+        }
+      },
+      {
+        "title": "GPU Current Frequency",
+        "type": "timeseries",
+        "gridPos": { "h": 8, "w": 12, "x": 12, "y": 8 },
+        "datasource": { "type": "prometheus", "uid": "Prometheus" },
+        "targets": [
+          { "expr": "gpu_cur_freq_mhz", "legendFormat": "GPU Frequency (MHz)" }
+        ],
+        "fieldConfig": {
+          "defaults": {
+            "unit": "mhz",
+            "min": 0
+          }
+        }
+      },
+      {
+        "title": "Container Logs (Activity Correlation)",
+        "type": "logs",
+        "gridPos": { "h": 12, "w": 24, "x": 0, "y": 16 },
+        "datasource": { "type": "loki", "uid": "Loki" },
+        "options": {
+          "showTime": true,
+          "showLabels": true,
+          "showCommonLabels": false,
+          "wrapLogMessages": true,
+          "enableLogDetails": true,
+          "sortOrder": "Descending"
+        },
+        "targets": [
+          { "expr": "{container=~\"immich|photoprism\"} | pattern \"<_> <_> [<level>] <_>\"" },
+          { "expr": "{unit=~\"docker-fileflow.*\"} | pattern \"<_> <_> [<level>] <_>\"" }
+        ]
+      }
+    ],
+    "time": {
+      "from": "now-6h",
+      "to": "now"
+    }
+  }
+}

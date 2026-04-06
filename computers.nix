@@ -52,11 +52,6 @@ in
       stateVersion = "25.11";
       headless = true;
     };
-    csandbox = {
-      inherit users system;
-      stateVersion = "25.11";
-      headless = true;
-    };
   };
 
 }

@@ -1,4 +1,4 @@
-{ lib, ... }:
+{ lib, config, ... }:
 with lib;
 {
   options.extra.containers =
@@ -11,7 +11,7 @@ with lib;
             gpu = mkEnableOption "gpu passthough";
             nginx =
               let
-                inner_nginx_options = (import ../nginx/options.nix) lib // {
+                inner_nginx_options = (import ../nginx/options.nix) { inherit lib config; } // {
                   name = mkOption {
                     type = types.str;
                     default = name;

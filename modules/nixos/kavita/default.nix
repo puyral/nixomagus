@@ -43,11 +43,10 @@ in
             };
           };
 
-          services.tailscale.enable = true;
         };
     };
     extra.containers.${name} = {
-      vpn = true;
+      vpn = false;
 
       nginx = [
         {
