@@ -1,7 +1,6 @@
 {
   lib,
   config,
-  pkgs,
   ...
 }:
 with lib;
@@ -43,7 +42,7 @@ let
       first = builtins.head instances;
       isHosting = hostName == first.hostedBy;
       chainingPort = if cfg.chainingPort != null then cfg.chainingPort else 8080;
-      
+
       # Collect all provider IPs that are not the current host
       allProviders = unique (concatMap (attrs: attrs.providers) instances);
       otherProviders = filter (p: p != hostName) allProviders;
@@ -63,6 +62,7 @@ let
       "${serverName}" = {
         forceSSL = first.forceHttps;
         quic = true;
+        kTLS = true;
         useACMEHost = config.extra.acme.domain;
         # prefer http3
         extraConfig = ''
@@ -77,29 +77,30 @@ let
                 let
                   targetHost =
                     if isHosting then
-                      (if attrs.address != null then
-                        attrs.address
-                      else if (attrs ? container && attrs.container != null) then
-                        let
-                          containerConfig = config.containers.${attrs.container};
-                        in
-                        if containerConfig ? localAddress && containerConfig.localAddress != null then
-                          containerConfig.localAddress
+                      (
+                        if attrs.address != null then
+                          attrs.address
+                        else if (attrs ? container && attrs.container != null) then
+                          let
+                            containerConfig = config.containers.${attrs.container};
+                          in
+                          if containerConfig ? localAddress && containerConfig.localAddress != null then
+                            containerConfig.localAddress
+                          else
+                            "localhost"
                         else
                           "localhost"
-                      else
-                        "localhost")
+                      )
                     else
                       # We are a proxy to the host
                       (config.ips.${attrs.hostedBy} or "localhost");
-                  
+
                   targetPort = if isHosting then attrs.port else chainingPort;
                 in
                 "http://${targetHost}:${toString targetPort}";
               proxyWebsockets = true;
               extraConfig = ''
                 ${optionalString (!isHosting) ''
-                  proxy_http_version 1.1;
                   proxy_set_header Connection "";
                 ''}
                 ${attrs.extraConfig}
@@ -136,7 +137,8 @@ in
     networking.firewall.allowedTCPPorts = [
       80
       443
-    ] ++ (optional (cfg.chainingPort != null) cfg.chainingPort);
+    ]
+    ++ (optional (cfg.chainingPort != null) cfg.chainingPort);
     networking.firewall.allowedUDPPorts = [ 443 ];
 
     # Ensure nginx user can access acme certs

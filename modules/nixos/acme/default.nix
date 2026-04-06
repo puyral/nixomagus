@@ -25,5 +25,12 @@ in
         group = "acme";
       };
     };
+
+    users.users.acme = {
+      isSystemUser = true;
+      group = "acme";
+      uid = 998;
+    };
+    users.groups.acme.gid = 998;
   };
 }
