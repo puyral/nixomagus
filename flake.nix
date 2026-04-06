@@ -72,7 +72,7 @@
     };
 
     mangowc = {
-      url = "github:puyral/mangowc/simon";
+      url = "github:mangowm/mango";
       inputs = {
         nixpkgs.follows = "nixpkgs";
         flake-parts.follows = "flake-parts";
