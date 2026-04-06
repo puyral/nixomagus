@@ -210,6 +210,9 @@ in
         {
           inherit port;
           enable = true;
+          extraConfig = ''
+            client_max_body_size 0;
+          '';
         }
       ]
       ++ lib.optional cfg.ai.enable {

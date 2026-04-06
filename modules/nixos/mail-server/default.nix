@@ -5,6 +5,7 @@
   ...
 }:
 let
+  host_config = config;
   cfg = config.extra.mail-server;
   mail = "/var/vmail";
   sopsKey = "/etc/sops";
@@ -71,7 +72,7 @@ in
           };
           "${cfg.dirs.acme}" = {
             hostPath = cfg.dirs.acme;
-            isReadOnly = false;
+            isReadOnly = true;
           };
           "${mail}" = {
             hostPath = "${cfg.dirs.data}/${cfg.dirs.mails}";
@@ -98,9 +99,13 @@ in
             ../acme
           ];
 
+
           extra.acme = acmeConfig;
           extra.mail-server = hostConfig.extra.mail-server;
           security.acme.defaults.renewInterval = "yearly";
+
+          users.users.acme.uid = host_config.users.users.acme.uid;
+          users.groups.acme.gid = host_config.users.groups.acme.gid;
 
           # Configure sops inside container
           sops.age.sshKeyPaths = [ sopsKey ];

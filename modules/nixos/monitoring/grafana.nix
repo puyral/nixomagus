@@ -18,6 +18,7 @@ lib.mkIf enable {
     };
     provision = {
       enable = true;
+      dashboards.path = ./dashboards;
       datasources.settings = {
         apiVersion = 1;
         datasources = [
