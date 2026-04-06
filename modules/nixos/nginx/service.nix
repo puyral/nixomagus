@@ -47,6 +47,7 @@ let
         forceSSL = first.forceHttps;
         quic = true;
         useACMEHost = config.extra.acme.domain;
+        # prefer http3
         extraConfig = ''
           add_header Alt-Svc 'h3=":443"; ma=86400';
         '';
@@ -92,8 +93,16 @@ in
       enable = true;
       recommendedProxySettings = true;
       recommendedTlsSettings = true;
+      experimentalZstdSettings = true;
+      recommendedGzipSettings = true;
       sslProtocols = "TLSv1.3";
       inherit virtualHosts;
+
+      appendHttpConfig = ''
+        # see https://datatracker.ietf.org/doc/html/rfc8446#section-9.1
+        ssl_conf_command Ciphersuites TLS_AES_256_GCM_SHA384:TLS_CHACHA20_POLY1305_SHA256:TLS_AES_128_GCM_SHA256;
+        ssl_ecdh_curve X25519:secp384r1;
+      '';
     };
 
     networking.firewall.allowedTCPPorts = [
