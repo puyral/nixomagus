@@ -121,6 +121,9 @@ let
     monitors
     ++ [
       (builtins.readFile ./config.conf)
+      ''
+        exec-once=bash ~/.config/mango/autostart.sh
+      ''
     ]
     ++ anyrun
     ++ alacritty
