@@ -94,6 +94,9 @@ in
           enable = true;
           providers = cfg.providers;
           address = "100.64.0.8";
+          extraConfig = ''
+            client_max_body_size 200M;
+          '';
         }
       ];
     };
