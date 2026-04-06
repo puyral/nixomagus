@@ -72,7 +72,7 @@
     };
 
     mangowc = {
-      url = "github:mangowm/mango";
+      url = "github:mangowm/mango/0.12.8";
       inputs = {
         nixpkgs.follows = "nixpkgs";
         flake-parts.follows = "flake-parts";
