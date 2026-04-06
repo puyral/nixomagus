@@ -1,7 +1,6 @@
 {
   lib,
   config,
-  pkgs,
   ...
 }:
 with lib;
@@ -63,6 +62,7 @@ let
       "${serverName}" = {
         forceSSL = first.forceHttps;
         quic = true;
+        kTLS = true;
         useACMEHost = config.extra.acme.domain;
         # prefer http3
         extraConfig = ''
