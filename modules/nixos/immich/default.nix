@@ -24,10 +24,6 @@ in
           hostPath = cfg.videos;
           isReadOnly = false;
         };
-        "/var/lib/tailscale" = {
-          hostPath = "${cfg.dataDir}/tailscale";
-          isReadOnly = false;
-        };
         "/var/lib/immich" = {
           hostPath = "${cfg.dataDir}/state";
           isReadOnly = false;
@@ -80,11 +76,10 @@ in
           users.groups."render".gid = gconfig.users.groups."render".gid;
           users.groups."video".gid = gconfig.users.groups."video".gid;
 
-          services.tailscale.enable = true;
         };
     };
     extra.containers.immich = {
-      vpn = true;
+      vpn = false;
       gpu = true;
 
       nginx = [
@@ -93,9 +88,8 @@ in
           name = cfg.subdomain;
           enable = true;
           providers = cfg.providers;
-          address = "100.64.0.8";
           extraConfig = ''
-            client_max_body_size 200M;
+            client_max_body_size 0;
           '';
         }
       ];

@@ -2,7 +2,6 @@
 with lib;
 {
   options.networking =
-
     {
       nginx = {
         enable = mkEnableOption "nginx";
@@ -14,17 +13,20 @@ with lib;
         };
 
         instances =
-          let
-            options = (import ./options.nix) lib;
-          in
           mkOption {
             default = { };
             type =
               with types;
               attrsOf (submodule {
-                inherit options;
+                options = (import ./options.nix) { inherit lib config; };
               });
           };
+
+        chainingPort = mkOption {
+          default = null;
+          type = types.nullOr types.port;
+          description = "port to listen to for TLS chaining";
+        };
       };
     };
 }
