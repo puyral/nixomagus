@@ -47,6 +47,11 @@ let
         default = null;
         description = "the domain (defaults to nginx.baseDomain)";
       };
+  extraConfig = mkOption {
+    type = types.lines;
+    default = "";
+    description = "extra configuration for this virtual host";
+  };
     };
   };
 in
@@ -90,9 +95,7 @@ in
       mapAttrsToList (n: v: {
         name = if v.name != null then v.name else n;
         value = {
-          enable = v.enable;
-          port = v.port;
-          domain = v.domain;
+          inherit (v) enable port domain extraConfig;
           address = getIp n;
         };
       }) activeContainers

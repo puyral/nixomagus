@@ -102,7 +102,6 @@ in
       appendHttpConfig = ''
         # see https://datatracker.ietf.org/doc/html/rfc8446#section-9.1
         ssl_conf_command Ciphersuites TLS_AES_256_GCM_SHA384:TLS_CHACHA20_POLY1305_SHA256;
-        ssl_ecdh_curve X25519:secp384r1;
       '';
     };
 
