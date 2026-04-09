@@ -47,6 +47,11 @@ in
       stateVersion = "24.05";
       headless = false;
     };
+    sandbox = {
+      inherit users system;
+      stateVersion = "25.11";
+      headless = true;
+    };
   };
 
 }

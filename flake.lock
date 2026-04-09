@@ -264,17 +264,38 @@
         "scenefx": "scenefx"
       },
       "locked": {
-        "lastModified": 1771779964,
-        "narHash": "sha256-5F55dHM3eGDUV9mFllSLq4+0aalM76TekwQwxvJ1LEg=",
-        "owner": "puyral",
-        "repo": "mangowc",
-        "rev": "1fd42ee4cb1d3e4ef615a73fde37998903c1c35b",
+        "lastModified": 1774744840,
+        "narHash": "sha256-k9qFn9I+eeAq1kBfw6QRLRMDb6sIV+pgd5zpKNoc1ck=",
+        "owner": "mangowm",
+        "repo": "mango",
+        "rev": "c89f8147f97ab07aab573a09f0f4b13bf9f2855d",
         "type": "github"
       },
       "original": {
-        "owner": "puyral",
-        "ref": "simon",
-        "repo": "mangowc",
+        "owner": "mangowm",
+        "ref": "0.12.8",
+        "repo": "mango",
+        "type": "github"
+      }
+    },
+    "microvm": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ],
+        "spectrum": "spectrum"
+      },
+      "locked": {
+        "lastModified": 1775175752,
+        "narHash": "sha256-aDPc0o0r8/Wc7cvipkswmYrR7vHnC4EUwp4T4M9DTIs=",
+        "owner": "astro",
+        "repo": "microvm.nix",
+        "rev": "8a470b7b96c1780d59d7bc800ab755b57db7e819",
+        "type": "github"
+      },
+      "original": {
+        "owner": "astro",
+        "repo": "microvm.nix",
         "type": "github"
       }
     },
@@ -381,6 +402,7 @@
         "isw-src": "isw-src",
         "lean-lsp-mcp": "lean-lsp-mcp",
         "mangowc": "mangowc",
+        "microvm": "microvm",
         "nixos-hardware": "nixos-hardware",
         "nixpkgs": [
           "nixpkgs-stable"
@@ -480,6 +502,22 @@
         "owner": "Mic92",
         "repo": "sops-nix",
         "type": "github"
+      }
+    },
+    "spectrum": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1772189877,
+        "narHash": "sha256-i1p90Rgssb//aNiTDFq46ZG/fk3LmyRLChtp/9lddyA=",
+        "ref": "refs/heads/main",
+        "rev": "fe39e122d898f66e89ffa17d4f4209989ccb5358",
+        "revCount": 1255,
+        "type": "git",
+        "url": "https://spectrum-os.org/git/spectrum"
+      },
+      "original": {
+        "type": "git",
+        "url": "https://spectrum-os.org/git/spectrum"
       }
     },
     "squirrel-prover-src": {

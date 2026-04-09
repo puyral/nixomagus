@@ -72,7 +72,7 @@
     };
 
     mangowc = {
-      url = "github:puyral/mangowc/simon";
+      url = "github:mangowm/mango/0.12.8";
       inputs = {
         nixpkgs.follows = "nixpkgs";
         flake-parts.follows = "flake-parts";
@@ -111,6 +111,11 @@
 
     flake-parts = {
       url = "github:hercules-ci/flake-parts";
+    };
+
+    microvm = {
+      url = "github:astro/microvm.nix";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
   };
 
