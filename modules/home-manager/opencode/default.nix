@@ -74,8 +74,8 @@ in
               apiKey = builtins.readFile ./secrets/api-key;
             };
             models = {
-              "glm-4.7-355b" = {
-                name = "glm-4.7-355b";
+              "qwen-3.5-397b" = {
+                name = "qwen-3.5-397b";
                 # options = {
                 #   temperature = 0.2;
                 # };
