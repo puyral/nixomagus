@@ -1,6 +1,7 @@
 {
   pkgs,
   pkgs-unstable,
+  pkgs-self,
   ...
 }:
 {
@@ -82,6 +83,7 @@
         kitty
         vampire
         hugin
+        pkgs-self.sandbox
       ])
       ++ (with pkgs-unstable; [ fastfetch ]);
   };
