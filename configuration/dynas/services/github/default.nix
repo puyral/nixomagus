@@ -1,4 +1,9 @@
-{ pkgs, pkgs-unstable, config, ... }:
+{
+  pkgs,
+  pkgs-unstable,
+  config,
+  ...
+}:
 {
   sops.secrets.github-token = {
     sopsFile = ./token.sops-secret.yaml;
