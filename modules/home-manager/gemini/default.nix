@@ -22,7 +22,7 @@ in
           preview = true;
         };
         model = {
-          name = "auto";
+          name = "auto-gemini-3";
         };
         security = {
           auth = {

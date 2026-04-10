@@ -35,13 +35,14 @@ in
 
           in
           {
-            "*" = "ask";
+            "*" = if config.extra.jail.enable then "allow" else "ask";
             read = "allow";
             webfetch = "allow";
             glob = "allow";
             explore = "allow";
             grep = "allow";
             bash = mkAllows [
+              "rg*"
               "nix build*"
               "nix search*"
               "cargo check*"
@@ -54,8 +55,11 @@ in
               "jq*"
               "find*"
               "cat*"
+              "wc*"
               "git status*"
               "git diff*"
+              "git show*"
+              "git log*"
               "rebuild --dry-run --no-sign"
             ];
             lean-lsp-mcp = "allow";
@@ -74,8 +78,8 @@ in
               apiKey = builtins.readFile ./secrets/api-key;
             };
             models = {
-              "glm-4.7-355b" = {
-                name = "glm-4.7-355b";
+              "qwen-3.5-397b" = {
+                name = "qwen-3.5-397b";
                 # options = {
                 #   temperature = 0.2;
                 # };
