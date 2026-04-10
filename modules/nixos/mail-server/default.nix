@@ -99,7 +99,6 @@ in
             ../acme
           ];
 
-
           extra.acme = acmeConfig;
           extra.mail-server = hostConfig.extra.mail-server;
           security.acme.defaults.renewInterval = "yearly";

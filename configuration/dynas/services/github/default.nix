@@ -1,4 +1,4 @@
-{ pkgs, config, ... }:
+{ pkgs, pkgs-unstable, config, ... }:
 {
   sops.secrets.github-token = {
     sopsFile = ./token.sops-secret.yaml;
@@ -12,6 +12,8 @@
         in
         {
           enable = true;
+          # don't why I need this. It should have been fixed in https://github.com/NixOS/nixpkgs/pull/508189
+          package = pkgs-unstable.github-runner;
           url = "https://github.com/puyral/nixomagus";
           tokenFile = config.sops.secrets.github-token.path;
           name = "dynas";
