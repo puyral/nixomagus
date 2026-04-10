@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, pkgs-self,... }:
 {
   services.gpg-agent.enable = true;
   extra = {
@@ -9,6 +9,7 @@
     with pkgs;
     [
       nvtopPackages.intel
+	pkgs-self.sandbox
     ]
   );
 }
