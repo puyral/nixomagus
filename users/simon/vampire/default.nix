@@ -1,7 +1,7 @@
 {
   pkgs-unstable,
   pkgs,
-pkgs-self,
+  pkgs-self,
   lib,
   rust-overlay,
   ...
@@ -29,7 +29,7 @@ in
         vampire
         z3
         clang
-pkgs-self.sandbox
+        pkgs-self.sandbox
       ])
       ++ rust;
 

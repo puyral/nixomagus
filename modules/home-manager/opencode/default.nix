@@ -35,13 +35,14 @@ in
 
           in
           {
-            "*" = "ask";
+            "*" = if config.extra.jail.enable then "allow" else "ask";
             read = "allow";
             webfetch = "allow";
             glob = "allow";
             explore = "allow";
             grep = "allow";
             bash = mkAllows [
+              "rg*"
               "nix build*"
               "nix search*"
               "cargo check*"
@@ -54,8 +55,11 @@ in
               "jq*"
               "find*"
               "cat*"
+              "wc*"
               "git status*"
               "git diff*"
+              "git show*"
+              "git log*"
               "rebuild --dry-run --no-sign"
             ];
             lean-lsp-mcp = "allow";

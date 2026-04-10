@@ -22,8 +22,8 @@
     writableStoreOverlay = "/nix/.rw-store";
 
     # Increase RAM and enable ballooning
-    mem = 4000;
-    vcpu = 4;
+    mem = 16000;
+    vcpu = 8;
     balloon = true; # It expects a boolean, not a set
 
     shares = [
@@ -58,12 +58,21 @@
     "/.share" = {
       device = "host-pwd";
       fsType = "9p";
-      options = [ "trans=virtio" "version=9p2000.L" "access=any" "noauto" ];
+      options = [
+        "trans=virtio"
+        "version=9p2000.L"
+        "access=any"
+        "noauto"
+      ];
     };
     "/share" = {
       device = "/.share";
       fsType = "fuse.bindfs";
-      options = [ "map=0/1000:@0/@1000" "noauto" "x-systemd.automount" ];
+      options = [
+        "map=0/1000:@0/@1000"
+        "noauto"
+        "x-systemd.automount"
+      ];
     };
   };
 

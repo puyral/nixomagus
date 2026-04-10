@@ -1,4 +1,9 @@
-{ lib, config, ... }:
+{
+  lib,
+  config,
+  pkgs,
+  ...
+}:
 let
   cfg = config.extra.github-runners;
   options =
@@ -7,6 +12,7 @@ let
     {
       options = {
         enable = mkEnableOption "this runner";
+        package = mkPackageOption pkgs "github-runner" { };
         url = mkOption {
           type = types.str;
         };

@@ -36,7 +36,11 @@
 
       mainPkgs =
         with builtins;
-        (pkgs.callPackages ./notify-done inputs) // listToAttrs (map mkPkgs packages) // { inherit sandbox; };
+        (pkgs.callPackages ./notify-done inputs)
+        // listToAttrs (map mkPkgs packages)
+        // {
+          inherit sandbox;
+        };
 
       re-exports =
         with inputs';
