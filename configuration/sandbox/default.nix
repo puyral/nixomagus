@@ -22,8 +22,8 @@
     writableStoreOverlay = "/nix/.rw-store";
 
     # Increase RAM and enable ballooning
-    mem = 4000;
-    vcpu = 4;
+    mem = 16000;
+    vcpu = 8;
     balloon = true; # It expects a boolean, not a set
 
     shares = [
