@@ -2,10 +2,12 @@
 {
   # Minimal home-manager config for the sandbox
   # imports = [ ./commun ]; # already imported by users/simon/default.nix
-  extra ={jail.enable = true;
+  extra = {
+    jail.enable = true;
 
-      opencode = {
+    opencode = {
       enable = true;
       leanSupport.mcp = true;
-    };};
+    };
+  };
 }
