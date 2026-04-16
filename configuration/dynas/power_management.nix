@@ -52,13 +52,14 @@
 
       # --- THE DENYLIST (The Fix for SSH & Stability) ---
       # Prevents TLP from suspending these specific devices.
-      # 08:00.0 : Intel Wifi (Just in case module blacklist fails)
-      # 0d:00.0 : Aquantia 10GbE (Fixes unstable connection)
-      # 0a:00.0 : Intel I211 1GbE (Fixes SSH stability if connected here)
-      # 0c:00.0 : LSI SAS2008 (Enterprise storage controllers crash if suspended)
-      # 02:00.0 : AMD USB Controller (Keep USB active for NanoKVM input)
-      # 10:00.0 : DO NOT ADD THE GPU HERE. The GPU *needs* to suspend to save power.
-      "RUNTIME_PM_DENYLIST" = "08:00.0 0a:00.0 0c:00.0 02:00.0";
+      "RUNTIME_PM_DENYLIST" = lib.join " " [
+        "08:00.0" # : Intel Wifi (Just in case module blacklist fails)
+        "0d:00.0" # : Aquantia 10GbE (Fixes unstable connection)
+        "0a:00.0" # : Intel I211 1GbE (Fixes SSH stability if connected here)
+        "0c:00.0" # : LSI SAS2008 (Enterprise storage controllers crash if suspended)
+        "02:00.0" # : AMD USB Controller (Keep USB active for NanoKVM input)
+        "10:00.0" # : GPU.
+      ];
 
       # --- CPU Power Saving ---
       # For a NAS, we want efficiency.
