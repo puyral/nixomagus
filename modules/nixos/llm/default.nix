@@ -76,6 +76,8 @@ in
       ]);
     };
 
+    networking.firewall.allowedTCPPorts = lib.mkIf cfg.containerized [ 11434 ];
+
     services.open-webui = {
       enable = true;
       port = 8081;
