@@ -1,80 +1,85 @@
-{lib, config, pkgs, ...}:
-let cfg = config.extra.incus; 
-trustedPorts = [
-  53
-  67
-  22
-] ++ cfg.extraPorts;
+{
+  lib,
+  config,
+  pkgs,
+  ...
+}:
+let
+  cfg = config.extra.incus;
+  trustedPorts = [
+    53
+    67
+    22
+  ]
+  ++ cfg.extraPorts;
 
 in
 {
- options.extra.incus = with lib; {
-  enable = mkEnableOption "incus";
-  admins = mkOption {
-    type = types.listOf types.str;
-    default = ["simon"];
-  };
-  users = mkOption {
-    type = types.listOf types.str;
-    default = [];
-  };
-  extraPorts = mkOption {
-    type =types.listOf types.port;
-    default = [];
-  };
- };
-
- config = lib.mkIf cfg.enable {
-  virtualisation.incus= {
-    enable = true;
-    ui.enable = true;
-    useACMEHost = config.extra.acme.domain;
-    # socketActivation = true;
+  options.extra.incus = with lib; {
+    enable = mkEnableOption "incus";
+    admins = mkOption {
+      type = types.listOf types.str;
+      default = [ "simon" ];
+    };
+    users = mkOption {
+      type = types.listOf types.str;
+      default = [ ];
+    };
+    extraPorts = mkOption {
+      type = types.listOf types.port;
+      default = [ ];
+    };
   };
 
-  # https://wiki.nixos.org/wiki/Incus#Networking/Firewall
-  networking.nftables.enable = true;
-  networking.firewall.interfaces.incusbr0.allowedTCPPorts = trustedPorts;
-networking.firewall.interfaces.incusbr0.allowedUDPPorts = trustedPorts;
+  config = lib.mkIf cfg.enable {
+    virtualisation.incus = {
+      enable = true;
+      ui.enable = true;
+      useACMEHost = config.extra.acme.domain;
+      # socketActivation = true;
+    };
 
-  users.groups.incus.members = ["root"] ++ cfg.users;
-  users.groups.incus-admin.members = ["root"] ++ cfg.admins;
- };
+    # https://wiki.nixos.org/wiki/Incus#Networking/Firewall
+    networking.nftables.enable = true;
+    networking.firewall.interfaces.incusbr0.allowedTCPPorts = trustedPorts;
+    networking.firewall.interfaces.incusbr0.allowedUDPPorts = trustedPorts;
 
+    users.groups.incus.members = [ "root" ] ++ cfg.users;
+    users.groups.incus-admin.members = [ "root" ] ++ cfg.admins;
+  };
 
-
-#  config: {}
-# networks:
-# - config:
-#     ipv4.address: auto
-#     ipv6.address: auto
-#   description: ""
-#   name: incusbr0
-#   type: ""
-#   project: default
-# storage_pools:
-# - config:
-#     source: Zeno/containers/incus
-#   description: ""
-#   name: zfs
-#   driver: zfs
-# storage_volumes: []
-# profiles:
-# - config: {}
-#   description: ""
-#   devices:
-#     eth0:
-#       name: eth0
-#       network: incusbr0
-#       type: nic
-#     root:
-#       path: /
-#       pool: zfs
-#       type: disk
-#   name: default
-#   project: default
-# projects: []
-# certificates: []
-# cluster_groups: []
-# cluster: null
+  #  config: {}
+  # networks:
+  # - config:
+  #     ipv4.address: auto
+  #     ipv6.address: auto
+  #   description: ""
+  #   name: incusbr0
+  #   type: ""
+  #   project: default
+  # storage_pools:
+  # - config:
+  #     source: Zeno/containers/incus
+  #   description: ""
+  #   name: zfs
+  #   driver: zfs
+  # storage_volumes: []
+  # profiles:
+  # - config: {}
+  #   description: ""
+  #   devices:
+  #     eth0:
+  #       name: eth0
+  #       network: incusbr0
+  #       type: nic
+  #     root:
+  #       path: /
+  #       pool: zfs
+  #       type: disk
+  #   name: default
+  #   project: default
+  # projects: []
+  # certificates: []
+  # cluster_groups: []
+  # cluster: null
 }

@@ -83,7 +83,6 @@
         kitty
         vampire
         hugin
-        pkgs-self.sandbox
       ])
       ++ (with pkgs-unstable; [ fastfetch ]);
   };
