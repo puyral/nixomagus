@@ -5,7 +5,14 @@ keys:
   - &simon age1smuj4pm66r9cpvlh27yld7lnrm39wlvxml6z56p9asf3r2jndcxshml0pg
   - &amdra age1n77cgqh8vncmpus00ueu2g99vrvny42qfkm0rgtqth0e7jxzpvwqjjn84v
   - &mydos age12u5yxvvacn9cuthgsjuxm8ws43njtwhcm7ed7eyn3zgmly3gpczs8s4rcg
+  - &sandbox age1ge4cnvt7yples8x2laykdrwzy674tusj8r2tcxx88w37k6elwaxsl36kx2
 creation_rules:
+  - path_regex: modules/home-manager/ntfy/.*\.sops-secret\..*$
+    pgp: *gpg
+    age:
+    - *simon
+    - *sandbox
+
   - path_regex: (users|modules/home-manager)/.*\.sops-secret\..*$
     pgp: *gpg
     age:
