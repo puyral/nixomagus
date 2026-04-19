@@ -1,12 +1,14 @@
 {
   pkgs,
   lib,
-  microvm,
+  # microvm,
+  nixpkgs,
   ...
 }:
 {
   imports = [
-    microvm.nixosModules.microvm
+    # microvm.nixosModules.microvm
+    "${nixpkgs}/nixos/modules/virtualisation/incus-virtual-machine.nix"
   ];
 
   # Disable things from commun that we don't need or want
@@ -17,64 +19,64 @@
   # nix.optimise.automatic conflicts with writableStoreOverlay
 
   # MicroVM configuration
-  microvm = {
-    hypervisor = "qemu";
-    writableStoreOverlay = "/nix/.rw-store";
+  # microvm = {
+  #   hypervisor = "qemu";
+  #   writableStoreOverlay = "/nix/.rw-store";
 
-    # Increase RAM and enable ballooning
-    mem = 16000;
-    vcpu = 8;
-    balloon = true; # It expects a boolean, not a set
+  #   # Increase RAM and enable ballooning
+  #   mem = 16000;
+  #   vcpu = 8;
+  #   balloon = true; # It expects a boolean, not a set
 
-    shares = [
-      {
-        tag = "ro-store";
-        source = "/nix/store";
-        mountPoint = "/nix/.ro-store";
-        proto = "9p";
-      }
+  #   shares = [
+  #     {
+  #       tag = "ro-store";
+  #       source = "/nix/store";
+  #       mountPoint = "/nix/.ro-store";
+  #       proto = "9p";
+  #     }
 
-    ];
+  #   ];
 
-    # Networking: User-mode (SLIRP)
-    interfaces = [
-      {
-        type = "user";
-        id = "eth0";
-        mac = "02:00:00:00:00:01";
-      }
-    ];
+  #   # Networking: User-mode (SLIRP)
+  #   interfaces = [
+  #     {
+  #       type = "user";
+  #       id = "eth0";
+  #       mac = "02:00:00:00:00:01";
+  #     }
+  #   ];
 
-    forwardPorts = [
-      {
-        from = "host";
-        host.port = 2222;
-        guest.port = 22;
-      }
-    ];
-  };
+  #   forwardPorts = [
+  #     {
+  #       from = "host";
+  #       host.port = 2222;
+  #       guest.port = 22;
+  #     }
+  #   ];
+  # };
 
-  fileSystems = {
-    "/.share" = {
-      device = "host-pwd";
-      fsType = "9p";
-      options = [
-        "trans=virtio"
-        "version=9p2000.L"
-        "access=any"
-        "noauto"
-      ];
-    };
-    "/share" = {
-      device = "/.share";
-      fsType = "fuse.bindfs";
-      options = [
-        "map=0/1000:@0/@1000"
-        "noauto"
-        "x-systemd.automount"
-      ];
-    };
-  };
+  # fileSystems = {
+  #   "/.share" = {
+  #     device = "host-pwd";
+  #     fsType = "9p";
+  #     options = [
+  #       "trans=virtio"
+  #       "version=9p2000.L"
+  #       "access=any"
+  #       "noauto"
+  #     ];
+  #   };
+  #   "/share" = {
+  #     device = "/.share";
+  #     fsType = "fuse.bindfs";
+  #     options = [
+  #       "map=0/1000:@0/@1000"
+  #       "noauto"
+  #       "x-systemd.automount"
+  #     ];
+  #   };
+  # };
 
   # Network configuration for the user-mode interface
   networking.useNetworkd = true;
@@ -88,8 +90,8 @@
   nix = {
     enable = true;
 
-    optimise.automatic = lib.mkForce false;
-    gc.automatic = lib.mkForce false;
+    # optimise.automatic = lib.mkForce false;
+    # gc.automatic = lib.mkForce false;
   };
 
   # SSH for easy access
