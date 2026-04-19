@@ -1,7 +1,6 @@
 {
   writeShellApplication,
   replaceVars,
-  microvmRunner,
   openssh,
   netcat-openbsd,
 }:
@@ -13,7 +12,7 @@ writeShellApplication {
   ];
   text = builtins.readFile (
     replaceVars ./script.sh {
-      inherit microvmRunner;
     }
   );
+   meta.broken = true;
 }

@@ -87,6 +87,7 @@ let
     anki = ./anki;
     esphome = ./esphome;
     embeded-dev = ./embeded-dev;
+    incus = ./incus;
   };
 
 in

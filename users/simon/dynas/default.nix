@@ -9,7 +9,7 @@
     with pkgs;
     [
       nvtopPackages.intel
-      pkgs-self.sandbox
+      # pkgs-self.sandbox
     ]
   );
 }

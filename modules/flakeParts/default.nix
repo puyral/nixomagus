@@ -5,6 +5,6 @@
     ./nixos
     ./homeManager
     ./lib.nix
-    ./microvm.nix
+    # ./microvm.nix
   ];
 }
