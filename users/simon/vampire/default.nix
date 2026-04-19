@@ -29,7 +29,6 @@ in
         vampire
         z3
         clang
-        pkgs-self.sandbox
       ])
       ++ rust;
 

@@ -29,11 +29,6 @@
         ./isw
       ];
 
-      # sandbox = pkgs.callPackage ./sandbox {
-      #   inherit (pkgs) replaceVars;
-      #   # microvmRunner = self.nixosConfigurations.sandbox.config.microvm.runner.qemu;
-      # };
-
       mainPkgs =
         with builtins;
         (pkgs.callPackages ./notify-done inputs)
