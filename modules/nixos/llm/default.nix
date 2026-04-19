@@ -60,7 +60,7 @@ in
     };
 
     virtualisation.oci-containers.containers.ollama = lib.mkIf cfg.containerized {
-      image = "ollama/ollama:latest";
+      image = if cfg.acceleration == "intel" then "intelanalytics/ipex-llm-inference-cpp-xpu:latest" else "ollama/ollama:latest";
       autoStart = true;
 
       volumes = [
@@ -71,8 +71,11 @@ in
 
       extraOptions = [
         "--network=host"
-      ] ++ (lib.optionals (cfg.acceleration == "intel") [
-        "--device=/dev/dri:/dev/dri"
+      ] ++
+      (lib.optional (cfg.acceleration != false) "--device=/dev/dri:/dev/dri")
+       ++ (lib.optionals (cfg.acceleration == "intel") [
+        "-e ZES_ENABLE_SYSMAN=1"
+        "-e SYCL_PI_LEVEL_ZERO_USE_IMMEDIATE_COMMANDLISTS=1"
       ]);
     };
 
