@@ -1,5 +1,12 @@
 {lib, config, pkgs, ...}:
-let cfg = config.extra.incus; in
+let cfg = config.extra.incus; 
+trustedPorts = [
+  53
+  67
+  22
+] ++ cfg.extraPorts;
+
+in
 {
  options.extra.incus = with lib; {
   enable = mkEnableOption "incus";
@@ -9,6 +16,10 @@ let cfg = config.extra.incus; in
   };
   users = mkOption {
     type = types.listOf types.str;
+    default = [];
+  };
+  extraPorts = mkOption {
+    type =types.listOf types.port;
     default = [];
   };
  };
@@ -23,14 +34,8 @@ let cfg = config.extra.incus; in
 
   # https://wiki.nixos.org/wiki/Incus#Networking/Firewall
   networking.nftables.enable = true;
-  networking.firewall.interfaces.incusbr0.allowedTCPPorts = [
-  53
-  67
-];
-networking.firewall.interfaces.incusbr0.allowedUDPPorts = [
-  53
-  67
-];
+  networking.firewall.interfaces.incusbr0.allowedTCPPorts = trustedPorts;
+networking.firewall.interfaces.incusbr0.allowedUDPPorts = trustedPorts;
 
   users.groups.incus.members = ["root"] ++ cfg.users;
   users.groups.incus-admin.members = ["root"] ++ cfg.admins;
