@@ -4,11 +4,11 @@ let cfg = config.extra.incus; in
  options.extra.incus = with lib; {
   enable = mkEnableOption "incus";
   admins = mkOption {
-    type = type.listOf type.str;
-    default = [];
+    type = types.listOf types.str;
+    default = ["simon"];
   };
   users = mkOption {
-    type = type.listOf type.str;
+    type = types.listOf types.str;
     default = [];
   };
  };
@@ -18,7 +18,7 @@ let cfg = config.extra.incus; in
     enable = true;
     ui.enable = true;
     useACMEHost = config.extra.acme.domain;
-    socketActivation = true;
+    # socketActivation = true;
   };
 
   # https://wiki.nixos.org/wiki/Incus#Networking/Firewall
