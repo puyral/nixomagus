@@ -4,11 +4,15 @@
   is_nixos,
   home-manager,
   pkgs,
-  pkgs-pinned-darktable,
+  nix-index-database,
   ...
 }:
 {
-  imports = [ (rootDir + "/registeries.nix") ];
+  imports = [
+    nix-index-database.homeModules.default
+
+    (rootDir + "/registeries.nix")
+  ];
   options.vars = lib.mkOption {
     type = lib.types.attrs;
     default = { };

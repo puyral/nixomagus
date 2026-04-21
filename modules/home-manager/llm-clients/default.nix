@@ -164,6 +164,7 @@ in
       settings = {
         general = {
           preview = true;
+          previewFeatures = true;
         };
         model = {
           name = "auto-gemini-3";
@@ -171,6 +172,12 @@ in
         security = {
           auth = {
             selectedType = "oauth-personal";
+          };
+          disableYoloMode = !jailed;
+        };
+        context = {
+          fileFiltering = {
+            respectGitIgnore = false;
           };
         };
         mcp = {
@@ -192,21 +199,39 @@ in
       # ) "1";
     };
 
-    xdg.configFile."mistral-vibe/config.toml" = lib.mkIf (cfg.mistral-vibe.enable && leanEnableMcp) {
-      text = ''
-        installed_agents = [
-            "lean",
-        ]
+    home.file.".vibe/config.toml" = lib.mkIf (cfg.mistral-vibe.enable && leanEnableMcp) {
+      text =
+        (lib.optionalString jailed ''
+          auto_approve = true
+        '')
+        # + ''
 
-        [[mcp_servers]]
-        name = "lean-lsp-mcp"
-        transport = "stdio"
-        command = "${pkgs-self.lean-lsp-mcp}/bin/lean-lsp-mcp"
-        args = [
-            "--transport",
-            "stdio",
-        ]
-      '';
+        #   [[providers]]
+        #   name = "mistral"
+        #   api_base = "https://api.mistral.ai/v1"
+        #   api_key_env_var = "${builtins.readFile ./secrets/mistral-api-key}"
+        #   api_style = "openai"
+        #   backend = "mistral"
+        #   reasoning_field_name = "reasoning_content"
+        #   project_id = ""
+        #   region = ""
+        # ''
+        + (lib.optionalString leanEnableMcp ''
+
+          installed_agents = [
+              "lean",
+          ]
+
+          [[mcp_servers]]
+          name = "lean-lsp-mcp"
+          transport = "stdio"
+          command = "${pkgs-self.lean-lsp-mcp}/bin/lean-lsp-mcp"
+          args = [
+              "--transport",
+              "stdio",
+          ]
+        '');
     };
+
   };
 }
