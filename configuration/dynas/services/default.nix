@@ -127,8 +127,7 @@
 
       llm = {
         enable = true;
-        containerized = true;
-        acceleration = "intel";
+        acceleration = "vulkan";
         data = "${config.params.locations.containers}/llm/ollama";
         defaultLLM = "ministral-3:14b";
       };

@@ -34,7 +34,6 @@ let
     lazygit = ./lazygit;
     logseq = ./logseq;
     ntfy = ./ntfy;
-    opencode = ./opencode;
     shell = ./shell;
     sops = ./sops;
     ssh = ./ssh;
@@ -52,9 +51,9 @@ let
     waybar = ./waybar;
     anyrun = ./anyrun;
     notifications = ./notifications;
-    gemini = ./gemini;
     jail = ./jail;
     grafanactl = ./grafanactl;
+    llm-clients = ./llm-clients;
   };
 
 in

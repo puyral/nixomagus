@@ -5,9 +5,16 @@
   extra = {
     jail.enable = true;
 
-    opencode = {
+    llm-clients = {
       enable = true;
-      leanSupport.mcp = true;
+      opencode = {
+        enable = true;
+        leanSupport.mcp = true;
+      };
+      mistral-vibe = {
+        enable = true;
+        lean = true;
+      };
     };
   };
   programs.git.settings = {

@@ -1,4 +1,4 @@
- {
+{
   config,
   pkgs,
   lib,
@@ -13,8 +13,6 @@ in
   options.extra.llm = with lib; {
     enable = mkEnableOption "llm";
 
-    containerized = mkEnableOption "run ollama in docker container";
-
     acceleration = mkOption {
       description = "What interface to use for hardware acceleration.";
       default = null;
@@ -24,7 +22,6 @@ in
           "rocm"
           "cuda"
           "vulkan"
-          "intel"
         ]
       );
     };
@@ -40,17 +37,8 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-    assertions = [
-      {
-        assertion = !(cfg.containerized && cfg.acceleration != null && cfg.acceleration != "intel");
-        message = "When using containerized ollama, only 'intel' acceleration is supported. Use native ollama for other GPU types.";
-      }
-    ];
-
-    virtualisation.docker.enable = lib.mkIf cfg.containerized true;
-    virtualisation.oci-containers.backend = lib.mkIf cfg.containerized "docker";
-
-    services.ollama = lib.mkIf (!cfg.containerized) {
+    # Enable OLLAMA
+    services.ollama = {
       enable = true;
       host = "0.0.0.0";
       acceleration = cfg.acceleration;
@@ -58,28 +46,6 @@ in
       openFirewall = true;
       user = "ollama";
     };
-
-    virtualisation.oci-containers.containers.ollama = lib.mkIf cfg.containerized {
-      image = if cfg.acceleration == "intel" then "intelanalytics/ipex-llm-inference-cpp-xpu:latest" else "ollama/ollama:latest";
-      autoStart = true;
-
-      volumes = [
-        "${cfg.data}:/root/.ollama"
-      ];
-
-      ports = [ "11434:11434" ];
-
-      extraOptions = [
-        "--network=host"
-      ] ++
-      (lib.optional (cfg.acceleration != false) "--device=/dev/dri:/dev/dri")
-       ++ (lib.optionals (cfg.acceleration == "intel") [
-        "-e ZES_ENABLE_SYSMAN=1"
-        "-e SYCL_PI_LEVEL_ZERO_USE_IMMEDIATE_COMMANDLISTS=1"
-      ]);
-    };
-
-    networking.firewall.allowedTCPPorts = lib.mkIf cfg.containerized [ 11434 ];
 
     services.open-webui = {
       enable = true;

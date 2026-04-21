@@ -42,7 +42,7 @@ in
               N8N_HOST = "0.0.0.0";
               N8N_PORT = toString port;
               WEBHOOK_URL = "https://${cfg.subdomain}.${hostConfig.extra.acme.domain}/";
-              N8N_RUNNERS_ENABLED= lib.mkForce "false";
+              N8N_RUNNERS_ENABLED = lib.mkForce "false";
               # N8N_RUNNERS_MODE="internal";
             };
           };

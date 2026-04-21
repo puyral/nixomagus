@@ -31,8 +31,7 @@
 
       mainPkgs =
         with builtins;
-        (pkgs.callPackages ./notify-done inputs)
-        // listToAttrs (map mkPkgs packages);
+        (pkgs.callPackages ./notify-done inputs) // listToAttrs (map mkPkgs packages);
 
       re-exports =
         with inputs';

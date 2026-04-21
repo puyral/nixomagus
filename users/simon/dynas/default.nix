@@ -2,7 +2,10 @@
 {
   services.gpg-agent.enable = true;
   extra = {
-    opencode.enable = true;
+    llm-clients = {
+      enable = true;
+      opencode.enable = true;
+    };
   };
 
   home.packages = (

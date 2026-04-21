@@ -65,13 +65,20 @@
         jpgsDir = "/Volumes/Zeno/media/photos/full-export/jpegs";
       };
     };
-    opencode = {
+    llm-clients = {
       enable = true;
-      leanSupport.mcp = true;
-    };
-    gemini = {
-      enable = true;
-      lean = true;
+      opencode = {
+        enable = true;
+        leanSupport.mcp = true;
+      };
+      gemini = {
+        enable = true;
+        lean = true;
+      };
+      mistral-vibe = {
+        enable = true;
+        lean = true;
+      };
     };
   };
 

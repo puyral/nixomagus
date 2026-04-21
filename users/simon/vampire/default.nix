@@ -50,13 +50,20 @@ in
     shell.rebuild = {
       type = "home-manager";
     };
-    opencode = {
+    llm-clients = {
       enable = true;
-      leanSupport.mcp = true;
-    };
-    gemini = {
-      enable = true;
-      lean = true;
+      opencode = {
+        enable = true;
+        leanSupport.mcp = true;
+      };
+      gemini = {
+        enable = true;
+        lean = true;
+      };
+      mistral-vibe = {
+        enable = true;
+        lean = true;
+      };
     };
     emacs.enable = true;
     grafanactl.enable = false;
