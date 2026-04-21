@@ -1,7 +1,6 @@
 {
   config,
   pkgs,
-  home,
   lib,
   ...
 }:
@@ -75,6 +74,7 @@ in
     programs.nix-index = {
       enable = true;
     };
+    programs.nix-index-database.comma.enable = true;
 
     extra.gitConfigFetcher.enable = !jailed;
 
