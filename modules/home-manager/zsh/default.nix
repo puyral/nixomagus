@@ -69,7 +69,7 @@ in
     programs.direnv = {
       enable = true;
       enableZshIntegration = true;
-      nix-direnv = true;
+      nix-direnv.enable = true;
     };
 
     programs.nix-index = {
