@@ -5,9 +5,9 @@
   extra = {
     jail.enable = true;
 
-    opencode = {
+    llm-clients = {
       enable = true;
-      leanSupport.mcp = true;
+      lean.enable = true;
     };
   };
   programs.git.settings = {
