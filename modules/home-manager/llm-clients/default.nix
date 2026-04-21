@@ -21,14 +21,13 @@ in
 {
   options.extra.llm-clients = {
     enable = lib.mkEnableOption "llm-clients";
-      lean = {
-        enable = lib.mkEnableOption "lean";
-        mcp = lib.mkEnableOption "lean mcp server" // {
-          default = true;
-        };
-        lsp = lib.mkEnableOption "lean lsp server";
+    lean = {
+      enable = lib.mkEnableOption "lean";
+      mcp = lib.mkEnableOption "lean mcp server" // {
+        default = true;
       };
-
+      lsp = lib.mkEnableOption "lean lsp server";
+    };
 
     opencode = {
       enable = lib.mkEnableOption "opencode" // {
@@ -65,7 +64,7 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-    home.packages = lib.optional cfg.mistral-vibe.enable  pkgs-unstable.mistral-vibe ; # the othe have home manager modules already
+    home.packages = lib.optional cfg.mistral-vibe.enable pkgs-unstable.mistral-vibe; # the othe have home manager modules already
 
     programs.opencode = lib.mkIf cfg.opencode.enable {
       enable = true;
@@ -193,23 +192,21 @@ in
       # ) "1";
     };
 
-    xdg.configFile."mistral-vibe/config.toml" =
-      lib.mkIf (cfg.mistral-vibe.enable && leanEnableMcp)
-        {
-          text = ''
-            installed_agents = [
-                "lean",
-            ]
+    xdg.configFile."mistral-vibe/config.toml" = lib.mkIf (cfg.mistral-vibe.enable && leanEnableMcp) {
+      text = ''
+        installed_agents = [
+            "lean",
+        ]
 
-            [[mcp_servers]]
-            name = "lean-lsp-mcp"
-            transport = "stdio"
-            command = "${pkgs-self.lean-lsp-mcp}/bin/lean-lsp-mcp"
-            args = [
-                "--transport",
-                "stdio",
-            ]
-          '' ;
-        };
+        [[mcp_servers]]
+        name = "lean-lsp-mcp"
+        transport = "stdio"
+        command = "${pkgs-self.lean-lsp-mcp}/bin/lean-lsp-mcp"
+        args = [
+            "--transport",
+            "stdio",
+        ]
+      '';
+    };
   };
 }

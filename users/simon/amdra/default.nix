@@ -67,18 +67,7 @@
     };
     llm-clients = {
       enable = true;
-      opencode = {
-        enable = true;
-        leanSupport.mcp = true;
-      };
-      gemini = {
-        enable = true;
-        lean = true;
-      };
-      mistral-vibe = {
-        enable = true;
-        lean = true;
-      };
+      lean.enable = true;
     };
   };
 

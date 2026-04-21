@@ -4,7 +4,7 @@
   extra = {
     llm-clients = {
       enable = true;
-      opencode.enable = true;
+      lean.enable = false;
     };
   };
 

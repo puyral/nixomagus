@@ -7,14 +7,7 @@
 
     llm-clients = {
       enable = true;
-      opencode = {
-        enable = true;
-        leanSupport.mcp = true;
-      };
-      mistral-vibe = {
-        enable = true;
-        lean = true;
-      };
+      lean.enable = true;
     };
   };
   programs.git.settings = {
