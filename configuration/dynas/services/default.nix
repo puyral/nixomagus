@@ -163,6 +163,10 @@
         enable = true;
         address = "192.168.0.2";
       };
+
+      incus = {
+        enable = true;
+      };
     };
   services.ollama.package = pkgs-unstable.ollama-vulkan;
 

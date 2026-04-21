@@ -1,6 +1,8 @@
+#!/usr/bin/env bash
+
 # 1. NEW TRIGGER: Focus on the "Game Over" message
 # We ignore the noisy resets and wait for the definitive "device wedged"
-PATTERN="xe .*device wedged"
+PATTERN="xe .*ERROR"
 
 LOG_DIR="/var/log/gpu-crashes"
 mkdir -p "$LOG_DIR"
@@ -51,7 +53,7 @@ journalctl -k -f -n 0 | while read line; do
         echo "compressed dump down to $((SIZE/1024)) KB"
         
         # 5MB Limit Check
-        if [ $SIZE -le 5242880 ]; then
+        if [ "$SIZE" -le 5242880 ]; then
           DUMP_ATTACH_OPT="-A $ZST_DUMP"
           DUMP_MSG="Attached GPU Device Core Dump (Size: $((SIZE/1024)) KB)"
         else
@@ -81,7 +83,7 @@ journalctl -k -f -n 0 | while read line; do
     " | \
     mail -s "Dynas GPU driver crash detected at [$TIMESTAMP]" \
           -A "$LOG_FILEPATH" \
-          $DUMP_ATTACH_OPT \
+          "$DUMP_ATTACH_OPT" \
           simon.jeanteur@gmail.com
 
     echo "user notified"

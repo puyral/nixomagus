@@ -29,7 +29,6 @@ in
         vampire
         z3
         clang
-        pkgs-self.sandbox
       ])
       ++ rust;
 
@@ -51,13 +50,9 @@ in
     shell.rebuild = {
       type = "home-manager";
     };
-    opencode = {
+    llm-clients = {
       enable = true;
-      leanSupport.mcp = true;
-    };
-    gemini = {
-      enable = true;
-      lean = true;
+      lean.enable = true;
     };
     emacs.enable = true;
     grafanactl.enable = false;
