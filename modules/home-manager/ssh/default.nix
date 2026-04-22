@@ -38,7 +38,7 @@ in
               };
 
               "gitlab.secpriv.tuwien.ac.at" = {
-               # proxyJump = "vampire";
+                proxyJump = "vampire";
               };
             };
             enableDefaultConfig = false;
