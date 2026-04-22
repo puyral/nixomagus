@@ -15,51 +15,42 @@ let
 
   leanEnableMcp = cfg.lean.enable && cfg.lean.mcp;
   leanEnableLsp = cfg.lean.enable && cfg.lean.lsp;
+  nixMcp = cfg.mcp-nix.enable;
 
   jailed = config.extra.jail.enable;
 in
 {
-  options.extra.llm-clients = {
-    enable = lib.mkEnableOption "llm-clients";
+  options.extra.llm-clients = with lib; {
+    enable = mkEnableOption "llm-clients";
     lean = {
-      enable = lib.mkEnableOption "lean";
-      mcp = lib.mkEnableOption "lean mcp server" // {
+      enable = mkEnableOption "lean";
+      mcp = mkEnableOption "lean mcp server" // {
         default = true;
       };
       lsp = lib.mkEnableOption "lean lsp server";
     };
-
-    opencode = {
-      enable = lib.mkEnableOption "opencode" // {
+    mcp-nix = {
+      enable = mkEnableOption "mcp-nix" // {
         default = true;
       };
-      # aqueductApiKey = lib.mkOption {
-      #   type = lib.types.str;
-      #   default = "";
-      #   description = "Aqueduct API key";
-      # };
-      # mistralApiKey = lib.mkOption {
-      #   type = lib.types.str;
-      #   default = "";
-      #   description = "Mistral API key";
-      # };
+    };
+
+    opencode = {
+      enable = mkEnableOption "opencode" // {
+        default = true;
+      };
     };
 
     gemini = {
-      enable = lib.mkEnableOption "gemini" // {
+      enable = mkEnableOption "gemini" // {
         default = true;
       };
     };
 
     mistral-vibe = {
-      enable = lib.mkEnableOption "mistral-vibe" // {
+      enable = mkEnableOption "mistral-vibe" // {
         default = true;
       };
-      # apiKey = lib.mkOption {
-      #   type = lib.types.str;
-      #   default = "";
-      #   description = "Mistral API key for mistral-vibe";
-      # };
     };
   };
 
@@ -138,12 +129,18 @@ in
         };
         mcp =
           { }
-          // lib.optionalAttrs leanEnableMcp {
+          // (lib.optionalAttrs leanEnableMcp {
             lean-mcp = {
               type = "local";
               command = [ "${pkgs-self.lean-lsp-mcp}/bin/lean-lsp-mcp" ];
             };
-          };
+          })
+          // (lib.optionalAttrs nixMcp {
+            mcp-nix = {
+              type = "local";
+              command = [ "${pkgs-unstable.mcp-nixos}/bin/mcp-nixos" ];
+            };
+          });
         lsp =
           { }
           // lib.optionalAttrs leanEnableLsp {
@@ -186,6 +183,10 @@ in
         mcpServers = {
           lean = lib.mkIf leanEnableMcp {
             command = "${pkgs-self.lean-lsp-mcp}/bin/lean-lsp-mcp";
+            trust = true;
+          };
+          nix = lib.mkIf nixMcp {
+            command = "${pkgs-unstable.mcp-nixos}/bin/mcp-nixos";
             trust = true;
           };
         };
