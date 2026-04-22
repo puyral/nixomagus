@@ -1,3 +1,5 @@
+# NOT PART OF ANY CONFIG
+# SIMPLY HERE FOR REFERENCE (and as a backup)
 active_model = "devstral-2"
 vim_keybindings = false
 disable_welcome_banner_animation = false

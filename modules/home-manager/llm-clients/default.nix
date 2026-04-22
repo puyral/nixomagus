@@ -100,6 +100,10 @@ in
           "opencode"
           "zen"
         ];
+        installed_agents = [ "nix-helper" ] ++ lib.optional leanEnableMcp "lean";
+        skill_paths = [
+          "~/.gemini/skills"
+        ];
         provider = {
           aqueduct = {
             npm = "@ai-sdk/openai-compatible";
@@ -179,7 +183,7 @@ in
           };
         };
         mcp = {
-          allowed = lib.optionals leanEnableMcp [ "lean" ];
+          allowed = lib.optionals leanEnableMcp [ "lean" ] ++ lib.optionals nixMcp [ "nix" ];
         };
         mcpServers = {
           lean = lib.mkIf leanEnableMcp {
@@ -192,6 +196,19 @@ in
           };
         };
       };
+    };
+
+    home.file.".gemini/skills/nix-helper/SKILL.md" = lib.mkIf cfg.gemini.enable {
+      source = ./skills/nix-helper/SKILL.md;
+    };
+
+    home.file.".gemini/policies/mcp-nixos.toml" = lib.mkIf (cfg.gemini.enable && nixMcp) {
+      text = ''
+        [[rule]]
+        mcpName = "nix"
+        decision = "allow"
+        priority = 100
+      '';
     };
 
     home.sessionVariables = lib.mkIf cfg.mistral-vibe.enable {
@@ -218,6 +235,20 @@ in
         #   project_id = ""
         #   region = ""
         # ''
+        + (lib.optionalString (cfg.mistral-vibe.enable) ''
+
+          installed_agents = [
+              "nix-helper",
+          ]
+
+          [[mcp_servers]]
+          name = "mcp-nixos"
+          transport = "stdio"
+          command = "${pkgs-unstable.mcp-nixos}/bin/mcp-nixos"
+
+          [[skill_paths]]
+          path = "~/.gemini/skills"
+        '')
         + (lib.optionalString leanEnableMcp ''
 
           installed_agents = [
