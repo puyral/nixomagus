@@ -100,10 +100,6 @@ in
           "opencode"
           "zen"
         ];
-        installed_agents = [ "nix-helper" ] ++ lib.optional leanEnableMcp "lean";
-        skill_paths = [
-          "~/.gemini/skills"
-        ];
         provider = {
           aqueduct = {
             npm = "@ai-sdk/openai-compatible";
@@ -159,7 +155,10 @@ in
           };
       };
     };
-
+    xdg.configFile."opencode/skills"= lib.mkIf cfg.opencode.enable {
+      source = ./skills;
+      recursive = true;
+    };
     programs.gemini-cli = lib.mkIf cfg.gemini.enable {
       enable = true;
       package = pkgs-unstable.gemini-cli;
@@ -198,8 +197,9 @@ in
       };
     };
 
-    home.file.".gemini/skills/nix-helper/SKILL.md" = lib.mkIf cfg.gemini.enable {
-      source = ./skills/nix-helper/SKILL.md;
+    home.file.".gemini/skills" = lib.mkIf cfg.gemini.enable {
+      source = ./skills;
+      recursive = true;
     };
 
     home.file.".gemini/policies/mcp-nixos.toml" = lib.mkIf (cfg.gemini.enable && nixMcp) {
