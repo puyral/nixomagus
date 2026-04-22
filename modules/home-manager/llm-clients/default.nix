@@ -93,7 +93,9 @@ in
               "rebuild --dry-run --no-sign"
             ];
             lean-lsp-mcp = if leanEnableMcp then "allow" else auto;
-            mcp-nix = "allow";
+            mcp-nix = {
+              "*" = "allow";
+            };
           };
         share = "disabled";
         disabled_providers = [
@@ -155,7 +157,7 @@ in
           };
       };
     };
-    xdg.configFile."opencode/skills"= lib.mkIf cfg.opencode.enable {
+    xdg.configFile."opencode/skills" = lib.mkIf cfg.opencode.enable {
       source = ./skills;
       recursive = true;
     };
