@@ -93,6 +93,7 @@ in
               "rebuild --dry-run --no-sign"
             ];
             lean-lsp-mcp = if leanEnableMcp then "allow" else auto;
+            mcp-nix = "allow";
           };
         share = "disabled";
         disabled_providers = [
