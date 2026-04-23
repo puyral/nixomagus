@@ -128,8 +128,9 @@
       llm = {
         enable = true;
         acceleration = "vulkan";
-        data = "${config.params.locations.containers}/llm/ollama";
+        data = "${config.params.locations.containers}/llm";
         defaultLLM = "ministral-3:14b";
+        open-webui.data = "/var/lib/open-webui"; # <- todo: migrate
       };
 
       n8n.enable = true;
