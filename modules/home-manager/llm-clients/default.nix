@@ -71,6 +71,9 @@ in
             glob = "allow";
             explore = "allow";
             grep = "allow";
+            task = "allow";
+            websearch ="allow";
+            codesearch ="allow";
             bash = mkAllows [
               "rg*"
               "nix build*"
@@ -93,9 +96,8 @@ in
               "rebuild --dry-run --no-sign"
             ];
             lean-lsp-mcp = if leanEnableMcp then "allow" else auto;
-            mcp-nix = {
-              "*" = "allow";
-            };
+            "mcp-nix*" = "allow";
+            skills = "ask";
           };
         share = "disabled";
         disabled_providers = [
