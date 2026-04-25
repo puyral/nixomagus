@@ -134,6 +134,7 @@
 
         llama-swap = {
           enable =true;
+          llamaCppPackage = pkgs-unstable.llama-cpp-vulkan;
           models = [
             {
             id = "mistral";
