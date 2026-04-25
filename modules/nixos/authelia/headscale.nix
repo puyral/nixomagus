@@ -86,6 +86,10 @@ in
               authorization_policy = "headscale";
               client_secret = secrets.headscale.hashed;
               claims_policy = "default";
+              token_endpoint_auth_method = "client_secret_basic";
+              access_token_signed_response_alg = "none";
+              response_types = ["code"];
+              grant_types = ["authorization_code"];
             }
           ];
       };

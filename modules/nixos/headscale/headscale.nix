@@ -29,7 +29,7 @@ in
       policy.mode = "database";
 
       oidc = lib.mkIf config.vars.authcfg.enable {
-        only_start_if_oidc_is_available = true;
+        only_start_if_oidc_is_available = false;
         issuer = "https://${config.vars.authcfg.extraDomain}.${config.vars.baseDomain}";
         client_id = oidc.headscale.id;
         client_secret = oidc.headscale.plain;
