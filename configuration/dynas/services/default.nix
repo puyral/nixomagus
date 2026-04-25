@@ -131,6 +131,20 @@
         data = "${config.params.locations.containers}/llm";
         defaultLLM = "ministral-3:14b";
         open-webui.data = "/var/lib/open-webui"; # <- todo: migrate
+
+        llama-swap = {
+          enable =true;
+          models = [
+            {
+            id = "mistral";
+            model = "/mnt/Zeno/containers/llm/llama-cpp/models/Ministral-3-8B-Instruct-2512-UD-Q6_K_XL.gguf"; 
+          }
+            {
+            id = "qwen 9B";
+            model = "/mnt/Zeno/containers/llm/llama-cpp/models/Qwen3.5-9B-UD-Q6_K_XL.gguf"; 
+          }
+          ];
+        };
       };
 
       n8n.enable = true;

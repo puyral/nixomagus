@@ -34,7 +34,7 @@ in
     llama-swap = {
       enable = mkEnableOption "llama-swap model manager";
 
-      llamaCppPackage = mkPackageOption pkgs-unstable "llama-cpp";
+      llamaCppPackage = mkPackageOption pkgs-unstable "llama-cpp" {};
 
       port = mkOption {
         description = "Port for llama-swap";
@@ -70,8 +70,8 @@ in
               };
               nGpuLayers = mkOption {
                 description = "Number of GPU layers (-1 for all)";
-                default = -1;
-                type = types.int;
+                default = null;
+                type = types.nullOr types.int;
               };
               contextSize = mkOption {
                 description = "Context size (null for default)";
@@ -97,6 +97,14 @@ in
                 description = "Additional arguments to pass to llama-server";
                 default = [ ];
                 type = types.listOf types.str;
+              };
+              ttl = mkOption {
+                default = null;
+                type = types.nullOr types.int;
+              };
+              env = mkOption {
+                type = types.listOf types.str;
+                default = [];
               };
             };
           }

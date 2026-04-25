@@ -14,15 +14,17 @@ let
 
   buildModelConfig = model:
     let
-      gpuLayers = if model.nGpuLayers == -1 then "999" else toString model.nGpuLayers;
+      gpuLayers = lib.optionalString (model.nGpuLayers != null) "-ngl ${model.nGpuLayers}";
       contextArg = lib.optionalString (model.contextSize != null) "-c ${toString model.contextSize}";
       parallelArg = lib.optionalString (model.parallelSequences != null) "-np ${toString model.parallelSequences}";
       extraArgsStr = lib.concatStringsSep " " model.extraArgs;
     in
     {
-      cmd = "${llama-server} --port ${"$"}{PORT} -m ${model.model} -ngl ${gpuLayers} ${contextArg} ${parallelArg} ${extraArgsStr} --no-webui";
+      inherit (model) env;
+      cmd = "${llama-server} --port \${PORT} -m ${model.model} ${gpuLayers} ${contextArg} ${parallelArg} ${extraArgsStr} --no-webui";
       aliases = model.aliases;
       concurrencyLimit = model.concurrencyLimit;
+      ttl = lib.mkIf (model.ttl != null) model.ttl;
     };
 
   modelsAttrs = lib.listToAttrs (
