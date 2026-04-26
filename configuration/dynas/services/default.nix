@@ -149,11 +149,14 @@
             {
               id = "qwen-9B";
               model = "/mnt/Zeno/containers/llm/llama-cpp/models/Qwen3.5-9B-UD-Q6_K_XL.gguf";
+              contextSize = 256*1024;
+              extraArgs = ["--top-p 0.95" "--top-k 20" "--min-p 0.00" "--chat-template-kwargs '{\"enable_thinking\":true}"];
             }
             {
               id = "qwen-9B-32K";
               model = "/mnt/Zeno/containers/llm/llama-cpp/models/Qwen3.5-9B-UD-Q6_K_XL.gguf";
-              contextSize = 32000;
+              contextSize = 32*1024;
+              extraArgs = ["--top-p 0.95" "--top-k 20" "--min-p 0.00"];
             }
           ];
         };
