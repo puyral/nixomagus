@@ -159,6 +159,7 @@
             {
               id = "qwen-9B-long";
               model = "/mnt/Zeno/containers/llm/llama-cpp/models/Qwen3.5-9B-UD-Q4_K_XL.gguf";
+              contextSize = 100 * 1024;
               extraArgs = [
                 "--top-p 0.95"
                 "--top-k 20"
