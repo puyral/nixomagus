@@ -141,7 +141,8 @@
               model = "/mnt/Zeno/containers/llm/llama-cpp/models/Ministral-3-8B-Instruct-2512-UD-Q6_K_XL.gguf";
             }
             {
-              id = "mini-ministral";
+              id = "ministral-2K";
+              aliases = ["mini-ministral"];
               model = "/mnt/Zeno/containers/llm/llama-cpp/models/Ministral-3-8B-Instruct-2512-UD-Q6_K_XL.gguf";
               contextSize = 2048;
             }
