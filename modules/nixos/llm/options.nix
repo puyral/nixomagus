@@ -1,4 +1,9 @@
-{ lib, config, pkgs-unstable, ... }:
+{
+  lib,
+  config,
+  pkgs-unstable,
+  ...
+}:
 with lib;
 let
   cfg = config.extra.llm;
@@ -21,7 +26,8 @@ in
       );
     };
 
-    data = mkOption { # <- this changed. Need to adapts the configs to reflect how things used to be
+    data = mkOption {
+      # <- this changed. Need to adapts the configs to reflect how things used to be
       type = types.path;
       default = "/var/lib";
     };
@@ -34,7 +40,7 @@ in
     llama-swap = {
       enable = mkEnableOption "llama-swap model manager";
 
-      llamaCppPackage = mkPackageOption pkgs-unstable "llama-cpp";
+      llamaCppPackage = mkPackageOption pkgs-unstable "llama-cpp" { };
 
       port = mkOption {
         description = "Port for llama-swap";
@@ -70,8 +76,8 @@ in
               };
               nGpuLayers = mkOption {
                 description = "Number of GPU layers (-1 for all)";
-                default = -1;
-                type = types.int;
+                default = null;
+                type = types.nullOr types.int;
               };
               contextSize = mkOption {
                 description = "Context size (null for default)";
@@ -98,6 +104,14 @@ in
                 default = [ ];
                 type = types.listOf types.str;
               };
+              ttl = mkOption {
+                default = null;
+                type = types.nullOr types.int;
+              };
+              env = mkOption {
+                type = types.listOf types.str;
+                default = [ ];
+              };
             };
           }
         );
@@ -109,7 +123,8 @@ in
         default = true;
       };
 
-      data = mkOption { # <- same
+      data = mkOption {
+        # <- same
         description = "Where to put the models";
         default = "${cfg.data}/ollama";
         type = types.path;
@@ -139,7 +154,8 @@ in
         type = types.port;
       };
 
-      data = mkOption { # <- same
+      data = mkOption {
+        # <- same
         description = "Where to put the models";
         default = "${cfg.data}/open-webui";
         type = types.path;

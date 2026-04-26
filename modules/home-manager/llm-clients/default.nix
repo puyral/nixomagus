@@ -72,8 +72,8 @@ in
             explore = "allow";
             grep = "allow";
             task = "allow";
-            websearch ="allow";
-            codesearch ="allow";
+            websearch = "allow";
+            codesearch = "allow";
             bash = mkAllows [
               "rg*"
               "nix build*"
