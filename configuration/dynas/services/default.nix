@@ -131,6 +131,32 @@
         data = "${config.params.locations.containers}/llm";
         defaultLLM = "ministral-3:14b";
         open-webui.data = "/var/lib/open-webui"; # <- todo: migrate
+
+        llama-swap = {
+          enable = true;
+          llamaCppPackage = pkgs-unstable.llama-cpp-vulkan;
+          models = [
+            {
+              id = "ministral";
+              model = "/mnt/Zeno/containers/llm/llama-cpp/models/Ministral-3-8B-Instruct-2512-UD-Q6_K_XL.gguf";
+            }
+            {
+              id = "ministral-2K";
+              aliases = "mini-ministral";
+              model = "/mnt/Zeno/containers/llm/llama-cpp/models/Ministral-3-8B-Instruct-2512-UD-Q6_K_XL.gguf";
+              contextSize = 2048;
+            }
+            {
+              id = "qwen-9B";
+              model = "/mnt/Zeno/containers/llm/llama-cpp/models/Qwen3.5-9B-UD-Q6_K_XL.gguf";
+            }
+            {
+              id = "qwen-9B-32K";
+              model = "/mnt/Zeno/containers/llm/llama-cpp/models/Qwen3.5-9B-UD-Q6_K_XL.gguf";
+              contextSize = 32000;
+            }
+          ];
+        };
       };
 
       n8n.enable = true;
