@@ -44,6 +44,12 @@ in
               WEBHOOK_URL = "https://${cfg.subdomain}.${hostConfig.extra.acme.domain}/";
               N8N_RUNNERS_ENABLED = lib.mkForce "false";
               # N8N_RUNNERS_MODE="internal";
+              # Execution timeouts are in seconds
+              EXECUTIONS_TIMEOUT = 600; # 10 minutes
+              EXECUTIONS_TIMEOUT_MAX = 1200; # 20 minutes max limit
+
+              # Network timeouts are in milliseconds
+              N8N_DEFAULT_TIMEOUT = 600000; # 10 minutes
             };
           };
 
