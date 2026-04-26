@@ -142,18 +142,52 @@
             }
             {
               id = "ministral-2K";
-              aliases = "mini-ministral";
+              aliases = [ "mini-ministral" ];
               model = "/mnt/Zeno/containers/llm/llama-cpp/models/Ministral-3-8B-Instruct-2512-UD-Q6_K_XL.gguf";
               contextSize = 2048;
             }
             {
               id = "qwen-9B";
               model = "/mnt/Zeno/containers/llm/llama-cpp/models/Qwen3.5-9B-UD-Q6_K_XL.gguf";
+              extraArgs = [
+                "--top-p 0.95"
+                "--top-k 20"
+                "--min-p 0.00"
+                "--chat-template-kwargs '{\"enable_thinking\":true}'"
+              ];
+            }
+            {
+              id = "qwen-9B-long";
+              model = "/mnt/Zeno/containers/llm/llama-cpp/models/Qwen3.5-9B-UD-Q4_K_XL.gguf";
+              contextSize = 100 * 1024;
+              extraArgs = [
+                "--top-p 0.95"
+                "--top-k 20"
+                "--min-p 0.00"
+                "--chat-template-kwargs '{\"enable_thinking\":true}'"
+              ];
             }
             {
               id = "qwen-9B-32K";
               model = "/mnt/Zeno/containers/llm/llama-cpp/models/Qwen3.5-9B-UD-Q6_K_XL.gguf";
-              contextSize = 32000;
+              contextSize = 32 * 1024;
+              extraArgs = [
+                "--top-p 0.95"
+                "--top-k 20"
+                "--min-p 0.00"
+              ];
+            }
+            {
+              id = "qwen-0.8B-2K";
+              model = "/mnt/Zeno/containers/llm/llama-cpp/models/Qwen3.5-9B-UD-Q4_K_XL.gguf";
+              extraArgs = [
+                "--top-p 0.95"
+                "--top-k 20"
+                "--min-p 0.00"
+                "--chat-template-kwargs '{\"enable_thinking\":false}'"
+                "--temperature 0.4"
+              ];
+              contextSize = 3 * 1024;
             }
           ];
         };
