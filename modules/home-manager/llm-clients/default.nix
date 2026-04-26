@@ -15,51 +15,42 @@ let
 
   leanEnableMcp = cfg.lean.enable && cfg.lean.mcp;
   leanEnableLsp = cfg.lean.enable && cfg.lean.lsp;
+  nixMcp = cfg.mcp-nix.enable;
 
   jailed = config.extra.jail.enable;
 in
 {
-  options.extra.llm-clients = {
-    enable = lib.mkEnableOption "llm-clients";
+  options.extra.llm-clients = with lib; {
+    enable = mkEnableOption "llm-clients";
     lean = {
-      enable = lib.mkEnableOption "lean";
-      mcp = lib.mkEnableOption "lean mcp server" // {
+      enable = mkEnableOption "lean";
+      mcp = mkEnableOption "lean mcp server" // {
         default = true;
       };
       lsp = lib.mkEnableOption "lean lsp server";
     };
-
-    opencode = {
-      enable = lib.mkEnableOption "opencode" // {
+    mcp-nix = {
+      enable = mkEnableOption "mcp-nix" // {
         default = true;
       };
-      # aqueductApiKey = lib.mkOption {
-      #   type = lib.types.str;
-      #   default = "";
-      #   description = "Aqueduct API key";
-      # };
-      # mistralApiKey = lib.mkOption {
-      #   type = lib.types.str;
-      #   default = "";
-      #   description = "Mistral API key";
-      # };
+    };
+
+    opencode = {
+      enable = mkEnableOption "opencode" // {
+        default = true;
+      };
     };
 
     gemini = {
-      enable = lib.mkEnableOption "gemini" // {
+      enable = mkEnableOption "gemini" // {
         default = true;
       };
     };
 
     mistral-vibe = {
-      enable = lib.mkEnableOption "mistral-vibe" // {
+      enable = mkEnableOption "mistral-vibe" // {
         default = true;
       };
-      # apiKey = lib.mkOption {
-      #   type = lib.types.str;
-      #   default = "";
-      #   description = "Mistral API key for mistral-vibe";
-      # };
     };
   };
 
@@ -80,6 +71,9 @@ in
             glob = "allow";
             explore = "allow";
             grep = "allow";
+            task = "allow";
+            websearch = "allow";
+            codesearch = "allow";
             bash = mkAllows [
               "rg*"
               "nix build*"
@@ -102,6 +96,8 @@ in
               "rebuild --dry-run --no-sign"
             ];
             lean-lsp-mcp = if leanEnableMcp then "allow" else auto;
+            "mcp-nix*" = "allow";
+            skills = "ask";
           };
         share = "disabled";
         disabled_providers = [
@@ -138,12 +134,18 @@ in
         };
         mcp =
           { }
-          // lib.optionalAttrs leanEnableMcp {
+          // (lib.optionalAttrs leanEnableMcp {
             lean-mcp = {
               type = "local";
               command = [ "${pkgs-self.lean-lsp-mcp}/bin/lean-lsp-mcp" ];
             };
-          };
+          })
+          // (lib.optionalAttrs nixMcp {
+            mcp-nix = {
+              type = "local";
+              command = [ "${pkgs-unstable.mcp-nixos}/bin/mcp-nixos" ];
+            };
+          });
         lsp =
           { }
           // lib.optionalAttrs leanEnableLsp {
@@ -157,7 +159,10 @@ in
           };
       };
     };
-
+    xdg.configFile."opencode/skills" = lib.mkIf cfg.opencode.enable {
+      source = ./skills;
+      recursive = true;
+    };
     programs.gemini-cli = lib.mkIf cfg.gemini.enable {
       enable = true;
       package = pkgs-unstable.gemini-cli;
@@ -181,15 +186,33 @@ in
           };
         };
         mcp = {
-          allowed = lib.optionals leanEnableMcp [ "lean" ];
+          allowed = lib.optionals leanEnableMcp [ "lean" ] ++ lib.optionals nixMcp [ "nix" ];
         };
         mcpServers = {
           lean = lib.mkIf leanEnableMcp {
             command = "${pkgs-self.lean-lsp-mcp}/bin/lean-lsp-mcp";
             trust = true;
           };
+          nix = lib.mkIf nixMcp {
+            command = "${pkgs-unstable.mcp-nixos}/bin/mcp-nixos";
+            trust = true;
+          };
         };
       };
+    };
+
+    home.file.".gemini/skills" = lib.mkIf cfg.gemini.enable {
+      source = ./skills;
+      recursive = true;
+    };
+
+    home.file.".gemini/policies/mcp-nixos.toml" = lib.mkIf (cfg.gemini.enable && nixMcp) {
+      text = ''
+        [[rule]]
+        mcpName = "nix"
+        decision = "allow"
+        priority = 100
+      '';
     };
 
     home.sessionVariables = lib.mkIf cfg.mistral-vibe.enable {
@@ -216,6 +239,20 @@ in
         #   project_id = ""
         #   region = ""
         # ''
+        + (lib.optionalString (cfg.mistral-vibe.enable) ''
+
+          installed_agents = [
+              "nix-helper",
+          ]
+
+          [[mcp_servers]]
+          name = "mcp-nixos"
+          transport = "stdio"
+          command = "${pkgs-unstable.mcp-nixos}/bin/mcp-nixos"
+
+          [[skill_paths]]
+          path = "~/.gemini/skills"
+        '')
         + (lib.optionalString leanEnableMcp ''
 
           installed_agents = [
