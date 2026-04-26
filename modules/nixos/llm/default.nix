@@ -68,6 +68,7 @@ in
         healthCheckTimeout = llama-swap-cfg.healthCheckTimeout;
         models = modelsAttrs;
       };
+      openFirewall = true;
     };
   };
 
