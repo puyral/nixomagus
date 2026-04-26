@@ -12,11 +12,14 @@ let
 
   llama-server = lib.getExe' llama-swap-cfg.llamaCppPackage "llama-server";
 
-  buildModelConfig = model:
+  buildModelConfig =
+    model:
     let
       gpuLayers = lib.optionalString (model.nGpuLayers != null) "-ngl ${model.nGpuLayers}";
       contextArg = lib.optionalString (model.contextSize != null) "-c ${toString model.contextSize}";
-      parallelArg = lib.optionalString (model.parallelSequences != null) "-np ${toString model.parallelSequences}";
+      parallelArg = lib.optionalString (
+        model.parallelSequences != null
+      ) "-np ${toString model.parallelSequences}";
       extraArgsStr = lib.concatStringsSep " " model.extraArgs;
     in
     {
