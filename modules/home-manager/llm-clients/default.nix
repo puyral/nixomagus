@@ -15,7 +15,7 @@ let
 
   leanEnableMcp = cfg.lean.enable && cfg.lean.mcp;
   leanEnableLsp = cfg.lean.enable && cfg.lean.lsp;
-  nixMcp = cfg.mcp-nix.enable;
+  nixMcp = false ; #cfg.mcp-nix.enable;
 
   jailed = config.extra.jail.enable;
 in
@@ -239,7 +239,7 @@ in
         #   project_id = ""
         #   region = ""
         # ''
-        + (lib.optionalString (cfg.mistral-vibe.enable) ''
+        + (lib.optionalString nixMcp ''
 
           installed_agents = [
               "nix-helper",
