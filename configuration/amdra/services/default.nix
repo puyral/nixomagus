@@ -13,6 +13,12 @@
       ];
     };
     llm.enable = false;
+
+    incus = {
+      enable = true;
+    };
+    acme.enable = true;
   };
   services.ollama.package = pkgs-unstable.ollama-rocm;
+
 }
