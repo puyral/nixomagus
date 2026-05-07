@@ -17,7 +17,6 @@ in
     ./network.nix
   ];
 
-
   # https://github.com/V4bel/dirtyfrag
   boot.extraModprobeConfig = ''
     install esp4 /bin/false
@@ -113,35 +112,39 @@ in
       "simon"
       "@wheel"
     ];
-    buildMachines = if true then [] else [
-      # vampire
-      {
-        hostName = "root@100.64.0.16";
-        system = "x86_64-linux";
-        sshKey = "/home/simon/.ssh/id_ed25519";
-        supportedFeatures = [
-          "nixos-test"
-          "benchmark"
-          "big-parallel"
-          "kvm"
+    buildMachines =
+      if true then
+        [ ]
+      else
+        [
+          # vampire
+          {
+            hostName = "root@100.64.0.16";
+            system = "x86_64-linux";
+            sshKey = "/home/simon/.ssh/id_ed25519";
+            supportedFeatures = [
+              "nixos-test"
+              "benchmark"
+              "big-parallel"
+              "kvm"
+            ];
+            maxJobs = 4;
+          }
+          # dynas
+          {
+            hostName = "dynas.puyral.fr";
+            sshUser = "simon";
+            sshKey = "/home/simon/.ssh/id_ed25519";
+            system = "x86_64-linux";
+            supportedFeatures = [
+              "nixos-test"
+              "benchmark"
+              "big-parallel"
+              "kvm"
+            ];
+            maxJobs = 2;
+          }
         ];
-        maxJobs = 4;
-      }
-      # dynas
-      {
-        hostName = "dynas.puyral.fr";
-        sshUser = "simon";
-        sshKey = "/home/simon/.ssh/id_ed25519";
-        system = "x86_64-linux";
-        supportedFeatures = [
-          "nixos-test"
-          "benchmark"
-          "big-parallel"
-          "kvm"
-        ];
-        maxJobs = 2;
-      }
-    ];
 
     settings = {
       substituters = [
