@@ -42,6 +42,11 @@ in
 
       llamaCppPackage = mkPackageOption pkgs-unstable "llama-cpp" { };
 
+      ttl = mkOption {
+        default = 0;
+        type = types.int;
+      };
+
       port = mkOption {
         description = "Port for llama-swap";
         default = 8082;
