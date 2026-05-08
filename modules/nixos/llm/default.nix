@@ -15,7 +15,7 @@ let
   buildModelConfig =
     model:
     let
-      gpuLayers = lib.optionalString (model.nGpuLayers != null) "-ngl ${model.nGpuLayers}";
+      gpuLayers = lib.optionalString (model.nGpuLayers != null) "-ngl ${toString model.nGpuLayers}";
       contextArg = lib.optionalString (model.contextSize != null) "-c ${toString model.contextSize}";
       parallelArg = lib.optionalString (
         model.parallelSequences != null
