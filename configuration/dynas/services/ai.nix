@@ -88,7 +88,7 @@
               "--min-p 0.00"
               "--temperature 1"
               "--presence_penalty 1.5"
-              "--repetition_penalty 1.0"
+              # "--repetition_penalty 1.0"
             ];
           }
         ];
