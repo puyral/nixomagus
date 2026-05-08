@@ -77,6 +77,20 @@
             ];
             contextSize = 3 * 1024;
           }
+          {
+            id = "qwen 3.6 35B 4K";
+            model = "/mnt/Zeno/containers/llm/llama-cpp/models/Qwen3.6-35B-A3B-UD-Q4_K_XL.gguf";
+            contextSize = 4 * 1024;
+            nGpuLayers = 20;
+            extraArgs = [
+              "--top-p 0.95"
+              "--top-k 20"
+              "--min-p 0.00"
+              "--temperature 1"
+              "--presence_penalty 1.5"
+              "--repetition_penalty 1.0"
+            ];
+          }
         ];
       };
     };
