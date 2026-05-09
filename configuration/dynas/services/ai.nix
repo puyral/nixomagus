@@ -5,10 +5,13 @@
   ...
 }:
 {
-  networking.nginx.instances."openwebui"= {
+  networking.nginx.instances."openwebui" = {
     enable = true;
     port = 8081;
-    providers = ["dynas" "ovh-pl"];
+    providers = [
+      "dynas"
+      "ovh-pl"
+    ];
   };
 
   extra = {
