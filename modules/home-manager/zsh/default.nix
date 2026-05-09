@@ -51,35 +51,8 @@ in
       '';
     };
 
-    programs.fzf = {
-      enable = true;
-      enableZshIntegration = true;
-      tmux = lib.mkIf config.extra.tmux.enable {
-        enableShellIntegration = true;
-      };
-    };
-
-    programs.zoxide = {
-      enable = true;
-      enableZshIntegration = true;
-      options = [ "--cmd cd" ];
-    };
-
-    programs.direnv = {
-      enable = true;
-      enableZshIntegration = true;
-      nix-direnv.enable = true;
-    };
-
-    programs.nix-index = {
-      enable = true;
-    };
-    programs.nix-index-database.comma.enable = true;
-
-    extra.gitConfigFetcher.enable = !jailed;
-
-    home.sessionVariables = {
-      CONFIG_LOCATION = config.extra.nix.configDir;
-    };
+    programs.direnv.enableZshIntegration = true;
+    programs.fzf.enableZshIntegration = true;
+    programs.zoxide.enableZshIntegration = true;
   };
 }
