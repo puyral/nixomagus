@@ -54,6 +54,7 @@ let
     jail = ./jail;
     grafanactl = ./grafanactl;
     llm-clients = ./llm-clients;
+    direnv = ./direnv;
   };
 
 in
