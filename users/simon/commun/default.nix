@@ -15,6 +15,7 @@
   extra = {
     shell.enable = lib.mkDefault true;
     zsh.enable = lib.mkDefault true;
+    direnv.enable = lib.mkDefault true;
     ssh.enable = lib.mkDefault true;
     tmux.enable = lib.mkDefault true;
     yazi.enable = lib.mkDefault true;

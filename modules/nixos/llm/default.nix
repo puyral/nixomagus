@@ -15,7 +15,7 @@ let
   buildModelConfig =
     model:
     let
-      gpuLayers = lib.optionalString (model.nGpuLayers != null) "-ngl ${model.nGpuLayers}";
+      gpuLayers = lib.optionalString (model.nGpuLayers != null) "-ngl ${toString model.nGpuLayers}";
       contextArg = lib.optionalString (model.contextSize != null) "-c ${toString model.contextSize}";
       parallelArg = lib.optionalString (
         model.parallelSequences != null
@@ -27,7 +27,7 @@ let
       cmd = "${llama-server} --port \${PORT} -m ${model.model} ${gpuLayers} ${contextArg} ${parallelArg} ${extraArgsStr} --no-webui";
       aliases = model.aliases;
       concurrencyLimit = model.concurrencyLimit;
-      ttl = lib.mkIf (model.ttl != null) model.ttl;
+      ttl = if (model.ttl == null) then llama-swap-cfg.ttl else model.ttl;
     };
 
   modelsAttrs = lib.listToAttrs (
