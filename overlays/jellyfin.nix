@@ -1,6 +1,6 @@
 { pkgs, ... }:
 {
-  nixpkgs.config.overlays = [
+  nixpkgs.overlays = [
     (self: super: {
       jellyfin-media-player = super.jellyfin-media-player.overrideAttrs (prevAttrs: {
         nativeBuildInputs = (prevAttrs.nativeBuildInputs or [ ]) ++ [ pkgs.makeBinaryWrapper ];
