@@ -11,9 +11,6 @@ let
   gui = config.extra.applications.gui;
 in
 {
-  imports = [
-    ../../../overlays/jellyfin.nix
-  ];
 
   config = lib.mkIf gui.enable {
     services.mpris-proxy.enable = true;

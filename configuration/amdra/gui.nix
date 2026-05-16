@@ -1,5 +1,8 @@
 { pkgs, pkgs-unstable, ... }:
 {
+    imports = [
+    ../../overlays/jellyfin.nix
+  ];
   extra.gui = {
     enable = true;
     hyprland = true;
