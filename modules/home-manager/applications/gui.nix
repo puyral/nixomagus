@@ -102,12 +102,13 @@ in
 
         freecad
         orca-slicer
+
+        jellyfin-media-player
       ])
       ++ (with pkgs-unstable; [
         # darktable
         blender
 
-        jellyfin-media-player
       ])
       ++ lib.optional gui.pinentry-qt pkgs.pinentry-qt;
   };
