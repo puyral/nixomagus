@@ -20,9 +20,9 @@
     ./rgb.nix
   ];
 
-  boot.kernelPackages = pkgs-unstable.linuxPackages_zen;
+  boot.kernelPackages = config.vars.kernel;
   boot.zfs.package = pkgs-unstable.zfs_2_4; # and zfs
-  vars.kernel = config.boot.kernelPackages;
+  vars.kernel = pkgs-unstable.linuxPackages_zen;
 
   extra = {
     splash_screen.enable = false;

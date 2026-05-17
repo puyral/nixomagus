@@ -35,6 +35,7 @@ in
 
           services.kavita = {
             enable = true;
+	    package = pkgs-unstable.kavita;
             dataDir = "/data";
             tokenKeyFile = ./secrets/token;
             settings = {

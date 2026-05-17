@@ -55,6 +55,13 @@ jobs:
     with:
       hostname: mydos
 
+  sandbox:
+    needs: check
+    uses: ./.github/workflows/build-nixos.yml
+    secrets: inherit
+    with:
+      hostname: sandbox
+
   vampire:
     needs: check
     uses: ./.github/workflows/build-hm.yml
