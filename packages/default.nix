@@ -27,6 +27,7 @@
         ./probe-rs-udev
         ./rnote
         ./isw
+        ./kavita
       ];
 
       mainPkgs =
