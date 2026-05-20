@@ -31,9 +31,11 @@
 
   programs.gnupg.agent.enable = lib.mkForce false;
 
-  # Network configuration for the user-mode interface
-  networking.useNetworkd = true;
-  networking.networkmanager.enable = lib.mkForce false;
+  networking = {
+    useNetworkd = true;
+    networkmanager.enable = lib.mkForce false;
+    firewall.enable = lib.mkForce false;
+  };
 
   nix = {
     enable = true;
