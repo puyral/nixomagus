@@ -1,5 +1,11 @@
-{ lib, ... }:
 {
+  lib,
+  pkgs,
+  pkgs-unstable,
+  ...
+}:
+{
+  home.packages = (with pkgs; [ python3 ]) ++ (with pkgs-unstable; [ pi-coding-agent ]);
   # Minimal home-manager config for the sandbox
   # imports = [ ./commun ]; # already imported by users/simon/default.nix
   extra = {

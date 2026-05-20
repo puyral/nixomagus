@@ -34,11 +34,11 @@ stdenvNoCC.mkDerivation (finalAttrs: {
         --replace-fail 'FileSystem.Path.Join(FileSystem.Directory.GetCurrentDirectory(), "Assets")' 'FileSystem.Path.Join("@out@/lib/kavita-backend", "Assets")' \
         --replace-fail 'FileSystem.Path.Join(FileSystem.Directory.GetCurrentDirectory(), "I18N")' 'FileSystem.Path.Join("@out@/lib/kavita-backend", "I18N")' \
         --replace-fail 'FileSystem.Path.Join(FileSystem.Directory.GetCurrentDirectory(), "EmailTemplates")' 'FileSystem.Path.Join("@out@/lib/kavita-backend", "EmailTemplates")'
-      
+
       # Remove ExistOrCreate calls for read-only store paths
       sed -i '/AssetsDirectory = FileSystem.Path.Join/n; /ExistOrCreate(AssetsDirectory);/d' Kavita.Services/DirectoryService.cs
       sed -i '/TemplateDirectory = FileSystem.Path.Join/n; /ExistOrCreate(TemplateDirectory);/d' Kavita.Services/DirectoryService.cs
-      
+
       substituteInPlace Kavita.Services/DirectoryService.cs --subst-var out
 
       # Define webroot placeholder
