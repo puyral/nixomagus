@@ -5,7 +5,8 @@
   ...
 }:
 {
-  home.packages = (with pkgs; [ python3 ]) ++ (with pkgs-unstable; [ pi-coding-agent ]);
+  home.packages = (with pkgs; [ python3 ]) ++ (with pkgs-unstable; [ nodejs ]);
+  home.sessionPath = [ "$HOME/.npm-global/bin" ];
   # Minimal home-manager config for the sandbox
   # imports = [ ./commun ]; # already imported by users/simon/default.nix
   extra = {
