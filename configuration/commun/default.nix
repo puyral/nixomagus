@@ -91,6 +91,9 @@ in
   services.openssh = {
     enable = true;
     openFirewall = true;
+    extraConfig = ''
+      	    AcceptEnv COLORTERM
+      	  '';
   };
   users.users."root".openssh.authorizedKeys.keys = import (rootDir + /secrets/ssh_keys.nix);
 
