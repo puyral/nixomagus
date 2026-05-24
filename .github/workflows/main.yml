@@ -13,59 +13,25 @@ jobs:
     uses: ./.github/workflows/check.yml
     secrets: inherit
 
-  dynas:
+  nixos:
     needs: check
+    strategy:
+      matrix:
+        hostname: [dynas, amdra, ovh-pl, nixomagus, i7, mydos, sandbox]
     uses: ./.github/workflows/build-nixos.yml
     secrets: inherit
     with:
-      hostname: dynas
-
-  amdra:
+      hostname: ${{ matrix.hostname }}
+  
+  home-manager:
     needs: check
-    uses: ./.github/workflows/build-nixos.yml
-    secrets: inherit
-    with:
-      hostname: amdra
-
-  ovh-pl:
-    needs: check
-    uses: ./.github/workflows/build-nixos.yml
-    secrets: inherit
-    with:
-      hostname: ovh-pl
-
-  nixomagus:
-    needs: check
-    uses: ./.github/workflows/build-nixos.yml
-    secrets: inherit
-    with:
-      hostname: nixomagus
-
-  i7:
-    needs: check
-    uses: ./.github/workflows/build-nixos.yml
-    secrets: inherit
-    with:
-      hostname: i7
-
-  mydos:
-    needs: check
-    uses: ./.github/workflows/build-nixos.yml
-    secrets: inherit
-    with:
-      hostname: mydos
-
-  sandbox:
-    needs: check
-    uses: ./.github/workflows/build-nixos.yml
-    secrets: inherit
-    with:
-      hostname: sandbox
-
-  vampire:
-    needs: check
+    strategy:
+      matrix:
+        include:
+          - hostname: vampire
+            user: simon
     uses: ./.github/workflows/build-hm.yml
     secrets: inherit
     with:
-      hostname: vampire
-      user: simon
+      hostname: ${{ matrix.hostname }}
+      user: ${{ matrix.user }}
