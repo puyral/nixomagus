@@ -17,8 +17,6 @@
         in
         {
           enable = true;
-          # don't why I need this. It should have been fixed in https://github.com/NixOS/nixpkgs/pull/508189
-          package = pkgs-unstable.github-runner;
           url = "https://github.com/puyral/nixomagus";
           tokenFile = config.sops.secrets.github-token.path;
           name = "dynas";
@@ -29,4 +27,8 @@
         };
     };
   };
+  # see https://github.com/NixOS/nixpkgs/issues/515284
+  nixpkgs.config.permittedInsecurePackages = [
+    "nodejs-20.20.2"
+  ];
 }
