@@ -11,6 +11,7 @@ let
   gui = config.extra.applications.gui;
 in
 {
+
   config = lib.mkIf gui.enable {
     services.mpris-proxy.enable = true;
     extra = {
