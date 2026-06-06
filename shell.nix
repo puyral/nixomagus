@@ -24,8 +24,8 @@ pkgs.mkShell {
       else
         (with pkgs; [
           wev
-          xorg.xev
-          arandr
+          xev
+         # arandr
         ])
     );
 }
