@@ -14,7 +14,7 @@
 
     llm-clients = {
       enable = true;
-      lean.enable = true;
+      lean.enable = false;
     };
   };
   programs.git.settings = {

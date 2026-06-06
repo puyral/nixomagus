@@ -21,7 +21,7 @@ in
         domain = domain;
         extraDomainNames = [ "*.${domain}" ];
         dnsProvider = "ovh";
-        credentialsFile = config.sops.secrets.ovh-acme.path;
+        environmentFile = config.sops.secrets.ovh-acme.path;
         group = "acme";
       };
     };

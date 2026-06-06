@@ -1,62 +1,67 @@
-{ lib, config, ... }:
+{
+  lib,
+  config,
+  pkgs,
+  ...
+}:
 let
   cfg = config.extra.monitoring.promtail;
 in
 lib.mkIf cfg.enable {
-  users.users.promtail.extraGroups = [
-    "systemd-journal-remote"
-    "systemd-journal"
-  ];
-  services.promtail = {
+  users.users.alloy = {
+    isSystemUser = true;
+    group = "alloy";
+    extraGroups = [
+      "systemd-journal-remote"
+      "systemd-journal"
+    ];
+  };
+  users.groups.alloy = { };
+
+  services.alloy = {
     enable = true;
-    configuration = {
-      server = {
-        http_listen_port = cfg.port;
-        grpc_listen_port = 0;
-      };
-      clients = [
-        {
-          url = "http://${cfg.lokiHost}:${builtins.toString cfg.lokiPort}/loki/api/v1/push";
+    configPath = pkgs.writeText "config.alloy" ''
+      discovery.relabel "journal" {
+        targets = []
+        rule {
+          source_labels = ["__journal__systemd_unit"]
+          target_label  = "unit"
         }
-      ];
-      scrape_configs = [
-        {
-          job_name = "journal";
-          journal = {
-            max_age = "12h";
-            labels = {
-              job = "systemd-journal";
-              host = cfg.name;
-            };
-          };
-          relabel_configs = [
-            {
-              source_labels = [ "__journal__systemd_unit" ];
-              target_label = "unit";
-            }
-          ];
+      }
+
+      loki.source.journal "read" {
+        forward_to    = [loki.write.local.receiver]
+        relabel_rules = discovery.relabel.journal.rules
+        labels        = {
+          job = "systemd-journal"
+          host = "${cfg.name}"
         }
-        {
-          job_name = "remote-journal";
-          journal = {
-            path = "/var/log/journal/remote";
-            max_age = "12h";
-            labels = {
-              job = "remote-journal";
-            };
-          };
-          relabel_configs = [
-            {
-              source_labels = [ "__journal__hostname" ];
-              target_label = "container";
-            }
-            {
-              source_labels = [ "__journal__systemd_unit" ];
-              target_label = "unit";
-            }
-          ];
+      }
+
+      discovery.relabel "remote_journal" {
+        targets = []
+        rule {
+          source_labels = ["__journal__hostname"]
+          target_label  = "container"
         }
-      ];
-    };
+        rule {
+          source_labels = ["__journal__systemd_unit"]
+          target_label  = "unit"
+        }
+      }
+
+      loki.source.journal "remote" {
+        path = "/var/log/journal/remote"
+        forward_to = [loki.write.local.receiver]
+        relabel_rules = discovery.relabel.remote_journal.rules
+        labels = { job = "remote-journal" }
+      }
+
+      loki.write "local" {
+        endpoint {
+          url = "http://${cfg.lokiHost}:${builtins.toString cfg.lokiPort}/loki/api/v1/push"
+        }
+      }
+    '';
   };
 }

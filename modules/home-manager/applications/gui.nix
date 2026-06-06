@@ -49,7 +49,7 @@ in
 
         #logseq
 
-        youtube-music
+        pear-desktop
 
         obs-studio
         obs-studio-plugins.obs-pipewire-audio-capture
@@ -80,14 +80,14 @@ in
         ncmpcpp
         # cava
 
-        blueberry
+        # blueberry # unmatained
         easyeffects
 
         # steam
         obsidian
 
         discord
-        wasistlos
+        karere # wasistlos
         signal-desktop
         mattermost-desktop
         fluffychat
