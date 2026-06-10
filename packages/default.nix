@@ -39,7 +39,8 @@
         {
           sops-nix = sops-nix.packages.default;
           darktable-jpeg-sync = darktable-jpeg-sync.packages.default;
-        };
+        }
+        // lean-lsp-mcp.packages;
     in
     {
 
