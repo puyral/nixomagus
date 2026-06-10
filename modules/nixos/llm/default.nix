@@ -47,7 +47,6 @@ in
       enable = cfg.ollama.enable;
       host = cfg.ollama.host;
       port = cfg.ollama.port;
-      acceleration = cfg.acceleration;
       home = cfg.ollama.data;
       openFirewall = true;
       user = "ollama";

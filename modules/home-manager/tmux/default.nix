@@ -19,7 +19,7 @@ in
       mouse = true;
       historyLimit = 5000;
       sensibleOnTop = true;
-      shell = "${pkgs.zsh}/bin/zsh";
+      #shell = "${pkgs.zsh}/bin/zsh";
 
       plugins = with pkgs.tmuxPlugins; [
         pain-control
@@ -27,6 +27,8 @@ in
 
       extraConfig = ''
         set-environment -g TMUX_FZF_MENU_POPUP 1
+        set -g extended-keys on
+        set -g extended-keys-format csi-u
       '';
     };
   };

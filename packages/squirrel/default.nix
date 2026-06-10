@@ -57,6 +57,30 @@
 
               checkInputs = [ alcotest ];
 
+              patches = [
+                # (pkgs.writeText "printer.patch" ''
+                #   --- a/src/core/printer.ml
+                #   +++ b/src/core/printer.ml
+                #   @@ -8,7 +8,8 @@ let ansi_out_funs ppf =
+                #          base_funs.out_flush ()) ;
+                #        out_newline = base_funs.out_newline ;
+                #        out_spaces = base_funs.out_spaces ;
+                #   -    out_indent = base_funs.out_indent ; }
+                #   +    out_indent = base_funs.out_indent ;
+                #   +    out_width = base_funs.out_width ; }
+
+                #      (** HTML **)
+
+                #   @@ -37,7 +38,8 @@ let html_out_funs ppf =
+                #        out_flush = base_funs.out_flush ;
+                #        out_newline = base_funs.out_newline ;
+                #        out_spaces = base_funs.out_spaces ;
+                #   -    out_indent = base_funs.out_indent ; }
+                #   +    out_indent = base_funs.out_indent ;
+                #   +    out_width = base_funs.out_width ; }
+                # '')
+              ];
+
               preBuild = ''
                 substituteInPlace src/commit.ml.in --replace-warn "GITHASH" "nix-build"
                 mv src/commit.ml.in src/commit.ml

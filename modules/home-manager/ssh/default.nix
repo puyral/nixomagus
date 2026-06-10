@@ -31,17 +31,17 @@ in
           in
           {
             enable = true;
-            matchBlocks = (lib.mapAttrs (_: ip: { hostname = ip; }) ips) // {
+            enableDefaultConfig = false;
+            settings = (lib.mapAttrs (_: ip: { HostName = ip; }) ips) // {
               "vampire-root" = {
-                hostname = ips.vampire;
-                user = "root";
+                HostName = ips.vampire;
+                User = "root";
               };
 
               "gitlab.secpriv.tuwien.ac.at" = {
-                proxyJump = "vampire";
+                ProxyJump = "vampire";
               };
             };
-            enableDefaultConfig = false;
           };
       };
 }

@@ -135,6 +135,6 @@ let
 in
 {
   config = mkIf cfg.enable {
-    wayland.windowManager.mango.settings = strings.concatStringsSep "\n" settings;
+    wayland.windowManager.mango.extraConfig = strings.concatStringsSep "\n" settings;
   };
 }

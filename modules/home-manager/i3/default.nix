@@ -10,7 +10,7 @@ with lib;
 let
   cfg = config.extra.i3;
 
-  screen = "${pkgs.xorg.xrandr}/bin/xrandr " + cfg.xrandr;
+  screen = "${pkgs.xrandr}/bin/xrandr " + cfg.xrandr;
   wallpaper = config.extra.wallpaper;
 in
 {
@@ -38,12 +38,12 @@ in
 
   home.packages = mkIf cfg.enable (
     (with pkgs; [
-      xorg.xrandr
+      xrandr
       numlockx
       playerctl
       pamixer
       wmfocus
-      xfce.thunar
+      thunar
       flameshot
       solaar
       brightnessctl

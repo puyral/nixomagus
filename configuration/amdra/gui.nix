@@ -1,6 +1,6 @@
 { pkgs, pkgs-unstable, ... }:
 {
-    imports = [
+  imports = [
     ../../overlays/jellyfin.nix
   ];
   extra.gui = {

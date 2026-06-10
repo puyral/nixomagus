@@ -45,7 +45,7 @@ in
       services.${deamon} = {
         Install.WantedBy = [ ];
         Service = {
-          ExecStart = "${pkgs.swww}/bin/swww-daemon";
+          ExecStart = "${pkgs.awww}/bin/swww-daemon";
           Restart = "always";
         };
         Unit.Description = "The swww deamon";

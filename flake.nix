@@ -6,7 +6,7 @@
     ####### nixpkgs ########
     ########################
 
-    nixpkgs-stable.url = "nixpkgs/nixos-25.11";
+    nixpkgs-stable.url = "nixpkgs/nixos-26.05";
     nixpkgs-unstable.url = "nixpkgs/nixos-unstable";
     nixpkgs.follows = "nixpkgs-stable";
 
@@ -18,18 +18,18 @@
     #######################
 
     home-manager = {
-      url = "github:nix-community/home-manager/release-25.11";
+      url = "github:nix-community/home-manager/release-26.05";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
     simple-nixos-mailserver = {
-      url = "gitlab:simple-nixos-mailserver/nixos-mailserver/nixos-25.11";
+      url = "gitlab:simple-nixos-mailserver/nixos-mailserver/nixos-26.05";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
     # see https://github.com/tale/headplane/pull/282
     headplane = {
-      url = "github:tale/headplane/v0.6.2";
+      url = "github:tale/headplane/v0.6.3";
       # url = "github:tale/headplane/bd8a7a56d4021edf58511c6ab333af864d91304c";
       inputs = {
         nixpkgs.follows = "nixpkgs";
@@ -58,21 +58,21 @@
     };
 
     squirrel-prover-src = {
-      url = "github:squirrel-prover/squirrel-prover/58ea3d1c2db38ce9639dd1c17c9885c483c56472";
+      # url = "github:squirrel-prover/squirrel-prover/58ea3d1c2db38ce9639dd1c17c9885c483c56472";
+      url = "github:squirrel-prover/squirrel-prover/1ce3981473e9bec7ca36205dd77fcd0941b84728";
       flake = false;
     };
 
     lean-lsp-mcp = {
-      url = "github:puyral/lean-lsp-mcp";
+      url = "github:oOo0oOo/lean-lsp-mcp";
       inputs = {
         nixpkgs.follows = "nixpkgs";
-        treefmt-nix.follows = "treefmt-nix";
-        flake-parts.follows = "flake-parts";
+        flake-utils.follows = "flake-utils";
       };
     };
 
     mangowc = {
-      url = "github:mangowm/mango/0.12.8";
+      url = "github:mangowm/mango/0.14.1";
       inputs = {
         nixpkgs.follows = "nixpkgs";
         flake-parts.follows = "flake-parts";

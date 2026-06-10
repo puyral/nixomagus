@@ -103,10 +103,10 @@ in
         gather = map each;
       in
       gather [
-        {
-          rule = "float";
-          class = alacritty_float_class;
-        }
+        # {
+        #   rule = "float";
+        #   class = alacritty_float_class;
+        # }
       ]
     );
 
