@@ -58,7 +58,8 @@
     };
 
     squirrel-prover-src = {
-      url = "github:squirrel-prover/squirrel-prover/58ea3d1c2db38ce9639dd1c17c9885c483c56472";
+      # url = "github:squirrel-prover/squirrel-prover/58ea3d1c2db38ce9639dd1c17c9885c483c56472";
+      url = "github:squirrel-prover/squirrel-prover/1ce3981473e9bec7ca36205dd77fcd0941b84728";
       flake = false;
     };
 

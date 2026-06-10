@@ -572,17 +572,17 @@
     "squirrel-prover-src": {
       "flake": false,
       "locked": {
-        "lastModified": 1760089888,
-        "narHash": "sha256-octGvNHNyD6XLvnqL4qwKhXURGik4THAsF2FNTHtMl4=",
+        "lastModified": 1780408578,
+        "narHash": "sha256-9oxc5Eha7ZkRbHogBy8rWlWMkx6hAbqC69Ferj6+evk=",
         "owner": "squirrel-prover",
         "repo": "squirrel-prover",
-        "rev": "58ea3d1c2db38ce9639dd1c17c9885c483c56472",
+        "rev": "1ce3981473e9bec7ca36205dd77fcd0941b84728",
         "type": "github"
       },
       "original": {
         "owner": "squirrel-prover",
         "repo": "squirrel-prover",
-        "rev": "58ea3d1c2db38ce9639dd1c17c9885c483c56472",
+        "rev": "1ce3981473e9bec7ca36205dd77fcd0941b84728",
         "type": "github"
       }
     },
