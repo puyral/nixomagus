@@ -63,11 +63,10 @@
     };
 
     lean-lsp-mcp = {
-      url = "github:puyral/lean-lsp-mcp";
+      url = "github:oOo0oOo/lean-lsp-mcp";
       inputs = {
         nixpkgs.follows = "nixpkgs";
-        treefmt-nix.follows = "treefmt-nix";
-        flake-parts.follows = "flake-parts";
+        flake-utils.follows = "flake-utils";
       };
     };
 
