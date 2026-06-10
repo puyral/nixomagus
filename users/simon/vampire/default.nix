@@ -52,7 +52,7 @@ in
     };
     llm-clients = {
       enable = true;
-      lean.enable = false;
+      lean.enable = true;
     };
     emacs.enable = true;
     grafanactl.enable = false;
@@ -63,6 +63,6 @@ in
     user.email = lib.mkForce "simon.jeanteur@tuwien.ac.at";
   };
 
-  programs.ssh.settings."gitlab.secpriv.tuwien.ac.at" = lib.mkForce { };
+  programs.ssh.matchBlocks."gitlab.secpriv.tuwien.ac.at" = lib.mkForce { };
   # programs.gnupg.agent.pinentryPackage =  pkgs.pinentry-curses;
 }

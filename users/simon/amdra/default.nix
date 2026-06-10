@@ -67,7 +67,7 @@
     };
     llm-clients = {
       enable = true;
-      lean.enable = false;
+      lean.enable = true;
     };
   };
 
