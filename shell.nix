@@ -25,7 +25,7 @@ pkgs.mkShell {
         (with pkgs; [
           wev
           xev
-         # arandr
+          # arandr
         ])
     );
 }
