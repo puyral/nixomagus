@@ -21,6 +21,18 @@ in
       };
     };
 
+# 1. Disable PrivateTmp for PHP-FPM so it drops files in the real /tmp
+    systemd.services.phpfpm-rutorrent = lib.mkIf rtorrent {
+      serviceConfig.PrivateTmp = lib.mkForce false;
+      path = with pkgs-unstable; [ php procps curl ffmpeg mediainfo sox ];
+    };
+
+    # 2. Add dependencies and disable PrivateTmp for rTorrent
+    systemd.services.rtorrent = lib.mkIf (cfg.enable && !cfg.containered && cfg.rtorrent) {
+      path = with pkgs-unstable; [ php procps curl ffmpeg mediainfo sox ];
+      serviceConfig.PrivateTmp = lib.mkForce false;
+    };
+
     services = lib.mkIf (cfg.enable && !cfg.containered && cfg.rtorrent) {
       flood = lib.mkIf flood {
         enable = flood;

@@ -1,6 +1,6 @@
 {
   writeShellApplication,
-  swww,
+  awww,
   gnugrep,
   findutils,
   coreutils,
@@ -11,7 +11,7 @@
 writeShellApplication {
   name = "swww-change-wp";
   runtimeInputs = [
-    swww
+    awww
     coreutils
     gnugrep
     findutils

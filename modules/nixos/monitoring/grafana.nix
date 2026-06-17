@@ -15,6 +15,7 @@ lib.mkIf enable {
         http_port = cfg.port;
         # http_addr = "0.0.0.0";
       };
+      security.secret_key = "SW2YcwTIb9zpOOhoPsMm";
     };
     provision = {
       enable = true;

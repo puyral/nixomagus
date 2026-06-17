@@ -11,7 +11,7 @@ let
   pkgs-stable' = import nixpkgs-stable {
     inherit system;
     config = {
-      permittedInsecurePackages = [ "electron-27.3.11" ];
+      permittedInsecurePackages = [ "electron-39.8.10" ];
     };
   };
   cfg = config.extra.logseq;

@@ -55,7 +55,7 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-    home.packages = lib.optional cfg.mistral-vibe.enable pkgs-unstable.mistral-vibe; # the othe have home manager modules already
+    home.packages = [pkgs-unstable.antigravity-cli ] ++ lib.optional cfg.mistral-vibe.enable pkgs-unstable.mistral-vibe; # the othe have home manager modules already
 
     programs.opencode = lib.mkIf cfg.opencode.enable {
       enable = true;
