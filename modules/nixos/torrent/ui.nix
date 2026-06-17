@@ -8,6 +8,14 @@ let
   cfg = config.extra.torrent;
   flood = false;
   rtorrent = !flood;
+  rtorrentPaths = with pkgs-unstable; [
+    php
+    procps
+    curl
+    ffmpeg
+    mediainfo
+    sox
+  ];
 in
 {
   config = {
@@ -19,6 +27,18 @@ in
         User = "simon";
 
       };
+    };
+
+    # 1. Disable PrivateTmp for PHP-FPM so it drops files in the real /tmp
+    systemd.services.phpfpm-rutorrent = lib.mkIf rtorrent {
+      serviceConfig.PrivateTmp = lib.mkForce false;
+      path = rtorrentPaths;
+    };
+
+    # 2. Add dependencies and disable PrivateTmp for rTorrent
+    systemd.services.rtorrent = lib.mkIf (cfg.enable && !cfg.containered && cfg.rtorrent) {
+      serviceConfig.PrivateTmp = lib.mkForce false;
+      path = rtorrentPaths;
     };
 
     services = lib.mkIf (cfg.enable && !cfg.containered && cfg.rtorrent) {
