@@ -15,6 +15,17 @@ in
 
   imports = [ ./commun.nix ];
   config = mkIf (cfg.containered && cfg.containered) {
+    nixpkgs.overlays = [
+      (final: prev: {
+        rutorrent = prev.rutorrent.overrideAttrs (oldAttrs: {
+          postPatch = (oldAttrs.postPatch or "") + ''
+            substituteInPlace php/utility/fileutil.php \
+              --replace-fail 'getMinFilePerms( $file, $chmod = 755 )' 'getMinFilePerms( $file, $chmod = 0555 )' \
+              --replace-fail 'return((decoct($code) & 0777) >= $chmod);' 'return(($code & $chmod) == $chmod);'
+          '';
+        });
+      })
+    ];
     containers.torrent = {
       bindMounts = extraMounts // {
         "/data" = {
@@ -47,17 +58,6 @@ in
         { config, ... }:
         {
           imports = [ ./commun.nix ];
-          nixpkgs.overlays = [
-            (final: prev: {
-              rutorrent = prev.rutorrent.overrideAttrs (oldAttrs: {
-                postPatch = (oldAttrs.postPatch or "") + ''
-                  substituteInPlace php/utility/fileutil.php \
-                    --replace-fail 'getMinFilePerms( $file, $chmod = 755 )' 'getMinFilePerms( $file, $chmod = 0755 )' \
-                    --replace-fail 'return((decoct($code) & 0777) >= $chmod);' 'return(($code & 0777) >= $chmod);'
-                '';
-              });
-            })
-          ];
           users = {
             users =
               if cfg.user == null then

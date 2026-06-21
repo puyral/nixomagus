@@ -70,7 +70,6 @@ in
       rutorrent = lib.mkIf rtorrent {
         # Do NOT inherit user from rtorrent to avoid duplicate users.users key error in nixpkgs rutorrent.nix
         # user = "rutorrent"; # (defaults to rutorrent, which keeps the keys distinct)
-        # package = pkgs-unstable.rutorrent;
         enable = rtorrent;
         hostName = "0.0.0.0";
         dataDir = "${cfg.dataDir}/rutorrent";
