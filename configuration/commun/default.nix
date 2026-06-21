@@ -78,6 +78,8 @@ in
     gitFull
     usbutils
     pciutils
+    ripgrep
+    fd
   ];
 
   # automount
