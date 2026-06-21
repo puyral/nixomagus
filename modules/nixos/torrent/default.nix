@@ -47,6 +47,17 @@ in
         { config, ... }:
         {
           imports = [ ./commun.nix ];
+          nixpkgs.overlays = [
+            (final: prev: {
+              rutorrent = prev.rutorrent.overrideAttrs (oldAttrs: {
+                postPatch = (oldAttrs.postPatch or "") + ''
+                  substituteInPlace php/utility/fileutil.php \
+                    --replace-fail 'getMinFilePerms( $file, $chmod = 755 )' 'getMinFilePerms( $file, $chmod = 0755 )' \
+                    --replace-fail 'return((decoct($code) & 0777) >= $chmod);' 'return(($code & 0777) >= $chmod);'
+                '';
+              });
+            })
+          ];
           users = {
             users =
               if cfg.user == null then
@@ -54,8 +65,8 @@ in
               else
                 {
                   "${cfg.user}" = {
-                    uid = users.users."${cfg.user}".uid;
-                    group = cfg.group or config.services.rtorrent.group;
+                    uid = lib.mkForce (users.users."${cfg.user}".uid);
+                    group =  lib.mkForce (cfg.group or config.services.rtorrent.group);
                     isSystemUser = false;
                     isNormalUser = true;
                   };

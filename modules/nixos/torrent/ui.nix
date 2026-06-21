@@ -8,6 +8,14 @@ let
   cfg = config.extra.torrent;
   flood = false;
   rtorrent = !flood;
+  rtorrentPaths = with pkgs-unstable; [
+    php
+    procps
+    curl
+    ffmpeg
+    mediainfo
+    sox
+  ];
 in
 {
   config = {
@@ -21,19 +29,36 @@ in
       };
     };
 
-# 1. Disable PrivateTmp for PHP-FPM so it drops files in the real /tmp
+    # 1. Disable PrivateTmp for PHP-FPM so it drops files in the real /tmp
     systemd.services.phpfpm-rutorrent = lib.mkIf rtorrent {
       serviceConfig.PrivateTmp = lib.mkForce false;
-      path = with pkgs-unstable; [ php procps curl ffmpeg mediainfo sox ];
+      path = rtorrentPaths;
     };
 
     # 2. Add dependencies and disable PrivateTmp for rTorrent
     systemd.services.rtorrent = lib.mkIf (cfg.enable && !cfg.containered && cfg.rtorrent) {
-      path = with pkgs-unstable; [ php procps curl ffmpeg mediainfo sox ];
       serviceConfig.PrivateTmp = lib.mkForce false;
+      path = rtorrentPaths;
+    };
+
+    # 3. Force ownership of ruTorrent directory to rTorrent user/group so permissions align
+    systemd.services.rutorrent-setup = lib.mkIf (cfg.enable && !cfg.containered && cfg.rtorrent && rtorrent) {
+      postStart = ''
+        chown -R ${config.services.rtorrent.user}:${config.services.rtorrent.group} ${config.services.rutorrent.dataDir}/{conf,share,logs,plugins}
+      '';
     };
 
     services = lib.mkIf (cfg.enable && !cfg.containered && cfg.rtorrent) {
+      phpfpm.pools.rutorrent = lib.mkIf rtorrent {
+        user = lib.mkForce config.services.rtorrent.user;
+        group = lib.mkForce config.services.rtorrent.group;
+        settings = {
+          user = lib.mkForce config.services.rtorrent.user;
+          group = lib.mkForce config.services.rtorrent.group;
+          "clear_env" = "no";
+        };
+      };
+
       flood = lib.mkIf flood {
         enable = flood;
         #extraArgs = [''--rundir="${cfg.dataDir}/flood"''];
@@ -43,6 +68,8 @@ in
       };
 
       rutorrent = lib.mkIf rtorrent {
+        # Do NOT inherit user from rtorrent to avoid duplicate users.users key error in nixpkgs rutorrent.nix
+        # user = "rutorrent"; # (defaults to rutorrent, which keeps the keys distinct)
         # package = pkgs-unstable.rutorrent;
         enable = rtorrent;
         hostName = "0.0.0.0";
