@@ -22,6 +22,9 @@ in
             substituteInPlace php/utility/fileutil.php \
               --replace-fail 'getMinFilePerms( $file, $chmod = 755 )' 'getMinFilePerms( $file, $chmod = 0555 )' \
               --replace-fail 'return((decoct($code) & 0777) >= $chmod);' 'return(($code & $chmod) == $chmod);'
+              
+            substituteInPlace conf/config.php \
+              --replace-fail '$localHostedMode = false;' '$localHostedMode = true;'
           '';
         });
       })
