@@ -15,20 +15,7 @@ in
 
   imports = [ ./commun.nix ];
   config = mkIf (cfg.containered && cfg.containered) {
-    nixpkgs.overlays = [
-      (final: prev: {
-        rutorrent = prev.rutorrent.overrideAttrs (oldAttrs: {
-          postPatch = (oldAttrs.postPatch or "") + ''
-            substituteInPlace php/utility/fileutil.php \
-              --replace-fail 'getMinFilePerms( $file, $chmod = 755 )' 'getMinFilePerms( $file, $chmod = 0555 )' \
-              --replace-fail 'return((decoct($code) & 0777) >= $chmod);' 'return(($code & $chmod) == $chmod);'
-              
-            substituteInPlace conf/config.php \
-              --replace-fail '$localHostedMode = false;' '$localHostedMode = true;'
-          '';
-        });
-      })
-    ];
+
     containers.torrent = {
       bindMounts = extraMounts // {
         "/data" = {
@@ -60,6 +47,20 @@ in
         in
         { config, ... }:
         {
+          nixpkgs.overlays = [
+            (final: prev: {
+              rutorrent = prev.rutorrent.overrideAttrs (oldAttrs: {
+                postPatch = (oldAttrs.postPatch or "") + ''
+                  substituteInPlace php/utility/fileutil.php \
+                    --replace-fail 'getMinFilePerms( $file, $chmod = 755 )' 'getMinFilePerms( $file, $chmod = 0555 )' \
+                    --replace-fail 'return((decoct($code) & 0777) >= $chmod);' 'return(($code & $chmod) == $chmod);'
+                    
+                  substituteInPlace conf/config.php \
+                    --replace-fail '$localHostedMode = false;' '$localHostedMode = true;'
+                '';
+              });
+            })
+          ];
           imports = [ ./commun.nix ];
           users = {
             users =
