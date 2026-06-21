@@ -33,8 +33,8 @@ lib.mkIf cfg.enable {
         forward_to    = [loki.write.local.receiver]
         relabel_rules = discovery.relabel.journal.rules
         labels        = {
-          job = "systemd-journal"
-          host = "${cfg.name}"
+          job = "systemd-journal",
+          host = "${cfg.name}",
         }
       }
 
