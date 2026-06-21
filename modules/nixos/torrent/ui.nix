@@ -6,7 +6,7 @@
 }:
 let
   cfg = config.extra.torrent;
-  flood = false;
+  flood = true;
   rtorrent = !flood;
   rtorrentPaths = with pkgs-unstable; [
     php

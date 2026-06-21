@@ -94,7 +94,7 @@ in
     extra.containers.torrent = {
       nginx = [
         {
-          port = 80;
+          port = 3000;
           enable = true;
           name = "rutorrent";
         }
