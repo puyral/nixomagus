@@ -27,6 +27,13 @@ let
         self.homeModules.default
         sops-nix.homeManagerModules.sops
         (flake-parts-lib.importApply (rootDir + /users) { inherit user self; })
+        {
+          home.activation = {
+            backupExtension = lib.mkBefore ''
+              export HOME_MANAGER_BACKUP_EXT="bak"
+            '';
+          };
+        }
       ];
     };
 
