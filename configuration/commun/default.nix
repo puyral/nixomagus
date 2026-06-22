@@ -166,16 +166,6 @@ in
 
   nixpkgs = {
     overlays = [
-      (final: prev: {
-        libtorrent = prev.libtorrent.overrideAttrs (oldAttrs: {
-          postPatch = (oldAttrs.postPatch or "") + ''
-            substituteInPlace src/net/curl_socket.cc \
-              --replace-fail 'void CurlSocket::event_read() {' 'void CurlSocket::event_read() {
-  char buffer[64];
-  while (::read(m_fileDesc, buffer, sizeof(buffer)) > 0) {}'
-          '';
-        });
-      })
     ];
     config = {
       allowUnfree = true;
