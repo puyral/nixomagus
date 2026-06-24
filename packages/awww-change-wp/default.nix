@@ -9,7 +9,7 @@
   ...
 }:
 writeShellApplication {
-  name = "swww-change-wp";
+  name = "awww-change-wp";
   runtimeInputs = [
     awww
     coreutils

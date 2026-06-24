@@ -7,6 +7,11 @@ YELLOW="\033[1;33m"
 BOLD="\033[1m"
 RESET="\033[0m"
 
+if [ "$EUID" -eq 0 ]; then
+    echo -e "${YELLOW}Please do not run this script as root. It will automatically use sudo when needed.${RESET}"
+    exit 1
+fi
+
 # Configuration from Nix substitution
 CONFIG_DIR="@flakePath@"
 DEFAULT_TYPE="@type@" # "nixos" or "home-manager"

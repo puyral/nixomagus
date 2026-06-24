@@ -22,7 +22,7 @@
         ./generate-jpgs
         ./paperless-ai
         ./rebuild
-        ./swww-change-wp
+        ./awww-change-wp
         ./wandarr
         ./probe-rs-udev
         ./rnote

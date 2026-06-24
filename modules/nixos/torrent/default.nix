@@ -15,6 +15,7 @@ in
 
   imports = [ ./commun.nix ];
   config = mkIf (cfg.containered && cfg.containered) {
+
     containers.torrent = {
       bindMounts = extraMounts // {
         "/data" = {
@@ -46,6 +47,20 @@ in
         in
         { config, ... }:
         {
+          nixpkgs.overlays = [
+            (final: prev: {
+              rutorrent = prev.rutorrent.overrideAttrs (oldAttrs: {
+                postPatch = (oldAttrs.postPatch or "") + ''
+                  substituteInPlace php/utility/fileutil.php \
+                    --replace-fail 'getMinFilePerms( $file, $chmod = 755 )' 'getMinFilePerms( $file, $chmod = 0555 )' \
+                    --replace-fail 'return((decoct($code) & 0777) >= $chmod);' 'return(($code & $chmod) == $chmod);'
+                    
+                  substituteInPlace conf/config.php \
+                    --replace-fail '$localHostedMode = false;' '$localHostedMode = true;'
+                '';
+              });
+            })
+          ];
           imports = [ ./commun.nix ];
           users = {
             users =
@@ -54,8 +69,8 @@ in
               else
                 {
                   "${cfg.user}" = {
-                    uid = users.users."${cfg.user}".uid;
-                    group = cfg.group or config.services.rtorrent.group;
+                    uid = lib.mkForce (users.users."${cfg.user}".uid);
+                    group =  lib.mkForce (cfg.group or config.services.rtorrent.group);
                     isSystemUser = false;
                     isNormalUser = true;
                   };
@@ -79,7 +94,7 @@ in
     extra.containers.torrent = {
       nginx = [
         {
-          port = 80;
+          port = 3000;
           enable = true;
           name = "rutorrent";
         }

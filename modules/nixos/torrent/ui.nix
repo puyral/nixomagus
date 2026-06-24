@@ -6,7 +6,7 @@
 }:
 let
   cfg = config.extra.torrent;
-  flood = false;
+  flood = true;
   rtorrent = !flood;
   rtorrentPaths = with pkgs-unstable; [
     php
@@ -41,7 +41,28 @@ in
       path = rtorrentPaths;
     };
 
+    # 3. Force ownership of ruTorrent directory to rTorrent user/group so permissions align
+    # and inject localHostedMode = true to bypass broken XMLRPC binary checks
+    systemd.services.rutorrent-setup = lib.mkIf (cfg.enable && !cfg.containered && cfg.rtorrent && rtorrent) {
+      postStart = ''
+        CONFIG_PATH="${config.services.rutorrent.dataDir}/conf/config.php"
+        cp --remove-destination $(readlink -f $CONFIG_PATH) $CONFIG_PATH
+        echo "\$localHostedMode = true;" >> $CONFIG_PATH
+        chown -R ${config.services.rtorrent.user}:${config.services.rtorrent.group} ${config.services.rutorrent.dataDir}/{conf,share,logs,plugins}
+      '';
+    };
+
     services = lib.mkIf (cfg.enable && !cfg.containered && cfg.rtorrent) {
+      phpfpm.pools.rutorrent = lib.mkIf rtorrent {
+        user = lib.mkForce config.services.rtorrent.user;
+        group = lib.mkForce config.services.rtorrent.group;
+        settings = {
+          user = lib.mkForce config.services.rtorrent.user;
+          group = lib.mkForce config.services.rtorrent.group;
+          "clear_env" = "no";
+        };
+      };
+
       flood = lib.mkIf flood {
         enable = flood;
         #extraArgs = [''--rundir="${cfg.dataDir}/flood"''];
@@ -51,7 +72,8 @@ in
       };
 
       rutorrent = lib.mkIf rtorrent {
-        # package = pkgs-unstable.rutorrent;
+        # Do NOT inherit user from rtorrent to avoid duplicate users.users key error in nixpkgs rutorrent.nix
+        # user = "rutorrent"; # (defaults to rutorrent, which keeps the keys distinct)
         enable = rtorrent;
         hostName = "0.0.0.0";
         dataDir = "${cfg.dataDir}/rutorrent";
