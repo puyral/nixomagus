@@ -1,7 +1,6 @@
 {
   config,
   lib,
-  mangowc,
   pkgs,
   ...
 }:
@@ -14,7 +13,7 @@ let
 in
 {
   imports = [
-    mangowc.hmModules.mango
+    ./mango-hm.nix
     ./waybar.nix
     ./settings.nix
   ];
@@ -46,7 +45,7 @@ in
         ];
       };
       autostart_sh = ''
-        ${config.extra.waybar.configs.mangowc.run} &
+        pgrep -x waybar || ${config.extra.waybar.configs.mangowc.run} &
       '';
     };
   };
