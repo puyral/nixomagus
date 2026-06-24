@@ -41,11 +41,11 @@ in
           "systemctl --user start mango-session.target"
           "systemctl --user import-environment ${variables}"
           "systemctl --user restart xdg-desktop-portal xdg-desktop-portal-wlr xdg-desktop-portal-gtk"
-          "systemctl --user start ${config.vars.wallpaperTarget}"
         ];
       };
       autostart_sh = ''
-        pgrep -x waybar || ${config.extra.waybar.configs.mangowc.run} &
+        ${config.extra.waybar.configs.mangowc.run}
+        systemctl --user start ${config.vars.wallpaperTarget}
       '';
     };
   };
