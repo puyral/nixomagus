@@ -71,13 +71,6 @@
       };
     };
 
-    mangowc = {
-      url = "github:mangowm/mango/0.14.1";
-      inputs = {
-        nixpkgs.follows = "nixpkgs";
-        flake-parts.follows = "flake-parts";
-      };
-    };
 
     isw-src = {
       url = "github:YoyPa/isw";
