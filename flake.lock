@@ -42,27 +42,6 @@
         "type": "github"
       }
     },
-    "devshell": {
-      "inputs": {
-        "nixpkgs": [
-          "headplane",
-          "nixpkgs"
-        ]
-      },
-      "locked": {
-        "lastModified": 1768818222,
-        "narHash": "sha256-460jc0+CZfyaO8+w8JNtlClB2n4ui1RbHfPTLkpwhU8=",
-        "owner": "numtide",
-        "repo": "devshell",
-        "rev": "255a2b1725a20d060f566e4755dbf571bbbb5f76",
-        "type": "github"
-      },
-      "original": {
-        "owner": "numtide",
-        "repo": "devshell",
-        "type": "github"
-      }
-    },
     "flake-compat": {
       "flake": false,
       "locked": {
@@ -162,31 +141,6 @@
       "original": {
         "owner": "hercules-ci",
         "repo": "gitignore.nix",
-        "type": "github"
-      }
-    },
-    "headplane": {
-      "inputs": {
-        "devshell": "devshell",
-        "flake-utils": [
-          "flake-utils"
-        ],
-        "nixpkgs": [
-          "nixpkgs"
-        ]
-      },
-      "locked": {
-        "lastModified": 1778776843,
-        "narHash": "sha256-zvJUTKRIlHyPMq80teVXBSb7K9Zz44Kuuj2PPi6qIOw=",
-        "owner": "tale",
-        "repo": "headplane",
-        "rev": "623e7c03f12f6e46bd956feb48b154d380a21a7e",
-        "type": "github"
-      },
-      "original": {
-        "owner": "tale",
-        "ref": "v0.6.3",
-        "repo": "headplane",
         "type": "github"
       }
     },
@@ -462,7 +416,6 @@
         "darktable-jpeg-sync": "darktable-jpeg-sync",
         "flake-parts": "flake-parts",
         "flake-utils": "flake-utils",
-        "headplane": "headplane",
         "home-manager": "home-manager",
         "isw-src": "isw-src",
         "lean-lsp-mcp": "lean-lsp-mcp",
