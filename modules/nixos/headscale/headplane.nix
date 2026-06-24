@@ -1,4 +1,3 @@
-headplane:
 {
   config,
   lib,
@@ -12,12 +11,6 @@ let
   port = cfg.headplane.port;
 in
 {
-  imports = [
-    headplane.nixosModules.headplane
-    {
-      nixpkgs.overlays = [ headplane.overlays.default ];
-    }
-  ];
   services.headplane = {
     enable = true;
     # agent.enable = false;
