@@ -1,7 +1,6 @@
 {
   config,
   lib,
-  mangowc,
   pkgs,
   ...
 }:
@@ -14,7 +13,7 @@ let
 in
 {
   imports = [
-    mangowc.hmModules.mango
+    ./mango-hm.nix
     ./waybar.nix
     ./settings.nix
   ];
@@ -42,11 +41,11 @@ in
           "systemctl --user start mango-session.target"
           "systemctl --user import-environment ${variables}"
           "systemctl --user restart xdg-desktop-portal xdg-desktop-portal-wlr xdg-desktop-portal-gtk"
-          "systemctl --user start ${config.vars.wallpaperTarget}"
         ];
       };
       autostart_sh = ''
-        ${config.extra.waybar.configs.mangowc.run} &
+        ${config.extra.waybar.configs.mangowc.run}
+        systemctl --user start ${config.vars.wallpaperTarget}
       '';
     };
   };

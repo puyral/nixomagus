@@ -10,6 +10,11 @@ in
 {
   options.extra.tailscale = with lib; {
     enable = mkEnableOption "tailscale";
+    acceptDns = mkOption {
+      type = types.bool;
+      default = false;
+      description = "Whether to accept DNS configuration from the tailscale coordinator.";
+    };
     trustVPN = mkOption {
       type = types.bool;
       default = true;
@@ -43,6 +48,9 @@ in
         enable = true;
         openFirewall = true;
         useRoutingFeatures = if cfg.exitNode.enable then "server" else "client";
+        extraUpFlags = [
+          "--accept-dns=${lib.boolToString cfg.acceptDns}"
+        ];
       };
       networking.firewall.trustedInterfaces = lib.mkIf cfg.trustVPN [ tsinterface ];
 

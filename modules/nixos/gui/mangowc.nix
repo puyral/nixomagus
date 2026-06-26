@@ -1,7 +1,6 @@
 {
   config,
   lib,
-  mangowc,
   pkgs,
   ...
 }:
@@ -10,11 +9,11 @@ let
   cfg = config.extra.gui;
 in
 {
-  imports = [ mangowc.nixosModules.mango ];
+  imports = [ ];
 
   config = lib.mkIf (cfg.enable && cfg.mangowc) {
 
-    programs.mango = {
+    programs.mangowc = {
       enable = true;
     };
     extra.gui.extraWlrInUse = [ "mango" ];

@@ -8,9 +8,8 @@
 with lib;
 let
   cfg = config.extra.wallpaper;
-  deamon = "swww-deamon";
-  wp-change = "swww-change-wallpaper";
-  timer = "wallpaper";
+  deamon = "awww-deamon";
+  wp-change = "awww-change-wallpaper";
   target = "wallpaper";
 in
 {
@@ -27,38 +26,28 @@ in
       default = 120;
     };
   };
-  # config.programs.wpaperd = lib.mkIf cfg.enable {
-  #   # enable = true;
-  #   settings = {
-  #     default = {
-  #       path = cfg.path;
-  #       duration = "${builtins.toString cfg.duration}s";
-  #       sorting = "random";
-  #     };
-  #   };
-  # };
 
   config = lib.mkIf cfg.enable {
 
-    # Service to start swww-daemon
+    # Service to start awww-daemon
     systemd.user = {
       services.${deamon} = {
         Install.WantedBy = [ ];
         Service = {
-          ExecStart = "${pkgs.awww}/bin/swww-daemon";
+          ExecStart = "${pkgs.awww}/bin/awww-daemon";
           Restart = "always";
         };
-        Unit.Description = "The swww deamon";
+        Unit.Description = "The awww deamon";
       };
 
       # Service to change wallpaper randomly every 3 minutes
       services.${wp-change} = {
         Install.WantedBy = [ ];
         Service = {
-          ExecStart = "${pkgs-self.swww-change-wp}/bin/swww-change-wp '${cfg.path}' --resize crop --transition-fps 60 ";
+          ExecStart = "${pkgs-self.awww-change-wp}/bin/awww-change-wp '${cfg.path}' --resize crop --transition-fps 60 ";
         };
         Unit = {
-          Description = "Change the wallpaper using swww";
+          Description = "Change the wallpaper using awww";
           Requires = [ "${deamon}.service" ];
           After = [ "${deamon}.service" ];
         };
@@ -71,7 +60,7 @@ in
           OnUnitActiveSec = "${builtins.toString cfg.duration}s";
         };
         Unit = {
-          Description = "Timer to track when to change  swww-wallpaper";
+          Description = "Timer to track when to change  awww-wallpaper";
           Requires = [ "${wp-change}.service" ];
         };
       };

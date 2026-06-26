@@ -119,24 +119,25 @@ in
             fqdn = cfg.fqdn;
             domains = cfg.domains;
 
-            certificateScheme = "acme";
-            acmeCertificateName = cfg.mainDomain;
+            x509 = {
+              useACMEHost = cfg.mainDomain;
+            };
 
             dmarcReporting.enable = true;
 
-            # From relay.nix
-            useFsLayout = true;
+            storage = {
+              directoryLayout = "fs";
+              path = mail;
+            };
 
             indexDir = "/var/lib/dovecot/indices";
-            mailDirectory = mail;
-            sieveDirectory = "/var/lib/sieve";
-            dkimKeyDirectory = "/var/lib/dkim";
+            dkim.keyDirectory = "/var/lib/dkim";
           };
 
-          services.dovecot2.extraConfig = ''
-            mmap_disable = yes
-            mail_fsync = always
-          '';
+          services.dovecot2.settings = {
+            mmap_disable = "yes";
+            mail_fsync = "always";
+          };
         };
     };
   };
