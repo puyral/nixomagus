@@ -3,6 +3,7 @@
   rootDir,
   lib,
   config,
+  computer,
   ...
 }:
 with lib;
@@ -33,13 +34,21 @@ in
             enable = true;
             enableDefaultConfig = false;
             settings = (lib.mapAttrs (_: ip: { HostName = ip; }) ips) // {
+              "*" = {
+                SendEnv = "COLORTERM";
+              };
               "vampire-root" = {
                 HostName = ips.vampire;
                 User = "root";
               };
 
-              "gitlab.secpriv.tuwien.ac.at" = {
+              "gitlab.secpriv.tuwien.ac.at" = lib.mkIf (computer.name != "vampire") {
                 ProxyJump = "vampire";
+              };
+              
+              "sandbox-dynas" = {
+                ProxyJump = lib.mkIf (computer.name != "dynas") "dynas";
+                HostName = "10.134.130.140";
               };
             };
           };
