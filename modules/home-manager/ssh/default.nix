@@ -34,6 +34,9 @@ in
             enable = true;
             enableDefaultConfig = false;
             settings = (lib.mapAttrs (_: ip: { HostName = ip; }) ips) // {
+              "*" = {
+                SendEnv = "COLORTERM";
+              };
               "vampire-root" = {
                 HostName = ips.vampire;
                 User = "root";
