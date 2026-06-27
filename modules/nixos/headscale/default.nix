@@ -1,5 +1,4 @@
 {
-  headplane,
   lib,
   config,
   ...
@@ -44,7 +43,7 @@ in
         { ... }:
         {
           imports = [
-            ((import ./headplane.nix) headplane)
+            ./headplane.nix
             ./headscale.nix
           ];
           options.vars = lib.mkOption { type = lib.types.attrs; };

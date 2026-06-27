@@ -27,15 +27,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    # see https://github.com/tale/headplane/pull/282
-    headplane = {
-      url = "github:tale/headplane/v0.6.3";
-      # url = "github:tale/headplane/bd8a7a56d4021edf58511c6ab333af864d91304c";
-      inputs = {
-        nixpkgs.follows = "nixpkgs";
-        flake-utils.follows = "flake-utils";
-      };
-    };
 
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";
 

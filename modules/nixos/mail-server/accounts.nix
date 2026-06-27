@@ -7,7 +7,7 @@
 let
   cfg = config.extra.mail-server;
   domain = cfg.mainDomain;
-  accounts = config.mailserver.loginAccounts;
+  accounts = config.mailserver.accounts;
   hashPath = n: config.sops.secrets."mail-passwd/${n}".path;
 in
 {
@@ -26,7 +26,7 @@ in
 
     # A list of all login accounts. To create the password hashes, use
     # nix-shell -p mkpasswd --run 'mkpasswd -s'
-    loginAccounts = {
+    accounts = {
       "simon@${domain}" = {
         hashedPasswordFile = hashPath "simon@${domain}";
         aliases = [

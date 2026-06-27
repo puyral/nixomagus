@@ -220,6 +220,7 @@ in
 
     home.sessionVariables = lib.mkIf cfg.mistral-vibe.enable {
       MISTRAL_API_KEY = builtins.readFile ./secrets/mistral-api-key;
+      LEAN_MCP = "${pkgs-self.lean-lsp-mcp}";
       # MISTRAL_TRUST_ALL_TOOLS = lib.mkIf (
       #   jailed
       # ) "1";
