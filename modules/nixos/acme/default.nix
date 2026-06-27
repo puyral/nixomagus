@@ -16,7 +16,7 @@ in
     security.acme = {
       acceptTerms = true;
       defaults.email = (import (../../.. + "/secrets/email.nix")).default;
-      defaults.extraLegoFlags = [ "--ari-disable" ];
+      defaults.extraLegoRenewFlags = [ "--ari-disable" ];
 
       certs."${domain}" = {
         domain = domain;
