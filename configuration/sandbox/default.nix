@@ -56,6 +56,8 @@
 
   zramSwap.enable = true;
 
+  boot.tmp.cleanOnBoot = true;
+
   # Ensure simon has the right groups
   users.users.simon.extraGroups = [ "wheel" ];
   services.getty.autologinUser = "simon";

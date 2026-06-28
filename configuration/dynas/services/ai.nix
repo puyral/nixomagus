@@ -108,6 +108,10 @@
               # "--repetition_penalty 1.0"
             ];
           }
+          {
+            id = "gemma-4-12B-it-qat-UD-Q4";
+            model = "/mnt/Zeno/containers/llm/llama-cpp/models/gemma-4-12B-it-qat-UD-Q4_K_XL.gguf";
+          }
         ];
       };
     };
