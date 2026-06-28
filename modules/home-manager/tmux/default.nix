@@ -27,9 +27,9 @@ in
 
       extraConfig = ''
         set-environment -g TMUX_FZF_MENU_POPUP 1
-        set -g extended-keys on
-        set -g extended-keys-format csi-u
-        set -as terminal-features 'alacritty*:extkeys'
+        set -s extended-keys always
+        set -s extended-keys-format csi-u
+        set -as terminal-features '*:extkeys'
       '';
     };
   };
