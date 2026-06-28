@@ -15,7 +15,7 @@ let
 
   leanEnableMcp = cfg.lean.enable && cfg.lean.mcp;
   leanEnableLsp = cfg.lean.enable && cfg.lean.lsp;
-  nixMcp = false; # cfg.mcp-nix.enable;
+  nixMcp = cfg.mcp-nix.enable;
 
   jailed = config.extra.jail.enable;
 in
@@ -30,9 +30,7 @@ in
       lsp = lib.mkEnableOption "lean lsp server";
     };
     mcp-nix = {
-      enable = mkEnableOption "mcp-nix" // {
-        default = true;
-      };
+      enable = mkEnableOption "mcp-nix";
     };
 
     opencode = {
@@ -110,7 +108,7 @@ in
         provider = {
           aqueduct = {
             npm = "@ai-sdk/openai-compatible";
-            name = "aqueduct.ai.datalab.tuwien.ac.at";
+            name = "TU Wien";
             options = {
               baseURL = "https://aqueduct.ai.datalab.tuwien.ac.at/";
               apiKey = builtins.readFile ./secrets/aqueduct-api-key;
@@ -119,21 +117,24 @@ in
               "qwen-3.5-397b" = {
                 name = "qwen-3.5-397b";
               };
-            };
-          };
-          mistral = {
-            npm = "@ai-sdk/openai-compatible";
-            name = "mistral.ai";
-            options = {
-              baseURL = "https://api.mistral.ai/";
-              apiKey = builtins.readFile ./secrets/mistral-api-key;
-            };
-            models = {
-              "labs-leanstral-2603" = {
-                name = "labs-leanstral-2603";
+              "glm-5.2-744b-preview" = {
+                name = "glm 5.2";
               };
             };
           };
+          # mistral = {
+          #   npm = "@ai-sdk/openai-compatible";
+          #   name = "mistral.ai";
+          #   options = {
+          #     baseURL = "https://api.mistral.ai/";
+          #     apiKey = builtins.readFile ./secrets/mistral-api-key;
+          #   };
+          #   models = {
+          #     "labs-leanstral-2603" = {
+          #       name = "labs-leanstral-2603";
+          #     };
+          #   };
+          # };
         };
         mcp =
           { }
