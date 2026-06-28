@@ -117,8 +117,8 @@ in
               "qwen-3.5-397b" = {
                 name = "qwen-3.5-397b";
               };
-              "glm 5.2" = {
-                name = "glm-5.2-744b-preview";
+              "glm-5.2-744b-preview" = {
+                name = "glm 5.2";
               };
             };
           };
