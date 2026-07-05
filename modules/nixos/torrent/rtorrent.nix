@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 with lib;
 let
   cfg = config.extra.torrent;
@@ -16,17 +21,17 @@ in
           package = pkgs.rtorrent.override {
             libtorrent-rakshasa = pkgs.libtorrent-rakshasa.overrideAttrs (oldAttrs: {
               postPatch = (oldAttrs.postPatch or "") + ''
-                substituteInPlace src/net/curl_socket.cc \
-                  --replace-fail '#include <unistd.h>' '#include <unistd.h>
-#include <sys/socket.h>
-#include <errno.h>' \
-                  --replace-fail 'CurlSocket::event_read() {' 'CurlSocket::event_read() {
-  int type;
-  socklen_t optlen = sizeof(type);
-  if (getsockopt(m_fileDesc, SOL_SOCKET, SO_TYPE, &type, &optlen) < 0 && errno == ENOTSOCK) {
-    char buffer[64];
-    while (::read(m_fileDesc, buffer, sizeof(buffer)) > 0) {}
-  }'
+                                substituteInPlace src/net/curl_socket.cc \
+                                  --replace-fail '#include <unistd.h>' '#include <unistd.h>
+                #include <sys/socket.h>
+                #include <errno.h>' \
+                                  --replace-fail 'CurlSocket::event_read() {' 'CurlSocket::event_read() {
+                  int type;
+                  socklen_t optlen = sizeof(type);
+                  if (getsockopt(m_fileDesc, SOL_SOCKET, SO_TYPE, &type, &optlen) < 0 && errno == ENOTSOCK) {
+                    char buffer[64];
+                    while (::read(m_fileDesc, buffer, sizeof(buffer)) > 0) {}
+                  }'
               '';
             });
           };

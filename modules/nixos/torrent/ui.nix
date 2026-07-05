@@ -43,14 +43,16 @@ in
 
     # 3. Force ownership of ruTorrent directory to rTorrent user/group so permissions align
     # and inject localHostedMode = true to bypass broken XMLRPC binary checks
-    systemd.services.rutorrent-setup = lib.mkIf (cfg.enable && !cfg.containered && cfg.rtorrent && rtorrent) {
-      postStart = ''
-        CONFIG_PATH="${config.services.rutorrent.dataDir}/conf/config.php"
-        cp --remove-destination $(readlink -f $CONFIG_PATH) $CONFIG_PATH
-        echo "\$localHostedMode = true;" >> $CONFIG_PATH
-        chown -R ${config.services.rtorrent.user}:${config.services.rtorrent.group} ${config.services.rutorrent.dataDir}/{conf,share,logs,plugins}
-      '';
-    };
+    systemd.services.rutorrent-setup =
+      lib.mkIf (cfg.enable && !cfg.containered && cfg.rtorrent && rtorrent)
+        {
+          postStart = ''
+            CONFIG_PATH="${config.services.rutorrent.dataDir}/conf/config.php"
+            cp --remove-destination $(readlink -f $CONFIG_PATH) $CONFIG_PATH
+            echo "\$localHostedMode = true;" >> $CONFIG_PATH
+            chown -R ${config.services.rtorrent.user}:${config.services.rtorrent.group} ${config.services.rutorrent.dataDir}/{conf,share,logs,plugins}
+          '';
+        };
 
     services = lib.mkIf (cfg.enable && !cfg.containered && cfg.rtorrent) {
       phpfpm.pools.rutorrent = lib.mkIf rtorrent {
