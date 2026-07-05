@@ -65,6 +65,11 @@ in
   };
 
   config = lib.mkIf cfg.enable {
+    home.file = lib.mkIf cfg.ai {
+      ".local/lib/onnxruntime-rocm".source = "${pkgs-unstable.pkgsRocm.onnxruntime}/lib";
+      ".local/lib/onnxruntime-migraphx".source = "${pkgs-unstable.pkgsRocm.onnxruntime}/lib";
+    };
+
     home.packages =
       let
         extra = with pkgs; [
