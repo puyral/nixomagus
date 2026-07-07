@@ -70,7 +70,7 @@ in
                 {
                   "${cfg.user}" = {
                     uid = lib.mkForce (users.users."${cfg.user}".uid);
-                    group =  lib.mkForce (cfg.group or config.services.rtorrent.group);
+                    group = lib.mkForce (cfg.group or config.services.rtorrent.group);
                     isSystemUser = false;
                     isNormalUser = true;
                   };

@@ -27,7 +27,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";
 
     ######################
@@ -61,7 +60,6 @@
         flake-utils.follows = "flake-utils";
       };
     };
-
 
     isw-src = {
       url = "github:YoyPa/isw";

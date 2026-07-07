@@ -8,7 +8,7 @@
 }:
 let
   cfg = config.extra.darktable;
-  darktable = cfg.package;
+  darktable = cfg.package.override { withAi = cfg.ai; };
 
 in
 
@@ -21,7 +21,12 @@ in
       type = types.bool;
       default = false;
       description = "extra packages related to darktable";
+    };
 
+    ai = mkOption {
+      type = types.bool;
+      default = true;
+      description = "force enable AI feature";
     };
 
     library = mkOption {
