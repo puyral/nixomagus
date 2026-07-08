@@ -16,6 +16,7 @@ let
   leanEnableMcp = cfg.lean.enable && cfg.lean.mcp;
   leanEnableLsp = cfg.lean.enable && cfg.lean.lsp;
   nixMcp = cfg.mcp-nix.enable;
+  lsprantoEnable = cfg.lspranto.enable;
 
   jailed = config.extra.jail.enable;
 in
@@ -32,6 +33,7 @@ in
     mcp-nix = {
       enable = mkEnableOption "mcp-nix";
     };
+    lspranto.enable = mkEnableOption "lspranto";
 
     opencode = {
       enable = mkEnableOption "opencode" // {
@@ -57,6 +59,16 @@ in
       pkgs-unstable.antigravity-cli
     ]
     ++ lib.optional cfg.mistral-vibe.enable pkgs-unstable.mistral-vibe; # the othe have home manager modules already
+
+    home.sessionVariables = lib.mkIf cfg.mistral-vibe.enable {
+      MISTRAL_API_KEY = builtins.readFile ./secrets/mistral-api-key;
+      LEAN_MCP = lib.mkIf leanEnableMcp "${pkgs-self.lean-lsp-mcp}";
+      NIX_MCP = lib.mkIf nixMcp "${pkgs-unstable.mcp-nixos}";
+      LSPRANTO_MCP = lib.mkIf lsprantoEnable  "${pkgs-self.lspranto}";
+      # MISTRAL_TRUST_ALL_TOOLS = lib.mkIf (
+      #   jailed
+      # ) "1";
+    };
 
     programs.opencode = lib.mkIf cfg.opencode.enable {
       enable = true;
@@ -217,14 +229,6 @@ in
         decision = "allow"
         priority = 100
       '';
-    };
-
-    home.sessionVariables = lib.mkIf cfg.mistral-vibe.enable {
-      MISTRAL_API_KEY = builtins.readFile ./secrets/mistral-api-key;
-      LEAN_MCP = "${pkgs-self.lean-lsp-mcp}";
-      # MISTRAL_TRUST_ALL_TOOLS = lib.mkIf (
-      #   jailed
-      # ) "1";
     };
 
     home.file.".vibe/config.toml" = lib.mkIf (cfg.mistral-vibe.enable && leanEnableMcp) {

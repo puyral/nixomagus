@@ -66,6 +66,15 @@
       flake = false;
     };
 
+    lspranto = {
+      url = "github:puyral/lspranto";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        treefmt-nix.follows = "treefmt-nix";
+        flake-parts.follows = "flake-parts";
+      };
+    };
+
     #######################
     ######## utils ########
     #######################
