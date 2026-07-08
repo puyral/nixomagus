@@ -25,6 +25,10 @@ in
           # dynamic_padding = true;
         };
 
+keyboard.bindings = [
+  { key = "Enter"; mods = "Control"; chars = "\\x1b[13;5u"; }
+];
+
         font.normal = {
           family = "Hack Nerd Font Mono";
           style = "Regular";

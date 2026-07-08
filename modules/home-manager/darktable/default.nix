@@ -8,10 +8,7 @@
 }:
 let
   cfg = config.extra.darktable;
-  darktable = cfg.package.override {
-    withAi = cfg.ai;
-    onnxruntime = pkgs-unstable.pkgsRocm.onnxruntime;
-  };
+  darktable = cfg.package.override { withAi = cfg.ai; };
 
 in
 
@@ -65,11 +62,6 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-    home.file = lib.mkIf cfg.ai {
-      ".local/lib/onnxruntime-rocm".source = "${pkgs-unstable.pkgsRocm.onnxruntime}/lib";
-      ".local/lib/onnxruntime-migraphx".source = "${pkgs-unstable.pkgsRocm.onnxruntime}/lib";
-    };
-
     home.packages =
       let
         extra = with pkgs; [
