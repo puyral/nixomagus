@@ -18,7 +18,7 @@ in
       clock24 = true;
       mouse = true;
       historyLimit = 5000;
-      sensibleOnTop = true;
+      #sensibleOnTop = true;
       #shell = "${pkgs.zsh}/bin/zsh";
 
       plugins = with pkgs.tmuxPlugins; [
@@ -27,9 +27,10 @@ in
 
       extraConfig = ''
         set-environment -g TMUX_FZF_MENU_POPUP 1
-        set -s extended-keys always
-        set -s extended-keys-format csi-u
-        set -as terminal-features '*:extkeys'
+        set -g extended-keys always
+        set -g extended-keys-format csi-u
+        set -gs terminal-features '*:extkeys'
+set -g default-terminal "tmux-256color"
       '';
     };
   };

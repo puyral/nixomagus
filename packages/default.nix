@@ -38,6 +38,8 @@
         sops-nix = sops-nix.packages.default;
         darktable-jpeg-sync = darktable-jpeg-sync.packages.default;
         lean-lsp-mcp = lean-lsp-mcp.packages.default;
+      } // {
+        lspranto = lspranto.packages.default;
       };
     in
     {
