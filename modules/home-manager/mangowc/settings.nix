@@ -76,7 +76,7 @@ let
     "0"
   ]);
 
-  stacktagswindow = mkBindTag [ M C ] id (t: [
+  stacktagswindow = mkBindTag [ M S C ] id (t: [
     "toggletag"
     t
     "0"
