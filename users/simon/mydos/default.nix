@@ -13,6 +13,11 @@
     };
     logseq.enable = true;
     alacritty.enable = false;
+
+    llm-clients = {
+      enable = true;
+      mistral-vibe.enable = false;
+    };
   };
 
   home = {

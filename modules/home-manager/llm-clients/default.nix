@@ -179,16 +179,13 @@ in
       source = ./skills;
       recursive = true;
     };
-    programs.gemini-cli = lib.mkIf cfg.gemini.enable {
+    programs.antigravity-cli = lib.mkIf cfg.gemini.enable {
       enable = true;
       package = pkgs-unstable.gemini-cli;
       settings = {
         general = {
           preview = true;
           previewFeatures = true;
-        };
-        model = {
-          name = "auto-gemini-3";
         };
         security = {
           auth = {
