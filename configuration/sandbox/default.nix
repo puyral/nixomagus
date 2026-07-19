@@ -35,6 +35,9 @@
     useNetworkd = true;
     networkmanager.enable = lib.mkForce false;
     firewall.enable = lib.mkForce false;
+    hosts = {
+      "10.134.130.1" = [ "dynas.vpn.puyral.fr" ];
+    };
   };
 
   nix = {

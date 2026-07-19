@@ -72,6 +72,10 @@ in
       };
       openFirewall = true;
     };
+
+    systemd.services.llama-swap.serviceConfig = lib.mkIf llama-swap-cfg.enable {
+      ProcSubset = lib.mkForce "all";
+    };
   };
 
 }
