@@ -78,7 +78,6 @@ in
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
   hardware.cpu.intel.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
 
-
   # Surface Book clipboard detachment daemon
   # See https://github.com/linux-surface/surface-dtx-daemon
   services.udev.packages = [ dtx ];

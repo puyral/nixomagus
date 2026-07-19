@@ -30,7 +30,7 @@ in
         set -g extended-keys always
         set -g extended-keys-format csi-u
         set -gs terminal-features '*:extkeys'
-set -g default-terminal "tmux-256color"
+        set -g default-terminal "tmux-256color"
       '';
     };
   };

@@ -64,7 +64,7 @@ in
       MISTRAL_API_KEY = builtins.readFile ./secrets/mistral-api-key;
       LEAN_MCP = lib.mkIf leanEnableMcp "${pkgs-self.lean-lsp-mcp}";
       NIX_MCP = lib.mkIf nixMcp "${pkgs-unstable.mcp-nixos}";
-      LSPRANTO_MCP = lib.mkIf lsprantoEnable  "${pkgs-self.lspranto}";
+      LSPRANTO_MCP = lib.mkIf lsprantoEnable "${pkgs-self.lspranto}";
       # MISTRAL_TRUST_ALL_TOOLS = lib.mkIf (
       #   jailed
       # ) "1";
