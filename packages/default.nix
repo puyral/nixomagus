@@ -28,6 +28,7 @@
         ./rnote
         ./isw
         ./kavita
+        ./surface-dtx-daemon
       ];
 
       mainPkgs =

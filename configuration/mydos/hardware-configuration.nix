@@ -2,11 +2,18 @@
   config,
   lib,
   pkgs,
+  pkgs-self,
   modulesPath,
   nixos-hardware,
   ...
 }:
 
+let
+  dtx = pkgs-self.surface-dtx-daemon;
+  detach = pkgs.writeShellScript "detach" (builtins.readFile ./scripts/detach.sh);
+  attach = pkgs.writeShellScript "attach" (builtins.readFile ./scripts/attach.sh);
+  abort-hook = pkgs.writeShellScript "abort" (builtins.readFile ./scripts/abort.sh);
+in
 {
   # see https://github.com/linux-surface/linux-surface/wiki/Installation-and-Setup
 
@@ -21,7 +28,7 @@
 
   # microsoft-surface.ipts.enable = true;
   # microsoft-surface.surface-control.enable = true;
-  environment.systemPackages = with pkgs; [ surface-control ];
+  environment.systemPackages = [ dtx ] ++ (with pkgs; [ surface-control ]);
   hardware.opentabletdriver.enable = true;
 
   boot = {
@@ -71,4 +78,33 @@
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
   hardware.cpu.intel.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
 
+
+  # Surface Book clipboard detachment daemon
+  # See https://github.com/linux-surface/surface-dtx-daemon
+  services.udev.packages = [ dtx ];
+  services.dbus.packages = [ dtx ];
+
+  # Register the systemd units shipped by the package and enable them
+  systemd.packages = [ dtx ];
+  systemd.services.surface-dtx-daemon = {
+    wantedBy = [ "multi-user.target" ];
+  };
+  systemd.user.services.surface-dtx-userd = {
+    wantedBy = [ "default.target" ];
+  };
+
+  # Configure the DTX handler hooks (TOML). Overrides the default config from the package.
+  environment.etc."surface-dtx/surface-dtx-daemon.conf".text = ''
+    [log]
+    level = "info"
+
+    [handler.detach]
+    exec = "${detach}"
+
+    [handler.detach_abort]
+    exec = "${abort-hook}"
+
+    [handler.attach]
+    exec = "${attach}"
+  '';
 }
