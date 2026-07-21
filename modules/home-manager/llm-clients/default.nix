@@ -107,6 +107,7 @@ in
               "git show*"
               "git log*"
               "rebuild --dry-run --no-sign"
+              "ls*"
             ];
             lean-lsp-mcp = if leanEnableMcp then "allow" else auto;
             "mcp-nix*" = "allow";
@@ -181,7 +182,7 @@ in
     };
     programs.antigravity-cli = lib.mkIf cfg.gemini.enable {
       enable = true;
-      package = pkgs-unstable.gemini-cli;
+      package = pkgs-unstable.antigravity-cli;
       settings = {
         general = {
           preview = true;
@@ -213,6 +214,24 @@ in
         };
       };
     };
+
+home.file.".gemini/config/mcp_config.json" = {
+  text = builtins.toJSON {
+    mcpServers = {}
+      // lib.optionalAttrs leanEnableMcp {
+        lean = {
+          command = "${pkgs-self.lean-lsp-mcp}/bin/lean-lsp-mcp";
+          trust = true;
+        };
+      }
+      // lib.optionalAttrs nixMcp {
+        nix = {
+          command = "${pkgs-unstable.mcp-nixos}/bin/mcp-nixos";
+          trust = true;
+        };
+      };
+  };
+};
 
     home.file.".gemini/skills" = lib.mkIf cfg.gemini.enable {
       source = ./skills;
