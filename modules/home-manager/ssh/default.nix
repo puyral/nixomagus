@@ -50,6 +50,9 @@ in
                 ProxyJump = lib.mkIf (computer.name != "dynas") "dynas";
                 HostName = "10.134.130.140";
               };
+              #"gitlab.secpriv.tuwien.ac.at" = {
+              #  ProxyJump = "vampire";
+              #};
             };
           };
       };

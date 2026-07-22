@@ -66,6 +66,20 @@
       flake = false;
     };
 
+    surface-dtx-daemon-src = {
+      url = "github:linux-surface/surface-dtx-daemon";
+      flake = false;
+    };
+
+    lspranto = {
+      url = "github:puyral/lspranto";
+      inputs = {
+        nixpkgs.follows = "nixpkgs-unstable"; # using "nixpkgs" crashes
+        flake-parts.follows = "flake-parts";
+        treefmt-nix.follows = "treefmt-nix";
+      };
+    };
+
     #######################
     ######## utils ########
     #######################

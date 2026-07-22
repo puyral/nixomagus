@@ -16,6 +16,7 @@ let
   leanEnableMcp = cfg.lean.enable && cfg.lean.mcp;
   leanEnableLsp = cfg.lean.enable && cfg.lean.lsp;
   nixMcp = cfg.mcp-nix.enable;
+  lsprantoEnable = cfg.lspranto.enable;
 
   jailed = config.extra.jail.enable;
 in
@@ -32,6 +33,7 @@ in
     mcp-nix = {
       enable = mkEnableOption "mcp-nix";
     };
+    lspranto.enable = mkEnableOption "lspranto";
 
     opencode = {
       enable = mkEnableOption "opencode" // {
@@ -57,6 +59,16 @@ in
       pkgs-unstable.antigravity-cli
     ]
     ++ lib.optional cfg.mistral-vibe.enable pkgs-unstable.mistral-vibe; # the othe have home manager modules already
+
+    home.sessionVariables = lib.mkIf cfg.mistral-vibe.enable {
+      MISTRAL_API_KEY = builtins.readFile ./secrets/mistral-api-key;
+      LEAN_MCP = lib.mkIf leanEnableMcp "${pkgs-self.lean-lsp-mcp}";
+      NIX_MCP = lib.mkIf nixMcp "${pkgs-unstable.mcp-nixos}";
+      LSPRANTO_MCP = lib.mkIf lsprantoEnable "${pkgs-self.lspranto}";
+      # MISTRAL_TRUST_ALL_TOOLS = lib.mkIf (
+      #   jailed
+      # ) "1";
+    };
 
     programs.opencode = lib.mkIf cfg.opencode.enable {
       enable = true;
@@ -95,6 +107,7 @@ in
               "git show*"
               "git log*"
               "rebuild --dry-run --no-sign"
+              "ls*"
             ];
             lean-lsp-mcp = if leanEnableMcp then "allow" else auto;
             "mcp-nix*" = "allow";
@@ -167,16 +180,13 @@ in
       source = ./skills;
       recursive = true;
     };
-    programs.gemini-cli = lib.mkIf cfg.gemini.enable {
+    programs.antigravity-cli = lib.mkIf cfg.gemini.enable {
       enable = true;
-      package = pkgs-unstable.gemini-cli;
+      package = pkgs-unstable.antigravity-cli;
       settings = {
         general = {
           preview = true;
           previewFeatures = true;
-        };
-        model = {
-          name = "auto-gemini-3";
         };
         security = {
           auth = {
@@ -205,6 +215,25 @@ in
       };
     };
 
+    home.file.".gemini/config/mcp_config.json" = {
+      text = builtins.toJSON {
+        mcpServers =
+          { }
+          // lib.optionalAttrs leanEnableMcp {
+            lean = {
+              command = "${pkgs-self.lean-lsp-mcp}/bin/lean-lsp-mcp";
+              trust = true;
+            };
+          }
+          // lib.optionalAttrs nixMcp {
+            nix = {
+              command = "${pkgs-unstable.mcp-nixos}/bin/mcp-nixos";
+              trust = true;
+            };
+          };
+      };
+    };
+
     home.file.".gemini/skills" = lib.mkIf cfg.gemini.enable {
       source = ./skills;
       recursive = true;
@@ -217,14 +246,6 @@ in
         decision = "allow"
         priority = 100
       '';
-    };
-
-    home.sessionVariables = lib.mkIf cfg.mistral-vibe.enable {
-      MISTRAL_API_KEY = builtins.readFile ./secrets/mistral-api-key;
-      LEAN_MCP = "${pkgs-self.lean-lsp-mcp}";
-      # MISTRAL_TRUST_ALL_TOOLS = lib.mkIf (
-      #   jailed
-      # ) "1";
     };
 
     home.file.".vibe/config.toml" = lib.mkIf (cfg.mistral-vibe.enable && leanEnableMcp) {
