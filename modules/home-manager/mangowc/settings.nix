@@ -62,6 +62,12 @@ let
     "0"
   ]);
 
+  stacktags = mkBindTag [ M C ] id (t: [
+    "toggleview"
+    t
+    "0"
+  ]);
+
   # tag: move client to the tag and focus it
   # tagsilent: move client to the tag and not focus it
   movetotag = mkBindTag [ M S ] id (t: [
@@ -70,8 +76,8 @@ let
     "0"
   ]);
 
-  stacktags = mkBindTag [ M C ] id (t: [
-    "toggleview"
+  stacktagswindow = mkBindTag [ M S C ] id (t: [
+    "toggletag"
     t
     "0"
   ]);
@@ -129,6 +135,7 @@ let
     ++ alacritty
     ++ viewtag
     ++ movetotag
+    ++ stacktagswindow
     ++ stacktags
     ++ swapwin
     ++ switchfocus;
