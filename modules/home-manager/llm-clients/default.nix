@@ -215,23 +215,24 @@ in
       };
     };
 
-home.file.".gemini/config/mcp_config.json" = {
-  text = builtins.toJSON {
-    mcpServers = {}
-      // lib.optionalAttrs leanEnableMcp {
-        lean = {
-          command = "${pkgs-self.lean-lsp-mcp}/bin/lean-lsp-mcp";
-          trust = true;
-        };
-      }
-      // lib.optionalAttrs nixMcp {
-        nix = {
-          command = "${pkgs-unstable.mcp-nixos}/bin/mcp-nixos";
-          trust = true;
-        };
+    home.file.".gemini/config/mcp_config.json" = {
+      text = builtins.toJSON {
+        mcpServers =
+          { }
+          // lib.optionalAttrs leanEnableMcp {
+            lean = {
+              command = "${pkgs-self.lean-lsp-mcp}/bin/lean-lsp-mcp";
+              trust = true;
+            };
+          }
+          // lib.optionalAttrs nixMcp {
+            nix = {
+              command = "${pkgs-unstable.mcp-nixos}/bin/mcp-nixos";
+              trust = true;
+            };
+          };
       };
-  };
-};
+    };
 
     home.file.".gemini/skills" = lib.mkIf cfg.gemini.enable {
       source = ./skills;
