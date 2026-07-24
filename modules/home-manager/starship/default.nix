@@ -87,6 +87,13 @@ in
         + "${vmjail}$sudo"
         + "$status"
         + "$character";
+      custom.jailed_ip = {
+        command = ''hostname -I | awk '{print $1}'';
+        description = "Show IP address in jailed/sandbox environments";
+        format = "[$output]($style) ";
+        style = "bold blue";
+        when = ''[ "${vmjail}" != "" ]'';
+      };
       git_status = {
         disabled = true;
       };
