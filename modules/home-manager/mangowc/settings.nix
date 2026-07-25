@@ -33,13 +33,11 @@ let
   mkArgs = strings.concatStringsSep ",";
   mkBind =
     mod: key: args:
-    "bind=${
       mkArgs [
         (mkModKey mod)
         key
         (mkArgs args)
-      ]
-    }";
+      ];
   mkMotion = f: (f "Up" "Down" "Left" "Right") ++ (f "k" "j" "h" "l");
   mkMotion' =
     m: k: a:
@@ -122,26 +120,29 @@ let
       "alacritty"
     ])
   ];
-
-  settings =
-    monitors
-    ++ [
-      (builtins.readFile ./config.conf)
-      ''
-        exec-once=~/.config/mango/autostart.sh
-      ''
-    ]
-    ++ anyrun
-    ++ alacritty
+in
+{
+  config = mkIf cfg.enable {
+    wayland.windowManager.mango= {
+      topPrefixes = monitors;
+      settings = {
+       bind = 
+           alacritty
     ++ viewtag
     ++ movetotag
     ++ stacktagswindow
     ++ stacktags
     ++ swapwin
     ++ switchfocus;
-in
-{
-  config = mkIf cfg.enable {
-    wayland.windowManager.mango.extraConfig = strings.concatStringsSep "\n" settings;
+
+    keymode = {
+      common = {
+        bind = anyrun;
+      };
+    };
+
+      };
+      extraConfig = (builtins.readFile ./config.conf);
+    };
   };
 }

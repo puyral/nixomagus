@@ -80,6 +80,15 @@
       };
     };
 
+    mango = {
+      url = "github:mangowm/mango";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        flake-parts.follows = "flake-parts";
+        scenefx.inputs.flake-utils.follows = "flake-utils";
+      };
+    };
+
     #######################
     ######## utils ########
     #######################

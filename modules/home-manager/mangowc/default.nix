@@ -13,7 +13,7 @@ let
 in
 {
   imports = [
-    ./mango-hm.nix
+    # ./mango-hm.nix
     ./waybar.nix
     ./settings.nix
   ];
@@ -32,16 +32,17 @@ in
       anyrun.enable = true;
     };
     wayland.windowManager.mango = {
+      package = pkgs.mangowc;
       enable = true;
       systemd = {
         enable = true;
         xdgAutostart = true;
-        extraCommands = [
-          "systemctl --user reset-failed"
-          "systemctl --user start mango-session.target"
-          "systemctl --user import-environment ${variables}"
-          "systemctl --user restart xdg-desktop-portal xdg-desktop-portal-wlr xdg-desktop-portal-gtk"
-        ];
+        # extraCommands = [
+        #   "systemctl --user reset-failed"
+        #   "systemctl --user start mango-session.target"
+        #   "systemctl --user import-environment ${variables}"
+        #   "systemctl --user restart xdg-desktop-portal xdg-desktop-portal-wlr xdg-desktop-portal-gtk"
+        # ];
       };
       autostart_sh = ''
         ${config.extra.waybar.configs.mangowc.run}
