@@ -417,48 +417,47 @@ in
         // misc
         // inputs
         // appearence
-        //
-          {
-            inherit mousebind axisbind;
-            # Layout rules
-            tagrule = map (
-              id:
-              mkPseudoJson {
-                id = id;
-                layout_name = "tile";
-              }
-            ) tags;
+        // {
+          inherit mousebind axisbind;
+          # Layout rules
+          tagrule = map (
+            id:
+            mkPseudoJson {
+              id = id;
+              layout_name = "tile";
+            }
+          ) tags;
 
-            # Key bindings
-            bind =
-              alacritty
-              ++ mediaKeys
-              ++ viewtag
-              ++ movetotag
-              ++ stacktagswindow
-              ++ stacktags
-              ++ swapwin
-              ++ switchfocus
-              ++ tagRelative
-              ++ toogles
-              ++ scrolling
-              ++ monitorMotions
-              ++ base;
+          # Key bindings
+          bind =
+            alacritty
+            ++ mediaKeys
+            ++ viewtag
+            ++ movetotag
+            ++ stacktagswindow
+            ++ stacktags
+            ++ swapwin
+            ++ switchfocus
+            ++ tagRelative
+            ++ toogles
+            ++ scrolling
+            ++ monitorMotions
+            ++ base;
 
-            # Mouse bindings
+          # Mouse bindings
 
-            # Layer rules
-            layerrule = [
-              "animation_type_open:zoom,layer_name:rofi"
-              "animation_type_close:zoom,layer_name:rofi"
-            ];
+          # Layer rules
+          layerrule = [
+            "animation_type_open:zoom,layer_name:rofi"
+            "animation_type_close:zoom,layer_name:rofi"
+          ];
 
-            keymode = {
-              common = {
-                bind = anyrun;
-              };
+          keymode = {
+            common = {
+              bind = anyrun;
             };
           };
+        };
 
       extraConfig = "";
     };

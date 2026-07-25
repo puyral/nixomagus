@@ -37,6 +37,9 @@ in
       systemd = {
         enable = true;
         xdgAutostart = true;
+        extraCommands = [
+          "systemctl --user start ${config.vars.wallpaperTarget}"
+        ];
         # extraCommands = [
         #   "systemctl --user reset-failed"
         #   "systemctl --user start mango-session.target"
@@ -46,7 +49,6 @@ in
       };
       autostart_sh = ''
         ${config.extra.waybar.configs.mangowc.run}
-        systemctl --user start ${config.vars.wallpaperTarget}
       '';
     };
   };
