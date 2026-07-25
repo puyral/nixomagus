@@ -38,14 +38,11 @@ in
         enable = true;
         xdgAutostart = true;
         extraCommands = [
+          "systemctl --user reset-failed"
+          "systemctl --user import-environment ${variables}"
+          "systemctl --user restart xdg-desktop-portal xdg-desktop-portal-wlr"
           "systemctl --user start ${config.vars.wallpaperTarget}"
         ];
-        # extraCommands = [
-        #   "systemctl --user reset-failed"
-        #   "systemctl --user start mango-session.target"
-        #   "systemctl --user import-environment ${variables}"
-        #   "systemctl --user restart xdg-desktop-portal xdg-desktop-portal-wlr xdg-desktop-portal-gtk"
-        # ];
       };
       autostart_sh = ''
         ${config.extra.waybar.configs.mangowc.run}

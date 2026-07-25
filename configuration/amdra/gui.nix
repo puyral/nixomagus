@@ -5,8 +5,8 @@
   ];
   extra.gui = {
     enable = true;
-    hyprland = true;
-    i3 = true;
+    hyprland = false;
+    i3 = false;
     sway = true;
     mangowc = true;
   };

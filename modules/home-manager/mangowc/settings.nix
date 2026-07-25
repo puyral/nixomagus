@@ -403,6 +403,11 @@ let
       "killclient"
       ""
     ])
+
+    (mkBind "NONE" "Print" [
+      "spawn_shell"
+      "grim -l 0 -g \"$(slurp)\" - | wl-copy"
+    ])
   ];
 
 in
