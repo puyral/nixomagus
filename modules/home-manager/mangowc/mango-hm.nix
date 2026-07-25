@@ -54,27 +54,27 @@ in
   };
 
   config = mkIf cfg.enable {
-    xdg.configFile= {
+    xdg.configFile = {
 
-    "mango/config.conf".text = cfg.extraConfig;
+      "mango/config.conf".text = cfg.extraConfig;
 
-    "mango/autostart.sh" = mkIf (cfg.autostart_sh != "") {
-      executable = true;
-      source = autostart_sh;
+      "mango/autostart.sh" = mkIf (cfg.autostart_sh != "") {
+        executable = true;
+        source = autostart_sh;
+      };
     };
+    systemd.user.targets.mango-session = lib.mkIf cfg.systemd.enable {
+      Unit = {
+        Description = "mango compositor session";
+        Documentation = [ "man:systemd.special(7)" ];
+        BindsTo = [ "graphical-session.target" ];
+        Wants = [
+          "graphical-session-pre.target"
+        ]
+        ++ lib.optional cfg.systemd.xdgAutostart "xdg-desktop-autostart.target";
+        After = [ "graphical-session-pre.target" ];
+        Before = lib.optional cfg.systemd.xdgAutostart "xdg-desktop-autostart.target";
+      };
     };
-  systemd.user.targets.mango-session = lib.mkIf cfg.systemd.enable {
-          Unit = {
-            Description = "mango compositor session";
-            Documentation = [ "man:systemd.special(7)" ];
-            BindsTo = [ "graphical-session.target" ];
-            Wants = [
-              "graphical-session-pre.target"
-            ]
-            ++ lib.optional cfg.systemd.xdgAutostart "xdg-desktop-autostart.target";
-            After = [ "graphical-session-pre.target" ];
-            Before = lib.optional cfg.systemd.xdgAutostart "xdg-desktop-autostart.target";
-          };
-        };
-    };
+  };
 }
