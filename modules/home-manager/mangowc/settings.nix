@@ -86,9 +86,7 @@ let
     d
   ]));
 
-  monitors = map (attrs: {
-    monitorrule = mkPseudoJson attrs;
-  }) cfg.monitors;
+    monitors = map (attrs: "monitorrule=${mkPseudoJson attrs}") cfg.monitors;
 
   anyrun = [
     (mkBind M "Space" [
@@ -404,17 +402,16 @@ let
       ""
     ])
 
-    (mkBind "NONE" "Print" [
+    (mkBind "NONE" "Print" (with pkgs; [
       "spawn_shell"
-      "grim -l 0 -g \"$(slurp)\" - | wl-copy"
-    ])
+      "${grim}/bin/grim -l 0 -g \"$(${slurp}/bin/slurp)\" - | ${wl-clipboard}/bin/wl-copy"
+    ]))
   ];
 
 in
 {
   config = mkIf cfg.enable {
     wayland.windowManager.mango = {
-      topPrefixes = map (m: m.monitorrule) monitors;
       settings =
         window_effects
         // annimations
@@ -464,7 +461,7 @@ in
           };
         };
 
-      extraConfig = "";
+      extraConfig = strings.concatStringsSep "\n" monitors;
     };
   };
 }
