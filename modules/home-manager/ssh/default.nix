@@ -50,9 +50,11 @@ in
                 ProxyJump = lib.mkIf (computer.name != "dynas") "dynas";
                 HostName = "10.134.130.140";
               };
-              #"gitlab.secpriv.tuwien.ac.at" = {
-              #  ProxyJump = "vampire";
-              #};
+
+              "sandbox-amdra" = {
+                ProxyJump = lib.mkIf (computer.name != "amdra") "amdra";
+                HostName = "10.146.96.51";
+              };
             };
           };
       };

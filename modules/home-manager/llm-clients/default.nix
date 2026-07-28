@@ -183,36 +183,36 @@ in
     programs.antigravity-cli = lib.mkIf cfg.gemini.enable {
       enable = true;
       package = pkgs-unstable.antigravity-cli;
-      settings = {
-        general = {
-          preview = true;
-          previewFeatures = true;
-        };
-        security = {
-          auth = {
-            selectedType = "oauth-personal";
-          };
-          disableYoloMode = !jailed;
-        };
-        context = {
-          fileFiltering = {
-            respectGitIgnore = false;
-          };
-        };
-        mcp = {
-          allowed = lib.optionals leanEnableMcp [ "lean" ] ++ lib.optionals nixMcp [ "nix" ];
-        };
-        mcpServers = {
-          lean = lib.mkIf leanEnableMcp {
-            command = "${pkgs-self.lean-lsp-mcp}/bin/lean-lsp-mcp";
-            trust = true;
-          };
-          nix = lib.mkIf nixMcp {
-            command = "${pkgs-unstable.mcp-nixos}/bin/mcp-nixos";
-            trust = true;
-          };
-        };
-      };
+      # settings = {
+      #   general = {
+      #     preview = true;
+      #     previewFeatures = true;
+      #   };
+      #   security = {
+      #     auth = {
+      #       selectedType = "oauth-personal";
+      #     };
+      #     disableYoloMode = !jailed;
+      #   };
+      #   context = {
+      #     fileFiltering = {
+      #       respectGitIgnore = false;
+      #     };
+      #   };
+      #   mcp = {
+      #     allowed = lib.optionals leanEnableMcp [ "lean" ] ++ lib.optionals nixMcp [ "nix" ];
+      #   };
+      #   mcpServers = {
+      #     lean = lib.mkIf leanEnableMcp {
+      #       command = "${pkgs-self.lean-lsp-mcp}/bin/lean-lsp-mcp";
+      #       trust = true;
+      #     };
+      #     nix = lib.mkIf nixMcp {
+      #       command = "${pkgs-unstable.mcp-nixos}/bin/mcp-nixos";
+      #       trust = true;
+      #     };
+      #   };
+      # };
     };
 
     home.file.".gemini/config/mcp_config.json" = {
