@@ -65,6 +65,10 @@ in
         {
           port = 2586;
           enable = true;
+          providers = [
+            "dynas"
+            "ovh-pl"
+          ];
         }
       ];
     };
