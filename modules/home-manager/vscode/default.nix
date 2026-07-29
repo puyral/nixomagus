@@ -2,6 +2,7 @@
   lib,
   config,
   pkgs,
+  pkgs-unstable,
   ...
 }:
 let
@@ -15,10 +16,10 @@ in
   config = lib.mkIf cfg.enable {
     programs.vscode = {
       enable = true;
-      # package = pkgs.vscode.fhs;
+      package = pkgs-unstable.vscode;
       profiles.default = {
         extensions = with pkgs.vscode-extensions; [
-          continue.continue
+          # ncontinue.continue
           #vscodevim.vim
           #rust-lang.rust-analyzer
           #fill-labs.dependi
