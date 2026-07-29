@@ -42,9 +42,9 @@ in
                 User = "root";
               };
 
-              "gitlab.secpriv.tuwien.ac.at" = lib.mkIf (computer.name != "vampire") {
-                ProxyJump = "vampire";
-              };
+              #"gitlab.secpriv.tuwien.ac.at" = lib.mkIf (computer.name != "vampire") {
+              #  ProxyJump = "vampire";
+              #};
 
               "sandbox-dynas" = {
                 ProxyJump = lib.mkIf (computer.name != "dynas") "dynas";
