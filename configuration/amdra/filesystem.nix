@@ -21,6 +21,7 @@ in
         device = "${dynas-ip}:/mnt/Zeno";
         fsType = "nfs";
         options = [
+          "_netdev"
           "x-systemd.automount"
           "noauto"
           "nofail"

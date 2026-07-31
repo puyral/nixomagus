@@ -103,6 +103,8 @@ in
 
         freecad
         orca-slicer
+
+        komikku
       ])
       ++ (with pkgs-unstable; [
         # darktable

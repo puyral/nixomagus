@@ -30,20 +30,7 @@ in
         };
       };
     };
-    xdg.portal = {
-      wlr = {
-        settings = {
-          screencast = {
-            output_name = "DP-3";
-            # max_fps = 30;
-            # exec_before = "disable_notifications.sh";
-            # exec_after = "enable_notifications.sh";
-            # chooser_type = "simple";
-            # chooser_cmd = "${pkgs.slurp}/bin/slurp -f %o -or";
-          };
-        };
-      };
-    };
+
     #   config = {
     #     sway.default = [
     #       "gtk"

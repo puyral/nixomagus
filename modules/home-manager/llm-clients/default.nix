@@ -64,7 +64,7 @@ in
       MISTRAL_API_KEY = builtins.readFile ./secrets/mistral-api-key;
       LEAN_MCP = lib.mkIf leanEnableMcp "${pkgs-self.lean-lsp-mcp}";
       NIX_MCP = lib.mkIf nixMcp "${pkgs-unstable.mcp-nixos}";
-      LSPRANTO_MCP = lib.mkIf lsprantoEnable  "${pkgs-self.lspranto}";
+      LSPRANTO_MCP = lib.mkIf lsprantoEnable "${pkgs-self.lspranto}";
       # MISTRAL_TRUST_ALL_TOOLS = lib.mkIf (
       #   jailed
       # ) "1";
@@ -107,6 +107,7 @@ in
               "git show*"
               "git log*"
               "rebuild --dry-run --no-sign"
+              "ls*"
             ];
             lean-lsp-mcp = if leanEnableMcp then "allow" else auto;
             "mcp-nix*" = "allow";
@@ -179,41 +180,57 @@ in
       source = ./skills;
       recursive = true;
     };
-    programs.gemini-cli = lib.mkIf cfg.gemini.enable {
+    programs.antigravity-cli = lib.mkIf cfg.gemini.enable {
       enable = true;
-      package = pkgs-unstable.gemini-cli;
-      settings = {
-        general = {
-          preview = true;
-          previewFeatures = true;
-        };
-        model = {
-          name = "auto-gemini-3";
-        };
-        security = {
-          auth = {
-            selectedType = "oauth-personal";
+      package = pkgs-unstable.antigravity-cli;
+      # settings = {
+      #   general = {
+      #     preview = true;
+      #     previewFeatures = true;
+      #   };
+      #   security = {
+      #     auth = {
+      #       selectedType = "oauth-personal";
+      #     };
+      #     disableYoloMode = !jailed;
+      #   };
+      #   context = {
+      #     fileFiltering = {
+      #       respectGitIgnore = false;
+      #     };
+      #   };
+      #   mcp = {
+      #     allowed = lib.optionals leanEnableMcp [ "lean" ] ++ lib.optionals nixMcp [ "nix" ];
+      #   };
+      #   mcpServers = {
+      #     lean = lib.mkIf leanEnableMcp {
+      #       command = "${pkgs-self.lean-lsp-mcp}/bin/lean-lsp-mcp";
+      #       trust = true;
+      #     };
+      #     nix = lib.mkIf nixMcp {
+      #       command = "${pkgs-unstable.mcp-nixos}/bin/mcp-nixos";
+      #       trust = true;
+      #     };
+      #   };
+      # };
+    };
+
+    home.file.".gemini/config/mcp_config.json" = {
+      text = builtins.toJSON {
+        mcpServers =
+          { }
+          // lib.optionalAttrs leanEnableMcp {
+            lean = {
+              command = "${pkgs-self.lean-lsp-mcp}/bin/lean-lsp-mcp";
+              trust = true;
+            };
+          }
+          // lib.optionalAttrs nixMcp {
+            nix = {
+              command = "${pkgs-unstable.mcp-nixos}/bin/mcp-nixos";
+              trust = true;
+            };
           };
-          disableYoloMode = !jailed;
-        };
-        context = {
-          fileFiltering = {
-            respectGitIgnore = false;
-          };
-        };
-        mcp = {
-          allowed = lib.optionals leanEnableMcp [ "lean" ] ++ lib.optionals nixMcp [ "nix" ];
-        };
-        mcpServers = {
-          lean = lib.mkIf leanEnableMcp {
-            command = "${pkgs-self.lean-lsp-mcp}/bin/lean-lsp-mcp";
-            trust = true;
-          };
-          nix = lib.mkIf nixMcp {
-            command = "${pkgs-unstable.mcp-nixos}/bin/mcp-nixos";
-            trust = true;
-          };
-        };
       };
     };
 

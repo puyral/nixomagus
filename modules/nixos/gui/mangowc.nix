@@ -18,30 +18,19 @@ in
     };
     extra.gui.extraWlrInUse = [ "mango" ];
 
-    xdg.portal = {
-      config.mango = lib.mkForce {
-        default = [
-          "gtk"
-        ];
-        # except those
-        "org.freedesktop.impl.portal.Secret" = [ "gnome-keyring" ];
-        "org.freedesktop.impl.portal.ScreenCast" = [ "luminous" ];
-        "org.freedesktop.impl.portal.ScreenShot" = [ "luminous" ];
+        environment.systemPackages = with pkgs; [
+      slurp
+      grim
+    ];
 
-        "org.freedesktop.impl.portal.RemoteDesktop" = [ "luminous" ];
-        "org.freedesktop.impl.portal.InputCapture" = [ "luminous" ];
-        "org.freedesktop.impl.portal.Settings" = [ "luminous" ];
-
-        # wlr does not have this interface
-        "org.freedesktop.impl.portal.Inhibit" = [ ];
+          xdg.portal.wlr = {
+        enable = true;
+        settings = {
+          screencast = {
+            chooser_type = "simple";
+            chooser_cmd = "${pkgs.slurp}/bin/slurp -f %o -or";
+          };
+        };
       };
-      extraPortals = with pkgs; [
-        xdg-desktop-portal-luminous
-      ];
-      configPackages = with pkgs; [
-        xdg-desktop-portal-luminous
-      ];
-    };
   };
-
 }

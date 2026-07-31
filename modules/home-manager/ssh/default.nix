@@ -42,13 +42,18 @@ in
                 User = "root";
               };
 
-              "gitlab.secpriv.tuwien.ac.at" = lib.mkIf (computer.name != "vampire") {
-                ProxyJump = "vampire";
-              };
+              #"gitlab.secpriv.tuwien.ac.at" = lib.mkIf (computer.name != "vampire") {
+              #  ProxyJump = "vampire";
+              #};
 
               "sandbox-dynas" = {
                 ProxyJump = lib.mkIf (computer.name != "dynas") "dynas";
                 HostName = "10.134.130.140";
+              };
+
+              "sandbox-amdra" = {
+                ProxyJump = lib.mkIf (computer.name != "amdra") "amdra";
+                HostName = "10.146.96.51";
               };
             };
           };

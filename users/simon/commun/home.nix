@@ -30,11 +30,15 @@
         # nbstripout # for jupyter notebooks. This way I can support all of them
 
         # docker
+	jq
+	fd
+        ripgrep
+        killall
+	moreutils
+	renameutils
       ])
       ++ (with pkgs-unstable; [
         nixd
-        ripgrep
-        killall
       ]);
 
     # Home Manager can also manage your environment variables through

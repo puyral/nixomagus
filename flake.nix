@@ -66,12 +66,26 @@
       flake = false;
     };
 
+    surface-dtx-daemon-src = {
+      url = "github:linux-surface/surface-dtx-daemon";
+      flake = false;
+    };
+
     lspranto = {
       url = "github:puyral/lspranto";
       inputs = {
-        nixpkgs.follows = "nixpkgs";
-        treefmt-nix.follows = "treefmt-nix";
+        nixpkgs.follows = "nixpkgs-unstable"; # using "nixpkgs" crashes
         flake-parts.follows = "flake-parts";
+        treefmt-nix.follows = "treefmt-nix";
+      };
+    };
+
+    mango = {
+      url = "github:mangowm/mango";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        flake-parts.follows = "flake-parts";
+        scenefx.inputs.flake-utils.follows = "flake-utils";
       };
     };
 

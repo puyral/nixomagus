@@ -2,6 +2,7 @@
   lib,
   self,
   config,
+  inputs,
   ...
 }:
 let
@@ -55,6 +56,7 @@ let
     grafanactl = ./grafanactl;
     llm-clients = ./llm-clients;
     direnv = ./direnv;
+    mango-remote = inputs.mango.hmModules.mango;
   };
 
 in
