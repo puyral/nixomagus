@@ -27,7 +27,7 @@ in
           postInstall =
             (oldAttrs.postInstall or "")
             + ''
-              sed -i 's/UseIn=gnome;/UseIn=gnome;mango;wlroots;sway;Hyprland;/' $out/share/xdg-desktop-portal/portals/gtk.portal
+              sed -i 's/^UseIn=.*/UseIn=gnome;mango;wlroots;sway;Hyprland;/' $out/share/xdg-desktop-portal/portals/gtk.portal
             '';
         });
       })
