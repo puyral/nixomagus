@@ -17,7 +17,7 @@ in
     # ./mango-hm.nix
     # ./waybar.nix
     ./settings.nix
-  ]
+  ];
 
   options.extra.mangowc = with lib; {
     enable = mkEnableOption "mangowc";
