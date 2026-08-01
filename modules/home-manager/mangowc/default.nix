@@ -10,12 +10,11 @@ let
 
   coestr = with lib; types.coercedTo types.int toString types.str;
   coeListOf = with lib; t: types.coercedTo t (x: [ x ]) (types.listOf t);
-  variables = lib.concatStringsSep " " config.wayland.windowManager.mango.systemd.variables;
 in
 {
   imports = [
     # ./mango-hm.nix
-    # ./waybar.nix
+    ./waybar
     ./settings.nix
   ];
 
@@ -47,24 +46,20 @@ in
       systemd = {
         enable = true;
         xdgAutostart = true;
-        extraCommands = [
-          "systemctl --user start ${config.vars.wallpaperTarget}"
-        ];
+        extraCommands = [ ];
       };
       autostart_sh = 
         let mango_c = "${config.xdg.configHome}/mango"; in
         ''
-        ${pkgs-self.waybar}/bin/waybar -s ${mango_c}/waybar/style.css -c ${mango_c}/waybar/config.jsonc 
+        ${pkgs-self.waybar}/bin/waybar -s ${mango_c}/waybar/style.css -c ${mango_c}/waybar/config.jsonc;
       '';
-      #         ${config.extra.waybar.configs.mangowc.run}
     };
-  xdg = {
-    enable = true;
-    configFile = {
-      "mango/waybar/style.css".source = ./waybar/style.css;
-      "mango/waybar/config.jsonc".source = ./waybar/config.jsonc;
+
+    # Automatically start the wallpaper target whenever the mango session starts
+    systemd.user.targets.mango-session.Unit = {
+      Wants = [ "${config.vars.wallpaperTarget}" ];
+      After = [ "${config.vars.wallpaperTarget}" ];
     };
-  };
   };
 
 }
