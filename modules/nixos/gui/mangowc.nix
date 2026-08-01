@@ -16,7 +16,7 @@ in
     programs.mango = {
       enable = true;
     };
-    # extra.gui.extraWlrInUse = [ "mango" ];
+    extra.gui.extraWlrInUse = [ "mango" ];
 
         environment.systemPackages = with pkgs; [
       slurp

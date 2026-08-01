@@ -119,6 +119,14 @@ in
           "zen"
         ];
         provider = {
+          openrouter = {
+            npm = "@ai-sdk/openai-compatible";
+            name = "OpenRouter";
+            options = {
+              baseURL = "https://openrouter.ai/api/v1";
+              apiKey = builtins.readFile ./secrets/openrouter-api-key;
+            };
+          };
           aqueduct = {
             npm = "@ai-sdk/openai-compatible";
             name = "TU Wien";
