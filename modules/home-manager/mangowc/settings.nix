@@ -400,7 +400,7 @@ let
 
   base = [
     (mkBind [ M ] "r" [ "reload_config" ])
-    (mkBind [ M ] "E" [ "quit" ])
+    (mkBind [ M S ] "E" [ "quit" ])
     (mkBind [ M ] "Q" [
       "killclient"
       ""

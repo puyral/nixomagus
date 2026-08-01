@@ -1,6 +1,7 @@
 {
   config,
   lib,
+  pkgs,
   pkgs-self,
   ...
 }:
@@ -26,6 +27,17 @@ in
   };
 
   config = lib.mkIf cfg.enable {
+    # The portal daemon only scans the first portal dir found in XDG_DATA_DIRS,
+    # which (because the hyprland home-manager module installs its portal into
+    # home.packages) is the home-manager user profile. The system-wide portal
+    # backends in /run/current-system are shadowed and never loaded, so mangowc
+    # ends up with no backends (no OpenURI, no ScreenCast). Install the backends
+    # mangowc needs into the home profile too.
+    home.packages = with pkgs; [
+      xdg-desktop-portal-gtk
+      xdg-desktop-portal-wlr
+    ];
+
     extra = {
       wallpaper.enable = true;
       anyrun.enable = true;

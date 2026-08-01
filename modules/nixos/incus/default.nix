@@ -46,40 +46,23 @@ in
 
     users.groups.incus.members = [ "root" ] ++ cfg.users;
     users.groups.incus-admin.members = [ "root" ] ++ cfg.admins;
+
+
+    systemd.services.incus = {
+  # Starting AFTER these targets means systemd will stop Incus BEFORE them during shutdown.
+  after = [ 
+    "network.target" 
+    "network-online.target" 
+    "zfs.target" 
+    "zfs-mount.service" 
+  ];
+  wants = [ "network-online.target" ];
+  
+  # This is the most bulletproof directive for storage hangs. 
+  # It strictly prohibits systemd from unmounting the underlying path until the service exits.
+  # Adjust this path if your Incus storage pool is mounted elsewhere on your Zeno pool.
+  unitConfig.RequiresMountsFor = "/var/lib/incus"; 
+};
   };
 
-  #  config: {}
-  # networks:
-  # - config:
-  #     ipv4.address: auto
-  #     ipv6.address: auto
-  #   description: ""
-  #   name: incusbr0
-  #   type: ""
-  #   project: default
-  # storage_pools:
-  # - config:
-  #     source: Zeno/containers/incus
-  #   description: ""
-  #   name: zfs
-  #   driver: zfs
-  # storage_volumes: []
-  # profiles:
-  # - config: {}
-  #   description: ""
-  #   devices:
-  #     eth0:
-  #       name: eth0
-  #       network: incusbr0
-  #       type: nic
-  #     root:
-  #       path: /
-  #       pool: zfs
-  #       type: disk
-  #   name: default
-  #   project: default
-  # projects: []
-  # certificates: []
-  # cluster_groups: []
-  # cluster: null
 }
