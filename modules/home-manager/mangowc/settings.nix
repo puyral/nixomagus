@@ -167,6 +167,8 @@ let
     layer_animations = 1;
     animation_type_open = "slide";
     animation_type_close = "slide";
+    layer_animation_type_open="zoom";
+    layer_animation_type_close="zoom";
     animation_fade_in = 1;
     animation_fade_out = 1;
     tag_animation_direction = 1;
@@ -254,8 +256,8 @@ let
 
     # Mouse
     mouse_natural_scrolling = 0;
-    mouse_accel_speed = "-0.5";
-    mouse_accel_profile = 1;
+    mouse_accel_speed = "-0.1";
+    mouse_accel_profile = 2;
   };
 
   appearence = {

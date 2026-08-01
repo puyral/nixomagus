@@ -3,6 +3,7 @@
   lib,
   pkgs,
   options,
+  pkgs-self,
   ...
 }:
 let
@@ -59,6 +60,7 @@ in
     ];
     # from https://github.com/HeinzDev/Hyprland-dotfiles
     programs.waybar = {
+      package = pkgs-self.waybar;
       enable = true;
       systemd = {
         enable = false;

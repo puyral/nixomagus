@@ -1,17 +1,21 @@
 { config, lib, ... }:
 {
+
   extra.waybar.settings.mangowc = [
     {
       layer = "top";
       position = "top";
       modules-left = [
-        "ext/workspaces"
-        "dwl/window"
+        "mango/workspaces"
+    "mango/layout"
+    "mango/window"
       ];
       modules-center = [
         "clock"
       ];
       modules-right = [
+            "mango/language"
+    "mango/keymode"
         "pulseaudio"
         "memory"
         "cpu"
@@ -58,16 +62,23 @@
         icon-size = 15;
         spacing = 5;
       };
-      "ext/workspaces" = {
-        format = "{icon}";
-        ignore-hidden = true;
+      "mango/workspaces" = {
+        format = "{index}";
+        hide-empty = false;
         on-click = "activate";
-        on-click-right = "deactivate";
-        sort-by-id = true;
+        on-click-middle = "toogle";
       };
-      "dwl/window" = {
-        format = "[{layout}] {title}";
+      "mango/window" = {
+        format = " {}";
       };
+        "mango/layout"= {
+      "format"= "[{}]";
+      # "format-S": "Scroller",
+      # "format-T": "Tile",
+  };
+        "mango/keymode"= {
+  	"format"= " [{mode}]";
+  };
     }
   ];
 }
