@@ -1,7 +1,7 @@
 {
   config,
   lib,
-  pkgs,
+  pkgs-self,
   ...
 }:
 let
@@ -14,7 +14,7 @@ in
 {
   imports = [
     # ./mango-hm.nix
-    ./waybar.nix
+    # ./waybar.nix
     ./settings.nix
   ];
 
@@ -27,7 +27,6 @@ in
 
   config = lib.mkIf cfg.enable {
     extra = {
-      waybar.enable = true;
       wallpaper.enable = true;
       anyrun.enable = true;
     };
@@ -37,15 +36,23 @@ in
         enable = true;
         xdgAutostart = true;
         extraCommands = [
-          "systemctl --user reset-failed"
-          "systemctl --user import-environment ${variables}"
-          "systemctl --user restart xdg-desktop-portal xdg-desktop-portal-wlr"
           "systemctl --user start ${config.vars.wallpaperTarget}"
         ];
       };
-      autostart_sh = ''
-        ${config.extra.waybar.configs.mangowc.run}
+      autostart_sh = 
+        let mango_c = "${config.xdg.configHome}/mango"; in
+        ''
+        ${pkgs-self.waybar}/bin/waybar -s ${mango_c}/waybar/style.css -c ${mango_c}/waybar/config.jsonc 
       '';
+      #         ${config.extra.waybar.configs.mangowc.run}
+    };
+  xdg = {
+    enable = true;
+    configFile = {
+      "mango/waybar/style.css".source = ./waybar/style.css;
+      "mango/waybar/config.jsonc".source = ./waybar/config.jsonc;
     };
   };
+  };
+
 }
