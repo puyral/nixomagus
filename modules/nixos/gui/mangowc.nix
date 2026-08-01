@@ -13,10 +13,10 @@ in
 
   config = lib.mkIf (cfg.enable && cfg.mangowc) {
 
-    programs.mangowc = {
+    programs.mango = {
       enable = true;
     };
-    extra.gui.extraWlrInUse = [ "mango" ];
+    # extra.gui.extraWlrInUse = [ "mango" ];
 
         environment.systemPackages = with pkgs; [
       slurp

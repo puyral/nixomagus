@@ -32,7 +32,6 @@ in
       anyrun.enable = true;
     };
     wayland.windowManager.mango = {
-      package = pkgs.mangowc;
       enable = true;
       systemd = {
         enable = true;

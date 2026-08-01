@@ -254,6 +254,8 @@ let
 
     # Mouse
     mouse_natural_scrolling = 0;
+    mouse_accel_speed = "-0.5";
+    mouse_accel_profile = 1;
   };
 
   appearence = {
