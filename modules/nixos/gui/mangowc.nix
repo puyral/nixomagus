@@ -18,19 +18,19 @@ in
     };
     extra.gui.extraWlrInUse = [ "mango" ];
 
-        environment.systemPackages = with pkgs; [
+    environment.systemPackages = with pkgs; [
       slurp
       grim
     ];
 
-          xdg.portal.wlr = {
-        enable = true;
-        settings = {
-          screencast = {
-            chooser_type = "simple";
-            chooser_cmd = "${pkgs.slurp}/bin/slurp -f %o -or";
-          };
+    xdg.portal.wlr = {
+      enable = true;
+      settings = {
+        screencast = {
+          chooser_type = "simple";
+          chooser_cmd = "${pkgs.slurp}/bin/slurp -f %o -or";
         };
       };
+    };
   };
 }

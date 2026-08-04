@@ -24,22 +24,21 @@ in
     nixpkgs.overlays = [
       (final: prev: {
         xdg-desktop-portal-gtk = prev.xdg-desktop-portal-gtk.overrideAttrs (oldAttrs: {
-          postInstall =
-            (oldAttrs.postInstall or "")
-            + ''
-              sed -i 's/^UseIn=.*/UseIn=gnome;mango;wlroots;sway;Hyprland;/' $out/share/xdg-desktop-portal/portals/gtk.portal
-            '';
+          postInstall = (oldAttrs.postInstall or "") + ''
+            sed -i 's/^UseIn=.*/UseIn=gnome;mango;wlroots;sway;Hyprland;/' $out/share/xdg-desktop-portal/portals/gtk.portal
+          '';
         });
       })
-    ] ++ lib.optional (cfg.extraWlrInUse != [ ]) (final: prev: {
-      xdg-desktop-portal-wlr = prev.xdg-desktop-portal-wlr.overrideAttrs (oldAttrs: {
-        postInstall =
-          (oldAttrs.postInstall or "")
-          + ''
+    ]
+    ++ lib.optional (cfg.extraWlrInUse != [ ]) (
+      final: prev: {
+        xdg-desktop-portal-wlr = prev.xdg-desktop-portal-wlr.overrideAttrs (oldAttrs: {
+          postInstall = (oldAttrs.postInstall or "") + ''
             sed -i 's/UseIn=wlroots;/UseIn=${newWlrInUse};wlroots;/' $out/share/xdg-desktop-portal/portals/wlr.portal
           '';
-      });
-    });
+        });
+      }
+    );
 
     services.xserver.enable = true;
     security.polkit.enable = true;

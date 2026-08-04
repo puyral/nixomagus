@@ -32,12 +32,13 @@
         ./surface-dtx-daemon
       ];
 
-      pkgsInputs = inputs // {inherit pkgs-unstable;};
+      pkgsInputs = inputs // {
+        inherit pkgs-unstable;
+      };
 
       mainPkgs =
         with builtins;
-        (pkgs.callPackages ./notify-done pkgsInputs) 
-        // listToAttrs (map mkPkgs packages);
+        (pkgs.callPackages ./notify-done pkgsInputs) // listToAttrs (map mkPkgs packages);
 
       re-exports =
         with inputs';

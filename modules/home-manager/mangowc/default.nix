@@ -48,11 +48,13 @@ in
         xdgAutostart = true;
         extraCommands = [ ];
       };
-      autostart_sh = 
-        let mango_c = "${config.xdg.configHome}/mango"; in
+      autostart_sh =
+        let
+          mango_c = "${config.xdg.configHome}/mango";
+        in
         ''
-        ${pkgs-self.waybar}/bin/waybar -s ${mango_c}/waybar/style.css -c ${mango_c}/waybar/config.jsonc;
-      '';
+          ${pkgs-self.waybar}/bin/waybar -s ${mango_c}/waybar/style.css -c ${mango_c}/waybar/config.jsonc;
+        '';
     };
 
     # Automatically start the wallpaper target whenever the mango session starts

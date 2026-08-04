@@ -1,4 +1,3 @@
-
 {
   config,
   lib,
@@ -11,7 +10,6 @@ let
   main_monitor = builtins.head cfg.monitors;
   head = main_monitor.name;
   others = builtins.filter (m: m.name != head) cfg.monitors;
-
 
   base = {
     layer = "top";
@@ -99,10 +97,10 @@ let
       "icon-size" = 15;
       spacing = 5;
     };
-  clock = {
-    format = "{:%T  %A %b %d}";
-    interval = 1;
-  };
+    clock = {
+      format = "{:%T  %A %b %d}";
+      interval = 1;
+    };
   };
 
   # Minimal bar on every non-head monitor: just the clock, on the right
@@ -111,15 +109,15 @@ let
     position = "top";
     output = map (m: m.name) others;
     modules-right = [ "clock" ];
-  clock = {
-    format = "{:%T}";
-    interval = 1;
-  };
+    clock = {
+      format = "{:%T}";
+      interval = 1;
+    };
   };
 
-  waybarConfig = [ headBar ] ++ lib.optional (others != []) otherBar;
+  waybarConfig = [ headBar ] ++ lib.optional (others != [ ]) otherBar;
   waybarJson = builtins.toJSON waybarConfig;
-  in
+in
 
 {
   config = lib.mkIf cfg.enable {

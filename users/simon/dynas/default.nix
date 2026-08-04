@@ -12,7 +12,7 @@
     with pkgs;
     [
       nvtopPackages.intel
-	wakeonlan
+      wakeonlan
     ]
   );
 }

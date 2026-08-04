@@ -86,7 +86,7 @@ let
     d
   ]));
 
-    monitors = map (attrs: "monitorrule=${mkPseudoJson attrs}") cfg.monitors;
+  monitors = map (attrs: "monitorrule=${mkPseudoJson attrs}") cfg.monitors;
 
   anyrun = [
     (mkBind M "Space" [
@@ -167,8 +167,8 @@ let
     layer_animations = 1;
     animation_type_open = "slide";
     animation_type_close = "slide";
-    layer_animation_type_open="zoom";
-    layer_animation_type_close="zoom";
+    layer_animation_type_open = "zoom";
+    layer_animation_type_close = "zoom";
     animation_fade_in = 1;
     animation_fade_out = 1;
     tag_animation_direction = 1;
@@ -406,10 +406,13 @@ let
       ""
     ])
 
-    (mkBind "NONE" "Print" (with pkgs; [
-      "spawn_shell"
-      "${grim}/bin/grim -l 0 -g \"$(${slurp}/bin/slurp)\" - | ${wl-clipboard}/bin/wl-copy"
-    ]))
+    (mkBind "NONE" "Print" (
+      with pkgs;
+      [
+        "spawn_shell"
+        "${grim}/bin/grim -l 0 -g \"$(${slurp}/bin/slurp)\" - | ${wl-clipboard}/bin/wl-copy"
+      ]
+    ))
   ];
 
 in
