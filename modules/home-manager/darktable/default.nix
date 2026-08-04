@@ -8,14 +8,20 @@
 }:
 let
   cfg = config.extra.darktable;
-  darktable = cfg.package.override { withAi = cfg.ai; };
+  darktable =if (cfg.package == null )then pkgs-unstable.darkatble.override { withAi = cfg.ai; } else cfg.package;
 
 in
 
 {
   options.extra.darktable = with lib; {
     enable = mkEnableOption "darkatble";
-    package = mkPackageOption pkgs-unstable "darktable" { pkgsText = "pkgs-unstable"; };
+    package = 
+      mkOption {
+        type = types.nullOr types.package;
+        default = null;
+
+      };
+      # mkPackageOption pkgs-unstable "darktable" { pkgsText = "pkgs-unstable"; };
 
     full = mkOption {
       type = types.bool;

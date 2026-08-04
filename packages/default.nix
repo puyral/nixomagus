@@ -11,12 +11,13 @@
       mkPkgs =
         file:
         let
-          p = pkgs.callPackage file inputs;
+          p = pkgs.callPackage file pkgsInputs;
         in
         {
           name = p.pname or p.name;
           value = p;
         };
+      pkgs-unstable = inputs'.nixpkgs-unstable.legacyPackages;
 
       packages = [
         ./generate-jpgs
@@ -31,9 +32,12 @@
         ./surface-dtx-daemon
       ];
 
+      pkgsInputs = inputs // {inherit pkgs-unstable;};
+
       mainPkgs =
         with builtins;
-        (pkgs.callPackages ./notify-done inputs) // listToAttrs (map mkPkgs packages);
+        (pkgs.callPackages ./notify-done pkgsInputs) 
+        // listToAttrs (map mkPkgs packages);
 
       re-exports =
         with inputs';

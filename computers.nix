@@ -46,6 +46,7 @@ in
       inherit users system;
       stateVersion = "24.05";
       headless = false;
+      cpuArchitecture = "znver5";
     };
     sandbox = {
       inherit users system;
