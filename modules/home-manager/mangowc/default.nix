@@ -46,7 +46,9 @@ in
       systemd = {
         enable = true;
         xdgAutostart = true;
-        extraCommands = [ ];
+        extraCommands = [
+          "systemctl --user start wallpaper.target"
+         ];
       };
       autostart_sh =
         let
