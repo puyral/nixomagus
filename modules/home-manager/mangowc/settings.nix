@@ -234,16 +234,15 @@ let
     drag_tile_to_tile = 1;
   };
 
-
-          # Keyboard rules
-          keyboardrule = [
-            # 258a:000c HAILUCK CO.,LTD USB KEYBOARD
-            (mkPseudoJson {
-              name = "258a:000c";
-    xkb_layout = "custom";
-    xkb_options = "compose:menu";
-            })
-          ];
+  # Keyboard rules
+  keyboardrule = [
+    # 258a:000c HAILUCK CO.,LTD USB KEYBOARD
+    (mkPseudoJson {
+      name = "HAILUCK";
+      xkb_layout = "ergo-l-custom";
+      xkb_options = "compose:menu";
+    })
+  ];
 
   keyboardLayout = [
     (mkBind [ M ] "F1" [ "switch_keyboard_layout" ])
