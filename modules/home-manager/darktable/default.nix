@@ -10,7 +10,7 @@ let
   cfg = config.extra.darktable;
   darktable =
     if (cfg.package == null) then
-      pkgs-unstable.darkatble.override { withAi = cfg.ai; }
+      pkgs-unstable.darktable.override { withAi = cfg.ai; }
     else
       cfg.package;
 
