@@ -13,7 +13,6 @@ let
 in
 {
   imports = [
-    # ./mango-hm.nix
     ./waybar
     ./settings.nix
   ];
@@ -43,12 +42,13 @@ in
     };
     wayland.windowManager.mango = {
       enable = true;
+      package = pkgs-self.mango;
       systemd = {
         enable = true;
         xdgAutostart = true;
         extraCommands = [
           "systemctl --user start wallpaper.target"
-         ];
+        ];
       };
       autostart_sh =
         let

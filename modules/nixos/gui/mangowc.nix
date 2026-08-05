@@ -2,6 +2,7 @@
   config,
   lib,
   pkgs,
+  pkgs-self,
   ...
 }:
 
@@ -15,6 +16,7 @@ in
 
     programs.mango = {
       enable = true;
+      package = pkgs-self.mango;
     };
     extra.gui.extraWlrInUse = [ "mango" ];
 

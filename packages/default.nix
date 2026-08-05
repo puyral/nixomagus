@@ -30,10 +30,11 @@
         ./isw
         ./kavita
         ./surface-dtx-daemon
+        ./mango
       ];
 
       pkgsInputs = inputs // {
-        inherit pkgs-unstable;
+        inherit pkgs-unstable inputs';
       };
 
       mainPkgs =
