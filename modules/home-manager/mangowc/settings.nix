@@ -234,13 +234,27 @@ let
     drag_tile_to_tile = 1;
   };
 
+
+          # Keyboard rules
+          keyboardrule = [
+            # 258a:000c HAILUCK CO.,LTD USB KEYBOARD
+            (mkPseudoJson {
+              name = "258a:000c";
+    xkb_layout = "custom";
+    xkb_options = "compose:menu";
+            })
+          ];
+
+  keyboardLayout = [
+    (mkBind [ M ] "F1" [ "switch_keyboard_layout" ])
+  ];
   inputs = {
 
     # Keyboard
     repeat_rate = 50;
     repeat_delay = 600;
     numlockon = 1;
-    xkb_rules_layout = "custom";
+    xkb_rules_layout = "custom,ergo-l-custom";
     xkb_rules_options = "compose:menu";
 
     # Trackpad
@@ -427,7 +441,7 @@ in
         // inputs
         // appearence
         // {
-          inherit mousebind axisbind;
+          inherit mousebind axisbind keyboardrule;
           # Layout rules
           tagrule = map (
             id:
@@ -450,6 +464,7 @@ in
             ++ tagRelative
             ++ toogles
             ++ scrolling
+            ++ keyboardLayout
             ++ monitorMotions
             ++ base;
 
