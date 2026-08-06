@@ -136,10 +136,28 @@ in
             };
             models = {
               "qwen-3.5-397b" = {
-                name = "qwen-3.5-397b";
+                name = "Qwen 3.5 397b";
               };
               "glm-5.2-744b-preview" = {
-                name = "glm 5.2";
+                name = "GLM 5.2";
+                # limit.context = 262144;
+                interleaved.field = "reasoning_content";
+                options = {
+                  chat_template_kwargs = {
+                    thinking = true;
+                    reasoning_effort = "high";
+                  };
+                };
+                variants = {
+                  high.chat_template_kwargs = {
+                    thinking = true;
+                    reasoning_effort = "high";
+                  };
+                  max.chat_template_kwargs = {
+                    thinking = true;
+                    reasoning_effort = "max";
+                  };
+                };
               };
             };
           };
