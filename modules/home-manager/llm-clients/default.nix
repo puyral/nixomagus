@@ -119,6 +119,14 @@ in
           "zen"
         ];
         provider = {
+          openrouter = {
+            npm = "@ai-sdk/openai-compatible";
+            name = "OpenRouter";
+            options = {
+              baseURL = "https://openrouter.ai/api/v1";
+              apiKey = builtins.readFile ./secrets/openrouter-api-key;
+            };
+          };
           aqueduct = {
             npm = "@ai-sdk/openai-compatible";
             name = "TU Wien";
@@ -131,7 +139,25 @@ in
                 name = "qwen-3.5-397b";
               };
               "glm-5.2-744b-preview" = {
-                name = "glm 5.2";
+                name = "GLM 5.2";
+                limit.context = 262144;
+                interleaved.field = "reasoning_content";
+                options = {
+                  chat_template_kwargs = {
+                    thinking = true;
+                    reasoning_effort = "high";
+                  };
+                };
+                variants = {
+                  high.chat_template_kwargs = {
+                    thinking = true;
+                    reasoning_effort = "high";
+                  };
+                  max.chat_template_kwargs = {
+                    thinking = true;
+                    reasoning_effort = "max";
+                  };
+                };
               };
             };
           };

@@ -68,4 +68,8 @@
   # Allow root login without password for convenience in the sandbox
   # users.users.root.initialPassword = "";
   security.sudo.wheelNeedsPassword = false;
+
+  # Ensure quick and reliable guest shutdown inside Incus
+  services.acpid.enable = true;
+  virtualisation.incus.agent.enable = true;
 }

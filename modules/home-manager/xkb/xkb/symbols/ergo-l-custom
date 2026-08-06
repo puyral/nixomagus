@@ -1,0 +1,10 @@
+default partial alphanumeric_keys modifier_keys
+xkb_symbols "basic" {
+
+    include "us(basic)"
+    include "ergo-l(ergol)"
+
+    // Custom modifications
+    key <CAPS> { [ F13 ] };
+    key <MENU> { [ Compose ] };
+};

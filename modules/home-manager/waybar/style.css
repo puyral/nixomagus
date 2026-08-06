@@ -10,6 +10,10 @@
 @define-color mbkgrd #121314;
 
 @keyframes blink_red {
+  from {
+    background-color: @mbkgrd;
+    color: rgb(242, 143, 173);
+  }
   to {
     background-color: rgb(242, 143, 173);
     color: rgb(26, 24, 38);
@@ -45,7 +49,6 @@ window>box {
   padding-left: 0px;
   padding-right: 4px;
   background-color: @mbkgrd;
-  /* color: rgb(26, 24, 38); */
 }
 
 #workspaces button {
@@ -53,27 +56,40 @@ window>box {
   padding-bottom: 5px;
   padding-left: 6px;
   padding-right: 6px;
+  color: rgb(217, 224, 238);
 }
 
-#workspaces button.hosting-monitor {
-  background-color: rgb(61, 59, 70);
-  color: #FFF;
+/* Inactive but non-empty workspace (slight background) */
+#workspaces button:not(.empty):not(.active) {
+  background-color: rgba(255, 255, 255, 0.12);
+  color: rgb(217, 224, 238);
 }
-/*  */
 
-#workspaces button.visible {
-  background-color: rgb(255, 255, 255);
+/* Empty workspace */
+#workspaces button.empty {
+  color: rgb(140, 140, 140);
+  background-color: @mbkgrd;
+}
+
+/* Active workspace on a non-current monitor (desaturated blue) */
+#workspaces button.active {
+  background-color: rgb(238, 238, 238);
   color: @mbkgrd;
 }
 
-
-#workspaces button.active {
+/* Active workspace on the current monitor (vibrant blue) */
+#workspaces button.active.current_output {
   background-color: rgb(129, 231, 216);
   color: @mbkgrd;
 }
 
+/* Urgent workspace (blinking animation) */
 #workspaces button.urgent {
-  color: rgb(26, 24, 38);
+  animation-name: blink_red;
+  animation-duration: 0.5s;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
 }
 
 /* #workspaces button:hover {

@@ -2,6 +2,7 @@
   config,
   lib,
   pkgs,
+  pkgs-self,
   ...
 }:
 
@@ -13,24 +14,25 @@ in
 
   config = lib.mkIf (cfg.enable && cfg.mangowc) {
 
-    programs.mangowc = {
+    programs.mango = {
       enable = true;
+      package = pkgs-self.mango;
     };
     extra.gui.extraWlrInUse = [ "mango" ];
 
-        environment.systemPackages = with pkgs; [
+    environment.systemPackages = with pkgs; [
       slurp
       grim
     ];
 
-          xdg.portal.wlr = {
-        enable = true;
-        settings = {
-          screencast = {
-            chooser_type = "simple";
-            chooser_cmd = "${pkgs.slurp}/bin/slurp -f %o -or";
-          };
+    xdg.portal.wlr = {
+      enable = true;
+      settings = {
+        screencast = {
+          chooser_type = "simple";
+          chooser_cmd = "${pkgs.slurp}/bin/slurp -f %o -or";
         };
       };
+    };
   };
 }

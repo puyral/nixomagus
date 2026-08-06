@@ -86,7 +86,7 @@ let
     d
   ]));
 
-    monitors = map (attrs: "monitorrule=${mkPseudoJson attrs}") cfg.monitors;
+  monitors = map (attrs: "monitorrule=${mkPseudoJson attrs}") cfg.monitors;
 
   anyrun = [
     (mkBind M "Space" [
@@ -167,6 +167,8 @@ let
     layer_animations = 1;
     animation_type_open = "slide";
     animation_type_close = "slide";
+    layer_animation_type_open = "zoom";
+    layer_animation_type_close = "zoom";
     animation_fade_in = 1;
     animation_fade_out = 1;
     tag_animation_direction = 1;
@@ -232,13 +234,26 @@ let
     drag_tile_to_tile = 1;
   };
 
+  # Keyboard rules
+  keyboardrule = [
+    # 258a:000c HAILUCK CO.,LTD USB KEYBOARD
+    (mkPseudoJson {
+      name = "HAILUCK";
+      xkb_layout = "ergo-l-custom";
+      xkb_options = "compose:menu";
+    })
+  ];
+
+  keyboardLayout = [
+    (mkBind [ M ] "F1" [ "switch_keyboard_layout" ])
+  ];
   inputs = {
 
     # Keyboard
     repeat_rate = 50;
     repeat_delay = 600;
     numlockon = 1;
-    xkb_rules_layout = "custom";
+    xkb_rules_layout = "custom,ergo-l-custom";
     xkb_rules_options = "compose:menu";
 
     # Trackpad
@@ -254,6 +269,8 @@ let
 
     # Mouse
     mouse_natural_scrolling = 0;
+    mouse_accel_speed = "-0.1";
+    mouse_accel_profile = 2;
   };
 
   appearence = {
@@ -396,16 +413,19 @@ let
 
   base = [
     (mkBind [ M ] "r" [ "reload_config" ])
-    (mkBind [ M ] "E" [ "quit" ])
+    (mkBind [ M S ] "E" [ "quit" ])
     (mkBind [ M ] "Q" [
       "killclient"
       ""
     ])
 
-    (mkBind "NONE" "Print" (with pkgs; [
-      "spawn_shell"
-      "${grim}/bin/grim -l 0 -g \"$(${slurp}/bin/slurp)\" - | ${wl-clipboard}/bin/wl-copy"
-    ]))
+    (mkBind "NONE" "Print" (
+      with pkgs;
+      [
+        "spawn_shell"
+        "${grim}/bin/grim -l 0 -g \"$(${slurp}/bin/slurp)\" - | ${wl-clipboard}/bin/wl-copy"
+      ]
+    ))
   ];
 
 in
@@ -420,7 +440,7 @@ in
         // inputs
         // appearence
         // {
-          inherit mousebind axisbind;
+          inherit mousebind axisbind keyboardrule;
           # Layout rules
           tagrule = map (
             id:
@@ -443,6 +463,7 @@ in
             ++ tagRelative
             ++ toogles
             ++ scrolling
+            ++ keyboardLayout
             ++ monitorMotions
             ++ base;
 

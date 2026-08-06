@@ -81,11 +81,18 @@
     };
 
     mango = {
-      url = "github:mangowm/mango";
+      url = "github:mangowm/mango/0.15.5";
       inputs = {
         nixpkgs.follows = "nixpkgs";
         flake-parts.follows = "flake-parts";
         scenefx.inputs.flake-utils.follows = "flake-utils";
+      };
+    };
+
+    waybar = {
+      url = "github:Alexays/Waybar";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
       };
     };
 
