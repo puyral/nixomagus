@@ -47,6 +47,13 @@ in
     users.groups.incus.members = [ "root" ] ++ cfg.users;
     users.groups.incus-admin.members = [ "root" ] ++ cfg.admins;
 
+    # for auto IP discovery
+    services.avahi = {
+      enable = true;
+      # Enable the NSS plugin for IPv4 mDNS resolution
+      nssmdns = true;
+    };
+
     systemd.services.incus = {
       # Starting AFTER these targets means systemd will stop Incus BEFORE them during shutdown.
       after = [

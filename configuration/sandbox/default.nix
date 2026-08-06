@@ -15,6 +15,15 @@
   extra.tailscale.enable = lib.mkForce false;
   extra.mail.enable = lib.mkForce false;
 
+  services.avahi = {
+    enable = true;
+    publish = {
+      enable = true;
+      addresses = true;
+      workstation = true;
+    };
+  };
+
   # because libgit2 is broken in VM, I use lix
   # see https://lix.systems/add-to-config/
   nixpkgs.overlays = [
