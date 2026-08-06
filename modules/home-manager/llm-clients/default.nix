@@ -136,11 +136,11 @@ in
             };
             models = {
               "qwen-3.5-397b" = {
-                name = "qwen-3.5-397b";
+                name = "Qwen 3.5 397b";
               };
               "glm-5.2-744b-preview" = {
                 name = "GLM 5.2";
-                limit.context = 262144;
+                # limit.context = 262144;
                 interleaved.field = "reasoning_content";
                 options = {
                   chat_template_kwargs = {
