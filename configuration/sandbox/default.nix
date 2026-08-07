@@ -15,7 +15,7 @@
   extra.tailscale.enable = lib.mkForce false;
   extra.mail.enable = lib.mkForce false;
 
-services.avahi = {
+  services.avahi = {
     enable = true;
     publish = {
       enable = true;
