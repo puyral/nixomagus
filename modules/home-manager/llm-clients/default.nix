@@ -159,6 +159,26 @@ in
                   };
                 };
               };
+              "deepseek-v4-flash-284b" = {
+                name = "DeepSeek V4 Flash";
+                interleaved.field = "reasoning_content";
+                options = {
+                  chat_template_kwargs = {
+                    thinking = true;
+                    reasoning_effort = "high";
+                  };
+                };
+                variants = {
+                  high.chat_template_kwargs = {
+                    thinking = true;
+                    reasoning_effort = "high";
+                  };
+                  max.chat_template_kwargs = {
+                    thinking = true;
+                    reasoning_effort = "max";
+                  };
+                };
+              };
             };
           };
           # mistral = {
