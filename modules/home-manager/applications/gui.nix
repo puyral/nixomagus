@@ -25,10 +25,11 @@ in
         full = true;
       };
     };
-    xdg.mimeApps.defaultApplications = lib.mkIf config.extra.alacritty.enable {
-      "x-scheme-handler/terminal" = [
+    xdg.mimeApps.defaultApplications = {
+      "x-scheme-handler/terminal" = lib.mkIf config.extra.alacritty.enable [
         "alacritty.desktop"
       ];
+      "application/pdf" = [ "org.pwmt.zathura.desktop" ];
     };
     home.packages =
       let
@@ -50,6 +51,7 @@ in
 
         #logseq
 
+        # yt music
         pear-desktop
 
         obs-studio
@@ -63,6 +65,7 @@ in
         pwvucontrol
 
         kdePackages.okular
+        zathura
 
         xp-pen-g430-driver
         zotero
