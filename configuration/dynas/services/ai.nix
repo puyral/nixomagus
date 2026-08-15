@@ -123,7 +123,7 @@
               "--min-p 0.00"
               "--temperature 1"
               "--presence_penalty 0.0"
-              "--repetition_penalty 1.0"
+              "--repeat-penalty 1.0"
 
               "--cache-type-k q8_0"
               "--cache-type-v q4_0"
