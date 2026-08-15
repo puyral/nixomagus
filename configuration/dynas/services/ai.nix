@@ -114,9 +114,9 @@
           }
           {
             id = "qwen 3.8 27B";
-            model = "/mnt/Zeno/containers/llm/llama-cpp/models/Qwen3.8-27B-UD-IQ2_XXS.gguf";
-            contextSize = 4 * 1024;
-            nGpuLayers = 20;
+            model = "/mnt/Zeno/containers/llm/llama-cpp/models/Qwen3.8-27B-UD-Q2_K_XL.gguf";
+            contextSize = 50 * 1024;
+            # nGpuLayers = "all";
             extraArgs = [
               "--top-p 0.95"
               "--top-k 20"
@@ -124,6 +124,11 @@
               "--temperature 1"
               "--presence_penalty 0.0"
               "--repetition_penalty 1.0"
+
+              "--cache-type-k q8_0"
+              "--cache-type-v q4_0"
+              "-ngl all"
+              "--reasoning-preserve"
             ];
           }
         ];
