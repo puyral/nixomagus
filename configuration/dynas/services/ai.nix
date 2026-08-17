@@ -31,12 +31,12 @@
             id = "ministral";
             model = "/mnt/Zeno/containers/llm/llama-cpp/models/Ministral-3-8B-Instruct-2512-UD-Q6_K_XL.gguf";
           }
-          {
-            id = "ministral-2K";
-            aliases = [ "mini-ministral" ];
-            model = "/mnt/Zeno/containers/llm/llama-cpp/models/Ministral-3-8B-Instruct-2512-UD-Q6_K_XL.gguf";
-            contextSize = 2048;
-          }
+          # {
+          #   id = "ministral-2K";
+          #   aliases = [ "mini-ministral" ];
+          #   model = "/mnt/Zeno/containers/llm/llama-cpp/models/Ministral-3-8B-Instruct-2512-UD-Q6_K_XL.gguf";
+          #   contextSize = 2048;
+          # }
           {
             id = "qwen-9B";
             model = "/mnt/Zeno/containers/llm/llama-cpp/models/Qwen3.5-9B-UD-Q6_K_XL.gguf";
@@ -47,29 +47,29 @@
               "--chat-template-kwargs '{\"enable_thinking\":true}'"
             ];
           }
+          # {
+          #   id = "qwen-9B-long";
+          #   model = "/mnt/Zeno/containers/llm/llama-cpp/models/Qwen3.5-9B-UD-Q4_K_XL.gguf";
+          #   contextSize = 100 * 1024;
+          #   extraArgs = [
+          #     "--top-p 0.95"
+          #     "--top-k 20"
+          #     "--min-p 0.00"
+          #     "--chat-template-kwargs '{\"enable_thinking\":true}'"
+          #   ];
+          # }
+          # {
+          #   id = "qwen-9B-32K";
+          #   model = "/mnt/Zeno/containers/llm/llama-cpp/models/Qwen3.5-9B-UD-Q6_K_XL.gguf";
+          #   contextSize = 32 * 1024;
+          #   extraArgs = [
+          #     "--top-p 0.95"
+          #     "--top-k 20"
+          #     "--min-p 0.00"
+          #   ];
+          # }
           {
-            id = "qwen-9B-long";
-            model = "/mnt/Zeno/containers/llm/llama-cpp/models/Qwen3.5-9B-UD-Q4_K_XL.gguf";
-            contextSize = 100 * 1024;
-            extraArgs = [
-              "--top-p 0.95"
-              "--top-k 20"
-              "--min-p 0.00"
-              "--chat-template-kwargs '{\"enable_thinking\":true}'"
-            ];
-          }
-          {
-            id = "qwen-9B-32K";
-            model = "/mnt/Zeno/containers/llm/llama-cpp/models/Qwen3.5-9B-UD-Q6_K_XL.gguf";
-            contextSize = 32 * 1024;
-            extraArgs = [
-              "--top-p 0.95"
-              "--top-k 20"
-              "--min-p 0.00"
-            ];
-          }
-          {
-            id = "qwen-0.8B-2K";
+            id = "qwen-0.8B-3K";
             model = "/mnt/Zeno/containers/llm/llama-cpp/models/Qwen3.5-9B-UD-Q4_K_XL.gguf";
             extraArgs = [
               "--top-p 0.95"
@@ -94,23 +94,42 @@
               # "--repetition_penalty 1.0"
             ];
           }
+          # {
+          #   id = "qwen 3.6 35B 3Q 4K";
+          #   model = "/mnt/Zeno/containers/llm/llama-cpp/models/Qwen3.6-35B-A3B-UD-IQ3_XXS.gguf";
+          #   contextSize = 4 * 1024;
+          #   nGpuLayers = 20;
+          #   extraArgs = [
+          #     "--top-p 0.95"
+          #     "--top-k 20"
+          #     "--min-p 0.00"
+          #     "--temperature 1"
+          #     "--presence_penalty 1.5"
+          #     # "--repetition_penalty 1.0"
+          #   ];
+          # }
           {
-            id = "qwen 3.6 35B 3Q 4K";
-            model = "/mnt/Zeno/containers/llm/llama-cpp/models/Qwen3.6-35B-A3B-UD-IQ3_XXS.gguf";
-            contextSize = 4 * 1024;
-            nGpuLayers = 20;
+            id = "gemma-4-12B-it-qat-UD-Q4";
+            model = "/mnt/Zeno/containers/llm/llama-cpp/models/gemma-4-12B-it-qat-UD-Q4_K_XL.gguf";
+          }
+          {
+            id = "qwen 3.8 27B";
+            model = "/mnt/Zeno/containers/llm/llama-cpp/models/Qwen3.8-27B-UD-Q2_K_XL.gguf";
+            contextSize = 50 * 1024;
+            # nGpuLayers = "all";
             extraArgs = [
               "--top-p 0.95"
               "--top-k 20"
               "--min-p 0.00"
               "--temperature 1"
-              "--presence_penalty 1.5"
-              # "--repetition_penalty 1.0"
+              "--presence_penalty 0.0"
+              "--repeat-penalty 1.0"
+
+              "--cache-type-k q8_0"
+              "--cache-type-v q4_0"
+              "-ngl all"
+              "--reasoning-preserve"
             ];
-          }
-          {
-            id = "gemma-4-12B-it-qat-UD-Q4";
-            model = "/mnt/Zeno/containers/llm/llama-cpp/models/gemma-4-12B-it-qat-UD-Q4_K_XL.gguf";
           }
         ];
       };
