@@ -15,7 +15,7 @@ in
       inherit photos providers videos;
     };
     photoprism = {
-      enable = true;
+      enable = false;
       subdomain = "photos";
       inherit photos providers videos;
     };
