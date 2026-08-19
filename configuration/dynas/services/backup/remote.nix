@@ -70,6 +70,7 @@ in
               "--delete-target-snapshots"
               "--no-privilege-elevation"
               "--source-bwlimit=10m"
+              "--include-snaps=hourly-"
             ];
 
             # STRATEGY: Inherit Encryption + Never Mount
