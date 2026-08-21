@@ -12,6 +12,36 @@ let
 
   llama-server = lib.getExe' llama-swap-cfg.llamaCppPackage "llama-server";
 
+  audio-cpp-server = if llama-swap-cfg.audioCppPackage != null then
+    lib.getExe' llama-swap-cfg.audioCppPackage "audiocpp_server"
+  else
+    throw "extra.llm.llama-swap: audioCppPackage must be set to add audio-cpp models";
+
+  # Audio.cpp server.json generated per audio-cpp model. All unconditionally-set
+  # fields are required by load_server_config (id/path/family).
+  buildAudioServerJson =
+    model:
+    let
+      modelEntry = {
+        id = model.id;
+        path = model.model;
+        family = model.family;
+        task = model.task;
+        mode = model.mode;
+      } // lib.optionalAttrs (model.audioDefaultRequestOptions != { }) {
+        default_request_options = model.audioDefaultRequestOptions;
+      } // lib.optionalAttrs (model.audioDefaultVoicePreset != { }) {
+        default_voice_preset = model.audioDefaultVoicePreset;
+      };
+    in
+    pkgs.writeText "audiocpp-${model.id}.json" (builtins.toJSON {
+      host = "127.0.0.1";
+      lazy_load = true;
+      models = [
+        modelEntry
+      ];
+    });
+
   buildModelConfig =
     model:
     let
@@ -22,13 +52,26 @@ let
       ) "-np ${toString model.parallelSequences}";
       extraArgsStr = lib.concatStringsSep " " model.extraArgs;
     in
-    {
-      inherit (model) env;
-      cmd = "${llama-server} --port \${PORT} -m ${model.model} ${gpuLayers} ${contextArg} ${parallelArg} ${extraArgsStr} --no-webui";
-      aliases = model.aliases;
-      concurrencyLimit = model.concurrencyLimit;
-      ttl = if (model.ttl == null) then llama-swap-cfg.ttl else model.ttl;
-    };
+    if model.kind == "audio-cpp" then
+      let
+        backend = if (model.backend != null) then model.backend else (if cfg.acceleration == null then "cpu" else cfg.acceleration);
+        serverJson = buildAudioServerJson model;
+      in
+      {
+        inherit (model) env;
+        cmd = "${audio-cpp-server} --config ${serverJson} --port \${PORT} --backend ${backend} --no-ui";
+        aliases = model.aliases;
+        concurrencyLimit = model.concurrencyLimit;
+        ttl = if (model.ttl == null) then llama-swap-cfg.ttl else model.ttl;
+      }
+    else
+      {
+        inherit (model) env;
+        cmd = "${llama-server} --port \${PORT} -m ${model.model} ${gpuLayers} ${contextArg} ${parallelArg} ${extraArgsStr} --no-webui";
+        aliases = model.aliases;
+        concurrencyLimit = model.concurrencyLimit;
+        ttl = if (model.ttl == null) then llama-swap-cfg.ttl else model.ttl;
+      };
 
   modelsAttrs = lib.listToAttrs (
     map (model: {

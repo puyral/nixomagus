@@ -96,6 +96,13 @@
       };
     };
 
+    "audio.cpp" = {
+      url = "github:0xShug0/audio.cpp";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+      };
+    };
+
     #######################
     ######## utils ########
     #######################

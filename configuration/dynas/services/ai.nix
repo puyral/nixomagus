@@ -1,6 +1,7 @@
 {
   pkgs,
   pkgs-unstable,
+  pkgs-self,
   config,
   ...
 }:
@@ -25,11 +26,25 @@
       llama-swap = {
         enable = true;
         llamaCppPackage = pkgs-unstable.llama-cpp-vulkan;
+        audioCppPackage = pkgs-self.audio-cpp-vulkan;
         ttl = 300;
         models = [
           {
             id = "ministral";
             model = "/mnt/Zeno/containers/llm/llama-cpp/models/Ministral-3-8B-Instruct-2512-UD-Q6_K_XL.gguf";
+          }
+          {
+            id = "higgs-tts";
+            kind = "audio-cpp";
+            family = "higgs_audio_tts";
+            model = "/mnt/Zeno/containers/llm/llama-cpp/models/Higgs-Audio-v3-TTS-4B-GGUF/higgs-audio-v3-tts-4b-q8_0.gguf";
+            task = "tts";
+            mode = "offline";
+            backend = "vulkan";
+            audioDefaultRequestOptions = {
+              text_chunk_mode = "endline";
+              text_chunk_size = "1024";
+            };
           }
           # {
           #   id = "ministral-2K";
