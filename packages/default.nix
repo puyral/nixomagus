@@ -51,7 +51,12 @@
         }
         // {
           lspranto = lspranto.packages.default;
-        };
+        }
+        // (with inputs'."audio.cpp".packages; {
+          audio-cpp-cpu = cpu;
+          audio-cpp-vulkan = vulkan;
+          audio-cpp-amd = rocm;
+        });
     in
     {
 

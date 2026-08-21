@@ -42,6 +42,12 @@ in
 
       llamaCppPackage = mkPackageOption pkgs-unstable "llama-cpp" { };
 
+      audioCppPackage = mkOption {
+        description = "audio.cpp package used to back audio-cpp models (e.g. pkgs-self.audio-cpp-vulkan)";
+        default = null;
+        type = types.nullOr types.package;
+      };
+
       ttl = mkOption {
         default = 0;
         type = types.int;
@@ -74,6 +80,44 @@ in
               id = mkOption {
                 description = "Model identifier (used as the key in llama-swap config)";
                 type = types.str;
+              };
+              kind = mkOption {
+                description = "Model kind: 'gguf' runs llama-server, 'audio-cpp' runs audiocpp_server";
+                default = "gguf";
+                type = types.enum [
+                  "gguf"
+                  "audio-cpp"
+                ];
+              };
+              family = mkOption {
+                description = "audio.cpp model family (for kind = audio-cpp)";
+                default = null;
+                type = types.nullOr types.str;
+              };
+              task = mkOption {
+                description = "audio.cpp task (for kind = audio-cpp)";
+                default = "tts";
+                type = types.str;
+              };
+              mode = mkOption {
+                description = "audio.cpp mode (for kind = audio-cpp)";
+                default = "offline";
+                type = types.str;
+              };
+              backend = mkOption {
+                description = "audio.cpp backend (for kind = audio-cpp)";
+                default = null;
+                type = types.nullOr types.str;
+              };
+              audioDefaultRequestOptions = mkOption {
+                description = "audio.cpp server default_request_options (for kind = audio-cpp)";
+                default = { };
+                type = types.attrsOf types.str;
+              };
+              audioDefaultVoicePreset = mkOption {
+                description = "audio.cpp server default_voice_preset (for kind = audio-cpp)";
+                default = { };
+                type = types.attrsOf types.str;
               };
               model = mkOption {
                 description = "Model name/identifier or path to GGUF file";
