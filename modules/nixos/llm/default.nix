@@ -11,7 +11,11 @@ let
   llama-swap-cfg = cfg.llama-swap;
 
   llama-server = lib.getExe' llama-swap-cfg.llamaCppPackage "llama-server";
-  audio-cpp-server = lib.getExe' llama-swap-cfg.audioCppPackage "audiocpp_server";
+
+  audio-cpp-server = if llama-swap-cfg.audioCppPackage != null then
+    lib.getExe' llama-swap-cfg.audioCppPackage "audiocpp_server"
+  else
+    throw "extra.llm.llama-swap: audioCppPackage must be set to add audio-cpp models";
 
   # Audio.cpp server.json generated per audio-cpp model. All unconditionally-set
   # fields are required by load_server_config (id/path/family).
