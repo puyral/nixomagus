@@ -158,6 +158,7 @@
 
       incus = {
         enable = true;
+        extraPorts = [ 8002 ];
       };
     };
   services.ollama.package = pkgs-unstable.ollama-vulkan;
