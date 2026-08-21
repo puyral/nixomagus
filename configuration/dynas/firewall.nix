@@ -6,6 +6,7 @@
       80
       443
       8384
+      8002
     ];
     # allowedUDPPortRanges = [
     #   {
