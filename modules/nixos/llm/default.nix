@@ -108,6 +108,7 @@ in
     services.llama-swap = lib.mkIf llama-swap-cfg.enable {
       enable = true;
       package = pkgs.llama-swap;
+      listenAddress = llama-swap-cfg.host;
       port = llama-swap-cfg.port;
       settings = {
         healthCheckTimeout = llama-swap-cfg.healthCheckTimeout;

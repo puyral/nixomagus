@@ -6,9 +6,7 @@
       80
       443
       8384
-      8002
     ];
-    allowedUDPPorts = [8002];
     # allowedUDPPortRanges = [
     #   {
     #     from = 4000;
