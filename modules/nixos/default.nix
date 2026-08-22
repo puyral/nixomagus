@@ -88,6 +88,7 @@ let
     esphome = ./esphome;
     embeded-dev = ./embeded-dev;
     incus = ./incus;
+    audioCpp = ./audioCpp;
     mango-remote = inputs.mango.nixosModules.mango;
   };
 
