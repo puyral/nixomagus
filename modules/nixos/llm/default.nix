@@ -59,7 +59,7 @@ let
       in
       {
         inherit (model) env;
-        cmd = "${audio-cpp-server} --config ${serverJson} --port \${PORT} --backend ${backend} --no-ui";
+        cmd = "${audio-cpp-server} --config ${serverJson} --port \${PORT} --backend ${backend} --model-spec-override ${llama-swap-cfg.audioCppPackage}/model_specs --no-ui";
         aliases = model.aliases;
         concurrencyLimit = model.concurrencyLimit;
         ttl = if (model.ttl == null) then llama-swap-cfg.ttl else model.ttl;
