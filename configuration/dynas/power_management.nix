@@ -27,8 +27,8 @@
   # 3. Disable Wifi drivers completely at the kernel level
   # This is cleaner than TLP blacklist for device 08:00.0
   boot.blacklistedKernelModules = [
-    "iwlwifi"
-    "iwlmvm"
+    #"iwlwifi"
+    #"iwlmvm"
     "btusb"
   ];
 
