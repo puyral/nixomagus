@@ -39,13 +39,13 @@
     firewall.allowedTCPPorts = [ 2049 ];
 
 
-  nginx.instances = {
+    nginx.instances = {
         "copyparty" = {
           enable = true;
           port = 7898;
           providers = ["dynas" "ovh-pl"];
           extraConfig = ''
-            proxy_set_header X-Forwarded-Proto $scheme;
+            proxy_set_header X-Forwarded-Proto https;
           '';
         };
       };
