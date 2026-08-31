@@ -108,6 +108,8 @@ in
         orca-slicer
 
         komikku
+
+	dragon-drop
       ])
       ++ (with pkgs-unstable; [
         # darktable
