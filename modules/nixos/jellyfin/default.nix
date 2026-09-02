@@ -74,6 +74,7 @@ in
             "dynas"
             "ovh-pl"
           ];
+          gzip-bomb.enable = true;
         }
         {
           enable = true;
@@ -85,6 +86,7 @@ in
             "dynas"
             "ovh-pl"
           ];
+          gzip-bomb.enable = true;
         }
         # {
         #   enable = true;

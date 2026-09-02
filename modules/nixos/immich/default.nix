@@ -91,6 +91,7 @@ in
           extraConfig = ''
             client_max_body_size 0;
           '';
+          gzip-bomb.enable = true;
         }
       ];
     };

@@ -75,6 +75,7 @@ in
         {
           inherit port name;
           enable = true;
+          gzip-bomb.enable = true;
         }
       ];
     };
