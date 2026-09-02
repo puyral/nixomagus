@@ -80,6 +80,7 @@ in
           inherit port;
           enable = true;
           providers = [ "ovh-pl" ];
+          gzip-bomb.enable = true;
         }
       ];
     };

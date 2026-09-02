@@ -12,5 +12,6 @@ in
   };
   virtualisation.oci-containers.proxy.containers.${name} = {
     inherit port;
+    gzip-bomb.enable = true;
   };
 }

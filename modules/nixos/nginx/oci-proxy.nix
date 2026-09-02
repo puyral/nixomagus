@@ -52,6 +52,13 @@ let
         default = "";
         description = "extra configuration for this virtual host";
       };
+  gzip-bomb = {
+    enable = mkEnableOption "gzip-bomb";
+    filter = mkOption {
+      type = types.str;
+      default = "~* ^/(.*\\.env.*|.*\\.php|.*\\.yml|.*\\.yaml|\\.git/.*|\\.ssh/.*|wp-config.*|.*\\.bak|.*\\.save.*|.*\\.orig)";
+    };
+  };
     };
   };
 in
@@ -100,6 +107,7 @@ in
             port
             domain
             extraConfig
+            gzip-bomb
             ;
           address = getIp n;
         };
