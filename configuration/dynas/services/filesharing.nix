@@ -38,26 +38,16 @@
   networking = {
     firewall.allowedTCPPorts = [ 2049 ];
 
-
     nginx.instances = {
-        "copyparty" = {
-          enable = true;
-          port = 7898;
-          providers = ["dynas" "ovh-pl"];
-          extraConfig = ''
-            proxy_set_header X-Forwarded-Proto https;
-          '';
-        };
+      "copyparty" = {
+        enable = true;
+        port = 7898;
+        providers = [ "dynas" "ovh-pl" ];
+        gzip-bomb.enable = true;
+        extraConfig = ''
+          proxy_set_header X-Forwarded-Proto https;
+        '';
       };
+    };
   };
-  services.nginx.virtualHosts."copytparty.yourdomain.com" = {
-  locations."~* ^/(.*\\.env.*|.*\\.php|.*\\.yml|.*\\.yaml|\\.git/.*|\\.ssh/.*|wp-config.*|.*\\.bak|.*\\.save.*|.*\\.orig)" = {
-    alias = "${pkgs-self.gzip-bomb}/share/bomb.gz";
-    extraConfig = ''
-      default_type text/plain;
-      add_header Content-Encoding gzip;
-      gzip off;
-    '';
-  };
-};
 }

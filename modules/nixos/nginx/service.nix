@@ -1,6 +1,7 @@
 {
   lib,
   config,
+  pkgs-self,
   ...
 }:
 with lib;
@@ -43,6 +44,17 @@ let
       isHosting = hostName == first.hostedBy;
       chainingPort = if cfg.chainingPort != null then cfg.chainingPort else 8080;
 
+      gzipBombLocation = optionalAttrs (first."gzip-bomb".enable or false) {
+        "${first."gzip-bomb".filter}" = {
+          alias = "${pkgs-self.gzip-bomb}/share/bomb.gz";
+          extraConfig = ''
+            default_type text/plain;
+            add_header Content-Encoding gzip;
+            gzip off;
+          '';
+        };
+      };
+
       # Collect all provider IPs that are not the current host
       allProviders = unique (concatMap (attrs: attrs.providers) instances);
       otherProviders = filter (p: p != hostName) allProviders;
@@ -69,7 +81,7 @@ let
           add_header Alt-Svc 'h3=":443"; ma=86400';
           ${hostingConfig}
         '';
-        locations = lib.listToAttrs (
+        locations = gzipBombLocation // lib.listToAttrs (
           map (attrs: {
             name = attrs.path;
             value = {
