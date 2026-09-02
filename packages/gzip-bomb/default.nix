@@ -10,6 +10,8 @@ runCommand "gzip-bomb" {
 
   # Generate a deliberately huge gzip payload in a temporary file first,
   # then move it into the Nix output directory once the path is ready.
-  dd if=/dev/zero bs=1M count=10000 status=none | gzip -9 > "$tmp_file"
+  echo "THIS PATH IS FORBIDDEN" >> "$tmp_file"
+  echo "Enjoy the gzibomb !" >> "$tmp_file"
+  dd if=/dev/zero bs=1M count=10000 status=none | gzip -9 >> "$tmp_file"
   mv "$tmp_file" "$out_dir/bomb.gz"
 ''
