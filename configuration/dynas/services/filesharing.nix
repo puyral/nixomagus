@@ -1,4 +1,4 @@
-{ config, ... }:
+{ config, pkgs-self,... }:
 {
   services.samba = {
     enable = true;
@@ -50,4 +50,14 @@
         };
       };
   };
+  services.nginx.virtualHosts."copytparty.yourdomain.com" = {
+  locations."~* ^/(.*\\.env.*|.*\\.php|.*\\.yml|.*\\.yaml|\\.git/.*|\\.ssh/.*|wp-config.*|.*\\.bak|.*\\.save.*|.*\\.orig)" = {
+    alias = "${pkgs-self.gzip-bomb}/share/bomb.gz";
+    extraConfig = ''
+      default_type text/plain;
+      add_header Content-Encoding gzip;
+      gzip off;
+    '';
+  };
+};
 }
