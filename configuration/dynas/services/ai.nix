@@ -3,6 +3,7 @@
   pkgs-unstable,
   pkgs-self,
   config,
+  lib,
   ...
 }:
 let modelsDir = "/mnt/Zeno/containers/llm/llama-cpp/models"; in
@@ -143,22 +144,40 @@ let modelsDir = "/mnt/Zeno/containers/llm/llama-cpp/models"; in
       enable = true;
       package = pkgs-self.audio-cpp-vulkan;
       backend = "vulkan";
-      models = [
-        # {
-        #   id = "higgs-tts";
-        #   family = "higgs_audio_tts";
-        #   model = "${modelsDir}/higgs-audio-v3-tts-4b-bf16.gguf";
-        #   task = "tts";
-        #   mode = "offline";
-        # }
-        {
-          id = "dramabox";
-          family = "dramabox";
-          model = "${modelsDir}/dramabox-q8_0.gguf";
+      extraOptions = {
+        voice_dir= "${modelsDir}/voices";
+        idle_unload_ms = 1000;
+      };
+      models = 
+        let 
+          base = {
           task = "tts";
           mode = "offline";
-        }
-      ];
+        };
+          mkQwen = name: 
+        base //rec {
+          family = "qwen3_tts";
+          id = "${family}-${name}";
+          model = "${modelsDir}/qwen3-tts-12hz-1.7b-${name}-bf16.gguf";
+        };
+        
+        higgs = base // {
+          id = "higgs-tts";
+          family = "higgs_audio_tts";
+          model = "${modelsDir}/higgs-audio-v3-tts-4b-bf16.gguf";
+        };
+
+        voxcpm2 = base // rec {
+          family = "voxcpm2";
+          id = family;
+          model = "${modelsDir}/voxcpm2-orig.gguf";
+        };
+        
+        in
+        
+        [
+        voxcpm2 higgs] ++ (lib.map mkQwen ["base" "customvoice" "voicedesign"])
+      ;
     };
   };
 }
