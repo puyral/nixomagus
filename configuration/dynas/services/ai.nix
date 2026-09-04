@@ -144,13 +144,13 @@ let modelsDir = "/mnt/Zeno/containers/llm/llama-cpp/models"; in
       package = pkgs-self.audio-cpp-vulkan;
       backend = "vulkan";
       models = [
-        {
-          id = "higgs-tts";
-          family = "higgs_audio_tts";
-          model = "${modelsDir}/higgs-audio-v3-tts-4b-bf16.gguf";
-          task = "tts";
-          mode = "offline";
-        }
+        # {
+        #   id = "higgs-tts";
+        #   family = "higgs_audio_tts";
+        #   model = "${modelsDir}/higgs-audio-v3-tts-4b-bf16.gguf";
+        #   task = "tts";
+        #   mode = "offline";
+        # }
         {
           id = "dramabox";
           family = "dramabox";
