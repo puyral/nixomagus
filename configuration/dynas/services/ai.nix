@@ -146,7 +146,8 @@
         {
           id = "higgs-tts";
           family = "higgs_audio_tts";
-          model = "/mnt/Zeno/containers/llm/llama-cpp/models/Higgs-Audio-v3-TTS-4B-GGUF/higgs-audio-v3-tts-4b-q8_0.gguf";
+          # model = "/mnt/Zeno/containers/llm/llama-cpp/models/Higgs-Audio-v3-TTS-4B-GGUF/higgs-audio-v3-tts-4b-q8_0.gguf";
+          model = "/mnt/Zeno/containers/llm/llama-cpp/models/higgs-audio-v3-tts-4b-bf16.gguf";
           task = "tts";
           mode = "offline";
         }
