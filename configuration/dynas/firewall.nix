@@ -7,6 +7,7 @@
       443
       8384
     ];
+    trustedInterfaces = ["enp13s0"];
     # allowedUDPPortRanges = [
     #   {
     #     from = 4000;
