@@ -146,7 +146,8 @@ let modelsDir = "/mnt/Zeno/containers/llm/llama-cpp/models"; in
       backend = "vulkan";
       extraOptions = {
         voice_dir= "${modelsDir}/voices";
-        idle_unload_ms = 1000;
+        idle_unload_ms = 1;
+        max_loaded_models = 1;
       };
       models = 
         let 
