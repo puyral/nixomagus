@@ -43,14 +43,22 @@ let
       first = builtins.head instances;
       isHosting = hostName == first.hostedBy;
       chainingPort = if cfg.chainingPort != null then cfg.chainingPort else 8080;
+      tarpitEnabled = any (attrs: (attrs ? "gzip-bomb") && (attrs."gzip-bomb".enable or false)) instances;
 
-      gzipBombLocation = optionalAttrs (first."gzip-bomb".enable or false) {
+      gzipBombLocation = optionalAttrs tarpitEnabled {
         "${first."gzip-bomb".filter}" = {
-          alias = "${pkgs-self.gzip-bomb}/share/bomb.gz";
           extraConfig = ''
+            alias $tarpit_file;
             default_type text/plain;
-            add_header Content-Encoding gzip;
+            add_header Content-Encoding $tarpit_encoding always;
+
+            # Disable dynamic compression
             gzip off;
+            zstd off;
+
+            # Disable automatic static pre-compression handlers
+            gzip_static off;
+            zstd_static off;
           '';
         };
       };
@@ -127,6 +135,14 @@ let
     builtins.attrNames groupedInstances
   );
 
+  gzipBombEnabled = any (
+    name:
+    let
+      attrs = cfg.instances.${name};
+    in
+    (attrs.enable or false) && (attrs ? "gzip-bomb") && (attrs."gzip-bomb".enable or false)
+  ) (builtins.attrNames cfg.instances);
+
 in
 {
   config = mkIf cfg.enable {
@@ -137,6 +153,17 @@ in
       experimentalZstdSettings = true;
       recommendedGzipSettings = true;
       sslProtocols = "TLSv1.3";
+      commonHttpConfig = mkIf gzipBombEnabled ''
+        map $http_accept_encoding $tarpit_file {
+          default "${pkgs-self.gzip-bomb}/share/bomb.gz";
+          "~*zstd" "${pkgs-self.gzip-bomb}/share/bomb.zstd";
+        }
+
+        map $http_accept_encoding $tarpit_encoding {
+          default "gzip";
+          "~*zstd" "zstd";
+        }
+      '';
       inherit virtualHosts;
 
       # irrelevant because of ktls
