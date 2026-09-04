@@ -94,7 +94,7 @@ in
         # model_specs/<family>.json (the audio.cpp server only looks for those
         # relative to the working directory for per-request contract validation).
         WorkingDirectory = "${cfg.package}";
-        ExecStart = "${lib.getExe' cfg.package "audiocpp_server"} --config ${serverJson} --host ${cfg.host} --port ${toString cfg.port} --backend ${cfg.backend} --no-ui";
+        ExecStart = "${lib.getExe' cfg.package "audiocpp_server"} --config ${serverJson} --host ${cfg.host} --port ${toString cfg.port} --backend ${cfg.backend} --no-ui --log";
         Restart = "on-failure";
         ProcSubset = "all";
       };
