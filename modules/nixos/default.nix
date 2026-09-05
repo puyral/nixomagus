@@ -90,6 +90,7 @@ let
     incus = ./incus;
     audioCpp = ./audioCpp;
     mango-remote = inputs.mango.nixosModules.mango;
+    forgejo = ./forgejo;
   };
 
 in
