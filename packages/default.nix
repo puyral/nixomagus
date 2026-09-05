@@ -32,6 +32,7 @@
         ./surface-dtx-daemon
         ./mango
         ./gzip-bomb
+        ./tea-transfer
       ];
 
       pkgsInputs = inputs // {
