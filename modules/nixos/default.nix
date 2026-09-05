@@ -91,6 +91,7 @@ let
     audioCpp = ./audioCpp;
     mango-remote = inputs.mango.nixosModules.mango;
     forgejo = ./forgejo;
+    forgejo-runner = ./forgejo-runner;
   };
 
 in
