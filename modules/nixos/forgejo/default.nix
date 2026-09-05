@@ -43,7 +43,7 @@ in
                 ROOT_URL = "https://${DOMAIN}/";
               };
               service = {
-                DISABLE_REGISTRATION = false;
+                DISABLE_REGISTRATION = true;
               };
 
               session = {
