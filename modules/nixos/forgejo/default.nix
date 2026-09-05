@@ -26,7 +26,7 @@ in
         {
           protocol = "tcp";
           hostPort = cfg.sshPort;
-          containerPort = cfg.sshPort;
+          containerPort = cfg.sshListenPort;
         }
       ];
 
@@ -45,13 +45,18 @@ in
               # };
               server = rec {
                 HTTP_PORT = uiPort;
+                # External port shown in clone URLs (what clients connect to).
                 SSH_PORT = cfg.sshPort;
                 # Run forgejo's built-in SSH server inside the container.
                 # By default the nixpkgs module expects an external sshd to
                 # handle SSH (via authorized_keys command), which doesn't work
-                # in a container. Enabling this makes forgejo listen on
-                # SSH_PORT itself, which is then forwarded to the host.
+                # in a container. Enabling this makes forgejo run its own SSH
+                # server.
                 START_SSH_SERVER = true;
+                # The hardened forgejo service has no CAP_NET_BIND_SERVICE, so
+                # it cannot bind privileged ports (<1024). Listen on a high
+                # port inside the container; the host forwards sshPort -> this.
+                SSH_LISTEN_PORT = cfg.sshListenPort;
                 DOMAIN = "git.puyral.fr";
                 ROOT_URL = "https://${DOMAIN}/";
               };
