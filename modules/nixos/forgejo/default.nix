@@ -22,6 +22,13 @@ in
       };
       autoStart = true;
       ephemeral = true;
+      forwardPorts = [
+        {
+          protocol = "tcp";
+          hostPort = cfg.sshPort;
+          containerPort = cfg.sshPort;
+        }
+      ];
 
       config =
         { ... }:
