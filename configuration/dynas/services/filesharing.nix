@@ -1,4 +1,4 @@
-{ config, pkgs-self,... }:
+{ config, pkgs-self, ... }:
 {
   services.samba = {
     enable = true;
@@ -42,7 +42,10 @@
       "copyparty" = {
         enable = true;
         port = 7898;
-        providers = [ "dynas" "ovh-pl" ];
+        providers = [
+          "dynas"
+          "ovh-pl"
+        ];
         gzip-bomb.enable = true;
         extraConfig = ''
           proxy_set_header X-Forwarded-Proto https;

@@ -6,7 +6,9 @@
   lib,
   ...
 }:
-let modelsDir = "/mnt/Zeno/containers/llm/llama-cpp/models"; in
+let
+  modelsDir = "/mnt/Zeno/containers/llm/llama-cpp/models";
+in
 {
   networking.nginx.instances."openwebui" = {
     enable = true;
@@ -145,40 +147,48 @@ let modelsDir = "/mnt/Zeno/containers/llm/llama-cpp/models"; in
       package = pkgs-self.audio-cpp-vulkan;
       backend = "vulkan";
       extraOptions = {
-        voice_dir= "${modelsDir}/voices";
+        voice_dir = "${modelsDir}/voices";
         idle_unload_ms = 10000;
         max_loaded_models = 1;
       };
-      models = 
-        let 
+      models =
+        let
           base = {
-          task = "tts";
-          mode = "offline";
-        };
-          mkQwen = name: 
-        base //rec {
-          family = "qwen3_tts";
-          id = "${family}-${name}";
-          model = "${modelsDir}/qwen3-tts-12hz-1.7b-${name}-bf16.gguf";
-        };
-        
-        higgs = base // {
-          id = "higgs-tts";
-          family = "higgs_audio_tts";
-          model = "${modelsDir}/higgs-audio-v3-tts-4b-bf16.gguf";
-        };
+            task = "tts";
+            mode = "offline";
+          };
+          mkQwen =
+            name:
+            base
+            // rec {
+              family = "qwen3_tts";
+              id = "${family}-${name}";
+              model = "${modelsDir}/qwen3-tts-12hz-1.7b-${name}-bf16.gguf";
+            };
 
-        voxcpm2 = base // rec {
-          family = "voxcpm2";
-          id = family;
-          model = "${modelsDir}/voxcpm2-orig.gguf";
-        };
-        
+          higgs = base // {
+            id = "higgs-tts";
+            family = "higgs_audio_tts";
+            model = "${modelsDir}/higgs-audio-v3-tts-4b-bf16.gguf";
+          };
+
+          voxcpm2 = base // rec {
+            family = "voxcpm2";
+            id = family;
+            model = "${modelsDir}/voxcpm2-orig.gguf";
+          };
+
         in
-        
+
         [
-        voxcpm2 higgs] ++ (lib.map mkQwen ["base" "customvoice" "voicedesign"])
-      ;
+          voxcpm2
+          higgs
+        ]
+        ++ (lib.map mkQwen [
+          "base"
+          "customvoice"
+          "voicedesign"
+        ]);
     };
   };
 }
