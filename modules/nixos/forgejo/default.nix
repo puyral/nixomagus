@@ -40,6 +40,9 @@ in
                 HTTP_PORT = uiPort;
                 SSH_PORT = cfg.sshPort;
               };
+              service = {
+                DISABLE_REGISTRATION = true;
+              };
             };
             lfs = {
               enable = true;
