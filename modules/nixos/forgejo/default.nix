@@ -36,12 +36,18 @@ in
               #   FROM = "do-not-reply@example.org";
               #   SENDMAIL_PATH = "${pkgs.system-sendmail}/bin/sendmail";
               # };
-              server = {
+              server = rec {
                 HTTP_PORT = uiPort;
                 SSH_PORT = cfg.sshPort;
+                DOMAIN = "git.puyral.fr";
+                ROOT_URL = "https://${DOMAIN}/";
               };
               service = {
                 DISABLE_REGISTRATION = true;
+              };
+
+              session = {
+                COOKIE_SECURE =true;
               };
             };
             lfs = {
