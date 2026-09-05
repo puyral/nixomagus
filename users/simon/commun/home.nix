@@ -37,12 +37,11 @@
         killall
         moreutils
         renameutils
+        tea
+        pkgs-self.tea-transfer
       ])
       ++ (with pkgs-unstable; [
         nixd
-      ]) ++
-      (with pkgs-self; [
-        tea-transfer
       ]);
 
     # Home Manager can also manage your environment variables through
