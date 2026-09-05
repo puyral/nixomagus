@@ -1,6 +1,7 @@
 {
   pkgs,
   pkgs-unstable,
+  pkgs-self,
   is_nixos,
   config,
   ...
@@ -39,6 +40,9 @@
       ])
       ++ (with pkgs-unstable; [
         nixd
+      ]) ++
+      (with pkgs-self; [
+        tea-transfer
       ]);
 
     # Home Manager can also manage your environment variables through
