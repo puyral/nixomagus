@@ -1,12 +1,14 @@
 {
   writeShellApplication,
-  tea, git,
+  tea,
+  git,
   ...
 }:
 writeShellApplication {
   name = "tea-transfer";
   runtimeInputs = [
-    tea git
+    tea
+    git
   ];
   text = builtins.readFile ./tea-transfer.sh;
 }

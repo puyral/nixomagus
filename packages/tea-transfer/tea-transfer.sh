@@ -12,6 +12,22 @@ usage() {
 if [ "$#" -ne 1 ] || [ -z "$1" ]; then
   usage
 fi
+
+# Handle help/version flags before treating the argument as a target org
+case "$1" in
+  -h|--help)
+    usage
+    ;;
+  -v|--version)
+    echo "$(basename "$0") 1.0.0"
+    exit 0
+    ;;
+  -*)
+    echo "Error: Unknown option '$1'." >&2
+    usage
+    ;;
+esac
+
 TARGET_ORG="$1"
 
 # 2. Check required dependencies
@@ -63,10 +79,19 @@ echo "Remote being updated: ${REMOTE_NAME}"
 
 # 6. Execute transfer via tea api
 echo "Initiating transfer via 'tea api'..."
-if ! tea api -X POST "repos/${CURRENT_OWNER}/${REPO_NAME}/transfer" \
+RESPONSE=$(tea api -X POST "repos/${CURRENT_OWNER}/${REPO_NAME}/transfer" \
     -H "Content-Type: application/json" \
-    -d "{\"new_owner\": \"${TARGET_ORG}\"}"; then
+    -d "{\"new_owner\": \"${TARGET_ORG}\"}" 2>&1) || {
   echo "Error: Transfer failed. Verify permissions for '$TARGET_ORG' and 'tea' authentication." >&2
+  echo "$RESPONSE" >&2
+  exit 1
+}
+
+# tea api may exit 0 even when the server returns an error (e.g. a 4xx JSON
+# response). Detect that so we don't update the remote on a failed transfer.
+if [ -n "$RESPONSE" ] && ! echo "$RESPONSE" | grep -q '"id"'; then
+  echo "Error: Transfer failed. Verify permissions for '$TARGET_ORG' and 'tea' authentication." >&2
+  echo "$RESPONSE" >&2
   exit 1
 fi
 

@@ -16,15 +16,21 @@ let
       family = m.family;
       task = m.task;
       mode = m.mode;
-    } // lib.optionalAttrs (m.audioDefaultRequestOptions != { }) {
-    default_request_options = m.audioDefaultRequestOptions;
-  };
+    }
+    // lib.optionalAttrs (m.audioDefaultRequestOptions != { }) {
+      default_request_options = m.audioDefaultRequestOptions;
+    };
 
-  serverJson = pkgs.writeText "audiocpp-server.json" (builtins.toJSON ({
-    host = "127.0.0.1";
-    lazy_load = true;
-    models = map modelEntry cfg.models;
-  } // cfg.extraOptions));
+  serverJson = pkgs.writeText "audiocpp-server.json" (
+    builtins.toJSON (
+      {
+        host = "127.0.0.1";
+        lazy_load = true;
+        models = map modelEntry cfg.models;
+      }
+      // cfg.extraOptions
+    )
+  );
 
 in
 {
@@ -84,7 +90,7 @@ in
 
     extraOptions = mkOption {
       type = types.attrs;
-      default = {};
+      default = { };
     };
   };
 

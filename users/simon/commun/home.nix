@@ -37,6 +37,7 @@
         killall
         moreutils
         renameutils
+
         tea
         pkgs-self.tea-transfer
       ])

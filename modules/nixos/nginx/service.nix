@@ -89,45 +89,47 @@ let
           add_header Alt-Svc 'h3=":443"; ma=86400';
           ${hostingConfig}
         '';
-        locations = gzipBombLocation // lib.listToAttrs (
-          map (attrs: {
-            name = attrs.path;
-            value = {
-              proxyPass =
-                let
-                  targetHost =
-                    if isHosting then
-                      (
-                        if attrs.address != null then
-                          attrs.address
-                        else if (attrs ? container && attrs.container != null) then
-                          let
-                            containerConfig = config.containers.${attrs.container};
-                          in
-                          if containerConfig ? localAddress && containerConfig.localAddress != null then
-                            containerConfig.localAddress
+        locations =
+          gzipBombLocation
+          // lib.listToAttrs (
+            map (attrs: {
+              name = attrs.path;
+              value = {
+                proxyPass =
+                  let
+                    targetHost =
+                      if isHosting then
+                        (
+                          if attrs.address != null then
+                            attrs.address
+                          else if (attrs ? container && attrs.container != null) then
+                            let
+                              containerConfig = config.containers.${attrs.container};
+                            in
+                            if containerConfig ? localAddress && containerConfig.localAddress != null then
+                              containerConfig.localAddress
+                            else
+                              "localhost"
                           else
                             "localhost"
-                        else
-                          "localhost"
-                      )
-                    else
-                      # We are a proxy to the host
-                      (config.ips.${attrs.hostedBy} or "localhost");
+                        )
+                      else
+                        # We are a proxy to the host
+                        (config.ips.${attrs.hostedBy} or "localhost");
 
-                  targetPort = if isHosting then attrs.port else chainingPort;
-                in
-                "http://${targetHost}:${toString targetPort}";
-              proxyWebsockets = true;
-              extraConfig = ''
-                ${optionalString (!isHosting) ''
-                  proxy_set_header Connection "";
-                ''}
-                ${attrs.extraConfig}
-              '';
-            };
-          }) instances
-        );
+                    targetPort = if isHosting then attrs.port else chainingPort;
+                  in
+                  "http://${targetHost}:${toString targetPort}";
+                proxyWebsockets = true;
+                extraConfig = ''
+                  ${optionalString (!isHosting) ''
+                    proxy_set_header Connection "";
+                  ''}
+                  ${attrs.extraConfig}
+                '';
+              };
+            }) instances
+          );
       };
     };
 

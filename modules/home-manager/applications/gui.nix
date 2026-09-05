@@ -109,7 +109,7 @@ in
 
         komikku
 
-	dragon-drop
+        dragon-drop
       ])
       ++ (with pkgs-unstable; [
         # darktable
