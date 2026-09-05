@@ -46,6 +46,12 @@ in
               server = rec {
                 HTTP_PORT = uiPort;
                 SSH_PORT = cfg.sshPort;
+                # Run forgejo's built-in SSH server inside the container.
+                # By default the nixpkgs module expects an external sshd to
+                # handle SSH (via authorized_keys command), which doesn't work
+                # in a container. Enabling this makes forgejo listen on
+                # SSH_PORT itself, which is then forwarded to the host.
+                START_SSH_SERVER = true;
                 DOMAIN = "git.puyral.fr";
                 ROOT_URL = "https://${DOMAIN}/";
               };
