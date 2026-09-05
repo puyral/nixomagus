@@ -20,11 +20,11 @@ let
     default_request_options = m.audioDefaultRequestOptions;
   };
 
-  serverJson = pkgs.writeText "audiocpp-server.json" (builtins.toJSON {
+  serverJson = pkgs.writeText "audiocpp-server.json" (builtins.toJSON ({
     host = "127.0.0.1";
     lazy_load = true;
     models = map modelEntry cfg.models;
-  });
+  } // cfg.extraOptions));
 
 in
 {
@@ -81,6 +81,11 @@ in
         }
       );
     };
+
+    extraOptions = mkOption {
+      type = types.attrs;
+      default = {};
+    };
   };
 
   config = lib.mkIf cfg.enable {
@@ -94,7 +99,7 @@ in
         # model_specs/<family>.json (the audio.cpp server only looks for those
         # relative to the working directory for per-request contract validation).
         WorkingDirectory = "${cfg.package}";
-        ExecStart = "${lib.getExe' cfg.package "audiocpp_server"} --config ${serverJson} --host ${cfg.host} --port ${toString cfg.port} --backend ${cfg.backend} --no-ui";
+        ExecStart = "${lib.getExe' cfg.package "audiocpp_server"} --config ${serverJson} --host ${cfg.host} --port ${toString cfg.port} --backend ${cfg.backend} --no-ui --log";
         Restart = "on-failure";
         ProcSubset = "all";
       };

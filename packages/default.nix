@@ -31,6 +31,7 @@
         ./kavita
         ./surface-dtx-daemon
         ./mango
+        ./gzip-bomb
       ];
 
       pkgsInputs = inputs // {

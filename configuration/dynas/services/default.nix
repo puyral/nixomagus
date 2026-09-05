@@ -159,6 +159,12 @@
       incus = {
         enable = true;
       };
+
+      forgejo = {
+        enable = true;
+        providers = ["dynas" "ovh-pl"];
+        subdomain = "git";
+      };
     };
   services.ollama.package = pkgs-unstable.ollama-vulkan;
 

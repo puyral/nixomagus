@@ -3,8 +3,10 @@
   pkgs-unstable,
   pkgs-self,
   config,
+  lib,
   ...
 }:
+let modelsDir = "/mnt/Zeno/containers/llm/llama-cpp/models"; in
 {
   networking.nginx.instances."openwebui" = {
     enable = true;
@@ -30,17 +32,17 @@
         models = [
           {
             id = "ministral";
-            model = "/mnt/Zeno/containers/llm/llama-cpp/models/Ministral-3-8B-Instruct-2512-UD-Q6_K_XL.gguf";
+            model = "${modelsDir}/Ministral-3-8B-Instruct-2512-UD-Q6_K_XL.gguf";
           }
           # {
           #   id = "ministral-2K";
           #   aliases = [ "mini-ministral" ];
-          #   model = "/mnt/Zeno/containers/llm/llama-cpp/models/Ministral-3-8B-Instruct-2512-UD-Q6_K_XL.gguf";
+          #   model = "${modelsDir}/Ministral-3-8B-Instruct-2512-UD-Q6_K_XL.gguf";
           #   contextSize = 2048;
           # }
           {
             id = "qwen-9B";
-            model = "/mnt/Zeno/containers/llm/llama-cpp/models/Qwen3.5-9B-UD-Q6_K_XL.gguf";
+            model = "${modelsDir}/Qwen3.5-9B-UD-Q6_K_XL.gguf";
             extraArgs = [
               "--top-p 0.95"
               "--top-k 20"
@@ -50,7 +52,7 @@
           }
           # {
           #   id = "qwen-9B-long";
-          #   model = "/mnt/Zeno/containers/llm/llama-cpp/models/Qwen3.5-9B-UD-Q4_K_XL.gguf";
+          #   model = "${modelsDir}/Qwen3.5-9B-UD-Q4_K_XL.gguf";
           #   contextSize = 100 * 1024;
           #   extraArgs = [
           #     "--top-p 0.95"
@@ -61,7 +63,7 @@
           # }
           # {
           #   id = "qwen-9B-32K";
-          #   model = "/mnt/Zeno/containers/llm/llama-cpp/models/Qwen3.5-9B-UD-Q6_K_XL.gguf";
+          #   model = "${modelsDir}/Qwen3.5-9B-UD-Q6_K_XL.gguf";
           #   contextSize = 32 * 1024;
           #   extraArgs = [
           #     "--top-p 0.95"
@@ -71,7 +73,7 @@
           # }
           {
             id = "qwen-0.8B-3K";
-            model = "/mnt/Zeno/containers/llm/llama-cpp/models/Qwen3.5-9B-UD-Q4_K_XL.gguf";
+            model = "${modelsDir}/Qwen3.5-9B-UD-Q4_K_XL.gguf";
             extraArgs = [
               "--top-p 0.95"
               "--top-k 20"
@@ -83,7 +85,7 @@
           }
           {
             id = "qwen 3.6 35B 4K";
-            model = "/mnt/Zeno/containers/llm/llama-cpp/models/Qwen3.6-35B-A3B-UD-Q4_K_XL.gguf";
+            model = "${modelsDir}/Qwen3.6-35B-A3B-UD-Q4_K_XL.gguf";
             contextSize = 4 * 1024;
             nGpuLayers = 20;
             extraArgs = [
@@ -97,7 +99,7 @@
           }
           # {
           #   id = "qwen 3.6 35B 3Q 4K";
-          #   model = "/mnt/Zeno/containers/llm/llama-cpp/models/Qwen3.6-35B-A3B-UD-IQ3_XXS.gguf";
+          #   model = "${modelsDir}/Qwen3.6-35B-A3B-UD-IQ3_XXS.gguf";
           #   contextSize = 4 * 1024;
           #   nGpuLayers = 20;
           #   extraArgs = [
@@ -111,11 +113,11 @@
           # }
           {
             id = "gemma-4-12B-it-qat-UD-Q4";
-            model = "/mnt/Zeno/containers/llm/llama-cpp/models/gemma-4-12B-it-qat-UD-Q4_K_XL.gguf";
+            model = "${modelsDir}/gemma-4-12B-it-qat-UD-Q4_K_XL.gguf";
           }
           {
             id = "qwen 3.8 27B";
-            model = "/mnt/Zeno/containers/llm/llama-cpp/models/Qwen3.8-27B-UD-Q2_K_XL.gguf";
+            model = "${modelsDir}/Qwen3.8-27B-UD-Q2_K_XL.gguf";
             contextSize = 50 * 1024;
             # nGpuLayers = "all";
             extraArgs = [
@@ -142,15 +144,41 @@
       enable = true;
       package = pkgs-self.audio-cpp-vulkan;
       backend = "vulkan";
-      models = [
-        {
-          id = "higgs-tts";
-          family = "higgs_audio_tts";
-          model = "/mnt/Zeno/containers/llm/llama-cpp/models/Higgs-Audio-v3-TTS-4B-GGUF/higgs-audio-v3-tts-4b-q8_0.gguf";
+      extraOptions = {
+        voice_dir= "${modelsDir}/voices";
+        idle_unload_ms = 10000;
+        max_loaded_models = 1;
+      };
+      models = 
+        let 
+          base = {
           task = "tts";
           mode = "offline";
-        }
-      ];
+        };
+          mkQwen = name: 
+        base //rec {
+          family = "qwen3_tts";
+          id = "${family}-${name}";
+          model = "${modelsDir}/qwen3-tts-12hz-1.7b-${name}-bf16.gguf";
+        };
+        
+        higgs = base // {
+          id = "higgs-tts";
+          family = "higgs_audio_tts";
+          model = "${modelsDir}/higgs-audio-v3-tts-4b-bf16.gguf";
+        };
+
+        voxcpm2 = base // rec {
+          family = "voxcpm2";
+          id = family;
+          model = "${modelsDir}/voxcpm2-orig.gguf";
+        };
+        
+        in
+        
+        [
+        voxcpm2 higgs] ++ (lib.map mkQwen ["base" "customvoice" "voicedesign"])
+      ;
     };
   };
 }
