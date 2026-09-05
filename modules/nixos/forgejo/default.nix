@@ -67,6 +67,11 @@ in
               session = {
                 COOKIE_SECURE =true;
               };
+              repository = {
+                DEFAULT_PRIVATE = true;
+                ENABLE_PUSH_CREATE_USER = true;
+                ENABLE_PUSH_CREATE_ORG = true;
+              };
             };
             lfs = {
               enable = true;
