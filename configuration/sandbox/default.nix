@@ -70,6 +70,15 @@
 
   boot.tmp.cleanOnBoot = true;
 
+  # Return freed blocks to the host (sparse VM disk) so the raw image doesn't
+  # grow stale allocation. Persistent=true: if a scheduled run is missed (e.g.
+  # the VM was off), it still runs at the next boot.
+  services.fstrim = {
+    enable = true;
+    interval = "daily";
+  };
+  systemd.timers.fstrim.timerConfig.Persistent = lib.mkOverride 10 true;
+
   # Ensure simon has the right groups
   users.users.simon.extraGroups = [ "wheel" ];
   services.getty.autologinUser = "simon";
