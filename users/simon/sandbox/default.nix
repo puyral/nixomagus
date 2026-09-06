@@ -2,10 +2,14 @@
   lib,
   pkgs,
   pkgs-unstable,
+  pkgs-self,
   ...
 }:
 {
-  home.packages = (with pkgs; [ python3 ]) ++ (with pkgs-unstable; [ nodejs ]);
+  home.packages =
+    (with pkgs; [ python3 ])
+    ++ (with pkgs-unstable; [ nodejs ])
+    ++ [ pkgs-self.pi-subagent-control ];
   home.sessionPath = [ "$HOME/.npm-global/bin" ];
   # Minimal home-manager config for the sandbox
   # imports = [ ./commun ]; # already imported by users/simon/default.nix
