@@ -11,13 +11,13 @@ let
   cfg = config.extra.forgejo;
 in
 {
-  imports = [./options.nix];
+  imports = [ ./options.nix ];
   config = lib.mkIf cfg.enable {
     containers.forgejo = {
       bindMounts = {
         "/data" = {
           hostPath = cfg.dataDir;
-          isReadOnly =  false;
+          isReadOnly = false;
         };
       };
       autoStart = true;
@@ -65,7 +65,12 @@ in
               };
 
               session = {
-                COOKIE_SECURE =true;
+                COOKIE_SECURE = true;
+              };
+              repository = {
+                DEFAULT_PRIVATE = true;
+                ENABLE_PUSH_CREATE_USER = true;
+                ENABLE_PUSH_CREATE_ORG = true;
               };
             };
             lfs = {

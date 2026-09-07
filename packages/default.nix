@@ -32,6 +32,7 @@
         ./surface-dtx-daemon
         ./mango
         ./gzip-bomb
+        ./tea-transfer
       ];
 
       pkgsInputs = inputs // {
@@ -57,7 +58,10 @@
           audio-cpp-cpu = cpu;
           audio-cpp-vulkan = vulkan;
           audio-cpp-amd = rocm;
-        });
+        })
+        // {
+          pi-subagent-control = inputs'."pi-subagent-control".packages.default;
+        };
     in
     {
 

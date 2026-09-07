@@ -162,7 +162,10 @@
 
       forgejo = {
         enable = true;
-        providers = ["dynas" "ovh-pl"];
+        providers = [
+          "dynas"
+          "ovh-pl"
+        ];
         subdomain = "git";
       };
     };

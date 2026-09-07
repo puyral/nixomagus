@@ -1,6 +1,7 @@
 {
   pkgs,
   pkgs-unstable,
+  pkgs-self,
   is_nixos,
   config,
   ...
@@ -36,6 +37,9 @@
         killall
         moreutils
         renameutils
+
+        tea
+        pkgs-self.tea-transfer
       ])
       ++ (with pkgs-unstable; [
         nixd
