@@ -452,22 +452,6 @@
         "url": "https://channels.nixos.org/nixos-unstable/nixexprs.tar.xz"
       }
     },
-    "nixpkgs_3": {
-      "locked": {
-        "lastModified": 1787900134,
-        "narHash": "sha256-VYXO0XZlgj06dxJZRhrD3WoSsvq/c7+/Akyoa22pefw=",
-        "owner": "nixos",
-        "repo": "nixpkgs",
-        "rev": "83199d0d373dd3ac2b9a1996b1d0263f76ab7a4c",
-        "type": "github"
-      },
-      "original": {
-        "owner": "nixos",
-        "ref": "nixos-unstable",
-        "repo": "nixpkgs",
-        "type": "github"
-      }
-    },
     "paperless-ai-src": {
       "flake": false,
       "locked": {
@@ -498,11 +482,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1788730429,
-        "narHash": "sha256-DtUc5fLHXqKegxEBq3VrM3Oxbdgaqma2Xo8lKvqXyGY=",
+        "lastModified": 1788941772,
+        "narHash": "sha256-kCdLhGEjPGCX+nGxYYVYOGVc6/PTI1Y/Rtn/oUqQHPw=",
         "ref": "refs/heads/master",
-        "rev": "00652e80ea300a4902936a56c73094891a8b74ba",
-        "revCount": 5,
+        "rev": "71bde8607f8bbbb0323c59bc1c69cfe647be8ef2",
+        "revCount": 24,
         "type": "git",
         "url": "ssh://forgejo@git.puyral.fr:222/personal/pi-subagent-control"
       },
@@ -615,7 +599,10 @@
     "rust-flake_2": {
       "inputs": {
         "crane": "crane_2",
-        "nixpkgs": "nixpkgs_3",
+        "nixpkgs": [
+          "pi-subagent-control",
+          "nixpkgs"
+        ],
         "rust-overlay": "rust-overlay_2"
       },
       "locked": {
