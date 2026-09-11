@@ -482,11 +482,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1788941772,
-        "narHash": "sha256-kCdLhGEjPGCX+nGxYYVYOGVc6/PTI1Y/Rtn/oUqQHPw=",
+        "lastModified": 1789111973,
+        "narHash": "sha256-U3R+92MuBKN+yJwzs02r62uJEAsSah2+6vk4BVQ7s3o=",
         "ref": "refs/heads/master",
-        "rev": "71bde8607f8bbbb0323c59bc1c69cfe647be8ef2",
-        "revCount": 24,
+        "rev": "d17f5f8fe7d438d3d1340eb7cdb42739ebf11f3b",
+        "revCount": 27,
         "type": "git",
         "url": "ssh://forgejo@git.puyral.fr:222/personal/pi-subagent-control"
       },
