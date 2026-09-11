@@ -33,6 +33,7 @@
         ./mango
         ./gzip-bomb
         ./tea-transfer
+        ./print-path
       ];
 
       pkgsInputs = inputs // {
@@ -44,24 +45,17 @@
         (pkgs.callPackages ./notify-done pkgsInputs) // listToAttrs (map mkPkgs packages);
 
       re-exports =
-        with inputs';
-        {
-          sops-nix = sops-nix.packages.default;
-          darktable-jpeg-sync = darktable-jpeg-sync.packages.default;
-          lean-lsp-mcp = lean-lsp-mcp.packages.default;
-          waybar = waybar.packages.default;
-        }
-        // {
-          lspranto = lspranto.packages.default;
-        }
+        with inputs'; with builtins;
+        let 
+          mkReexport = n: inputs'."${n}".packages.default;
+          mkReexports = l: listToAttrs (map (name: {inherit name; value = mkReexport name;}) l);
+        in
+        (mkReexports ["sops-nix" "darktable-jpeg-sync" "lean-lsp-mcp" "waybar" "lspranto" "pi-subagent-control"])
         // (with inputs'."audio.cpp".packages; {
           audio-cpp-cpu = cpu;
           audio-cpp-vulkan = vulkan;
           audio-cpp-amd = rocm;
-        })
-        // {
-          pi-subagent-control = inputs'."pi-subagent-control".packages.default;
-        };
+        });
     in
     {
 

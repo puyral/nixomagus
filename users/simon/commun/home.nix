@@ -40,6 +40,7 @@
 
         tea
         pkgs-self.tea-transfer
+        pkgs-self.print-path
       ])
       ++ (with pkgs-unstable; [
         nixd
