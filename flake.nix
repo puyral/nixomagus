@@ -103,6 +103,15 @@
       };
     };
 
+    pi-subagent-control = {
+      url = "git+ssh://forgejo@git.puyral.fr:222/personal/pi-subagent-control";
+      inputs = {
+        nixpkgs.follows = "nixpkgs-unstable";
+        flake-parts.follows = "flake-parts";
+        treefmt-nix.follows = "treefmt-nix";
+      };
+    };
+
     #######################
     ######## utils ########
     #######################

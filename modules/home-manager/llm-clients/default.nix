@@ -48,9 +48,7 @@ in
     };
 
     mistral-vibe = {
-      enable = mkEnableOption "mistral-vibe" // {
-        default = true;
-      };
+      enable = mkEnableOption "mistral-vibe";
     };
   };
 

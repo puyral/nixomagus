@@ -41,7 +41,7 @@ in
       ephemeral = true;
 
       config =
-        { ... }:
+        { pkgs-unstable, ... }:
         let
           user = "immich";
         in
@@ -58,6 +58,10 @@ in
           services.immich = {
             inherit port;
             enable = true;
+            # immich 3.x only exists in nixpkgs-unstable (not 26.05);
+            # the services.immich module is unchanged between them, so just
+            # override the package (module version is 2.7.5 on stable).
+            package = pkgs-unstable.immich;
             user = user;
             group = user;
             openFirewall = true;
