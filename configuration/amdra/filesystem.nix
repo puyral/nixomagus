@@ -74,20 +74,14 @@ in
       };
 
       "/mnt/Extra/root" = {
-          device  = "UUID=0778732f-c09c-4e14-ad2e-ec60b512151f";
+        device = "UUID=0778732f-c09c-4e14-ad2e-ec60b512151f";
         fsType = "btrfs";
       };
-      "/mnt/Extra/builds" = mkfs2 "@builds" {
-        compress = "zstd:5";
-      };
-      "/mnt/Extra/darktable" = mkfs2 "@darktable" {
-      };
-      "/mnt/Extra/games" = mkfs2 "@games" {
-      };
-      "/mnt/Extra/incus" = mkfs2 "@incus" {
-      };
-      "/mnt/Extra/ai" = mkfs2 "@ai" {
-      };
+      "/mnt/Extra/builds" = mkfs2 "@builds" { compress = "zstd:5"; };
+      "/mnt/Extra/darktable" = mkfs2 "@darktable" { };
+      "/mnt/Extra/games" = mkfs2 "@games" { };
+      "/mnt/Extra/incus" = mkfs2 "@incus" { };
+      "/mnt/Extra/ai" = mkfs2 "@ai" { };
 
       # "${config.extra.cachefilesd.cacheDir}" = {
       #   label = "NIXROOT";
