@@ -78,7 +78,7 @@ in
         # xpano
         # rapid-photo-downloader
 
-        spotify
+        # spotify
         mpv
         mpd
         ncmpcpp
