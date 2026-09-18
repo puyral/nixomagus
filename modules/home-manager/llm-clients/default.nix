@@ -58,18 +58,17 @@ in
     ]
     ++ lib.optional cfg.mistral-vibe.enable pkgs-unstable.mistral-vibe; # the othe have home manager modules already
 
-    home.sessionVariables =
-      {
-        LEAN_MCP = lib.mkIf leanEnableMcp "${pkgs-self.lean-lsp-mcp}";
-        NIX_MCP = lib.mkIf nixMcp "${pkgs-unstable.mcp-nixos}";
-        LSPRANTO_MCP = lib.mkIf lsprantoEnable "${pkgs-self.lspranto}";
-        # MISTRAL_TRUST_ALL_TOOLS = lib.mkIf (
-        #   jailed
-        # ) "1";
-      }
-      // lib.optionalAttrs cfg.mistral-vibe.enable {
-        MISTRAL_API_KEY = builtins.readFile ./secrets/mistral-api-key;
-      };
+    home.sessionVariables = {
+      LEAN_MCP = lib.mkIf leanEnableMcp "${pkgs-self.lean-lsp-mcp}";
+      NIX_MCP = lib.mkIf nixMcp "${pkgs-unstable.mcp-nixos}";
+      LSPRANTO_MCP = lib.mkIf lsprantoEnable "${pkgs-self.lspranto}";
+      # MISTRAL_TRUST_ALL_TOOLS = lib.mkIf (
+      #   jailed
+      # ) "1";
+    }
+    // lib.optionalAttrs cfg.mistral-vibe.enable {
+      MISTRAL_API_KEY = builtins.readFile ./secrets/mistral-api-key;
+    };
 
     programs.opencode = lib.mkIf cfg.opencode.enable {
       enable = true;

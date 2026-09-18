@@ -18,7 +18,6 @@
   ];
   virtualisation.docker.autoPrune.enable = true;
 
-
   params.locations = {
     containers = "${config.vars.Zeno.mountPoint}/containers";
   };
@@ -167,7 +166,7 @@
         ];
         subdomain = "git";
       };
-    watchtower.enable = false;
+      watchtower.enable = false;
     };
   services.ollama.package = pkgs-unstable.ollama-vulkan;
 

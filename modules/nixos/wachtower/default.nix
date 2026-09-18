@@ -14,19 +14,19 @@ in
     };
   };
   config = mkIf cfg.enable {
-        assertions = [
+    assertions = [
       {
         assertion = false;
         message = "watchtower isn't maintained anymore";
       }
     ];
-    virtualisation.oci-containers.containers."watchtower" =  {
-    autoStart = true;
-    image = "containrrr/watchtower";
-    volumes = [ "${cfg.socket}:/var/run/docker.sock" ];
-  }; 
-  virtualisation.docker = mkIf cfg.enable {
-    daemon.settings.hosts = [ "unix://${cfg.socket}" ];
-  };
+    virtualisation.oci-containers.containers."watchtower" = {
+      autoStart = true;
+      image = "containrrr/watchtower";
+      volumes = [ "${cfg.socket}:/var/run/docker.sock" ];
+    };
+    virtualisation.docker = mkIf cfg.enable {
+      daemon.settings.hosts = [ "unix://${cfg.socket}" ];
+    };
   };
 }
