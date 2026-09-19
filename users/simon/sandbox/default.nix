@@ -29,4 +29,11 @@
   programs.direnv.config = {
     whitelist.prefix = [ "/home/simon/.pi-subagents" ];
   };
+
+  services.pi-ops = {
+    enable = true;
+    direnv.enable = true;
+    piHome = "/home/simon";
+    port = 9456;
+  };
 }

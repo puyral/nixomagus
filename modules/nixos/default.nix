@@ -89,8 +89,9 @@ let
     embeded-dev = ./embeded-dev;
     incus = ./incus;
     audioCpp = ./audioCpp;
-    mango-remote = inputs.mango.nixosModules.mango;
     forgejo = ./forgejo;
+    mango-remote = inputs.mango.nixosModules.mango;
+    pi-ops = inputs.pi-ops.nixosModules.pi-ops;
   };
 
 in
