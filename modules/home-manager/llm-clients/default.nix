@@ -71,10 +71,10 @@ in
     };
 
     systemd.user.sessionVariables = {
-       LEAN_MCP     = lib.mkIf leanEnableMcp "${pkgs-self.lean-lsp-mcp}";
-       NIX_MCP      = lib.mkIf nixMcp "${pkgs-unstable.mcp-nixos}";
-       LSPRANTO_MCP = lib.mkIf lsprantoEnable "${pkgs-self.lspranto}";
-     };
+      LEAN_MCP = lib.mkIf leanEnableMcp "${pkgs-self.lean-lsp-mcp}";
+      NIX_MCP = lib.mkIf nixMcp "${pkgs-unstable.mcp-nixos}";
+      LSPRANTO_MCP = lib.mkIf lsprantoEnable "${pkgs-self.lspranto}";
+    };
 
     programs.opencode = lib.mkIf cfg.opencode.enable {
       enable = true;

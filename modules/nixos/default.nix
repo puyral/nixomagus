@@ -90,6 +90,10 @@ let
     incus = ./incus;
     audioCpp = ./audioCpp;
     forgejo = ./forgejo;
+    copyparty = ./copyparty;
+    mosquitto = ./mosquitto;
+    homeassistant = ./homeassistant;
+
     mango-remote = inputs.mango.nixosModules.mango;
     pi-ops = inputs.pi-ops.nixosModules.pi-ops;
   };
