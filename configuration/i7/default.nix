@@ -21,7 +21,7 @@
   # Enable CUPS to print documents.
   services.printing.enable = true;
 
-  services.syncthing.guiAddress = "0.0.0.0:8384";
+  extra.syncthing.guiAddress = "0.0.0.0:8384";
 
   nix.distributedBuilds = true;
 }
