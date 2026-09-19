@@ -8,9 +8,9 @@
         #nixomagus = {
         #  path = "/Volumes/Zeno/media/photos";
         #};
-        dynas = {
-          path = "/mnt/Zeno/media/photos";
-        };
+        # dynas = {
+        #   path = "/mnt/Zeno/media/photos";
+        # };
       };
     };
 
