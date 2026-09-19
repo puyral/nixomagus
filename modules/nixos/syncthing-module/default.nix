@@ -27,7 +27,7 @@ in
       guiAddress = cfg.guiAddress;
 
       settings = {
-        devices = builtins.removeAttrs (import ./secrets/devices.nix) [ name ];
+        devices = removeAttrs (import ./secrets/devices.nix) [ name ];
 
         folders = builtins.mapAttrs (n: folder: {
           id = folder.id;

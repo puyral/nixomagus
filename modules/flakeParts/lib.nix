@@ -25,7 +25,7 @@
       // (with inputs; {
         pkgs-stable = mkPkgs nixpkgs-stable;
         pkgs-unstable = mkPkgs nixpkgs-unstable;
-        pkgs-kernel = mkPkgs nixpkgs-kernel;
+        # pkgs-kernel = mkPkgs nixpkgs-kernel;
         pkgs-self = self.packages.${system};
         # custom = custom.packages.${system};
       })
