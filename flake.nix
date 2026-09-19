@@ -167,6 +167,14 @@
 
       systems = [ "x86_64-linux" ];
 
-      flake.rootDir = ./.;
+      flake = {
+        rootDir = ./.;
+
+        nixpkgs-variants = with inputs; {
+          pkgs-stable = nixpkgs-stable;
+          pkgs-unstable = nixpkgs-unstable;
+          # pkgs-kernel = nixpkgs-kernel;
+        };
+      };
     });
 }

@@ -2,6 +2,7 @@
   inputs,
   self,
   config,
+  lib,
   ...
 }:
 {
@@ -20,15 +21,16 @@
               allowUnfree = true;
             };
           };
+
+        # setups things like `pkgs-stable`, `pkgs-unstable` and `pkgs-kernel`...
+        nixpkgs-variants = lib.mapAttrs (n: v: mkPkgs v) self.nixpkgs-variants;
       in
       inputs
-      // (with inputs; {
-        pkgs-stable = mkPkgs nixpkgs-stable;
-        pkgs-unstable = mkPkgs nixpkgs-unstable;
-        # pkgs-kernel = mkPkgs nixpkgs-kernel;
+      // nixpkgs-variants
+      // {
         pkgs-self = self.packages.${system};
         # custom = custom.packages.${system};
-      })
+      }
       // {
         inherit system rootDir computer;
         inherit (config) computers;
