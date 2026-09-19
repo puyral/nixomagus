@@ -57,6 +57,7 @@ let
     llm-clients = ./llm-clients;
     direnv = ./direnv;
     mango-remote = inputs.mango.hmModules.mango;
+    pi-ops = inputs.pi-ops.homeManagerModules.pi-ops;
   };
 
 in

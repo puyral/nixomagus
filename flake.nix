@@ -112,6 +112,15 @@
       };
     };
 
+    pi-ops = {
+      url = "git+ssh://forgejo@git.puyral.fr:222/personal/pi-ops.git?ref=nixify";
+      inputs = {
+        nixpkgs.follows = "nixpkgs-unstable";
+        flake-parts.follows = "flake-parts";
+        home-manager.follows = "home-manager";
+      };
+    };
+
     #######################
     ######## utils ########
     #######################
