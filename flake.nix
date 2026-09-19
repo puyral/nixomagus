@@ -8,6 +8,10 @@
 
     nixpkgs-stable.url = "nixpkgs/nixos-26.05";
     nixpkgs-unstable.url = "nixpkgs/nixos-unstable";
+    # Pinned to the last nixpkgs-unstable snapshot before the nodejs 26.9.0 test-suite
+    # breakage (nixpkgs#564449 / nodejs#66104). Node-based packages (llama-cpp-vulkan, ...)
+    # resolve from here so they keep coming from the binary cache while upstream fixes nodejs.
+    nixpkgs-node.url = "github:NixOS/nixpkgs/ef34387ddd751e1ab8857adf4676492d32eb24ec";
     nixpkgs.follows = "nixpkgs-stable";
 
     #######################
@@ -173,6 +177,7 @@
         nixpkgs-variants = with inputs; {
           pkgs-stable = nixpkgs-stable;
           pkgs-unstable = nixpkgs-unstable;
+          pkgs-node = nixpkgs-node;
           # pkgs-kernel = nixpkgs-kernel;
         };
       };

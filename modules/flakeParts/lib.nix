@@ -28,12 +28,9 @@
       inputs
       // nixpkgs-variants
       // {
-        pkgs-self = self.packages.${system};
-        # custom = custom.packages.${system};
-      }
-      // {
         inherit system rootDir computer;
         inherit (config) computers;
+        pkgs-self = self.packages.${system};
         computer_name = computer.name;
         mconfig = computer;
         overlays = (import (rootDir + /overlays)) computer;

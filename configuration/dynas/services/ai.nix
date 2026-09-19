@@ -1,6 +1,7 @@
 {
   pkgs,
   pkgs-unstable,
+  pkgs-node,
   pkgs-self,
   config,
   lib,
@@ -29,7 +30,7 @@ in
 
       llama-swap = {
         enable = true;
-        llamaCppPackage = pkgs-unstable.llama-cpp-vulkan;
+        llamaCppPackage = pkgs-node.llama-cpp-vulkan;
         ttl = 300;
         models = [
           {
@@ -143,7 +144,7 @@ in
     n8n.enable = true;
 
     audioCpp = {
-      enable = true;
+      enable = false;
       package = pkgs-self.audio-cpp-vulkan;
       backend = "vulkan";
       extraOptions = {
