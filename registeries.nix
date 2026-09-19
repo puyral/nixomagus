@@ -17,17 +17,5 @@
         ref = "nixpkgs-unstable";
       };
     };
-    latest-stable = {
-      from = {
-        type = "indirect";
-        id = "current-stable";
-      };
-      to = {
-        type = "github";
-        owner = "NixOS";
-        repo = "nixpkgs";
-        ref = "nixos-24.05";
-      };
-    };
   };
 }
