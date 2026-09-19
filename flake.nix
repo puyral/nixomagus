@@ -10,9 +10,6 @@
     nixpkgs-unstable.url = "nixpkgs/nixos-unstable";
     nixpkgs.follows = "nixpkgs-stable";
 
-    # Pinned kernel (Linux 6.17) to support ZFS Stable + Intel Arc
-    nixpkgs-kernel.url = "github:NixOS/nixpkgs/addf7cf5f383a3101ecfba091b98d0a1263dc9b8";
-
     #######################
     ####### modules #######
     #######################
@@ -170,6 +167,14 @@
 
       systems = [ "x86_64-linux" ];
 
-      flake.rootDir = ./.;
+      flake = {
+        rootDir = ./.;
+
+        nixpkgs-variants = with inputs; {
+          pkgs-stable = nixpkgs-stable;
+          pkgs-unstable = nixpkgs-unstable;
+          # pkgs-kernel = nixpkgs-kernel;
+        };
+      };
     });
 }

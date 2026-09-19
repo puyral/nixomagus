@@ -1,5 +1,4 @@
 {
-  pkgs,
   config,
   pkgs-unstable,
   ...
@@ -7,10 +6,6 @@
 {
   imports = [
     ./filesharing.nix
-    # ./syncthing.nix
-    # ./homeassistant.nix
-    # ./portainer.nix
-    # ./mosquitto.nix
     ./photos.nix
     ./github
     ./backup
