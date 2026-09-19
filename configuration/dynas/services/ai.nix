@@ -143,7 +143,7 @@ in
     n8n.enable = true;
 
     audioCpp = {
-      enable = true;
+      enable = false;
       package = pkgs-self.audio-cpp-vulkan;
       backend = "vulkan";
       extraOptions = {
