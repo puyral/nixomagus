@@ -1,0 +1,1 @@
+NB: currenlty it only sets up nginx. The idea being that an instance of copyparty only needs to be set up in a tmux session to react to the given situation.

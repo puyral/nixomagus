@@ -7,10 +7,10 @@
 {
   imports = [
     ./filesharing.nix
-    ./syncthing.nix
-    ./homeassistant.nix
+    # ./syncthing.nix
+    # ./homeassistant.nix
     # ./portainer.nix
-    ./mosquitto.nix
+    # ./mosquitto.nix
     ./photos.nix
     ./github
     ./backup
@@ -32,6 +32,13 @@
       bookLocation = "${config.vars.Zeno.mountPoint}/media/books";
     in
     {
+      homeassistant.enable = true;
+      syncthing = {
+        enable = true;
+        guiAddress = "0.0.0.0:8384";
+        extraUsers = [ "photos" ];
+      };
+
       acme.enable = true;
 
       jellyfin.enable = true;
@@ -40,6 +47,7 @@
         enable = true;
         dongle = "/dev/serial/by-id/usb-ITead_Sonoff_Zigbee_3.0_USB_Dongle_Plus_6c969fdb7c12ec119aa120c7bd930c07-if00-port0";
       };
+
       paperless = {
         enable = true;
         ai = {
