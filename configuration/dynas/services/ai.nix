@@ -1,6 +1,7 @@
 {
   pkgs,
   pkgs-unstable,
+  pkgs-node,
   pkgs-self,
   config,
   lib,
@@ -29,7 +30,7 @@ in
 
       llama-swap = {
         enable = true;
-        llamaCppPackage = pkgs-unstable.llama-cpp-vulkan;
+        llamaCppPackage = pkgs-node.llama-cpp-vulkan;
         ttl = 300;
         models = [
           {
