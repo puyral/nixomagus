@@ -27,7 +27,10 @@
   programs.gh.enable = lib.mkForce false;
 
   programs.direnv.config = {
-    whitelist.prefix = [ "/home/simon/.pi-subagents" "/home/simon/extra-worktree" ];
+    whitelist.prefix = [
+      "/home/simon/.pi-subagents"
+      "/home/simon/extra-worktree"
+    ];
   };
 
   services.pi-ops = {
