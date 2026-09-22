@@ -22,7 +22,7 @@ let
 
     inherit containers;
 
-    base = ./base
+    base = ./base;
     tailscale = ./tailscale;
     sops = ./sops;
     acme = ./acme;

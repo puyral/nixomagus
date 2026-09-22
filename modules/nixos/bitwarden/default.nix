@@ -79,7 +79,7 @@ in
         {
           inherit port;
           enable = true;
-          providers = [ config.vars.gatewayMachine];
+          providers = [ config.vars.gatewayMachine ];
           gzip-bomb.enable = true;
         }
       ];

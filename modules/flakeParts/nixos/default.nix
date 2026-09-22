@@ -45,7 +45,8 @@ let
         (rootDir + /configuration + "/${computer.name}")
 
         homes
-      ] ++ (lib.optional computer.disko inputs.disko.nixosModules.disko);
+      ]
+      ++ (lib.optional computer.disko inputs.disko.nixosModules.disko);
     };
 in
 
