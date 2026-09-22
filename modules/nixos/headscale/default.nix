@@ -71,7 +71,7 @@ in
           {
             port = cfg.headscale.port;
             enable = true;
-            providers = [     config.vars.gatewayMachine];
+            providers = [ config.vars.gatewayMachine ];
             #path = "/";
             #forceHttps = false;
           }
