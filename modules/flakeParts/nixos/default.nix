@@ -37,10 +37,14 @@ let
       modules = [
         inputs.simple-nixos-mailserver.nixosModules.mailserver
         inputs.sops-nix.nixosModules.sops
+        inputs.disko.nixosModules.disko
+        inputs.home-manager.nixosModules.home-manager
+
         self.nixosModules.default
+
         (rootDir + /configuration/commun)
         (rootDir + /configuration + "/${computer.name}")
-        inputs.home-manager.nixosModules.home-manager
+
         homes
       ];
     };
