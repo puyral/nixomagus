@@ -11,7 +11,7 @@ in
         enable = true;
         providers = [
           "dynas"
-          "ovh-pl"
+          defaultGateway
         ];
         gzip-bomb.enable = true;
         extraConfig = ''

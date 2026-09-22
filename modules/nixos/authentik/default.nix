@@ -106,7 +106,7 @@ in
           {
             port = httpPort;
             enable = true;
-            providers = [ "ovh-pl" ];
+            providers = [ config.vars.gatewayMachine ];
             # For now just using Host, the PathPrefix and RegexpRule need more complex Nginx config if actually used.
             # extra.rule = "Host(`${domain}`) || HostRegexp(`${regexpRule}`) && PathPrefix(`/outpost.goauthentik.io/`)";
           }

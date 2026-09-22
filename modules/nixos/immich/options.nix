@@ -12,7 +12,7 @@ with lib;
     };
     providers = mkOption {
       type = with types; listOf str;
-      example = [ "ovh-pl" ];
+      example = [ "${config.vars.gatewayMachine}" ];
     };
     photos = mkOption {
       type = types.path;

@@ -79,7 +79,7 @@ in
         {
           inherit port;
           enable = true;
-          providers = [ "ovh-pl" ];
+          providers = [ config.vars.gatewayMachine];
           gzip-bomb.enable = true;
         }
       ];

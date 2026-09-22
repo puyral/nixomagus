@@ -32,4 +32,4 @@ These options define how a specific service is exposed. They can be used inside 
 
 - **Automatic TLS**: Uses Let's Encrypt (via the `acme` module) for all defined virtual hosts.
 - **Path-based Routing**: Supports multiple locations for the same subdomain by grouping instances by host.
-- **Tunnelling**: Support for remote providers (e.g. `ovh-pl`) to proxy traffic back to containers.
+- **Tunnelling**: Support for remote providers (e.g. `ovh-pl`, `ovh-fr`) to proxy traffic back to containers.
