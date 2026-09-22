@@ -48,7 +48,7 @@
   extra = {
     acme.enable = true;
     headscale = {
-      enable = false;
+      enable = true;
       extraDomain = "headscale";
     };
     authelia.enable = true;
