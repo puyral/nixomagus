@@ -165,7 +165,7 @@
         enable = true;
         providers = [
           "dynas"
-          "ovh-pl"
+          config.vars.gatewayMachine
         ];
         subdomain = "git";
       };

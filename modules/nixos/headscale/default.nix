@@ -71,7 +71,7 @@ in
           {
             port = cfg.headscale.port;
             enable = true;
-            providers = [ "ovh-pl" ];
+            providers = [     config.vars.gatewayMachine];
             #path = "/";
             #forceHttps = false;
           }
@@ -79,7 +79,7 @@ in
             port = cfg.headplane.port;
             name = "headplane";
             enable = true;
-            providers = [ "ovh-pl" ];
+            providers = [ config.vars.gatewayMachine ];
             subdomain = "headscale";
             path = "/admin";
           }

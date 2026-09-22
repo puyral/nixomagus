@@ -3,7 +3,7 @@ let
   photos = "${config.vars.Zeno.mountPoint}/media/photos/full-export/jpegs";
   videos = "${config.vars.Zeno.mountPoint}/media/photos/full-export/videos";
   providers = [
-    "ovh-pl"
+      config.vars.gatewayMachine
     "dynas"
   ];
 in
