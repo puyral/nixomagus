@@ -1,6 +1,6 @@
 { pkgs, lib, ... }:
 {
-  # how to rescue: https://www.adyxax.org/blog/2023/11/13/recovering-a-nixos-installation-from-a-linux-rescue-image/
+  # installed in one command: `nix run github:nix-community/nixos-anywhere -- --flake .#ovh-fr --target-host root@146.59.228.61 --copy-host-keys`
 
   imports = [
     ./hardware-configuration.nix
