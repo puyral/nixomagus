@@ -30,7 +30,7 @@ in
       inherit users system;
       stateVersion = "26.05";
       headless = true;
-      diskos = true;
+      disko = true;
       ovh = true;
     };
     vampire = {

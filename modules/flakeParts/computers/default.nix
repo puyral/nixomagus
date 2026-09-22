@@ -34,6 +34,7 @@ let
           type = types.bool;
         };
         ovh = mkEnableOption "ovh vps specific";
+        disko = mkEnableOption "disko";
 
         users = mkOption {
           type = with types; attrsOf (submodule usersOptions);

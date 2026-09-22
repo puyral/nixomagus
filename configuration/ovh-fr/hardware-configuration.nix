@@ -17,6 +17,7 @@
     initrd.kernelModules = [ "nvme" ];
 
     loader = {
+      efi.canTouchEfiVariables = lib.mkForce false;
       systemd-boot.enable = lib.mkForce false;
       grub = {
         enable = true;

@@ -37,7 +37,6 @@ let
       modules = [
         inputs.simple-nixos-mailserver.nixosModules.mailserver
         inputs.sops-nix.nixosModules.sops
-        inputs.disko.nixosModules.disko
         inputs.home-manager.nixosModules.home-manager
 
         self.nixosModules.default
@@ -46,7 +45,7 @@ let
         (rootDir + /configuration + "/${computer.name}")
 
         homes
-      ];
+      ] ++ (lib.optional computer.disko inputs.disko.nixosModules.disko);
     };
 in
 
