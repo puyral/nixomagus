@@ -1,18 +1,29 @@
-{ modulesPath, ... }:
+{ modulesPath, lib, ... }:
 {
-  imports = [ (modulesPath + "/profiles/qemu-guest.nix") ];
-  boot.loader.grub.device = "/dev/sda";
-  boot.initrd.availableKernelModules = [
-    "ata_piix"
-    "uhci_hcd"
-    "xen_blkfront"
-    "vmw_pvscsi"
+  imports = [
+    (modulesPath + "/profiles/qemu-guest.nix")
+    (modulesPath + "/installer/scan/not-detected.nix")
+    ./disko-config.nix
   ];
-  boot.initrd.kernelModules = [ "nvme" ];
+  disko.devices.disk.main.device = "/dev/sda";
 
-  fileSystems."/" = {
-    device = "/dev/sda1";
-    fsType = "ext4";
+  boot = {
+    initrd.availableKernelModules = [
+      "ata_piix"
+      "uhci_hcd"
+      "xen_blkfront"
+      "vmw_pvscsi"
+    ];
+    initrd.kernelModules = [ "nvme" ];
+
+    loader = {
+      systemd-boot.enable = lib.mkForce false;
+      grub = {
+        enable = true;
+        device = "/dev/sda";
+        efiSupport = true;
+        efiInstallAsRemovable = true;
+      };
+    };
   };
-  swapDevices = [ { device = "/swap/swapfile-1"; } ];
 }
