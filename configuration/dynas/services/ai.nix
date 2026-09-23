@@ -16,7 +16,7 @@ in
     port = 8081;
     providers = [
       "dynas"
-      "ovh-pl"
+      config.vars.gatewayMachine
     ];
   };
 

@@ -53,47 +53,50 @@ in
 
     extra.containers.${name} = {
       gpu = true;
-      nginx = [
-        {
-          enable = true;
-          port = 8096;
-          name = "jellyfin";
-          extraConfig = ''
-            proxy_buffering off;
-            proxy_request_buffering off;
-            proxy_set_header X-Forwarded-Protocol $scheme;
-            proxy_set_header X-Forwarded-Host $http_host;
-            client_max_body_size 100M;
+      nginx =
+        let
+          base = {
+            enable = true;
+            name = "jellyfin";
+            providers = [
+              "dynas"
+              config.vars.gatewayMachine
+            ];
+            gzip-bomb.enable = true;
+            port = 8096;
+          };
+        in
+        [
+          (
+            base
+            // {
+              extraConfig = ''
+                proxy_buffering off;
+                proxy_request_buffering off;
+                proxy_set_header X-Forwarded-Protocol $scheme;
+                proxy_set_header X-Forwarded-Host $http_host;
+                client_max_body_size 100M;
 
-            # Security / XSS Mitigation Headers
-            add_header X-Content-Type-Options "nosniff";
-            add_header Permissions-Policy "accelerometer=(), ambient-light-sensor=(), battery=(), bluetooth=(), camera=(), clipboard-read=(), display-capture=(), document-domain=(), encrypted-media=(), gamepad=(), geolocation=(), gyroscope=(), hid=(), idle-detection=(), interest-cohort=(), keyboard-map=(), local-fonts=(), magnetometer=(), microphone=(), payment=(), publickey-credentials-get=(), serial=(), sync-xhr=(), usb=(), xr-spatial-tracking=()" always;
-            add_header Content-Security-Policy "default-src https: data: blob: ; img-src 'self' https://* ; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline' https://www.gstatic.com https://www.youtube.com blob:; worker-src 'self' blob:; connect-src 'self'; object-src 'none'; font-src 'self'";
-          '';
-          providers = [
-            "dynas"
-            "ovh-pl"
-          ];
-          gzip-bomb.enable = true;
-        }
-        {
-          enable = true;
-          port = 8096;
-          name = "jellyfin-socket";
-          subdomain = "jellyfin";
-          path = "/socket";
-          providers = [
-            "dynas"
-            "ovh-pl"
-          ];
-          gzip-bomb.enable = true;
-        }
-        # {
-        #   enable = true;
-        #   port = 5055;
-        #   name = "seerr";
-        # }
-      ];
+                # Security / XSS Mitigation Headers
+                add_header X-Content-Type-Options "nosniff";
+                add_header Permissions-Policy "accelerometer=(), ambient-light-sensor=(), battery=(), bluetooth=(), camera=(), clipboard-read=(), display-capture=(), document-domain=(), encrypted-media=(), gamepad=(), geolocation=(), gyroscope=(), hid=(), idle-detection=(), interest-cohort=(), keyboard-map=(), local-fonts=(), magnetometer=(), microphone=(), payment=(), publickey-credentials-get=(), serial=(), sync-xhr=(), usb=(), xr-spatial-tracking=()" always;
+                add_header Content-Security-Policy "default-src https: data: blob: ; img-src 'self' https://* ; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline' https://www.gstatic.com https://www.youtube.com blob:; worker-src 'self' blob:; connect-src 'self'; object-src 'none'; font-src 'self'";
+              '';
+            }
+          )
+          (
+            base
+            // {
+              name = "jellyfin-socket";
+              path = "/socket";
+            }
+          )
+          # {
+          #   enable = true;
+          #   port = 5055;
+          #   name = "seerr";
+          # }
+        ];
     };
 
     users.users.jellyfin = {

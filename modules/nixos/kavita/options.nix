@@ -7,10 +7,6 @@ with lib;
       type = types.str;
       default = "kavita";
     };
-    # providers = mkOption {
-    #   type = with types; listOf str;
-    #   example = [ "ovh-pl" ];
-    # };
     dataDir = mkOption {
       type = types.path;
       default = "${config.params.locations.containers}/kavita";

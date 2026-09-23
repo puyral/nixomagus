@@ -26,6 +26,13 @@ in
       headless = true;
       ovh = true;
     };
+    ovh-fr = {
+      inherit users system;
+      stateVersion = "26.05";
+      headless = true;
+      disko = true;
+      ovh = true;
+    };
     vampire = {
       inherit users system;
       headless = true;
