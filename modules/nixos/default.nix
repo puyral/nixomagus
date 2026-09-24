@@ -53,6 +53,7 @@ let
     photoprism = ./photoprism;
     printing = ./printing;
     refind = ./refind;
+    silverbullet = ./silverbullet;
     smartd = ./smartd;
     splashscreen = ./splashscreen;
     syncthing-module = ./syncthing-module;

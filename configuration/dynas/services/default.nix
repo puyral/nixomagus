@@ -152,6 +152,10 @@
         users = [ "simon" ];
       };
 
+      silverbullet = {
+        enable = true;
+      };
+
       esphome = {
         enable = true;
         address = "192.168.0.2";
