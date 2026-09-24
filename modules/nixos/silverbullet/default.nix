@@ -1,6 +1,7 @@
 {
   config,
   lib,
+  pkgs-unstable,
   ...
 }:
 let
@@ -28,6 +29,7 @@ in
         {
           services.silverbullet = {
             enable = true;
+            package = pkgs-unstable.silverbullet;
             openFirewall = true;
             listenAddress = "0.0.0.0";
             listenPort = cfg.port;
