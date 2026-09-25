@@ -34,7 +34,10 @@
         extraUsers = [ "photos" ];
       };
 
-      acme.enable = true;
+      acme = {
+        enable = true;
+        extraDomains = [ "*.dynas.puyral.fr" ];
+      };
 
       jellyfin.enable = true;
 

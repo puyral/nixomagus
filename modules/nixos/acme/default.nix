@@ -20,7 +20,7 @@ in
 
       certs."${domain}" = {
         domain = domain;
-        extraDomainNames = [ "*.${domain}" ];
+        extraDomainNames = [ "*.${domain}" ] ++ cfg.extraDomains;
         dnsProvider = "ovh";
         environmentFile = config.sops.secrets.ovh-acme.path;
         group = "acme";
