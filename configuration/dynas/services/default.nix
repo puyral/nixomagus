@@ -10,6 +10,7 @@
     ./github
     ./backup
     ./ai.nix
+    ./sandbox.nix
   ];
   virtualisation.docker.autoPrune.enable = true;
 
