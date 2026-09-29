@@ -92,7 +92,14 @@ in
           enable = true;
           providers = cfg.providers;
           extraConfig = ''
-            client_max_body_size 0;
+            client_max_body_size 0;  
+            # Forgejo keeps a permanent SSE stream open at /user/events (SharedWorker).
+            # Don't buffer it, and don't kill it on the 60s idle timeout, or the web UI
+            # intermittently hangs. (text/event-stream is already excluded from gzip/zstd.)
+            proxy_buffering off;
+            proxy_cache off;
+            proxy_read_timeout 1h;
+            proxy_send_timeout 1h;
           '';
         }
       ];
