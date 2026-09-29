@@ -59,6 +59,8 @@ in
                 SSH_LISTEN_PORT = cfg.sshListenPort;
                 DOMAIN = "git.puyral.fr";
                 ROOT_URL = "https://${DOMAIN}/";
+
+                LFS_MAX_FILE_SIZE = 0;
               };
               service = {
                 DISABLE_REGISTRATION = true;
@@ -89,6 +91,9 @@ in
           name = cfg.subdomain;
           enable = true;
           providers = cfg.providers;
+          extraConfig = ''
+            client_max_body_size 0;
+          '';
         }
       ];
     };
