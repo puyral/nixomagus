@@ -143,7 +143,7 @@ in
             models = {
               "glm-5.3-744b-preview" = {
                 name = "GLM 5.3";
-                limit.context = 262144;
+                # limit.context = 262144;
                 interleaved.field = "reasoning_content";
                 options = {
                   chat_template_kwargs = {
