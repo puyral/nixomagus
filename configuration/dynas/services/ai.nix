@@ -8,7 +8,7 @@
   ...
 }:
 let
-  modelsDir = "/mnt/Zeno/containers/llm/llama-cpp/models";
+  modelsDir = "/mnt/Zeno/containers/llm-models";
 in
 {
   networking.nginx.instances."openwebui" = {
@@ -86,20 +86,20 @@ in
             ];
             contextSize = 3 * 1024;
           }
-          {
-            id = "qwen 3.6 35B 4K";
-            model = "${modelsDir}/Qwen3.6-35B-A3B-UD-Q4_K_XL.gguf";
-            contextSize = 4 * 1024;
-            nGpuLayers = 20;
-            extraArgs = [
-              "--top-p 0.95"
-              "--top-k 20"
-              "--min-p 0.00"
-              "--temperature 1"
-              "--presence_penalty 1.5"
-              # "--repetition_penalty 1.0"
-            ];
-          }
+          # {
+          #   id = "qwen 3.6 35B 4K";
+          #   model = "${modelsDir}/Qwen3.6-35B-A3B-UD-Q4_K_XL.gguf";
+          #   contextSize = 4 * 1024;
+          #   nGpuLayers = 20;
+          #   extraArgs = [
+          #     "--top-p 0.95"
+          #     "--top-k 20"
+          #     "--min-p 0.00"
+          #     "--temperature 1"
+          #     "--presence_penalty 1.5"
+          #     # "--repetition_penalty 1.0"
+          #   ];
+          # }
           # {
           #   id = "qwen 3.6 35B 3Q 4K";
           #   model = "${modelsDir}/Qwen3.6-35B-A3B-UD-IQ3_XXS.gguf";
@@ -120,21 +120,23 @@ in
           }
           {
             id = "qwen 3.8 27B";
-            model = "${modelsDir}/Qwen3.8-27B-UD-Q2_K_XL.gguf";
-            contextSize = 50 * 1024;
+            model = "${modelsDir}/Qwen3.8-27B-GSQ-RCO-IQ2_XS.gguf"; # ISTA's magic model
+            contextSize = 90 * 1024;
             # nGpuLayers = "all";
             extraArgs = [
               "--top-p 0.95"
               "--top-k 20"
               "--min-p 0.00"
-              "--temperature 1"
+              # "--temperature 1"
               "--presence_penalty 0.0"
               "--repeat-penalty 1.0"
 
               "--cache-type-k q8_0"
               "--cache-type-v q4_0"
               "-ngl all"
-              "--reasoning-preserve"
+              "--parallel 1"
+
+              "--mmproj ${modelsDir}/mmproj-Qwen3.8-27B-BF16.gguf"
             ];
           }
         ];
