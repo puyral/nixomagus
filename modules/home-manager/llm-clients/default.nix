@@ -141,11 +141,8 @@ in
               apiKey = builtins.readFile ./secrets/aqueduct-api-key;
             };
             models = {
-              "qwen-3.5-397b" = {
-                name = "Qwen 3.5 397b";
-              };
-              "glm-5.2-744b-preview" = {
-                name = "GLM 5.2";
+              "glm-5.3-744b-preview" = {
+                name = "GLM 5.3";
                 # limit.context = 262144;
                 interleaved.field = "reasoning_content";
                 options = {
@@ -165,9 +162,16 @@ in
                   };
                 };
               };
-              "deepseek-v4-flash-284b" = {
-                name = "DeepSeek V4 Flash";
+              "deepseek-v4-vision-exp-284b" = {
+                name = "DeepSeek V4 Vision Flash";
                 interleaved.field = "reasoning_content";
+                modalities = {
+                  input = [
+                    "text"
+                    "image"
+                  ];
+                  output = [ "text" ];
+                };
                 options = {
                   chat_template_kwargs = {
                     thinking = true;
