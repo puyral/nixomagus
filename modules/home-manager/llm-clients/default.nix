@@ -141,7 +141,7 @@ in
               apiKey = builtins.readFile ./secrets/aqueduct-api-key;
             };
             models = {
-              "glm-5.3-744b-preview" = {
+              "glm-5.3-744b-experimental" = {
                 name = "GLM 5.3";
                 # limit.context = 262144;
                 interleaved.field = "reasoning_content";
