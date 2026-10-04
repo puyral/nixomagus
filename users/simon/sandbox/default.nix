@@ -7,7 +7,12 @@
 }:
 {
   home.packages =
-    (with pkgs; [ python3 ]) ++ (with pkgs-unstable; [ nodejs ]) ++ [ pkgs-self.pi-subagent-control ];
+    (with pkgs; [ python3 ])
+    ++ (with pkgs-unstable; [ nodejs ])
+    ++ [
+      pkgs-self.pi-subagent-control
+      pkgs-self.git-worktree-hook-maker
+    ];
   home.sessionPath = [ "$HOME/.npm-global/bin" ];
   # Minimal home-manager config for the sandbox
   # imports = [ ./commun ]; # already imported by users/simon/default.nix

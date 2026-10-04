@@ -127,6 +127,10 @@
       };
     };
 
+    git-worktree-hook-maker = {
+      url = "git+https://git.puyral.fr/personal/git-worktree-hook-maker.git";
+    };
+
     #######################
     ######## utils ########
     #######################
