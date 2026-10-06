@@ -13,27 +13,27 @@ in
 {
   networking.nginx.instances = {
     "openwebui" = {
-    enable = true;
-    port = 8081;
-    providers = [
-      "dynas"
-      config.vars.gatewayMachine
-    ];
-  };
-      "pi" = {
-        enable = true;
-        subdomain = "pi.dynas";
-        port = 9456;
-        address = "$backend_pi";
+      enable = true;
+      port = 8081;
+      providers = [
+        "dynas"
+        config.vars.gatewayMachine
+      ];
+    };
+    "pi" = {
+      enable = true;
+      subdomain = "pi.dynas";
+      port = 9456;
+      address = "$backend_pi";
       extraConfig = ''
         resolver 127.0.0.53 valid=30s; # Or your LAN DNS / systemd-resolved IP
         set $backend_pi "http://sandbox.local:9456";
       '';
-      };
+    };
   };
 
   extra = {
-    acme.extraDomains  = [ "pi.dynas.puyral.fr" ];
+    acme.extraDomains = [ "pi.dynas.puyral.fr" ];
 
     llm = {
       enable = true;
