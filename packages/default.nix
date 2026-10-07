@@ -34,6 +34,7 @@
         ./gzip-bomb
         ./tea-transfer
         ./print-path
+        ./silverbullet
       ];
 
       pkgsInputs = inputs // {
