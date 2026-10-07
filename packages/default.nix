@@ -67,6 +67,7 @@
           "lspranto"
           "pi-subagent-control"
           "git-worktree-hook-maker"
+          "scd"
         ])
         // (with inputs'."audio.cpp".packages; {
           audio-cpp-cpu = cpu;

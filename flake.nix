@@ -83,6 +83,7 @@
         nixpkgs.follows = "nixpkgs-unstable"; # using "nixpkgs" crashes
         flake-parts.follows = "flake-parts";
         treefmt-nix.follows = "treefmt-nix";
+        rust-flake.follows = "rust-flake";
       };
     };
 
@@ -115,6 +116,7 @@
         nixpkgs.follows = "nixpkgs-unstable";
         flake-parts.follows = "flake-parts";
         treefmt-nix.follows = "treefmt-nix";
+        rust-flake.follows = "rust-flake";
       };
     };
 
@@ -129,6 +131,22 @@
 
     git-worktree-hook-maker = {
       url = "git+https://git.puyral.fr/personal/git-worktree-hook-maker.git";
+      inputs = {
+        nixpkgs.follows = "nixpkgs-unstable";
+        flake-parts.follows = "flake-parts";
+        rust-flake.follows = "rust-flake";
+        treefmt-nix.follows = "treefmt-nix";
+      };
+    };
+
+    scd = {
+      url = "git+https://git.puyral.fr/personal/scd.git";
+      inputs = {
+        nixpkgs.follows = "nixpkgs-unstable";
+        flake-parts.follows = "flake-parts";
+        rust-flake.follows = "rust-flake";
+        treefmt-nix.follows = "treefmt-nix";
+      };
     };
 
     #######################
@@ -163,6 +181,11 @@
     nix-index-database = {
       url = "github:nix-community/nix-index-database";
       inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    rust-flake = {
+      url = "github:juspay/rust-flake";
+      inputs.nixpkgs.follows = "nixpkgs-stable";
     };
   };
 
