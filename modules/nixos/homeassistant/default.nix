@@ -17,10 +17,13 @@ in
       inherit port;
       gzip-bomb.enable = true;
     };
+    # TODO: move to a container to free port 8081
     services.openthread-border-router = {
   enable = true;
-  web.enable = true;
-  
+  web = {
+    enable = true;
+    listenAddress = "0.0.0.0";
+  };
   radio = {
     device = "/dev/serial/by-id/usb-Espressif_USB_JTAG_serial_debug_unit_58:E6:C5:12:FA:E8-if00";
     baudRate = 460800;
