@@ -9,38 +9,42 @@
 }:
 let
   modelsDir = "/mnt/Zeno/containers/llm-models";
+  openwebuiPort =8086;
 in
 {
   networking.nginx.instances = {
     "openwebui" = {
-    enable = true;
-    port = 8081;
-    providers = [
-      "dynas"
-      config.vars.gatewayMachine
-    ];
-  };
-      "pi" = {
-        enable = true;
-        subdomain = "pi.dynas";
-        port = 9456;
-        address = "$backend_pi";
+      enable = true;
+      port = openwebuiPort;
+      providers = [
+        "dynas"
+        config.vars.gatewayMachine
+      ];
+    };
+    "pi" = {
+      enable = true;
+      subdomain = "pi.dynas";
+      port = 9456;
+      address = "$backend_pi";
       extraConfig = ''
         resolver 127.0.0.53 valid=30s; # Or your LAN DNS / systemd-resolved IP
         set $backend_pi "http://sandbox.local:9456";
       '';
-      };
+    };
   };
 
   extra = {
-    acme.extraDomains  = [ "pi.dynas.puyral.fr" ];
+    acme.extraDomains = [ "pi.dynas.puyral.fr" ];
 
     llm = {
       enable = true;
       acceleration = "vulkan";
       data = "${config.params.locations.containers}/llm";
       defaultLLM = "ministral-3:14b";
-      open-webui.data = "/var/lib/open-webui"; # <- todo: migrate
+      open-webui = {
+        data = "/var/lib/open-webui"; # <- todo: migrate
+        port = openwebuiPort;
+      };
 
       llama-swap = {
         enable = true;
