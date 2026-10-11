@@ -9,12 +9,13 @@
 }:
 let
   modelsDir = "/mnt/Zeno/containers/llm-models";
+  openwebuiPort =8086;
 in
 {
   networking.nginx.instances = {
     "openwebui" = {
       enable = true;
-      port = 8081;
+      port = openwebuiPort;
       providers = [
         "dynas"
         config.vars.gatewayMachine
@@ -40,7 +41,10 @@ in
       acceleration = "vulkan";
       data = "${config.params.locations.containers}/llm";
       defaultLLM = "ministral-3:14b";
-      open-webui.data = "/var/lib/open-webui"; # <- todo: migrate
+      open-webui = {
+        data = "/var/lib/open-webui"; # <- todo: migrate
+        port = openwebuiPort;
+      };
 
       llama-swap = {
         enable = true;
