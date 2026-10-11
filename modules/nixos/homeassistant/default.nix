@@ -32,6 +32,7 @@ in
   openFirewall = true;
   backboneInterfaces = ["enp10s0"];
   # also set the backbone interface to your NAS's LAN NIC (check option name)
+  rest.listenAddress = "0.0.0.0";
 };
 
 services.matter-server = {
