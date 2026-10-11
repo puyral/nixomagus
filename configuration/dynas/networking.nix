@@ -8,6 +8,8 @@
     "net.ipv4.conf.enp13s0.arp_announce" = 2;
     "net.ipv4.conf.enp10s0.arp_ignore" = 1;
     "net.ipv4.conf.enp10s0.arp_announce" = 2;
+    # because matter and thread use ipv6 and are extremely fragile
+    "net.ipv6.conf.enp13s0.disable_ipv6" = 1;
   };
   networking.networkmanager.unmanaged = [ "interface-name:enp13s0" ];
   networking.interfaces.enp13s0 = {
