@@ -29,6 +29,7 @@ in
     baudRate = 460800;
     flowControl = false;   # the guide says disable HW flow control for the C6
   };
+  openFirewall = true;
   backboneInterfaces = ["enp10s0"];
   # also set the backbone interface to your NAS's LAN NIC (check option name)
 };
