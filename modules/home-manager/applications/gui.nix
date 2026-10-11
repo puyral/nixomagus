@@ -38,6 +38,7 @@ in
       in
       [
         pkgs-self.rnote
+        pkgs-self.silverbullet
       ]
 
       ++ (with pkgs-stable; [

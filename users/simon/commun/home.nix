@@ -16,35 +16,36 @@
 
     # The home.packages option allows you to install Nix packages into your
     # environment.
-    packages =
-      [ ]
-      # (with custom; [ clocktui ])
-      ++ (with pkgs; [
-        gitFull
-        git-crypt
-        gh
-        gnupg
-        vim
-        htop
+    packages = [
+      pkgs-self.scd
+    ]
+    # (with custom; [ clocktui ])
+    ++ (with pkgs; [
+      gitFull
+      git-crypt
+      gh
+      gnupg
+      vim
+      htop
 
-        lazysql
-        # nbstripout # for jupyter notebooks. This way I can support all of them
+      lazysql
+      # nbstripout # for jupyter notebooks. This way I can support all of them
 
-        # docker
-        jq
-        fd
-        ripgrep
-        killall
-        moreutils
-        renameutils
+      # docker
+      jq
+      fd
+      ripgrep
+      killall
+      moreutils
+      renameutils
 
-        tea
-        pkgs-self.tea-transfer
-        pkgs-self.print-path
-      ])
-      ++ (with pkgs-unstable; [
-        nixd
-      ]);
+      tea
+      pkgs-self.tea-transfer
+      pkgs-self.print-path
+    ])
+    ++ (with pkgs-unstable; [
+      nixd
+    ]);
 
     # Home Manager can also manage your environment variables through
     # 'home.sessionVariables'. If you don't want to manage your shell through Home
