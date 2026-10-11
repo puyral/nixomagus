@@ -33,7 +33,10 @@ in
   # also set the backbone interface to your NAS's LAN NIC (check option name)
 };
 
-services.matter-server.enable = true;
+services.matter-server = {
+  enable = true;
+  extraArgs = { "primary-interface" = "enp10s0";};
+};
 # services.home-assistant.extraComponents = [ "otbr" "thread" "matter" ];
   };
 
