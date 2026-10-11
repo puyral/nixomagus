@@ -21,7 +21,7 @@ in
     services.openthread-border-router = {
   enable = true;
   web = {
-    enable = true;
+    enable = false;
     listenAddress = "0.0.0.0";
   };
   radio = {
@@ -36,6 +36,7 @@ in
 services.matter-server = {
   enable = true;
   extraArgs = { "primary-interface" = "enp10s0";};
+  openFirewall = true;
 };
 # services.home-assistant.extraComponents = [ "otbr" "thread" "matter" ];
   };
