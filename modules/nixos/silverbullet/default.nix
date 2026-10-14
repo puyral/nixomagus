@@ -13,7 +13,7 @@ in
   imports = [ ./options.nix ];
   config = lib.mkIf cfg.enable {
     systemd.tmpfiles.rules = [
-      "d ${cfg.dataDir} 0755 root root -"
+      "d ${cfg.dataDir} 0755 - - -"
     ];
 
     containers.${name} = {
@@ -37,7 +37,7 @@ in
           };
 
           systemd.services.silverbullet.serviceConfig.ExecStartPre = [
-            "+${pkgs.coreutils}/bin/chown ${config.services.silverbullet.user}:${config.services.silverbullet.group} ${spaceDir}"
+            "+${pkgs.coreutils}/bin/chown -R ${config.services.silverbullet.user}:${config.services.silverbullet.group} ${spaceDir}"
           ];
         };
     };
