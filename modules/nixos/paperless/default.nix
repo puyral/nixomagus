@@ -97,11 +97,11 @@ in
           paperless-ai-pkg = pkgs-self.paperless-ai;
         in
         {
-systemd.tmpfiles.rules = [
-  "d /data 0750 paperless paperless - -"
-  "d /media 0750 paperless paperless - -"
-  "d /backup 0750 paperless paperless - -"
-];
+          systemd.tmpfiles.rules = [
+            "d /data 0750 paperless paperless - -"
+            "d /media 0750 paperless paperless - -"
+            "d /backup 0750 paperless paperless - -"
+          ];
           environment.systemPackages =
             with pkgs;
             [

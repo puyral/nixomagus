@@ -25,10 +25,13 @@ in
           signingkey = "1E96E80F8B44B1242EB2645A2F89AA8206299121";
         };
         safe.directory = location;
+        submodule.recurse = true;
+        diff.submodule = "log";
+        status.submoduleSummary = true;
       };
     };
     programs.gh = {
-      enable = true;
+      enable = false;
       hosts = {
         "github.com" = {
           git_protocol = "ssh";
