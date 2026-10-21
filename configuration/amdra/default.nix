@@ -21,8 +21,8 @@
   ];
 
   boot.kernelPackages = config.vars.kernel;
-  boot.zfs.package = pkgs-unstable.zfs_2_4; # and zfs
-  vars.kernel = pkgs-unstable.linuxPackages_zen;
+  boot.zfs.package = pkgs.zfs_2_4; # and zfs
+  vars.kernel = pkgs.linuxPackages_zen;
 
   extra = {
     splash_screen.enable = false;
