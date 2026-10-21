@@ -130,7 +130,7 @@
       tailscale.exit-container.enable = false;
 
       fileflows = {
-        enable = true;
+        enable = false;
         networking.reverproxied = true;
         hardware.intelArc = true;
         mediaDirs = [
