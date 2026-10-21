@@ -84,15 +84,16 @@
         ]
       },
       "locked": {
-        "lastModified": 1792526520,
-        "narHash": "sha256-3hSJlv8mUVnZPMWK2+CM7a9O+nR6Z4mCh27NfLCmTPc=",
+        "lastModified": 1768920986,
+        "narHash": "sha256-CNzzBsRhq7gg4BMBuTDObiWDH/rFYHEuDRVOwCcwXw4=",
         "owner": "nix-community",
         "repo": "disko",
-        "rev": "cedd626e11b635470fa6f9fdb8ad79b0075dd7f9",
+        "rev": "de5708739256238fb912c62f03988815db89ec9a",
         "type": "github"
       },
       "original": {
         "owner": "nix-community",
+        "ref": "v1.13.0",
         "repo": "disko",
         "type": "github"
       }
@@ -303,6 +304,7 @@
       },
       "original": {
         "owner": "oOo0oOo",
+        "ref": "v0.31.0",
         "repo": "lean-lsp-mcp",
         "type": "github"
       }
@@ -507,12 +509,12 @@
         "rev": "7f4663d1fb91f43adb1e8eaf860452c5e5d07f01",
         "revCount": 37,
         "type": "git",
-        "url": "ssh://forgejo@git.puyral.fr:222/personal/pi-ops.git"
+        "url": "https://git.puyral.fr/personal/pi-ops.git"
       },
       "original": {
         "ref": "nixify",
         "type": "git",
-        "url": "ssh://forgejo@git.puyral.fr:222/personal/pi-ops.git"
+        "url": "https://git.puyral.fr/personal/pi-ops.git"
       }
     },
     "pi-subagent-control": {
@@ -537,11 +539,11 @@
         "rev": "92aed426cb3aac584feb6d4fbd08ee05babdedd1",
         "revCount": 28,
         "type": "git",
-        "url": "ssh://forgejo@git.puyral.fr:222/personal/pi-subagent-control"
+        "url": "https://git.puyral.fr/personal/pi-subagent-control"
       },
       "original": {
         "type": "git",
-        "url": "ssh://forgejo@git.puyral.fr:222/personal/pi-subagent-control"
+        "url": "https://git.puyral.fr/personal/pi-subagent-control"
       }
     },
     "pyproject-build-systems": {
@@ -680,11 +682,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1792480937,
-        "narHash": "sha256-arni7i+yH5ZnkvAN9UotvhMml5+fZyXcMHpiOvI3WFY=",
+        "lastModified": 1792567368,
+        "narHash": "sha256-mrM+zFDRO1pI85t2SEq5R739BIq7Nv5XkFtVZK9nkZM=",
         "owner": "oxalica",
         "repo": "rust-overlay",
-        "rev": "5424e1e6dda30b0626935d2a03a6526db4858d60",
+        "rev": "83dd732f2428827f35d997deae108a2ced5125f4",
         "type": "github"
       },
       "original": {
@@ -811,15 +813,16 @@
     "surface-dtx-daemon-src": {
       "flake": false,
       "locked": {
-        "lastModified": 1792345701,
-        "narHash": "sha256-MsZLwo+33f2fMBxHj4nS76KUZWfubeE6JeQz8dVxpIA=",
+        "lastModified": 1792340404,
+        "narHash": "sha256-Q+pSdAt7ZpWXHEc+3y7Nv3WNfZeKr46yqywR3ug04aM=",
         "owner": "linux-surface",
         "repo": "surface-dtx-daemon",
-        "rev": "d285aef672dce347856921c323594111c8fbe46b",
+        "rev": "95e6f1419ee04d85e05ad20211e45bb97d8ef2d8",
         "type": "github"
       },
       "original": {
         "owner": "linux-surface",
+        "ref": "v0.3.12-1",
         "repo": "surface-dtx-daemon",
         "type": "github"
       }

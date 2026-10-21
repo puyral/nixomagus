@@ -31,7 +31,7 @@
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";
 
     disko = {
-      url = "github:nix-community/disko";
+      url = "github:nix-community/disko/v1.13.0";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
@@ -60,7 +60,7 @@
     };
 
     lean-lsp-mcp = {
-      url = "github:oOo0oOo/lean-lsp-mcp";
+      url = "github:oOo0oOo/lean-lsp-mcp/v0.31.0";
       inputs = {
         nixpkgs.follows = "nixpkgs";
         flake-utils.follows = "flake-utils";
@@ -73,7 +73,7 @@
     };
 
     surface-dtx-daemon-src = {
-      url = "github:linux-surface/surface-dtx-daemon";
+      url = "github:linux-surface/surface-dtx-daemon/v0.3.12-1";
       flake = false;
     };
 
@@ -111,7 +111,7 @@
     };
 
     pi-subagent-control = {
-      url = "git+ssh://forgejo@git.puyral.fr:222/personal/pi-subagent-control";
+      url = "git+https://git.puyral.fr/personal/pi-subagent-control";
       inputs = {
         nixpkgs.follows = "nixpkgs-unstable";
         flake-parts.follows = "flake-parts";
@@ -121,7 +121,7 @@
     };
 
     pi-ops = {
-      url = "git+ssh://forgejo@git.puyral.fr:222/personal/pi-ops.git?ref=nixify";
+      url = "git+https://git.puyral.fr/personal/pi-ops.git?ref=nixify";
       inputs = {
         nixpkgs.follows = "nixpkgs-unstable";
         flake-parts.follows = "flake-parts";
