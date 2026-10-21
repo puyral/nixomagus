@@ -9,7 +9,7 @@
 }:
 let
   modelsDir = "/mnt/Zeno/containers/llm-models";
-  openwebuiPort =8086;
+  openwebuiPort = 8086;
 in
 {
   networking.nginx.instances = {
