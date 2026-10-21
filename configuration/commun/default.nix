@@ -161,7 +161,7 @@ in
       "nix-command"
       "flakes"
     ];
-
+    settings.min-free = 5 * 1024 * 1024 * 1024;
   };
 
   nixpkgs = {

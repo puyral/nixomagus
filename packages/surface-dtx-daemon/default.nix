@@ -16,8 +16,7 @@ rustPlatform.buildRustPackage rec {
   cargoLock = {
     lockFile = "${src}/Cargo.lock";
     outputHashes = {
-      "sdtx-0.1.7" = "sha256-ZWaBAt7CPXjbVeSAh57YJnBNkHHMlnjkjaGPB49JSz0=";
-      "sdtx-tokio-0.1.7" = "sha256-ZWaBAt7CPXjbVeSAh57YJnBNkHHMlnjkjaGPB49JSz0=";
+      "sdtx-0.1.8" = "sha256-ec7OLprn+BmOV+uj/a8aCW3wQoVVKNw40FEgt6e/mAQ=";
     };
   };
 

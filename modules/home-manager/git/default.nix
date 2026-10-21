@@ -14,8 +14,8 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-    home.shellAliases  = {
-      gsw = "git switch" ;
+    home.shellAliases = {
+      gsw = "git switch";
     };
     programs.git = {
       enable = true;
