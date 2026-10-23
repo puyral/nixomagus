@@ -198,6 +198,7 @@
         ./fmt.nix
         ./packages
         ./devShells
+        ./templates
         ./modules
       ];
 
