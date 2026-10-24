@@ -76,6 +76,7 @@ let
     mosquitto = ./mosquitto;
     homeassistant = ./homeassistant;
     pi-ops-redirect = ./pi-ops-redirect;
+    music-assistant = ./music-assistant;
 
     mango-remote = inputs.mango.nixosModules.mango;
     pi-ops = inputs.pi-ops.nixosModules.pi-ops;

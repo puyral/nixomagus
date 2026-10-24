@@ -29,6 +29,8 @@
   boot.blacklistedKernelModules = [
     "iwlwifi"
     "iwlmvm"
+  ]
+  ++ lib.optionals (!config.extra.music-assistant.snapcast.bluetoothSink.enable) [
     "btusb"
   ];
 

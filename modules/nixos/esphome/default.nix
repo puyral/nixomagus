@@ -26,11 +26,16 @@ in
     };
 
     # see https://github.com/NixOS/nixpkgs/issues/339557#issuecomment-3361954390
-    systemd.services.esphome.serviceConfig = {
-      ProtectSystem = lib.mkForce "off";
-      DynamicUser = lib.mkForce "false";
-      User = "esphome";
-      Group = "esphome";
+    systemd.services.esphome = {
+      after = [ "network-online.target" ];
+      wants = [ "network-online.target" ];
+      serviceConfig = {
+        ProtectSystem = lib.mkForce "off";
+        DynamicUser = lib.mkForce "false";
+        User = "esphome";
+        Group = "esphome";
+        RestartSec = "5s";
+      };
     };
     users.users.esphome = {
       isSystemUser = true;

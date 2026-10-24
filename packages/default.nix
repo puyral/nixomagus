@@ -35,6 +35,7 @@
         ./tea-transfer
         ./print-path
         ./silverbullet
+        ./bgutil-ytdlp-pot-provider-server
       ];
 
       pkgsInputs = inputs // {
