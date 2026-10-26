@@ -80,7 +80,10 @@
   systemd.timers.fstrim.timerConfig.Persistent = lib.mkOverride 10 true;
 
   # Ensure simon has the right groups
-  users.users.simon.extraGroups = [ "wheel" "dialout"];
+  users.users.simon.extraGroups = [
+    "wheel"
+    "dialout"
+  ];
   services.getty.autologinUser = "simon";
 
   # Allow root login without password for convenience in the sandbox
