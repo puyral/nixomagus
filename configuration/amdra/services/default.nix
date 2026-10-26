@@ -12,11 +12,11 @@
         "wwn-0x5000039b38d17cf2"
       ];
     };
-    llm.enable = false;
 
-    incus = {
-      enable = true;
-    };
+    llm.enable = false;
+    pi-ops-redirect.enable = true;
+
+    incus.enable = true;
     acme.enable = true;
   };
   services.ollama.package = pkgs-unstable.ollama-rocm;

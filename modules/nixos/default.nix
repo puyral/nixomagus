@@ -75,6 +75,7 @@ let
     copyparty = ./copyparty;
     mosquitto = ./mosquitto;
     homeassistant = ./homeassistant;
+    pi-ops-redirect = ./pi-ops-redirect;
 
     mango-remote = inputs.mango.nixosModules.mango;
     pi-ops = inputs.pi-ops.nixosModules.pi-ops;
