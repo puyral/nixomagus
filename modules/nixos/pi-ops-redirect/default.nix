@@ -1,4 +1,9 @@
-{ lib, config, ... }:
+{
+  lib,
+  config,
+  computer,
+  ...
+}:
 let
   cfg = config.extra.pi-ops-redirect;
   subdomain = "pi.${cfg.subdomain}";
@@ -9,12 +14,13 @@ in
     networking.nginx.instances = {
       "pi" = {
         inherit subdomain;
+        providers = [ computer.name ] ++ cfg.extraProviders;
         enable = true;
         port = 9456;
         address = "$backend_pi";
         extraConfig = ''
-          resolver 127.0.0.53 valid=30s; # Or your LAN DNS / systemd-resolved IP
-          set $backend_pi "sandbox.local";
+          resolver ${cfg.resolver} valid=30s;
+          set $backend_pi "${cfg.backend}";
         '';
       };
     };
