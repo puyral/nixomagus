@@ -6,7 +6,7 @@
   ...
 }:
 {
-  imports = [ ];
+  imports = [ ./lean-documentation.nix ];
 
   networking = {
     nat = {

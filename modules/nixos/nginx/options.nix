@@ -46,6 +46,11 @@ with builtins;
     default = "/";
     description = "the path prefix for this rule";
   };
+  proxyPass = mkOption {
+    type = types.nullOr types.str;
+    default = null;
+    description = "manually set the proxyPass field. Prefer leaving this automated";
+  };
   # Custom Nginx options if needed
   extraConfig = mkOption {
     type = types.lines;

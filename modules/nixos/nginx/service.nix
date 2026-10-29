@@ -119,6 +119,7 @@ let
 
                     targetPort = if isHosting then attrs.port else chainingPort;
                   in
+                  if attrs.proxyPass != null then attrs.proxyPass else
                   "http://${targetHost}:${toString targetPort}";
                 proxyWebsockets = true;
                 extraConfig = ''
