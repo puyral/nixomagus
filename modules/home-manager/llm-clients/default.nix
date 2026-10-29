@@ -162,7 +162,17 @@ in
                   };
                 };
               };
-              "deepseek-v4-vision-exp-284b" = {
+              "vision" = {
+                name = "Qwen 3.8 27B";
+                modalities = {
+                  input = [
+                    "text"
+                    "image"
+                  ];
+                  output = [ "text" ];
+                };
+              };
+              "main" = {
                 name = "DeepSeek V4 Vision Flash";
                 interleaved.field = "reasoning_content";
                 modalities = {
