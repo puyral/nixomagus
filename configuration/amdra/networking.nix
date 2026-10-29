@@ -12,6 +12,7 @@
     "net.ipv4.conf.enp15s0.arp_announce" = 2;
   };
   services.cloudflare-warp.enable = true;
+  networking.firewall.trustedInterfaces = [ "enp15s0" ];
   networking.networkmanager.unmanaged = [ "interface-name:enp15s0" ];
   networking.interfaces = {
     enp10s0 = {
