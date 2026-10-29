@@ -8,15 +8,22 @@ let
     auth_basic "Lean documentation";
     auth_basic_user_file ${htpasswd};
   '';
-  projects = ["leandy" "herbrand" "leangc"];
-  mkInstance = with lib; i: name: nameValuePair "lean-${name}" {
+  projects = [
+    "leandy"
+    "herbrand"
+    "leangc"
+  ];
+  mkInstance =
+    with lib;
+    i: name:
+    nameValuePair "lean-${name}" {
       enable = true;
       subdomain = "docs";
       path = "/lean/${name}";
       proxyPass = "http://100.64.0.16:${toString (8080 + i)}/";
       providers = [ "ovh-fr" ];
       extraConfig = authConfig;
-  };
+    };
 in
 {
   sops.secrets."lean-docs-htpasswd" = {
@@ -26,6 +33,5 @@ in
     owner = "nginx";
   };
 
-  networking.nginx.instances = with lib;
-    listToAttrs (imap0 mkInstance projects);
+  networking.nginx.instances = with lib; listToAttrs (imap0 mkInstance projects);
 }
