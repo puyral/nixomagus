@@ -45,9 +45,9 @@ in
       # integration.proc.enabled = false;
       integration = {
         proc.enabled = true;
-          agent = {
-            enabled = false;
-          };
+        agent = {
+          enabled = false;
+        };
       };
       oidc = lib.mkIf config.vars.authcfg.enable (
         let
@@ -60,7 +60,7 @@ in
           # client_secret = oidc.headplane.plain;
           disable_api_key_login = true;
           # Might needed when integrating with Authelia.
-            token_endpoint_auth_method = "client_secret_basic";
+          token_endpoint_auth_method = "client_secret_basic";
           # redirect_uri = "https://${cfg.extraDomain}.${config.vars.baseDomain}/admin/oidc/callback";
         }
       );
