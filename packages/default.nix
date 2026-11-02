@@ -36,6 +36,7 @@
         ./print-path
         ./silverbullet
         ./bgutil-ytdlp-pot-provider-server
+        ./strata
       ];
 
       pkgsInputs = inputs // {
