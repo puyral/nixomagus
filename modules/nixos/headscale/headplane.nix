@@ -39,15 +39,15 @@ in
         url = "https://${cfg.extraDomain}.${config.vars.baseDomain}";
         public_url = url;
         config_strict = true;
+        api_key_path = pkgs.writeText "smth_else" secrets.headscale_api_key;
       };
 
       # integration.proc.enabled = false;
       integration = {
         proc.enabled = true;
-        agent = {
-          enabled = false;
-          pre_authkey_path = "/dev/null";
-        };
+          agent = {
+            enabled = false;
+          };
       };
       oidc = lib.mkIf config.vars.authcfg.enable (
         let
@@ -60,9 +60,7 @@ in
           # client_secret = oidc.headplane.plain;
           disable_api_key_login = true;
           # Might needed when integrating with Authelia.
-          token_endpoint_auth_method = "client_secret_basic";
-          headscale_api_key_path = pkgs.writeText "smth_else" secrets.headscale_api_key;
-          # headscale_api_key = secrets.headscale_api_key;
+            token_endpoint_auth_method = "client_secret_basic";
           # redirect_uri = "https://${cfg.extraDomain}.${config.vars.baseDomain}/admin/oidc/callback";
         }
       );

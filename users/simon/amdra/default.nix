@@ -117,6 +117,7 @@
         hugin
         rocmPackages.migraphx
       ])
+      ++ [ pkgs-self.strata ]
       ++ (with pkgs-unstable; [ fastfetch ]);
   };
 }
