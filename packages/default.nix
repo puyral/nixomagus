@@ -18,6 +18,7 @@
           value = p;
         };
       pkgs-unstable = inputs'.nixpkgs-unstable.legacyPackages;
+      pkgs-strata = inputs'.nixpkgs-strata.legacyPackages;
 
       packages = [
         ./generate-jpgs
@@ -40,7 +41,7 @@
       ];
 
       pkgsInputs = inputs // {
-        inherit pkgs-unstable inputs';
+        inherit pkgs-unstable pkgs-strata inputs';
       };
 
       mainPkgs =

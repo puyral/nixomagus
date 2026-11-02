@@ -460,6 +460,22 @@
         "type": "indirect"
       }
     },
+    "nixpkgs-strata": {
+      "locked": {
+        "lastModified": 1792502884,
+        "narHash": "sha256-IoNisKcGbUjdd45qCqywGMCYmZ5EnkxezvLII0FWwNA=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "02c087f3fe673c9e317f206a627cb6b910336dbe",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "02c087f3fe673c9e317f206a627cb6b910336dbe",
+        "type": "github"
+      }
+    },
     "nixpkgs-unstable": {
       "locked": {
         "lastModified": 1793540411,
@@ -616,6 +632,7 @@
         ],
         "nixpkgs-node": "nixpkgs-node",
         "nixpkgs-stable": "nixpkgs-stable",
+        "nixpkgs-strata": "nixpkgs-strata",
         "nixpkgs-unstable": "nixpkgs-unstable",
         "paperless-ai-src": "paperless-ai-src",
         "pi-ops": "pi-ops",

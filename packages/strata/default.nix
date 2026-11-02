@@ -6,7 +6,7 @@
   python3,
   symlinkJoin,
   rocmPackages,
-  pkgs-unstable,
+  pkgs-strata,
   strata-src,
   ...
 }:
@@ -81,9 +81,10 @@ rocmPackages.rocmClangStdenv.mkDerivation {
     "-DCMAKE_HIP_COMPILER=${rocmPackages.rocmClangStdenv.cc}/bin/clang++"
     "-DCMAKE_HIP_FLAGS=--rocm-path=${rocmRoot}"
     "-DCMAKE_PREFIX_PATH=${rocmRoot}"
-    # GGML from nixpkgs-unstable's llama-cpp source (has the Q2_0 type Strata's
-    # MMQ path needs) instead of a pinned fetch
-    "-DSTRATA_GGML_DIR=${pkgs-unstable.llama-cpp.src}"
+    # GGML from the pinned nixpkgs-strata snapshot's llama-cpp source (v0.6.0,
+    # has the Q2_0 type Strata's MMQ path needs). nixpkgs-unstable moved to
+    # llama-cpp v0.8.0, whose reworked ggml-cuda MMQ API no longer compiles.
+    "-DSTRATA_GGML_DIR=${pkgs-strata.llama-cpp.src}"
     "-DSTRATA_BUILD_TESTS=OFF"
     # upstream rx9070 recipe
     "-DSTRATA_PREFILL_MMQ=ON"

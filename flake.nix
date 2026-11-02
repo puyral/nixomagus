@@ -12,6 +12,10 @@
     # breakage (nixpkgs#564449 / nodejs#66104). Node-based packages (llama-cpp-vulkan, ...)
     # resolve from here so they keep coming from the binary cache while upstream fixes nodejs.
     nixpkgs-node.url = "github:NixOS/nixpkgs/ef34387ddd751e1ab8857adf4676492d32eb24ec";
+    # Pinned to a nixpkgs snapshot whose llama-cpp is still v0.6.0: the last
+    # ggml-cuda API Strata's MMQ kernels compile against (v0.8.0 split the
+    # per-arch mmq config tables and widened the config types, breaking it).
+    nixpkgs-strata.url = "github:NixOS/nixpkgs/02c087f3fe673c9e317f206a627cb6b910336dbe";
     nixpkgs.follows = "nixpkgs-stable";
 
     #######################
