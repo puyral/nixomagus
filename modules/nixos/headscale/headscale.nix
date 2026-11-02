@@ -23,17 +23,18 @@ in
         magic_dns = false;
       };
 
-      derp = {
+      derp.server = {
+        enabled = true;
         stun_listen_addr = "0.0.0.0:${builtins.toString cfg.derpPort}";
       };
       policy.mode = "database";
+      node.expiry = "0";
 
       oidc = lib.mkIf config.vars.authcfg.enable {
         only_start_if_oidc_is_available = false;
         issuer = "https://${config.vars.authcfg.extraDomain}.${config.vars.baseDomain}";
         client_id = oidc.headscale.id;
         client_secret = oidc.headscale.plain;
-        expiry = "0";
         use_expiry_from_token = false;
         scope = [
           "openid"
