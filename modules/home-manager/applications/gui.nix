@@ -39,6 +39,7 @@ in
       [
         pkgs-self.rnote
         pkgs-self.silverbullet
+        pkgs-self.solidcraft
       ]
 
       ++ (with pkgs-stable; [
@@ -111,6 +112,8 @@ in
         komikku
 
         dragon-drop
+
+        kicad
       ])
       ++ (with pkgs-unstable; [
         # darktable

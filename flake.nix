@@ -149,6 +149,17 @@
       };
     };
 
+   strata-src = {
+url = "github:Niko1221/Strata/v0.2.9";
+flake=false;};
+
+solidcraft = {
+url = "github:tangency-labs/solidcraft/v0.30.1";
+      inputs = {
+        nixpkgs.follows = "nixpkgs-unstable";
+      };
+};
+
     #######################
     ######## utils ########
     #######################

@@ -70,6 +70,7 @@
           "pi-subagent-control"
           "git-worktree-hook-maker"
           "scd"
+		"solidcraft"
         ])
         // (with inputs'."audio.cpp".packages; {
           audio-cpp-cpu = cpu;
