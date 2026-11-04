@@ -108,7 +108,8 @@ in
       };
     };
 
-    n8n.enable = true;
+    # this is too broken
+    n8n.enable = false;
 
     audioCpp = {
       enable = false;
