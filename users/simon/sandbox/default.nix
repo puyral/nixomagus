@@ -6,14 +6,19 @@
   ...
 }:
 {
-  home.packages =
-    (with pkgs; [ python3 ])
-    ++ (with pkgs-unstable; [ nodejs ])
-    ++ [
-      pkgs-self.pi-subagent-control
-      pkgs-self.git-worktree-hook-maker
-    ];
-  home.sessionPath = [ "$HOME/.npm-global/bin" ];
+  home = {
+    packages =
+      (with pkgs; [ python3 ])
+      ++ (with pkgs-unstable; [ nodejs ])
+      ++ [
+        pkgs-self.pi-subagent-control
+        pkgs-self.git-worktree-hook-maker
+      ];
+    sessionPath = [ "$HOME/.npm-global/bin" ];
+
+    file.".pi/agent/bin/find".source = lib.getExe pkgs-self.find;
+  };
+
   # Minimal home-manager config for the sandbox
   # imports = [ ./commun ]; # already imported by users/simon/default.nix
   extra = {
