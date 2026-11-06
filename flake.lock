@@ -549,11 +549,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1789751804,
-        "narHash": "sha256-rHP3O97/HZaLs6+479/kFomVBbqaByME9x5/f/5NSGY=",
+        "lastModified": 1793992481,
+        "narHash": "sha256-ZmbxoM2alBMKchA7rApb1OGaa5R6Gb2zd9cKjObO+ug=",
         "ref": "refs/heads/master",
-        "rev": "92aed426cb3aac584feb6d4fbd08ee05babdedd1",
-        "revCount": 28,
+        "rev": "47e1a5e50310324eb9702ee61aeca68b65cafecb",
+        "revCount": 30,
         "type": "git",
         "url": "https://git.puyral.fr/personal/pi-subagent-control"
       },
