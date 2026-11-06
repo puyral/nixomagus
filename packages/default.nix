@@ -38,7 +38,8 @@
         ./silverbullet
         ./bgutil-ytdlp-pot-provider-server
         ./strata
-        ./jailed-find
+        # ./jailed-find
+        # ./jailed-grep
       ];
 
       pkgsInputs = inputs // {
@@ -47,7 +48,10 @@
 
       mainPkgs =
         with builtins;
-        (pkgs.callPackages ./notify-done pkgsInputs) // listToAttrs (map mkPkgs packages);
+        with pkgs;
+        (callPackages ./notify-done pkgsInputs)
+        // (callPackages ./jailed-coreutils pkgsInputs)
+        // listToAttrs (map mkPkgs packages);
 
       re-exports =
         with inputs';

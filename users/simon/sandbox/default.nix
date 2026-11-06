@@ -16,7 +16,8 @@
       ];
     sessionPath = [ "$HOME/.npm-global/bin" ];
 
-    file.".pi/agent/bin/find".source = lib.getExe pkgs-self.find;
+    file.".pi/agent/bin/find".source = lib.getExe pkgs-self.jailedFind;
+    file.".pi/agent/bin/grep".source = lib.getExe pkgs-self.jailedGrep;
   };
 
   # Minimal home-manager config for the sandbox

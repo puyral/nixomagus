@@ -1,0 +1,17 @@
+`find` and `grep` are restricted to prevent hanging on massive directory trees.
+
+# Prefer `rg` and `fd`
+Always prefer `rg` (ripgrep) and `fd` over `grep` and `find`. They respect `.gitignore`, skip hidden/binary clutter by default, and are orders of magnitude faster:
+- Instead of `grep -rn "pattern" <dir>` -> `rg "pattern" <dir>`
+- Instead of `find <dir> -name "*.nix"` -> `fd -e nix . <dir>`
+
+# Common failure modes
+## Searching `/nix/store`
+Never search the entirety of `/nix/store`. Locate the specific store path first:
+- From a command in PATH: `dirname "$(dirname "$(realpath "$(command -v <cmd>)")")"`
+- From a flake/nixpkgs attr: `nix eval --raw nixpkgs#<pkg>.outPath`
+- From current system closure: `ls -d /nix/store/*-<name>*`
+Then run `rg` or `fd` inside that specific `/nix/store/<hash>-<name>` directory.
+
+## Searching `/` or timing out (> @timeout@)
+Narrow your search to the workspace (e.g., `/config`), specific subdirectories, or use `rg`/`fd` with file-type filters (`-t nix`, `-g '*.sh'`).
