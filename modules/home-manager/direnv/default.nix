@@ -6,6 +6,7 @@
 }:
 let
   cfg = config.extra.direnv;
+  direnv-gc = pkgs.callPackage ./direnv-gc.nix { inherit (cfg.gc) olderThan; };
 in
 {
   options.extra.direnv = with lib; {
@@ -38,8 +39,7 @@ in
       Unit.Description = "Garbage collect centralized direnv layouts";
       Service = {
         Type = "oneshot";
-        # %h is the systemd variable for the user's home directory
-        ExecStart = "find %h/.cache/direnv/layouts -type d -atime +${cfg.gc.olderThan} -prune -exec rm -rf {} +";
+        ExecStart = lib.getExe direnv-gc;
       };
     };
 
