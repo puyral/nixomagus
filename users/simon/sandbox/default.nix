@@ -27,9 +27,6 @@
 
     llm-clients = {
       enable = true;
-      lean.enable = true;
-      mcp-nix.enable = true;
-      lspranto.enable = true;
     };
   };
   programs.git.settings = {

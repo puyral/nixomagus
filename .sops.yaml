@@ -8,7 +8,7 @@ keys:
   - &mydos age12u5yxvvacn9cuthgsjuxm8ws43njtwhcm7ed7eyn3zgmly3gpczs8s4rcg
   - &sandbox age1ge4cnvt7yples8x2laykdrwzy674tusj8r2tcxx88w37k6elwaxsl36kx2
 creation_rules:
-  - path_regex: modules/home-manager/ntfy/.*\.sops-secret\..*$
+  - path_regex: modules/home-manager/(ntfy|llm-clients)/.*\.sops-secret\..*$
     pgp: *gpg
     age:
     - *simon

@@ -52,7 +52,6 @@ in
     };
     llm-clients = {
       enable = true;
-      lean.enable = true;
     };
     emacs.enable = true;
     grafanactl.enable = false;

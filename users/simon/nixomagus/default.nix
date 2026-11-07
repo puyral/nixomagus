@@ -10,8 +10,6 @@
 
     in
     {
-      #         intel-gpu-tools
-
       extra = {
         applications.gui.enable = true;
         i3 = {
@@ -82,7 +80,6 @@
       };
 
       home = {
-
         packages =
           [ ]
           ++ (with pkgs; [

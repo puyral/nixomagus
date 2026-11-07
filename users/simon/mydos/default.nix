@@ -16,7 +16,7 @@
 
     llm-clients = {
       enable = true;
-      mistral-vibe.enable = false;
+      mcp.lean = false;
     };
   };
 

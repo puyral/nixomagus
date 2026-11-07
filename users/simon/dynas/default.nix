@@ -4,7 +4,6 @@
   extra = {
     llm-clients = {
       enable = true;
-      lean.enable = false;
     };
   };
 
