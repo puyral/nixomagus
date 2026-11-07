@@ -1,4 +1,4 @@
-{ lib, config, ... }:
+{ lib, config, mlib, pkgs, ... }:
 with lib;
 let
   cfg = config.extra.syncthing;
@@ -10,10 +10,11 @@ let
   deviceFiles = builtins.readDir deviceFolder;
 
   # Filter regular files (or symlinks if needed) and read their contents
-  devices = builtins.mapAttrs (
-    name: type:
-    {id = builtins.readFile (deviceFolder + "/${name}");}
-  ) (lib.filterAttrs (name: type: type == "regular") deviceFiles);
+  devices =
+    with builtins;
+    mapAttrs (name: type: {
+      id = lib.strings.trim (mlib.readEncrypted (deviceFolder + "/${name}"));
+    }) (lib.filterAttrs (name: type: type == "regular") deviceFiles);
 in
 
 {
