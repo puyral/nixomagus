@@ -4,7 +4,7 @@
     ./computers
     ./nixos
     ./homeManager
-    ./lib.nix
+    ./lib
     # ./microvm.nix
   ];
 }

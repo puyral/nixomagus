@@ -6,7 +6,6 @@
   ...
 }:
 {
-  flake.lib = {
     extraArgs =
       computer:
       let
@@ -35,24 +34,5 @@
         mconfig = computer;
         overlays = (import (rootDir + /overlays)) computer;
         is_nixos = computer.nixos.enable;
-        mlib = self.lib;
-      };
-
-    enumerate =
-      with builtins;
-      l:
-      let
-        f =
-          acc: e:
-          [
-            {
-              idx = length acc;
-              value = e;
-            }
-          ]
-          ++ acc;
-      in
-      builtins.foldl' f [ ] l;
-  };
-
-}
+        mlib = self.lib // (import ./pkgs.nix) { pkgs = nixpkgs-variants.pkgs-base; };
+  };}
