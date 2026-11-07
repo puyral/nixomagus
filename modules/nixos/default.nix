@@ -4,6 +4,7 @@
   inputs,
   config,
   lib,
+  mlib,
   ...
 }:
 let
@@ -18,8 +19,6 @@ let
   # containers = ./containers;
 
   modules = {
-    # default = ./default.nix;
-
     inherit containers;
 
     base = ./base;
@@ -94,6 +93,7 @@ in
 
   config = {
     modules.nixos = builtins.attrNames modules;
+
     flake.nixosModules = modules // {
       default = (
         { ... }:

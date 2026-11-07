@@ -34,13 +34,22 @@ let
           cp ${path} $out
         fi
       '';
-in
-{
-  inherit sanitizeEncrypted;
 
   # Read a (potentially git-crypt encrypted) text file from nix.
   # Returns the file content when the repo is unlocked, and "" when it is
   # locked (i.e. when the file is binary ciphertext), so evaluation always
   # succeeds.
   readEncrypted = path: builtins.readFile (sanitizeEncrypted path);
+
+  # Whether the git-crypt repository is currently locked, i.e. whether
+  # encrypted files read as empty strings. Uses the canary file at
+  # secrets/git-crypt-state (git-crypt encrypted, non-empty when unlocked).
+  gitCryptLocked = readEncrypted ./secrets/git-crypt-state == "";
+in
+{
+  inherit
+    sanitizeEncrypted
+    readEncrypted
+    gitCryptLocked
+    ;
 }

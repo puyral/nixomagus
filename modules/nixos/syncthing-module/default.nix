@@ -1,4 +1,9 @@
-{ lib, config, mlib, pkgs, ... }:
+{
+  lib,
+  config,
+  mlib,
+  ...
+}:
 with lib;
 let
   cfg = config.extra.syncthing;

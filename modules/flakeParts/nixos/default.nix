@@ -45,6 +45,11 @@ let
         (rootDir + /configuration + "/${computer.name}")
 
         homes
+        ({ mlib, ... }: {
+          warnings = lib.optionals mlib.gitCryptLocked [
+            "git-crypt: the repository is locked, syncthing device ids read as empty strings. Run `git crypt unlock` before deploying."
+          ];
+        })
       ]
       ++ (lib.optional computer.disko inputs.disko.nixosModules.disko);
     };

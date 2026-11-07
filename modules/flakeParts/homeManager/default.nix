@@ -34,6 +34,11 @@ let
             '';
           };
         }
+        ({ mlib, ... }: {
+          warnings = lib.optionals mlib.gitCryptLocked [
+            "git-crypt: the repository is locked, syncthing device ids read as empty strings. Run `git crypt unlock` before deploying."
+          ];
+        })
       ];
     };
 
