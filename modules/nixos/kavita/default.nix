@@ -25,18 +25,30 @@ in
           hostPath = cfg.library;
           isReadOnly = false;
         };
+        # Host ssh key, used by sops-nix inside the container to decrypt secrets
+        "/etc/sops" = {
+          hostPath = "/etc/ssh/ssh_host_ed25519_key";
+          isReadOnly = true;
+        };
       };
       autoStart = true;
       ephemeral = true;
 
       config =
-        { ... }:
+        { config, ... }:
         {
+
+          # sops inside the container, decrypting with the host ssh key mounted at /etc/sops
+          sops.age.sshKeyPaths = [ "/etc/sops" ];
+          sops.secrets.kavita_token = {
+            sopsFile = ./token.sops-secret.yaml;
+            key = "token";
+          };
 
           services.kavita = {
             enable = true;
             dataDir = "/data";
-            tokenKeyFile = ./secrets/token;
+            tokenKeyFile = config.sops.secrets.kavita_token.path;
             settings = {
               Port = port;
 

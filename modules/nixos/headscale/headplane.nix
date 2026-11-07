@@ -7,10 +7,36 @@
 let
   oidc = config.vars.oidc;
   cfg = config.vars.cfg;
-  secrets = if cfg.secrets == null then (import ./secrets/default.nix) else cfg.secrets;
   port = cfg.headplane.port;
+  cookieSecretFile = config.sops.secrets."headplane/cookie-secret".path;
+  apiKeyFile = config.sops.secrets."headscale/api-key".path;
+  clientSecretFile = config.sops.secrets."headplane/oidc-client-secret".path;
 in
 {
+  # sops inside the container, decrypting with the host ssh key mounted at /etc/sops
+  sops.age.sshKeyPaths = [ "/etc/sops" ];
+  sops.secrets =
+    let
+      sopsFile = ./secrets.sops-secret.env;
+    in
+    {
+      "headplane/cookie-secret" = {
+        inherit sopsFile;
+        format = "dotenv";
+        key = "HEADPLANE_COOKIE_SECRET";
+      };
+      "headscale/api-key" = {
+        inherit sopsFile;
+        format = "dotenv";
+        key = "HEADSCALE_API_KEY";
+      };
+      "headplane/oidc-client-secret" = {
+        inherit sopsFile;
+        format = "dotenv";
+        key = "HEADPLANE_OIDC_CLIENT_SECRET";
+      };
+    };
+
   services.headplane = {
     enable = true;
     # agent.enable = false;
@@ -31,15 +57,14 @@ in
       server = {
         inherit port;
         host = "0.0.0.0";
-        cookie_secret_path = pkgs.writeText "smth_other" secrets.cookie_secret;
-        # cookie_secret = secrets.cookie_secret;
+        cookie_secret_path = cookieSecretFile;
         cookie_secure = true;
       };
       headscale = rec {
         url = "https://${cfg.extraDomain}.${config.vars.baseDomain}";
         public_url = url;
         config_strict = true;
-        api_key_path = pkgs.writeText "smth_else" secrets.headscale_api_key;
+        api_key_path = apiKeyFile;
       };
 
       # integration.proc.enabled = false;
@@ -56,8 +81,7 @@ in
         {
           inherit issuer;
           client_id = oidc.headplane.id;
-          client_secret_path = pkgs.writeText "smth" oidc.headplane.plain;
-          # client_secret = oidc.headplane.plain;
+          client_secret_path = clientSecretFile;
           disable_api_key_login = true;
           # Might needed when integrating with Authelia.
           token_endpoint_auth_method = "client_secret_basic";

@@ -11,6 +11,7 @@ let
   port = 28981;
   dataDir = cfg.dataDir;
   user = name;
+  hostConfig = config;
 in
 {
   options.extra.paperless = with lib; {
@@ -79,6 +80,11 @@ in
           hostPath = cfg.backupDir;
           isReadOnly = false;
         };
+        # Host ssh key, used by sops-nix inside the container to decrypt secrets
+        "/etc/sops" = {
+          hostPath = "/etc/ssh/ssh_host_ed25519_key";
+          isReadOnly = true;
+        };
         "/ai-data" = lib.mkIf cfg.ai.enable {
           hostPath = "${cfg.dataDir}/ai";
           isReadOnly = false;
@@ -91,12 +97,19 @@ in
       autoStart = true;
       ephemeral = true;
       config =
-        { ... }:
+        { config, ... }:
         let
           paperless = pkgs.paperless-ngx;
           paperless-ai-pkg = pkgs-self.paperless-ai;
         in
         {
+          # sops inside the container, decrypting with the host ssh key mounted at /etc/sops
+          sops.age.sshKeyPaths = [ "/etc/sops" ];
+          sops.secrets.paperless_password = {
+            sopsFile = ./password.sops-secret.yaml;
+            key = "password";
+          };
+
           systemd.tmpfiles.rules = [
             "d /data 0750 paperless paperless - -"
             "d /media 0750 paperless paperless - -"
@@ -164,7 +177,7 @@ in
             mediaDir = "/media";
             consumptionDir = "/incomming";
             consumptionDirIsPublic = true;
-            passwordFile = ./secrets/PASSWORD;
+            passwordFile = config.sops.secrets.paperless_password.path;
             settings = rec {
               PAPERLESS_ADMIN_USER = "simon";
               PAPERLESS_CONSUMER_IGNORE_PATTERN = [
@@ -183,8 +196,8 @@ in
               PAPERLESS_TIME_ZONE = "Europe/Vienna";
 
               # PAPERLESS_OCR_SKIP_ARCHIVE_FILE = "with_text";
-              PAPERLESS_TRUSTED_PROXIES = config.containers.${name}.hostAddress;
-              PAPERLESS_URL = "https://${name}.${config.networking.nginx.baseDomain}";
+              PAPERLESS_TRUSTED_PROXIES = hostConfig.containers.${name}.hostAddress;
+              PAPERLESS_URL = "https://${name}.${hostConfig.networking.nginx.baseDomain}";
               # PAPERLESS_CSRF_TRUSTED_ORIGINS = "${PAPERLESS_URL},${PAPERLESS_TRUSTED_PROXIES}";
             };
             address = "0.0.0.0";
@@ -201,10 +214,10 @@ in
               };
             };
           };
-          users.groups.${user}.gid = lib.mkForce config.users.groups.${user}.gid;
+          users.groups.${user}.gid = lib.mkForce hostConfig.users.groups.${user}.gid;
           users.groups.syncthing = {
             members = [ user ];
-            gid = config.users.groups.syncthing.gid;
+            gid = hostConfig.users.groups.syncthing.gid;
           };
         };
     };

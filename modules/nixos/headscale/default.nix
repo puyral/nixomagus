@@ -29,6 +29,11 @@ in
           hostPath = "${cfg.headscale.dataDir}/tailscale";
           isReadOnly = false;
         };
+        # Host ssh key, used by sops-nix inside the container to decrypt secrets
+        "/etc/sops" = {
+          hostPath = "/etc/ssh/ssh_host_ed25519_key";
+          isReadOnly = true;
+        };
       };
       autoStart = true;
       ephemeral = true;

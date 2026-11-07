@@ -224,6 +224,7 @@
         rootDir = ./.;
 
         nixpkgs-variants = with inputs; {
+          pkgs-base = nixpkgs;
           pkgs-stable = nixpkgs-stable;
           pkgs-unstable = nixpkgs-unstable;
           pkgs-node = nixpkgs-node;

@@ -18,10 +18,10 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v4
 
-    - name: Unlock repository
-      run: git-crypt-unlocker
-      env:
-        INPUT_KEY_ENCODED: ${{ secrets.KEY }}
+    # - name: Unlock repository
+    #   run: git-crypt-unlocker
+    #   env:
+    #     INPUT_KEY_ENCODED: ${{ secrets.KEY }}
 
     - name: Run Nix Build
       run: nix build .#nixosConfigurations.${{ inputs.hostname }}.config.system.build.toplevel -L --option auto-optimise-store true

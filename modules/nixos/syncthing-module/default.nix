@@ -1,10 +1,25 @@
-{ lib, config, ... }:
+{
+  lib,
+  config,
+  mlib,
+  ...
+}:
 with lib;
 let
   cfg = config.extra.syncthing;
   name = config.networking.hostName;
   shareFolder = folder: builtins.hasAttr name folder.devices;
   menabled = with builtins; cfg.enable && (any shareFolder (attrValues cfg.folders));
+
+  deviceFolder = ./devices/secrets;
+  deviceFiles = builtins.readDir deviceFolder;
+
+  # Filter regular files (or symlinks if needed) and read their contents
+  devices =
+    with builtins;
+    mapAttrs (name: type: {
+      id = lib.strings.trim (mlib.readEncrypted (deviceFolder + "/${name}"));
+    }) (lib.filterAttrs (name: type: type == "regular") deviceFiles);
 in
 
 {
@@ -27,7 +42,7 @@ in
       guiAddress = cfg.guiAddress;
 
       settings = {
-        devices = removeAttrs (import ./secrets/devices.nix) [ name ];
+        inherit devices;
 
         folders = builtins.mapAttrs (n: folder: {
           id = folder.id;
