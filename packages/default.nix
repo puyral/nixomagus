@@ -51,6 +51,7 @@
         with pkgs;
         (callPackages ./notify-done pkgsInputs)
         // (callPackages ./jailed-coreutils pkgsInputs)
+        // (callPackages ./jailed-git pkgsInputs)
         // listToAttrs (map mkPkgs packages);
 
       re-exports =
