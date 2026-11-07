@@ -1,0 +1,6 @@
+{
+  "chat.tools.terminal.autoApprove": {
+    "rebuild --dry-run --no-sign": true,
+    "nix" : true
+  }
+}
