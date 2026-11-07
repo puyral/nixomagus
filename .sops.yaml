@@ -7,6 +7,13 @@ keys:
   - &amdra age1n77cgqh8vncmpus00ueu2g99vrvny42qfkm0rgtqth0e7jxzpvwqjjn84v
   - &mydos age12u5yxvvacn9cuthgsjuxm8ws43njtwhcm7ed7eyn3zgmly3gpczs8s4rcg
   - &sandbox age1ge4cnvt7yples8x2laykdrwzy674tusj8r2tcxx88w37k6elwaxsl36kx2
+  # ⚠️ PLACEHOLDER KEYS — NOT REAL HOST KEYS ⚠️
+  # These hosts cannot decrypt sops secrets until replaced with their real
+  # host age keys (ssh-to-age < /etc/ssh/ssh_host_ed25519_key.pub on the
+  # host), followed by `sops updatekeys` on every affected file.
+  - &i7-placeholder age1muhtetlfz9y7n3yq45a67kecgfk40t0xwar5jnqnnce54d38pepsts0pyq
+  - &nixomagus-placeholder age1yupadc6hug9lzssg8j9lh8v2gsgtrtnfalh6qhjm00s2z64yafzsecra8k
+  - &sandbox-host-placeholder age1rgpud4kxe3kknvymmq39glf7kpw5vnzq46zdlrqmmx235m05yddsxpzxg2
 creation_rules:
   - path_regex: modules/home-manager/(ntfy|llm-clients)/.*\.sops-secret\..*$
     pgp: *gpg
@@ -18,6 +25,27 @@ creation_rules:
     pgp: *gpg
     age:
     - *simon
+
+  - path_regex: configuration/commun/.*\.sops-secret\..*$
+    pgp: *gpg
+    age:
+    - *dynas
+    - *ovh-fr
+    - *amdra
+    - *mydos
+    - *i7-placeholder
+    - *nixomagus-placeholder
+    - *sandbox-host-placeholder
+
+  - path_regex: modules/nixos/(headscale|authelia|authentik)/.*\.sops-secret\..*$
+    pgp: *gpg
+    age:
+    - *ovh-fr
+
+  - path_regex: modules/nixos/(binary-cache|kavita|paperless)/.*\.sops-secret\..*$
+    pgp: *gpg
+    age:
+    - *dynas
 
   - path_regex: .*\.sops-secret\..*$
     pgp: *gpg

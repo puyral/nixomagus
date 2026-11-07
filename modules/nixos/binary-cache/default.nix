@@ -22,13 +22,27 @@ in
     containers.${cname} = {
       autoStart = true;
       ephemeral = true;
+      bindMounts = {
+        # Host ssh key, used by sops-nix inside the container to decrypt secrets
+        "/etc/sops" = {
+          hostPath = "/etc/ssh/ssh_host_ed25519_key";
+          isReadOnly = true;
+        };
+      };
       config =
-        { ... }:
+        { config, ... }:
         {
+          # sops inside the container, decrypting with the host ssh key mounted at /etc/sops
+          sops.age.sshKeyPaths = [ "/etc/sops" ];
+          sops.secrets.binary_cache_key = {
+            sopsFile = ./secret-key.sops-secret.yaml;
+            key = "key";
+          };
+
           services.nix-serve = {
             inherit port;
             enable = true;
-            secretKeyFile = "${./secrets/cache-priv-key.pem}";
+            secretKeyFile = config.sops.secrets.binary_cache_key.path;
             openFirewall = true;
           };
         };

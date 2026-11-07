@@ -9,13 +9,8 @@ in
   config.services.authelia.instances.${c.instanceName}.settings = lib.mkIf c.hscfg.enable {
     identity_providers = {
       oidc = {
-        hmac_secret = secrets.hmac_secret;
-        jwks = [
-          {
-            key = builtins.readFile ./secrets/private.pem;
-          }
-        ];
-        # https://headscale.net/development/ref/oidc/#authelia
+        # hmac_secret and jwks key are provided at runtime as files via
+        # services.authelia instances.<name>.secrets
         claims_policies.default.id_token = [
           "groups"
           "email"

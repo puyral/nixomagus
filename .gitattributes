@@ -1,2 +1,8 @@
 .gitattributes !filter !diff
 **/secrets/** filter=git-crypt diff=git-crypt
+# Declassified: public keys / internal IDs / addresses, not actual secrets
+secrets/ssh_keys.nix !filter !diff
+secrets/zerotier-networks.nix !filter !diff
+secrets/email.nix !filter !diff
+modules/commun/tailscale/secrets/ip.nix !filter !diff
+modules/nixos/binary-cache/secrets/cache-pub-key.pem !filter !diff

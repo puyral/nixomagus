@@ -2,6 +2,7 @@
   lib,
   pkgs,
   computer,
+  config,
   rootDir,
   ...
 }:
@@ -16,6 +17,10 @@ in
     ./services
     ./network.nix
   ];
+
+  sops.secrets.simon_password_hash = {
+    sopsFile = ./password.sops-secret.yaml;
+  };
 
   # https://github.com/V4bel/dirtyfrag
   boot.extraModprobeConfig = ''
@@ -64,7 +69,7 @@ in
         "nix-config"
       ]; # Enable ‘sudo’ for the user.
       useDefaultShell = true;
-      hashedPasswordFile = "${./secrets/simon}";
+      hashedPasswordFile = config.sops.secrets.simon_password_hash.path;
     };
     defaultUserShell = pkgs.zsh;
     mutableUsers = false;

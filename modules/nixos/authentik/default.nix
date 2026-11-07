@@ -42,8 +42,6 @@ in
       }
     ];
     containers.${name} = {
-      autoStart = true;
-      ephemeral = true;
       bindMounts =
         let
           mk = name: {
@@ -53,24 +51,19 @@ in
               isReadOnly = false;
             };
           };
-          # {
-          #   "/var/lib/authentik" = {
-          #     hostPath = "${cfg.dataDir}/data";
-          #     isReadOnly = false;
-          #   };
-          #   "/var/lib/postgres" = {
-          #     hostPath = cfg.dataDir + /postgres;
-          #     isReadOnly = false;
-          #   };
-          #   "/var/lib/redis" = {
-          #     hostPath = cfg.dataDir + /redis;
-          #     isReadOnly = false;
-          #   };
-          # };
+          # Host ssh key, used by sops-nix inside the container to decrypt secrets
+          hostKey = {
+            name = "/etc/sops";
+            value = {
+              hostPath = "/etc/ssh/ssh_host_ed25519_key";
+              isReadOnly = true;
+            };
+          };
         in
         with builtins;
         listToAttrs (
-          map mk [
+          [ hostKey ]
+          ++ map mk [
             "authentik"
             "postgres"
             "redis"
@@ -78,19 +71,23 @@ in
         );
 
       config =
-        { ... }:
+        { config, ... }:
         {
           imports = [ authentik-nix.nixosModules.default ];
 
+          # sops inside the container, decrypting with the host ssh key mounted at /etc/sops
+          sops.age.sshKeyPaths = [ "/etc/sops" ];
+          sops.secrets."authentik/env" = {
+            sopsFile = ./authentik.sops-secret.env;
+            format = "dotenv";
+            key = ""; # whole file
+          };
+
           services.authentik = {
             enable = true;
-            environmentFile = pkgs.replaceVars ./secrets/env.env {
-              emailPwd = builtins.readFile (rootDir + /secrets/mail-passwd);
-              httpPort = builtins.toString httpPort;
-              httpsPort = builtins.toString httpsPort;
-            };
+            environmentFile = config.sops.secrets."authentik/env".path;
             settings = {
-              email = (import ./secrets/email.nix) attrs;
+              email = (import ./email.nix) attrs;
             };
           };
         };

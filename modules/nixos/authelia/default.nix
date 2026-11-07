@@ -40,7 +40,7 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-    extra.authelia.oidc.secrets = lib.mkIf hscfg.enable (import ./secrets/oidc.nix);
+    extra.authelia.oidc.secrets = lib.mkIf hscfg.enable (import ./oidc-clients.nix);
 
     containers.${name} = {
       autoStart = true;
@@ -49,6 +49,11 @@ in
         "/var/lib/authelia-${instanceName}" = {
           hostPath = "${cfg.dataDir}/${name}/${instanceName}";
           isReadOnly = false;
+        };
+        # Host ssh key, used by sops-nix inside the container to decrypt secrets
+        "/etc/sops" = {
+          hostPath = "/etc/ssh/ssh_host_ed25519_key";
+          isReadOnly = true;
         };
       };
 

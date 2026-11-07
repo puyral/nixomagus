@@ -2,10 +2,6 @@
 {
   options.extra.headscale = with lib; {
     enable = mkEnableOption "headscale";
-    secrets = mkOption {
-      type = types.nullOr types.attrs;
-      default = null;
-    };
     extraDomain = mkOption {
       type = types.str;
     };
