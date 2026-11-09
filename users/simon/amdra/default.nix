@@ -2,7 +2,6 @@
   pkgs,
   pkgs-unstable,
   pkgs-self,
-  computer,
   ...
 }:
 {
@@ -65,7 +64,6 @@
       export = {
         jpgsDir = "/Volumes/Zeno/media/photos/full-export/jpegs";
       };
-      package = pkgs-unstable.callPackage ./darktable.nix { inherit computer pkgs; };
     };
     llm-clients = {
       enable = true;

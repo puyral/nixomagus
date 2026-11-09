@@ -1,22 +1,24 @@
 {
-  darktable,
   pkgs,
-  computer,
+  pkgs-unstable,
+  onnxruntime,
+  withAi ? true,
   ...
 }:
 let
-  onnx = pkgs.onnxruntime.override { rocmSupport = true; };
+  darktable = pkgs-unstable.darktable;
+  onnx = onnxruntime.override { rocmSupport = true; };
 in
 (darktable.override (
   oldArgs:
   (builtins.intersectAttrs oldArgs pkgs)
   // {
-    withAi = true;
+    inherit withAi;
     onnxruntime = onnx;
   }
 )).overrideAttrs
   (old: {
-    NIX_CFLAGS_COMPILE = (old.NIX_CFLAGS_COMPILE or "") + " -march=${computer.cpuArchitecture}";
+    # NIX_CFLAGS_COMPILE = (old.NIX_CFLAGS_COMPILE or "") + " -march=${computer.cpuArchitecture}";
     # Disable OpenCV during CMake configuration to prevent the Protobuf collision
     # because https://github.com/ROCm/AMDMIGraphX/issues/5089
     cmakeFlags = (old.cmakeFlags or [ ]) ++ [ "-DUSE_GMIC=OFF" ];

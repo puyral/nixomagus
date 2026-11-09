@@ -38,6 +38,7 @@
         ./silverbullet
         ./bgutil-ytdlp-pot-provider-server
         ./strata
+        ./darktableAiAmd
         # ./jailed-find
         # ./jailed-grep
       ];

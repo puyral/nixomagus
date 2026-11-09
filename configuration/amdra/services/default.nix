@@ -26,6 +26,8 @@
 
     incus.enable = true;
     acme.enable = true;
+
+    remoteDarktable.enable = true;
   };
   services.ollama.package = pkgs-unstable.ollama-rocm;
   networking.nginx.enable = true;

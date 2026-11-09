@@ -76,6 +76,7 @@ let
     homeassistant = ./homeassistant;
     pi-ops-redirect = ./pi-ops-redirect;
     music-assistant = ./music-assistant;
+    remoteDarktable = ./remote-darktable;
 
     mango-remote = inputs.mango.nixosModules.mango;
     pi-ops = inputs.pi-ops.nixosModules.pi-ops;
